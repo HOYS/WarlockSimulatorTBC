@@ -658,6 +658,19 @@ img[data-color='meta'] {
 	text-decoration: none;
 }
 
+.item-row td:nth-child(2) a {
+	position: relative;
+	z-index: 100;
+}
+
+.item-row-wh-link, .enchant-row-wh-link {
+	position: absolute;
+	display: block;
+	width: 75%;
+	height: 28px;
+	margin-top: -5px;
+}
+
 table.dataTable tbody tr {
 	background-color: #272727 !important;
 }
