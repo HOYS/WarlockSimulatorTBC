@@ -20,9 +20,9 @@ namespace WarlockSimulatorTBC.ViewModels.Classes
 {
     public class SidebarViewModel : BaseViewModel, ISidebarViewModel
     {
-        private ILocalStorageService _localStorage;
-        private IWorkerFactory _workerFactory;
-        private IJSRuntime _jsRuntime;
+        private readonly ILocalStorageService _localStorage;
+        private readonly IWorkerFactory _workerFactory;
+        private readonly IJSRuntime _jsRuntime;
 
         public SidebarViewModel(ILocalStorageService localStorage, IWorkerFactory workerFactory, IJSRuntime jsRuntime)
         {
@@ -43,6 +43,7 @@ namespace WarlockSimulatorTBC.ViewModels.Classes
         private Dictionary<int, int> _multiThreadSimProgress = new();
         private DateTime? normalSimStart = null;
         private EventCallback RefreshItemTable;
+
 
         private string _medianDps;
         public string MedianDps
@@ -220,75 +221,83 @@ namespace WarlockSimulatorTBC.ViewModels.Classes
                 return;
             }
 
-            // Create the player and simulation settings and serialize them into json strings
-            PlayerSettings playerSettings = Player.GetSettings();
-            SimulationSettings simSettings = Simulation.GetSettings();
-            int? currentlyEquippedItemId = Items.SelectedItems[Items.SelectedItemSlot + Items.SelectedItemSubSlot];
-            int[] randomSeeds = new int[simSettings.iterations];
-            _selectedItemIdWhenStartingSim = currentlyEquippedItemId;
-            // Can't use the maximum amount of web workers cause the website will just slow down too much.
-            // Maybe implement an option in the UI for the user to select how many threads they want to use.
-            int maxWebWorkers = Math.Min(4, await _jsRuntime.InvokeAsync<int>("getMaxWebWorkers"));
-            int webWorkersInUse = 0;
-            int iterationAmount = simSettings.iterations;
-
-            // Creates an array of random seeds for the simulations to use. This is so that each iteration will use the same Random() object across all the simulations.
-            for (int i = 0; i < simSettings.iterations; i++)
+            try
             {
-                randomSeeds[i] = Guid.NewGuid().GetHashCode();
-            }
+                _simIsActive = true;
+                // Create the player and simulation settings and serialize them into json strings
+                PlayerSettings playerSettings = Player.GetSettings();
+                SimulationSettings simSettings = Simulation.GetSettings();
+                int? currentlyEquippedItemId = Items.SelectedItems[Items.SelectedItemSlot + Items.SelectedItemSubSlot];
+                int[] randomSeeds = new int[simSettings.iterations];
+                _selectedItemIdWhenStartingSim = currentlyEquippedItemId;
+                // Can't use the maximum amount of web workers cause the website will just slow down too much.
+                // Maybe implement an option in the UI for the user to select how many threads they want to use.
+                int maxWebWorkers = Math.Min(4, await _jsRuntime.InvokeAsync<int>("getMaxWebWorkers"));
+                int webWorkersInUse = 0;
+                int iterationAmount = simSettings.iterations;
 
-            // Loop through all the items of the currently selected item slot
-            foreach (var item in Items.itemSlots[Items.SelectedItemSlot].items)
-            {
-                // Start a new simulation if it's a multi-item sim or if the item is the currently equipped item or if there is no item equipped in this item slot.
-                if (simulationType == SimulationType.AllItems || item.Key == currentlyEquippedItemId || currentlyEquippedItemId == null)
+                // Creates an array of random seeds for the simulations to use. This is so that each iteration will use the same Random() object across all the simulations.
+                for (int i = 0; i < simSettings.iterations; i++)
                 {
-                    // Create a new clone of the playerSettings object since we're modifying the stats
-                    PlayerSettings newPlayerSettings = playerSettings.Clone();
+                    randomSeeds[i] = Guid.NewGuid().GetHashCode();
+                }
 
-                    // Remove the stats of the currently equipped item and add the stats of the new item if it's a multi-item sim and if it's not our currently equipped item
-                    if (simulationType == SimulationType.AllItems && item.Key != currentlyEquippedItemId)
+                // Loop through all the items of the currently selected item slot
+                foreach (var item in Items.itemSlots[Items.SelectedItemSlot].items)
+                {
+                    // Start a new simulation if it's a multi-item sim or if the item is the currently equipped item or if there is no item equipped in this item slot.
+                    if (simulationType == SimulationType.AllItems || item.Key == currentlyEquippedItemId || currentlyEquippedItemId == null)
                     {
-                        if (currentlyEquippedItemId != null)
+                        // Create a new clone of the playerSettings object since we're modifying the stats
+                        PlayerSettings newPlayerSettings = playerSettings.Clone();
+
+                        // Remove the stats of the currently equipped item and add the stats of the new item if it's a multi-item sim and if it's not our currently equipped item
+                        if (simulationType == SimulationType.AllItems && item.Key != currentlyEquippedItemId)
                         {
-                            newPlayerSettings.stats.ModifyStatsFromItem(Items.SelectedItemSlot, (int)currentlyEquippedItemId, "remove");
+                            if (currentlyEquippedItemId != null)
+                            {
+                                newPlayerSettings.stats.ModifyStatsFromItem(Items.SelectedItemSlot, (int)currentlyEquippedItemId, "remove");
+                            }
+                            newPlayerSettings.stats.ModifyStatsFromItem(Items.SelectedItemSlot, item.Key, "add");
                         }
-                        newPlayerSettings.stats.ModifyStatsFromItem(Items.SelectedItemSlot, item.Key, "add");
-                    }
 
-                    string playerString = JsonSerializer.Serialize(newPlayerSettings);
-                    string simString = JsonSerializer.Serialize(simSettings);
-                    int? itemId = simulationType == SimulationType.AllItems ? item.Key : currentlyEquippedItemId;
+                        string playerString = JsonSerializer.Serialize(newPlayerSettings);
+                        string simString = JsonSerializer.Serialize(simSettings);
+                        int? itemId = simulationType == SimulationType.AllItems ? item.Key : currentlyEquippedItemId;
 
-                    // If it's a normal sim then split the simulation up into multiple threads to speed it up.
-                    if (simulationType == SimulationType.Normal)
-                    {
-                        int iterationsPerWebWorker = (int)Math.Floor((double)iterationAmount / (maxWebWorkers - webWorkersInUse));
-                        int simulationsStarted = 0;
-
-                        while (webWorkersInUse++ < maxWebWorkers)
+                        // If it's a normal sim then split the simulation up into multiple threads to speed it up.
+                        if (simulationType == SimulationType.Normal)
                         {
-                            int startingIteration = iterationsPerWebWorker * simulationsStarted;
+                            int iterationsPerWebWorker = (int)Math.Floor((double)iterationAmount / (maxWebWorkers - webWorkersInUse));
+                            int simulationsStarted = 0;
 
-                            StartSimulation(simString, playerString, simulationType, itemId, randomSeeds, startingIteration, iterationsPerWebWorker);
-                            _multiThreadSimDpsResults.Add(startingIteration, new List<double>());
-                            _multiThreadSimProgress.Add(startingIteration, 0);
-                            simulationsStarted++;
+                            while (webWorkersInUse++ < maxWebWorkers)
+                            {
+                                int startingIteration = iterationsPerWebWorker * simulationsStarted;
+
+                                StartSimulation(simString, playerString, simulationType, itemId, randomSeeds, startingIteration, iterationsPerWebWorker);
+                                _multiThreadSimDpsResults.Add(startingIteration, new List<double>());
+                                _multiThreadSimProgress.Add(startingIteration, 0);
+                                simulationsStarted++;
+                            }
                         }
-                    }
-                    // If it's a multi-item sim then just start a normal sim for each item since we'll be using all available threads to run multiple items at once.
-                    else if (simulationType == SimulationType.AllItems)
-                    {
-                        StartSimulation(simString, playerString, simulationType, itemId, randomSeeds, 0, simSettings.iterations);
-                    }
+                        // If it's a multi-item sim then just start a normal sim for each item since we'll be using all available threads to run multiple items at once.
+                        else if (simulationType == SimulationType.AllItems)
+                        {
+                            StartSimulation(simString, playerString, simulationType, itemId, randomSeeds, 0, simSettings.iterations);
+                        }
 
-                    // If there is no item equipped in this slot and it's a normal sim then break out of the loop since the current if-statement will always be true for each item.
-                    if (currentlyEquippedItemId == null && simulationType == SimulationType.Normal)
-                    {
-                        break;
+                        // If there is no item equipped in this slot and it's a normal sim then break out of the loop since the current if-statement will always be true for each item.
+                        if (currentlyEquippedItemId == null && simulationType == SimulationType.Normal)
+                        {
+                            break;
+                        }
                     }
                 }
+            }
+            catch
+            {
+                _simIsActive = false;
             }
         }
 
@@ -304,17 +313,13 @@ namespace WarlockSimulatorTBC.ViewModels.Classes
                     .AddAssemblies("System.Text.Json.dll", "System.Text.Encodings.Web.dll")
             );
             await service.RunAsync(s => s.Constructor(simulationSettings, playerSettings, simulationType, itemId, randomSeeds, startingIteration, iterationAmount));
-            _simIsActive = true;
             if (simulationType == SimulationType.AllItems)
             {
                 _multiItemSimInformation.Add((int)itemId, 0);
             }
-            else if (simulationType == SimulationType.Normal)
+            else if (simulationType == SimulationType.Normal && normalSimStart == null)
             {
-                if (normalSimStart == null)
-                {
-                    normalSimStart = DateTime.UtcNow;
-                }
+                normalSimStart = DateTime.UtcNow;
             }
             await service.RunAsync(s => s.Start());
         }

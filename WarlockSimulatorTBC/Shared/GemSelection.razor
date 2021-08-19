@@ -1,0 +1,39 @@
+﻿@using Shared.Classes.UI;
+@using ViewModels.Classes;
+
+@inject GemSelectionViewModel GemSelectionVM;
+
+<table id="gem-selection-table" cellspacing="0" data-color='none' @onfocusout="@(() => GemSelectionVM.ShowWindow = false)" style="visibility: @(GemSelectionVM.ShowWindow ? "" : "hidden")">
+    <tr>
+        <td></td>
+        <td class="gem-name">Remove Gem From Socket</td>
+    </tr>
+    @foreach (var gemColor in Gems.gems)
+    {
+        // Only show meta gems if a meta socket is selected, otherwise only show non-meta gems
+        if ((gemColor.Key == SocketColor.META && socketColor == SocketColor.META) || (socketColor != SocketColor.META && gemColor.Key != SocketColor.META))
+        {
+            foreach (var gem in gemColor.Value)
+            {
+                <tr class="gem-row">
+                    <td class="gem-favorite-star" data-favorited="@(GemSelectionVM.FavoriteGems.Contains(gem.Key) ? "true" : "false")" @onclick="@(async () => await GemSelectionVM.FavoriteGem(gem.Key))">★</td>
+                    <td class="gem-name gem-info" @onclick="@(() => GemSelectionVM.GemClickHandler(gem.Key))" @onclick:preventDefault="true">
+                        <img src="img/@(gem.Value.iconName)" width="20" height="20" />
+                        <a href="https://tbc.wowhead.com/item=@gem.Key">@gem.Value.name</a>
+                    </td>
+                    <td class="gem-hide" data-hidden="@(GemSelectionVM.HiddenGems.Contains(gem.Key) ? "true" : "false")" @onclick="@(async () => await GemSelectionVM.HideGem(gem.Key))">❌</td>
+                </tr>
+            }
+        }
+    }
+</table>
+
+@code {
+    [Parameter] public string socketColor { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GemSelectionVM.InitializeViewModel();
+        GemSelectionVM.PropertyChanged += (s, e) => StateHasChanged();
+    }
+}
