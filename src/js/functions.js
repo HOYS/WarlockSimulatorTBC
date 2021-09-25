@@ -25,6 +25,10 @@ function median(numbers) {
   return sorted[middle];
 }
 
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 // formula from https://web.archive.org/web/20161015101615/https://dwarfpriest.wordpress.com/2008/01/07/spell-hit-spell-penetration-and-resistances/ && https://royalgiraffe.github.io/resist-guide
 function getBaseHitChance (playerLevel, enemyLevel) {
   const levelDifference = enemyLevel - playerLevel

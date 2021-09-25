@@ -89,16 +89,16 @@ function refreshCharacterStats () {
 
   // Stamina
   if (auras.bloodPact) {
-    stamina += _auras.buffs.auras.bloodPact.stamina * (0.1 * $('select[name="improvedImp"]').val())
+    stamina += _auras.buffs.auras.bloodPact.stamina * (0.1 * document.querySelector("select[name='improvedImp']").value)
   }
 
   // Crit
   let critRating = characterStats.critRating
-  if (auras.powerOfTheGuardianMage) critRating += 28 * $("select[name='mageAtieshAmount']").val()
+  if (auras.powerOfTheGuardianMage) critRating += 28 * document.querySelector("select[name='mageAtieshAmount']").value
   let critChance = Math.round((critRating / critRatingPerPercent + baseCritChancePercent) * 100) / 100 + talents.devastation + talents.backlash + talents.demonicTactics + ((characterStats.intellect * characterStats.intellectModifier) * critPerInt)
   if (auras.moonkinAura) critChance += 5
   if (auras.judgementOfTheCrusader) critChance += 3
-  if (auras.totemOfWrath) critChance += 3 * $("select[name='totemOfWrathAmount']").val()
+  if (auras.totemOfWrath) critChance += 3 * document.querySelector("select[name='totemOfWrathAmount']").value
   if (auras.chainOfTheTwilightOwl) critChance += 2
   critChance = critChance.toFixed(2)
 
@@ -108,15 +108,15 @@ function refreshCharacterStats () {
   if (localStorage.getItem('setBonuses') && JSON.parse(localStorage.setBonuses)['658'] >= 2) hitRating += 35
   let hitChance = Math.round((hitRating / hitRatingPerPercent) * 100) / 100
   if (auras.inspiringPresence) hitChance += 1
-  if (auras.totemOfWrath) hitChance += 3 * $("select[name='totemOfWrathAmount']").val()
+  if (auras.totemOfWrath) hitChance += 3 * document.querySelector("select[name='totemOfWrathAmount']").value
   hitChance = hitChance.toFixed(2)
 
   // Shadow/Fire damage % modifiers
   let shadowModifier = characterStats.shadowModifier
   let fireModifier = characterStats.fireModifier
   // Add stats from pets/pet-related talents
-  if (talents.demonicSacrifice === 1 && $("select[name='sacrificePet']").val() === 'yes') {
-    const pet = $("select[name='petChoice']").val()
+  if (talents.demonicSacrifice === 1 && document.querySelector("select[name='sacrificePet']").value === 'yes') {
+    const pet = document.querySelector("select[name='petChoice']").value
     if (pet == PetName.IMP) {
       fireModifier *= 1.15
     } else if (pet == PetName.SUCCUBUS) {
@@ -127,10 +127,10 @@ function refreshCharacterStats () {
   } else {
     // Master Demonologist
     if (talents.masterDemonologist > 0) {
-      if ($("select[name='petChoice']").val() == PetName.SUCCUBUS) {
+      if (document.querySelector("select[name='petChoice']").value == PetName.SUCCUBUS) {
         shadowModifier *= 1.1
         fireModifier *= 1.1
-      } else if ($("select[name='petChoice']").val() == PetName.FELGUARD) {
+      } else if (document.querySelector("select[name='petChoice']").value == PetName.FELGUARD) {
         shadowModifier *= 1.05
         fireModifier *= 1.05
       }
@@ -142,28 +142,28 @@ function refreshCharacterStats () {
     }
   }
   if (auras.curseOfTheElements) {
-    shadowModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
-    fireModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
+    shadowModifier *= 1.1 + (0.01 * document.querySelector("select[name='improvedCurseOfTheElements']").value)
+    fireModifier *= 1.1 + (0.01 * document.querySelector("select[name='improvedCurseOfTheElements']").value)
   }
   if (talents.emberstorm > 0) {
     fireModifier *= 1 + (0.02 * talents.emberstorm)
   }
   // Ferocious Inspiration
   if (auras.ferociousInspiration) {
-    shadowModifier *= Math.pow(1.03, $('select[name="ferociousInspirationAmount"]').val())
-    fireModifier *= Math.pow(1.03, $('select[name="ferociousInspirationAmount"]').val())
+    shadowModifier *= Math.pow(1.03, document.querySelector("select[name='ferociousInspirationAmount']").value)
+    fireModifier *= Math.pow(1.03, document.querySelector("select[name='ferociousInspirationAmount']").value)
   }
 
   // Spell Power
   let spellPower = JSON.parse(JSON.stringify(characterStats.spellPower))
   if (localStorage.getItem('setBonuses') && JSON.parse(localStorage.setBonuses)['667'] == 2) spellPower += 15 // The Twin Stars 2-set bonus (15 spellpower)
   if (auras.felArmor) spellPower += 100 * (1 + 0.1 * talents.demonicAegis)
-  if (auras.prayerOfSpirit) spellPower += (characterStats.spirit * spiritModifier * (0.05 * $("select[name='improvedDivineSpirit']").val()))
-  if (auras.powerOfTheGuardianWarlock) spellPower += 33 * $("select[name='warlockAtieshAmount']").val()
+  if (auras.prayerOfSpirit) spellPower += (characterStats.spirit * spiritModifier * (0.05 * document.querySelector("select[name='improvedDivineSpirit']").value))
+  if (auras.powerOfTheGuardianWarlock) spellPower += 33 * document.querySelector("select[name='warlockAtieshAmount']").value
   // Spellfire 3-set bonus
   if (localStorage.setBonuses && JSON.parse(localStorage.setBonuses)['552'] >= 3) spellPower += (characterStats.intellect * characterStats.intellectModifier * 0.07)
   // Elemental Shaman T4 2pc bonus
-  if (auras.wrathOfAirTotem && $('select[name="improvedWrathOfAirTotem"]').val() == 'yes') spellPower += 20
+  if (auras.wrathOfAirTotem && document.querySelector("select[name='improvedWrathOfAirTotem']").value == 'yes') spellPower += 20
   spellPower = Math.round(spellPower)
 
   // MP5
@@ -174,26 +174,26 @@ function refreshCharacterStats () {
   }
 
   // Enemy armor
-  let enemyArmor = $("input[name='enemyArmor']").val()
+  let enemyArmor = document.querySelector("input[name='enemyArmor']").value
   if (auras.faerieFire) enemyArmor -= 610
   if ((auras.sunderArmor && auras.exposeArmor && settings.improvedExposeArmor == 2) || (auras.exposeArmor && !auras.sunderArmor)) enemyArmor -= 2050 * (1 + 0.25 * settings.improvedExposeArmor)
   else if (auras.sunderArmor) enemyArmor -= 520 * 5
   if (auras.curseOfRecklessness) enemyArmor -= 800
   if (auras.annihilator) enemyArmor -= 600
 
-  $('#character-health-val').text(Math.round((characterStats.health + (stamina * staminaModifier) * healthPerStamina) * (1 + (0.01 * talents.felStamina))))
-  $('#character-mana-val').text(Math.round((characterStats.mana + (characterStats.intellect * characterStats.intellectModifier) * manaPerInt) * (1 + (0.01 * talents.felIntellect))))
-  $('#character-stamina-val').text(Math.round(stamina * staminaModifier))
-  $('#character-intellect-val').text(Math.round(characterStats.intellect * characterStats.intellectModifier))
-  $('#character-spirit-val').text(Math.round(characterStats.spirit * spiritModifier))
-  $('#character-spell-power-val').text(spellPower)
-  $('#character-shadow-power-val').text(characterStats.shadowPower + ' (' + (characterStats.shadowPower + spellPower) + ')')
-  $('#character-fire-power-val').text(characterStats.firePower + ' (' + (characterStats.firePower + spellPower) + ')')
-  $('#character-crit-val').text(Math.round(critRating) + ' (' + critChance + '%)')
-  $('#character-hit-val').text(Math.round(hitRating) + ' (' + hitChance + '%)')
-  $('#character-haste-val').text(Math.round(characterStats.hasteRating) + ' (' + (Math.round((characterStats.hasteRating / hasteRatingPerPercent) * 100) / 100) + '%)')
-  $('#character-shadow-damage-modifier-val').text(Math.round((shadowModifier * (1 + (0.02 * talents.shadowMastery))) * 100) + '%')
-  $('#character-fire-damage-modifier-val').text(Math.round(fireModifier * 100) + '%')
-  $('#character-mp5-val').text(Math.round(mp5))
-  $('#enemy-armor-val').text(Math.max(0, enemyArmor))
+  document.getElementById("character-health-val").innerHTML = Math.round((characterStats.health + (stamina * staminaModifier) * healthPerStamina) * (1 + (0.01 * talents.felStamina)))
+  document.getElementById("character-mana-val").innerHTML = Math.round((characterStats.mana + (characterStats.intellect * characterStats.intellectModifier) * manaPerInt) * (1 + (0.01 * talents.felIntellect)))
+  document.getElementById("character-stamina-val").innerHTML = Math.round(stamina * staminaModifier)
+  document.getElementById("character-intellect-val").innerHTML = Math.round(characterStats.intellect * characterStats.intellectModifier)
+  document.getElementById("character-spirit-val").innerHTML = Math.round(characterStats.spirit * spiritModifier)
+  document.getElementById("character-spell-power-val").innerHTML = spellPower
+  document.getElementById("character-shadow-power-val").innerHTML = characterStats.shadowPower + ' (' + (characterStats.shadowPower + spellPower) + ')'
+  document.getElementById("character-fire-power-val").innerHTML = characterStats.firePower + ' (' + (characterStats.firePower + spellPower) + ')'
+  document.getElementById("character-crit-val").innerHTML = Math.round(critRating) + ' (' + critChance + '%)'
+  document.getElementById("character-hit-val").innerHTML = Math.round(hitRating) + ' (' + hitChance + '%)'
+  document.getElementById("character-haste-val").innerHTML = Math.round(characterStats.hasteRating) + ' (' + (Math.round((characterStats.hasteRating / hasteRatingPerPercent) * 100) / 100) + '%)'
+  document.getElementById("character-shadow-damage-modifier-val").innerHTML = Math.round((shadowModifier * (1 + (0.02 * talents.shadowMastery))) * 100) + '%'
+  document.getElementById("character-fire-damage-modifier-val").innerHTML = Math.round(fireModifier * 100) + '%'
+  document.getElementById("character-mp5-val").innerHTML = Math.round(mp5)
+  document.getElementById("enemy-armor-val").innerHTML = Math.max(0, enemyArmor)
 }

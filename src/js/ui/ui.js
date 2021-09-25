@@ -19,134 +19,132 @@ var gemPreferences = localStorage.gemPreferences ? JSON.parse(localStorage.gemPr
 var hiddenItems = localStorage.hiddenItems ? JSON.parse(localStorage.hiddenItems) : []
 var changingItemVisibility = false // True when hiding / showing items in the item table
 
-// Buffs, debuffs, consumables, and pet buffs
-for (const auraType in _auras) {
-  const lowerAuraType = auraType.toLowerCase().split(' ').join('-')
-  $('#buffs-and-debuffs-section').append("<h3 id='" + auraType + "-heading'>" + _auras[auraType].heading + "</h3><ul id='" + lowerAuraType + "-list'></ul>")
-  for (const aura in _auras[auraType].auras) {
-    const a = _auras[auraType].auras[aura]
-    $('#' + lowerAuraType + '-list').append("<li data-aura-type='" + auraType + "' data-checked='" + (auras[aura] || false) + "' name='" + aura + "' id='" + aura + "' class='" + (a.drums ? 'drums ' : '') + (a.alcohol ? 'alcohol ' : '') + (a.stats ? 'stats ' : '') + (a.potion ? 'potion ' : '') + (a.battleElixir ? 'battle-elixir ' : '') + (a.guardianElixir ? 'guardian-elixir ' : '') + (a.weaponOil ? 'weapon-oil ' : '') + (a.foodBuff ? 'food-buff ' : '') + (a.demonicRune ? 'demonic-rune ' : '') + (a.petOnly ? 'petBuff ' : '') + (a.forPet ? 'petDebuff ' : '') + auraType + " aura'><a href='https://tbc.wowhead.com/" + _auras[auraType].type + '=' + a.id + "'><img alt='" + a.name + "' src='img/" + a.iconName + ".jpg'></a></li>")
+document.addEventListener("DOMContentLoaded", function() {
+  // Buffs, debuffs, consumables, and pet buffs
+  for (const auraType in _auras) {
+    const lowerAuraType = auraType.toLowerCase().split(' ').join('-')
+    document.getElementById("buffs-and-debuffs-section").innerHTML += "<h3 id='" + auraType + "-heading'>" + _auras[auraType].heading + "</h3><ul id='" + lowerAuraType + "-list'></ul>"
+    for (const aura in _auras[auraType].auras) {
+      const a = _auras[auraType].auras[aura]
+      document.getElementById(lowerAuraType + "-list").innerHTML += "<li data-aura-type='" + auraType + "' data-checked='" + (auras[aura] || false) + "' name='" + aura + "' id='" + aura + "' class='" + (a.drums ? 'drums ' : '') + (a.alcohol ? 'alcohol ' : '') + (a.stats ? 'stats ' : '') + (a.potion ? 'potion ' : '') + (a.battleElixir ? 'battle-elixir ' : '') + (a.guardianElixir ? 'guardian-elixir ' : '') + (a.weaponOil ? 'weapon-oil ' : '') + (a.foodBuff ? 'food-buff ' : '') + (a.demonicRune ? 'demonic-rune ' : '') + (a.petOnly ? 'petBuff ' : '') + (a.forPet ? 'petDebuff ' : '') + auraType + " aura'><a href='https://tbc.wowhead.com/" + _auras[auraType].type + '=' + a.id + "'><img alt='" + a.name + "' src='img/" + a.iconName + ".jpg'></a></li>"
+    }
   }
-}
 
-// Spell Selection
-for (const type in _spellSelection) {
-  const rotationList = $('#rotation-list')
-  let str = '<div id="rotation-' + _spellSelection[type].header.toLowerCase() + '"><h4>' + _spellSelection[type].header + '</h4>'
-  for (const spell in _spellSelection[type].spells) {
-    rotation[type] = rotation[type] || {}
-    str += "<li data-type='" + type + "' data-name='" + spell + "' class='rotation-" + type + "' data-checked='" + (rotation[type][spell] || false) + "' id='" + type + '-' + spell + "'><a href=https://tbc.wowhead.com/spell=" + _spellSelection[type].spells[spell].id + "><img src='img/" + _spellSelection[type].spells[spell].iconName + ".jpg' alt='" + _spellSelection[type].spells[spell].name + "'></a></li>"
+  // Spell Selection
+  for (const type in _spellSelection) {
+    const rotationList = document.getElementById("rotation-list")
+    let str = '<div id="rotation-' + _spellSelection[type].header.toLowerCase() + '"><h4>' + _spellSelection[type].header + '</h4>'
+    for (const spell in _spellSelection[type].spells) {
+      rotation[type] = rotation[type] || {}
+      str += "<li data-type='" + type + "' data-name='" + spell + "' class='rotation-" + type + "' data-checked='" + (rotation[type][spell] || false) + "' id='" + type + '-' + spell + "'><a href=https://tbc.wowhead.com/spell=" + _spellSelection[type].spells[spell].id + "><img src='img/" + _spellSelection[type].spells[spell].iconName + ".jpg' alt='" + _spellSelection[type].spells[spell].name + "'></a></li>"
+    }
+    str += '</div>'
+    rotationList.innerHTML += str
   }
-  str += '</div>'
-  rotationList.append(str)
-}
 
-// Talent trees
-for (const tree in _talents) {
-  if (_talents.hasOwnProperty(tree)) {
-    $('#talents-section').append($("<div class='talent-tree-div'><table data-name='" + tree + "' background='img/talent_tree_background_" + tree + ".jpg' id='talent-table-" + tree + "' class='talent-tree-table'></table><div class='talent-tree-name'><h3 style='display: inline-block;' data-name='" + tree + "'>" + tree.charAt(0).toUpperCase() + tree.slice(1) + "</h3><span class='clear-talent-tree'>&#10060;</span></div></div>"))
-    $('#talent-table-' + tree).append($('<tbody></tbody>'))
-    $('#talent-table-' + tree).data('points', 0)
-    $('#talent-table-' + tree + ' tbody').append($("<tr class='" + tree + "-tree-row'></tr>"))
-    let lastRow = $('#talent-table-' + tree + ' tbody tr:last')
-    let currentCol = 1
+  // Talent trees
+  for (const tree in _talents) {
+    if (_talents.hasOwnProperty(tree)) {
+      document.getElementById("talents-section").innerHTML += "<div class='talent-tree-div'><table data-name='" + tree + "' background='img/talent_tree_background_" + tree + ".jpg' id='talent-table-" + tree + "' class='talent-tree-table'></table><div class='talent-tree-name'><h3 style='display: inline-block;' data-name='" + tree + "'>" + tree.charAt(0).toUpperCase() + tree.slice(1) + "</h3><span class='clear-talent-tree'>&#10060;</span></div></div>"
+      document.getElementById("talent-table-" + tree).innerHTML += "<tbody></tbody>"
+      document.getElementById("talent-table-" + tree).dataset.points = 0
+      document.querySelectorAll("#talent-table-" + tree + " tbody")[0].innerHTML += "<tr class='" + tree + "-tree-row'></tr>"
+      let lastRow = document.querySelectorAll("#talent-table-" + tree + " tbody tr:last-child")[0]
+      let currentCol = 1
 
-    for (const talent in _talents[tree]) {
-      const t = _talents[tree][talent]
-      talents[talent] = talents[talent] || 0
-      talentPointsRemaining -= talents[talent]
-      $('#talent-table-' + tree).data('points', $('#talent-table-' + tree).data('points') + talents[talent])
+      for (const talent in _talents[tree]) {
+        const t = _talents[tree][talent]
+        talents[talent] = talents[talent] || 0
+        talentPointsRemaining -= talents[talent]
+        document.getElementById("talent-table-" + tree).dataset.points = parseInt(document.getElementById("talent-table-" + tree).dataset.points) + talents[talent]
 
-      // Check if the current talent should be in the next row below and create a new row if true
-      if (t.row > $('.' + tree + '-tree-row').length) {
-        $('#talent-table-' + tree + ' tbody').append($("<tr class='" + tree + "-tree-row'></tr>"))
-        lastRow = $('#talent-table-' + tree + ' tbody tr:last')
-        currentCol = 1
-      }
+        // Check if the current talent should be in the next row below and create a new row if true
+        if (t.row > document.getElementsByClassName(tree + "-tree-row").length) {
+          $('#talent-table-' + tree + ' tbody').append($("<tr class='" + tree + "-tree-row'></tr>"))
+          lastRow = document.querySelectorAll("#talent-table-" + tree + " tbody tr:last-child")[0]
+          currentCol = 1
+        }
 
-      // Create empty cells between talents if skipping a number (e.g. going from column 1 straight to column 4)
-      while (currentCol < t.column) {
-        lastRow.append($('<td></td>'))
+        // Create empty cells between talents if skipping a number (e.g. going from column 1 straight to column 4)
+        while (currentCol < t.column) {
+          lastRow.innerHTML += "<td></td>"
+          currentCol++
+        }
+
+        lastRow.innerHTML += "<td><div data-maxpoints='" + t.rankIDs.length + "' data-points='" + talents[talent] + "' class='talent-icon' data-tree='" + tree + "' id='" + talent + "'><a href='https://tbc.wowhead.com/spell=" + t.rankIDs[Math.max(0, talents[talent] - 1)] + "'><img src='img/" + t.iconName + ".jpg' alt='" + t.name + "'><span id='" + talent + "-point-amount' class='talent-point-amount'>" + talents[talent] + '</span></a></div></td>'
+
+        // Check if the text displaying the talent point amount should be hidden or colored (for maxed out talents)
+        const pointAmount = document.querySelectorAll("#" + talent + "-point-amount")[0]
+        if (pointAmount && pointAmount.innerHTML <= 0) {
+          pointAmount.style.display = "none"
+        } else if (pointAmount.innerHTML == t.rankIDs.length) {
+          pointAmount.style.color = "#ffcd45"
+        } else {
+          pointAmount.style.color = "#7FFF00"
+        }
         currentCol++
       }
 
-      lastRow.append($("<td><div data-maxpoints='" + t.rankIDs.length + "' data-points='" + talents[talent] + "' class='talent-icon' data-tree='" + tree + "' id='" + talent + "'><a href='https://tbc.wowhead.com/spell=" + t.rankIDs[Math.max(0, talents[talent] - 1)] + "'><img src='img/" + t.iconName + ".jpg' alt='" + t.name + "'><span id='" + talent + "-point-amount' class='talent-point-amount'>" + talents[talent] + '</span></a></div></td>'))
-
-      // Check if the text displaying the talent point amount should be hidden or colored (for maxed out talents)
-      const pointAmount = $('#' + talent + '-point-amount')
-      if (pointAmount.text() <= 0) {
-        pointAmount.hide()
-      } else if (pointAmount.text() == t.rankIDs.length) {
-        pointAmount.css('color', '#ffcd45')
-      } else {
-        pointAmount.css('color', '#7FFF00')
-      }
-      currentCol++
+      updateTalentTreeNames()
     }
-
-    updateTalentTreeNames()
   }
-}
 
-// When the user clicks anywhere on the webpage
-$(document).on('click', function (e) {
-  // Hide the gem selection table if the user clicks outside of it.
-  if (e.target.id !== 'gem-selection-table' && !e.target.className.split(' ').includes('gem-info')) {
-    $('#gem-selection-table').css('visibility', 'hidden')
-  }
-})
+  // When the user clicks anywhere on the webpage
+  document.addEventListener("click", function(e) {
+    // Hide the gem selection table if the user clicks outside of it.
+    if (e.target.id !== 'gem-selection-table' && !e.target.className.split(' ').includes('gem-info')) {
+      document.getElementById("gem-selection-table").style.display = "none"
+    }
+  })
 
-// User clicks on the X on a section to hide it
-$(document).on('click', '.close, #export-close-button', function () {
-  $(this).closest('.close-button-target').hide()
-  return false
-})
+  // User clicks on the X on a section to hide it
+  Array.from(document.querySelectorAll(".close, #export-close-button")).forEach(element => {
+    element.addEventListener("click", function() {
+      element.closest(".close-button-target").style.display = "none"
+      return false
+    })
+  })
 
-// These are the buttons on the sidebar
-$('.btn').hover(function () {
-  $(this).find('a').css('color', '#1a1a1a')
-})
+  // "Import/Export" button in the Profile Options fieldset
+  document.getElementById("import-export-button").addEventListener("click", function() {
+    document.querySelectorAll("#import-export-window textarea")[0].value = ""
+    document.getElementById("import-export-window").style.display = ""
+  })
 
-$('.btn').mouseout(function () {
-  $(this).find('a').css('color', 'white')
-})
+  // Importing settings
+  document.getElementById("import-button").addEventListener("click", function() {
+    const data = JSON.parse(document.querySelectorAll("#import-export-window textarea")[0].value)
+    if (data.auras) localStorage.auras = JSON.stringify(data.auras)
+    if (data.selectedGems) localStorage.selectedGems = JSON.stringify(data.selectedGems)
+    if (data.selectedItems) localStorage.selectedItems = JSON.stringify(data.selectedItems)
+    if (data.talents) localStorage.talents = JSON.stringify(data.talents)
+    if (data.rotation) localStorage.rotation = JSON.stringify(data.rotation)
+    if (data.selectedEnchants) localStorage.selectedEnchants = JSON.stringify(data.selectedEnchants)
+    if (data.settings) localStorage.settings = JSON.stringify(data.settings)
+    location.reload()
+  })
 
-// "Import/Export" button in the Profile Options fieldset
-$('#import-export-button').click(function () {
-  $('#import-export-window textarea').val('')
-  $('#import-export-window').show()
-})
-
-// Importing settings
-$('#import-button').click(function () {
-  const data = JSON.parse($('#import-export-window textarea').val())
-  if (data.auras) localStorage.auras = JSON.stringify(data.auras)
-  if (data.selectedGems) localStorage.selectedGems = JSON.stringify(data.selectedGems)
-  if (data.selectedItems) localStorage.selectedItems = JSON.stringify(data.selectedItems)
-  if (data.talents) localStorage.talents = JSON.stringify(data.talents)
-  if (data.rotation) localStorage.rotation = JSON.stringify(data.rotation)
-  if (data.selectedEnchants) localStorage.selectedEnchants = JSON.stringify(data.selectedEnchants)
-  if (data.settings) localStorage.settings = JSON.stringify(data.settings)
-  location.reload()
-})
-
-// Exporting settings
-$('#export-button').click(function () {
-  const data =
-  {
-    auras: auras,
-    selectedGems: selectedGems,
-    selectedItems: selectedItems,
-    talents: talents,
-    rotation: rotation,
-    selectedEnchants: selectedEnchants,
-    settings: settings
-  }
-  $('#import-export-window textarea').val(JSON.stringify(data)).select()
+  // Exporting settings
+  document.getElementById("export-button").addEventListener("click", function() {
+    const data =
+    {
+      auras: auras,
+      selectedGems: selectedGems,
+      selectedItems: selectedItems,
+      talents: talents,
+      rotation: rotation,
+      selectedEnchants: selectedEnchants,
+      settings: settings
+    }
+    document.querySelectorAll("#import-export-window textarea")[0].value = JSON.stringify(data)
+    document.querySelectorAll("#import-export-window textarea")[0].select()
+  })
 })
 
 function updateSetBonuses () {
-  $('.sidebar-set-bonus').remove()
+  Array.from(document.getElementsByClassName("sidebar-set-bonus")).forEach(element => {
+    element.parentNode.removeChild(element)
+  })
   const setBonusCounter = {}
 
   for (let itemSlot in selectedItems) {
@@ -172,7 +170,7 @@ function updateSetBonuses () {
     if (sets[set]) {
       for (let i = sets[set].bonuses.length - 1; i >= 0; i--) {
         if (sets[set].bonuses[i] <= setBonusCounter[set]) {
-          $('#sidebar-sets').append("<li class='sidebar-set-bonus'><a href='https://tbc.wowhead.com/item-set=" + set + "'>" + sets[set].name + ' (' + setBonusCounter[set] + ')</a></li>')
+          document.getElementById("sidebar-sets").innerHTML += "<li class='sidebar-set-bonus'><a href='https://tbc.wowhead.com/item-set=" + set + "'>" + sets[set].name + ' (' + setBonusCounter[set] + ')</a></li>'
           break
         }
       }

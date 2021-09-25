@@ -70,7 +70,6 @@ onmessage = function (e) {
                     if (gemColor == 'meta') {
                       if (metaGemIds.includes(gemId)) {
                         metaGemIds.splice(metaGemIds.indexOf(gemId), 1)
-                        console.log("removing meta gem id " + gemId)
                       }
                     }
                     // Loop through the gem's stats and remove them from the player
@@ -120,7 +119,6 @@ onmessage = function (e) {
                 // Check for meta gem
                 if (customItemSlot == 'head' && gems.meta[gemId]) {
                   metaGemIds.push(gemId)
-                  console.log("adding meta gem id " + gemId)
                 }
                 // Find the gem's color since it might not match the socket color
                 for (const gemColor in gems) {

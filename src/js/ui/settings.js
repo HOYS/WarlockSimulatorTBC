@@ -1,150 +1,173 @@
-// Listens to any clicks on the "rotation" spells for dots, filler, curse, and finisher.
-$(document).on('click', '#rotation-list div li', function () {
-  const clickedSpell = $(this).data('name')
-  let refreshStats = false
+document.addEventListener("DOMContentLoaded", function() {
+  // Listens to any clicks on the "rotation" spells for dots, filler, curse, and finisher.
+  document.addEventListener("click", function(e) {
+    if (e.target.matches("#rotation-list div li img")) {
+      const element = e.target.closest("li")
+      const clickedSpell = element.dataset.name
+      let refreshStats = false
 
-  if ($(this).hasClass('rotation-filler')) {
-    $('.rotation-filler').each(function () {
-      $(this).attr('data-checked', false)
-      rotation[$(this).data('type')][$(this).data('name')] = false
-    })
+      if (element.classList.contains("rotation-filler")) {
+        Array.from(document.getElementsByClassName("rotation-filler")).forEach(filler => {
+          filler.dataset.checked = false
+          rotation[filler.dataset.type][filler.dataset.name] = false
+        })
 
-    if ($('#demonicSacrifice').data('points') == 1) {
-      refreshStats = true
-    }
-  } else if ($(this).hasClass('rotation-curse')) {
-    $('.rotation-curse').each(function () {
-      if ($(this).data('name') !== clickedSpell) {
-        $(this).attr('data-checked', false)
-        rotation[$(this).data('type')][$(this).data('name')] = false
+        if (document.getElementById("demonicSacrifice").dataset.points == 1) {
+          refreshStats = true
+        }
+      } else if (element.classList.contains("rotation-curse")) {
+        Array.from(document.getElementsByClassName("rotation-curse")).forEach(curse => {
+          if (curse.dataset.name !== clickedSpell) {
+            curse.dataset.checked = false
+            rotation[curse.dataset.type][curse.dataset.name] = false
+          }
+        })
       }
-    })
-  }
 
-  const checkedVal = $(this).attr('data-checked') === 'true'
-  $(this).attr('data-checked', !checkedVal)
-  rotation[$(this).data('type')][$(this).data('name')] = !checkedVal
-  localStorage.rotation = JSON.stringify(rotation)
-  if (refreshStats) refreshCharacterStats()
-  return false
-})
-
-// Fired when the user changes any settings such as fight length, iteration amount, etc.
-$('#sim-settings select, #sim-settings input').change(function () {
-  if ($(this).is(':checkbox')) {
-    settings[$(this).attr('name')] = $(this).is(':checked')
-  } else {
-    settings[$(this).attr('name')] = $(this).val()
-  }
-  localStorage.settings = JSON.stringify(settings)
-  refreshCharacterStats()
-  updateSimulationSettingsVisibility()
-})
-
-// User changes races in the simulation settings
-$('#race-dropdown-list').change(function () {
-  const oldRace = $(this).data('currentRace')
-  const newRace = $(this).val()
-  $(this).data('currentRace', newRace)
-
-  // Remove the previous race's stats
-  for (const stat in raceStats[oldRace]) {
-    if (characterStats.hasOwnProperty(stat)) {
-      // Check if the buff is a modifier to know whether to add/subtract or multiply/divide the stat
-      if (stat.toLowerCase().search('modifier') !== -1) {
-        characterStats[stat] /= raceStats[oldRace][stat]
-      } else {
-        characterStats[stat] -= raceStats[oldRace][stat]
+      const checkedVal = element.dataset.checked === 'true'
+      element.dataset.checked = !checkedVal
+      rotation[element.dataset.type][element.dataset.name] = !checkedVal
+      localStorage.rotation = JSON.stringify(rotation)
+      if (refreshStats) {
+        refreshCharacterStats()
       }
+      event.preventDefault()
     }
-  }
+  })
 
-  // Add the new race's stats
-  for (const stat in raceStats[newRace]) {
-    if (characterStats.hasOwnProperty(stat)) {
-      // Check if the buff is a modifier to know whether to add/subtract or multiply/divide the stat
-      if (stat.toLowerCase().search('modifier') !== -1) {
-        characterStats[stat] *= raceStats[newRace][stat]
-      } else {
-        characterStats[stat] += raceStats[newRace][stat]
+  document.addEventListener("change", function(e) {
+    // Fired when the user changes any settings such as fight length, iteration amount, etc.
+    if (e.target.matches("#sim-settings select, #sim-settings input")) {
+      settings[e.target.getAttribute("name")] = e.target.value
+      localStorage.settings = JSON.stringify(settings)
+      refreshCharacterStats()
+      updateSimulationSettingsVisibility()
+    }
+    // User changes races in the simulation settings
+    if (e.target.matches("#race-dropdown-list")) {
+      const oldRace = e.target.dataset.currentRace
+      const newRace = e.target.value
+      e.target.dataset.currentRace = newRace
+
+      // Remove the previous race's stats
+      for (const stat in raceStats[oldRace]) {
+        if (characterStats.hasOwnProperty(stat)) {
+          // Check if the buff is a modifier to know whether to add/subtract or multiply/divide the stat
+          if (stat.toLowerCase().search('modifier') !== -1) {
+            characterStats[stat] /= raceStats[oldRace][stat]
+          } else {
+            characterStats[stat] -= raceStats[oldRace][stat]
+          }
+        }
       }
-    }
-  }
 
-  $('#race').text($('#race-dropdown-list').children('option:selected').text())
-  refreshCharacterStats()
+      // Add the new race's stats
+      for (const stat in raceStats[newRace]) {
+        if (characterStats.hasOwnProperty(stat)) {
+          // Check if the buff is a modifier to know whether to add/subtract or multiply/divide the stat
+          if (stat.toLowerCase().search('modifier') !== -1) {
+            characterStats[stat] *= raceStats[newRace][stat]
+          } else {
+            characterStats[stat] += raceStats[newRace][stat]
+          }
+        }
+      }
+
+      document.getElementById("race").innerHTML = document.querySelector("#race-dropdown-list option:checked").innerHTML
+      refreshCharacterStats()
+    }
+  })
 })
 
 function updateSimulationSettingsVisibility () {
-  if ($('#sim-settings input[name="rotationOption"]:checked').val() == 'simChooses') {
-    $('#rotation-list div').hide()
-    $('#rotation-curse').show()
+  // Rotation Options
+  if (document.querySelector("#sim-settings input[name='rotationOption']:checked").value === "simChooses") {
+    Array.from(document.querySelectorAll("#rotation-list div")).forEach(e => {
+      e.style.display = "none"
+    })
+    document.getElementById("rotation-curse").style.display = ""
   } else {
-    $('#rotation-list div').show()
+    Array.from(document.querySelectorAll("#rotation-list div")).forEach(e => {
+      e.style.display = ""
+    })
   }
 
   if (talents.demonicSacrifice === 0) {
-    $('#sacrificePet').hide()
+    document.getElementById("sacrificePet").style.display = "none"
   } else {
-    $('#sacrificePet').show()
+    document.getElementById("sacrificePet").style.display = ""
   }
 
-  if ($('#sacrificePet').is(':visible') && $('#sacrificePet').children('select').val() == 'yes') {
-    $('#petMode').hide()
+
+  if (document.getElementById("sacrificePet").style.display === "" && document.querySelector("#sacrificePet select").value === "yes") {
+    document.getElementById("petMode").style.display = "none"
   } else {
-    $('#petMode').show()
+    document.getElementById("petMode").style.display = ""
   }
 
-  if ($('#sacrificePet').children('select').val() == 'no' || !$('#sacrificePet').is(':visible')) {
-    $('#petBuffs-heading').show()
-    $('.petBuffs').show()
-    if ($('#petMode').children('select').val() == PetMode.AGGRESSIVE) {
-      $('#prepopBlackBook').show()
-      if ($('#petChoice').children('select').val() != PetName.IMP) {
-        $('#enemyArmor').show()
-        $('#enemy-armor-val').closest('li').show()
+  // If not sacrificing the pet or if sacrificing the pet isn't an option then show various pet options
+  if (document.querySelector("#sacrificePet select").value === "no" || document.getElementById("sacrificePet").style.display === "none") {
+    // Show pet buffs
+    document.getElementById("petBuffs-heading").style.display = ""
+    Array.from(document.getElementsByClassName("petBuffs")).forEach(e => {
+      e.style.display = ""
+    })
+    // Check if pet is set to aggressive
+    if (document.querySelector("#petMode select").value == PetMode.AGGRESSIVE) {
+      document.getElementById("prepopBlackBook").style.display = ""
+      if (document.querySelector("#petChoice select").value != PetName.IMP) {
+        document.getElementById("enemyArmor").style.display = ""
+        document.getElementById("enemy-armor-val").closest("li").style.display = ""
       } else {
-        $('#enemyArmor').hide()
-        $('#enemy-armor-val').closest('li').hide()
+        document.getElementById("enemyArmor").style.display = "none"
+        document.getElementById("enemy-armor-val").closest("li").style.display = "none"
       }
-      $('.petDebuff').show()
+      Array.from(document.getElementsByClassName("petDebuff")).forEach(debuff => {
+        debuff.style.display = ""
+      })
     } else {
-      $('#prepopBlackBook').hide()
-      $('#enemyArmor').hide()
-      $('#enemy-armor-val').closest('li').hide()
-      $('.petDebuff').hide()
+      document.getElementById("prepopBlackBook").style.display = "none"
+      document.getElementById("enemyArmor").style.display = "none"
+      document.getElementById("enemy-armor-val").closest("li").style.display = "none"
+      Array.from(document.getElementsByClassName("petDebuff")).forEach(debuff => {
+        debuff.style.display = "none"
+      })
     }
   } else {
-    $('#prepopBlackBook').hide()
-    $('#petBuffs-heading').hide()
-    $('.petBuffs').hide()
-    $('#enemyArmor').hide()
-    $('#enemy-armor-val').closest('li').hide()
-    $('.petDebuff').hide()
+    document.getElementById("prepopBlackBook").style.display = "none"
+    document.getElementById("petBuffs-heading").style.display = "none"
+    Array.from(document.getElementsByClassName("petBuffs")).forEach(buff => {
+      buff.style.display = "none"
+    })
+    document.getElementById("enemyArmor").style.display = "none"
+    document.getElementById("enemy-armor-val").closest("li").style.display = "none"
+    Array.from(document.getElementsByClassName("petDebuff")).forEach(debuff => {
+      debuff.style.display = "none"
+    })
   }
 
-  if ($('#petChoice').children('select').val() == PetName.SUCCUBUS && $('#petMode').children('select').val() == PetMode.AGGRESSIVE && (talents.demonicSacrifice == 0 || $('#sacrificePet').children('select').val() === 'no')) {
-    $('#lashOfPainUsage').show()
+  if (document.querySelector("#petChoice select").value == PetName.SUCCUBUS && document.querySelector("#petMode select").value == PetMode.AGGRESSIVE && (talents.demonicSacrifice == 0 || document.querySelector("#sacrificePet select").value === "no")) {
+    document.getElementById("lashOfPainUsage").style.display = ""
   } else {
-    $('#lashOfPainUsage').hide()
+    document.getElementById("lashOfPainUsage").style.display = "none"
   }
 
   if (talents.summonFelguard === 0) {
-    $("#petChoice option[value='felguard']").hide()
+    document.querySelector("#petChoice option[value='4']").style.display = "none"
   } else {
-    $("#petChoice option[value='felguard']").show()
+    document.querySelector("#petChoice option[value='4']").style.display = ""
   }
 
   if (auras.curseOfTheElements) {
-    $('#improvedCurseOfTheElements').show()
+    document.getElementById("improvedCurseOfTheElements").style.display = ""
   } else {
-    $('#improvedCurseOfTheElements').hide()
+    document.getElementById("improvedCurseOfTheElements").style.display = "none"
   }
 
   if (auras.prayerOfSpirit) {
-    $('#improvedDivineSpirit').show()
+    document.getElementById("improvedDivineSpirit").style.display = ""
   } else {
-    $('#improvedDivineSpirit').hide()
+    document.getElementById("improvedDivineSpirit").style.display = "none"
   }
 
   /* if (talents.conflagrate > 0) {
@@ -154,102 +177,102 @@ function updateSimulationSettingsVisibility () {
   } */
 
   if (auras.powerOfTheGuardianMage) {
-    $('#mageAtieshAmount').show()
+    document.getElementById("mageAtieshAmount").style.display = ""
   } else {
-    $('#mageAtieshAmount').hide()
+    document.getElementById("mageAtieshAmount").style.display = "none"
   }
 
   if (auras.ferociousInspiration) {
-    $('#ferociousInspirationAmount').show()
+    document.getElementById("ferociousInspirationAmount").style.display = ""
   } else {
-    $('#ferociousInspirationAmount').hide()
+    document.getElementById("ferociousInspirationAmount").style.display = "none"
   }
 
   if (auras.powerOfTheGuardianWarlock) {
-    $('#warlockAtieshAmount').show()
+    document.getElementById("warlockAtieshAmount").style.display = ""
   } else {
-    $('#warlockAtieshAmount').hide()
+    document.getElementById("warlockAtieshAmount").style.display = "none"
   }
 
   if (auras.powerInfusion) {
-    $('#powerInfusionAmount').show()
+    document.getElementById("powerInfusionAmount").style.display = ""
   } else {
-    $('#powerInfusionAmount').hide()
+    document.getElementById("powerInfusionAmount").style.display = "none"
   }
 
   if (auras.bloodlust) {
-    $('#bloodlustAmount').show()
+    document.getElementById("bloodlustAmount").style.display = ""
   } else {
-    $('#bloodlustAmount').hide()
+    document.getElementById("bloodlustAmount").style.display = "none"
   }
 
   if (auras.innervate) {
-    $('#innervateAmount').show()
+    document.getElementById("innervateAmount").style.display = ""
   } else {
-    $('#innervateAmount').hide()
+    document.getElementById("innervateAmount").style.display = "none"
   }
 
   if (auras.totemOfWrath) {
-    $('#totemOfWrathAmount').show()
+    document.getElementById("totemOfWrathAmount").style.display = ""
   } else {
-    $('#totemOfWrathAmount').hide()
+    document.getElementById("totemOfWrathAmount").style.display = "none"
   }
 
   if (auras.vampiricTouch) {
-    $('#shadowPriestDps').show()
+    document.getElementById("shadowPriestDps").style.display = ""
   } else {
-    $('#shadowPriestDps').hide()
+    document.getElementById("shadowPriestDps").style.display = "none"
   }
 
   if (auras.bloodPact) {
-    $('#improvedImp').show()
+    document.getElementById("improvedImp").style.display = ""
   } else {
-    $('#improvedImp').hide()
+    document.getElementById("improvedImp").style.display = "none"
   }
 
-  if ($('#faerieFire').is(':visible') && auras.faerieFire) {
-    $('#improvedFaerieFire').show()
+  if (document.getElementById("faerieFire").style.display === "" && auras.faerieFire) {
+    document.getElementById("improvedFaerieFire").style.display = ""
   } else {
-    $('#improvedFaerieFire').hide()
+    document.getElementById("improvedFaerieFire").style.display = "none"
   }
 
-  if ($('#exposeArmor').is(':visible') && auras.exposeArmor) {
-    $('#improvedExposeArmor').show()
+  if (document.getElementById("exposeArmor").style.display === "" && auras.exposeArmor) {
+    document.getElementById("improvedExposeArmor").style.display = ""
   } else {
-    $('#improvedExposeArmor').hide()
+    document.getElementById("improvedExposeArmor").style.display = "none"
   }
 
-  if ($('#exposeWeakness').is(':visible') && auras.exposeWeakness) {
-    $('#survivalHunterAgility').show()
-    $('#exposeWeaknessUptime').show()
+  if (document.getElementById("exposeWeakness").style.display === "" && auras.exposeWeakness) {
+    document.getElementById("survivalHunterAgility").style.display = ""
+    document.getElementById("exposeWeaknessUptime").style.display = ""
   } else {
-    $('#survivalHunterAgility').hide()
-    $('#exposeWeaknessUptime').hide()
+    document.getElementById("survivalHunterAgility").style.display = "none"
+    document.getElementById("exposeWeaknessUptime").style.display = "none"
   }
 
-  if ($('#customIsbUptime').children('select').val() == 'yes') {
-    $('#custom-isb-uptime-value').show()
+  if (document.querySelector("#customIsbUptime select").value === "yes") {
+    document.getElementById("custom-isb-uptime-value").style.display = ""
   } else {
-    $('#custom-isb-uptime-value').hide()
+    document.getElementById("custom-isb-uptime-value").style.display = "none"
   }
 
-  if ($('#fight-type').val() == 'singleTarget') {
-    $('#enemy-amount').hide()
+  if (document.getElementById("fight-type").value === "singleTarget") {
+    document.getElementById("enemy-amount").style.display = "none"
   } else {
-    $('#enemy-amount').show()
+    document.getElementById("enemy-amount").style.display = ""
   }
 
   if (selectedItems.neck == 34678) {
-    $('#shattrathFaction').show()
-    $('#shattrathFactionReputation').show()
+    document.getElementById("shattrathFaction").style.display = ""
+    document.getElementById("shattrathFactionReputation").style.display = ""
   } else {
-    $('#shattrathFaction').hide()
-    $('#shattrathFactionReputation').hide()
+    document.getElementById("shattrathFaction").style.display = "none"
+    document.getElementById("shattrathFactionReputation").style.display = "none"
   }
 
   if (auras.wrathOfAirTotem) {
-    $('#improvedWrathOfAirTotem').show()
+    document.getElementById("improvedWrathOfAirTotem").style.display = ""
   } else {
-    $('#improvedWrathOfAirTotem').hide()
+    document.getElementById("improvedWrathOfAirTotem").style.display = "none"
   }
 }
