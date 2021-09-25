@@ -189,7 +189,7 @@ onmessage = function (e) {
       , b.fireModifier, b.frostModifier, b.hastePercent, b.damageModifier, b.shadowModifier, b.staminaModifier, b.intellectModifier, b.spiritModifier, b.manaCostModifier, b.arcaneModifier, b.natureModifier
       , b.natureResist, b.arcaneResist, b.fireResist, b.frostResist, b.shadowResist)
     // Player settings
-    let playerSettings = module._allocPlayerSettings(auras, talents, sets, stats, equippedItems, e.data.itemId, (metaGemIds[0] || -1), c["automatically-open-sim-details"] === "yes"
+    let playerSettings = module._allocPlayerSettings(auras, talents, sets, stats, equippedItems, e.data.itemId, (metaGemIds[0] || -1), c["automatically-open-sim-details"] === "yes" && e.data.itemAmount == 1
     , e.data.customStat === "intellect", e.data.customStat === "spellPower", e.data.customStat === "shadowPower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
     , e.data.customStat === "critRating", e.data.customStat === "hasteRating", e.data.customStat === "mp5", c.shattrathFaction === "Aldor", parseInt(c['target-level']), parseInt(c['target-shadow-resistance'])
     , parseInt(c['target-fire-resistance']), parseInt(c.mageAtieshAmount), parseInt(c.totemOfWrathAmount), c.sacrificePet === "yes", c.petChoice === "0", c.petChoice === "2", c.petChoice === "4"
