@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const socket = document.querySelector('.item-row[data-wowheadid="' + itemId + '"] .gem:nth-child(' + (parseInt(document.getElementById("gem-selection-table").dataset.socketslot) + 1) + ')')
       const socketColor = e.target.closest("#gem-selection-table").dataset.color
       const socketSlot = document.getElementById("gem-selection-table").dataset.socketslot
+      const selectedItemRow = document.querySelector(".item-row[data-wowheadid='" + itemId + "']")
       let gemIconName = null
       let href = null
       selectedGems[itemSlot] = selectedGems[itemSlot] || {}
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Remove stats from old gem if equipped
         if (selectedGems[itemSlot][itemId][socketSlot]) {
           modifyStatsFromGem(selectedGems[itemSlot][itemId][socketSlot][1], 'remove')
-          if (document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'true') {
+          if (selectedItemRow.dataset.socketbonusactive == 'true') {
             modifyStatsFromItemSocketBonus(itemId, 'remove')
           }
         }
@@ -90,8 +91,8 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
 
-      if (document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'true') {
-        document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'false'
+      if (selectedItemRow.dataset.socketbonusactive == 'true') {
+        selectedItemRow.dataset.socketbonusactive == 'false'
       }
 
       if (gemId == 0) {
@@ -104,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (socket.closest('tr').dataset.wowheadid == selectedItems[itemSlot]) {
           modifyStatsFromItemSocketBonus(itemId, 'add')
         }
-        document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive = 'true'
+        selectedItemRow.dataset.socketbonusactive = 'true'
       }
       socket.setAttribute('src', 'img/' + gemIconName)
       socket.closest('a').setAttribute('href', href)
