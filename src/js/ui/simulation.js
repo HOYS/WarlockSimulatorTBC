@@ -1,7 +1,7 @@
 // to-do: don't allow people to start multiple simulations
 // Starts a normal simulation
 $('#sim-dps').click(function () {
-  simDPS([$(".item-row[data-selected='true']").data('wowhead-id')])
+  simDPS([$(".item-row[data-selected='true']").data('wowheadId')])
   return false
 })
 
@@ -9,7 +9,7 @@ $('#sim-dps').click(function () {
 $('#sim-all-items').click(function () {
   const arr = []
   $('.item-row').each(function (i) {
-    arr.push($(this).data('wowhead-id'))
+    arr.push($(this).data('wowheadId'))
   })
   $('.breakdown-section').hide()
   simDPS(arr)
@@ -26,7 +26,7 @@ function simDPS (items) {
   const itemSlot = item.attr('data-slot')
   const itemSubSlot = item.attr('data-subslot') || ''
   const itemAmount = items.length
-  const equippedItemId = $('.item-row[data-selected="true"]').data('wowhead-id')
+  const equippedItemId = $('.item-row[data-selected="true"]').data('wowheadId')
   let simulationsRunning = 0
   let simulationsFinished = 0
   const multiSimInfo = []
@@ -345,7 +345,7 @@ function errorCallbackHandler(errorCallback) {
 }
 
 function updateItemRowDps(itemId, medianDps) {
-  $(".item-row[data-wowhead-id='" + itemId + "']").find('.item-dps').text(medianDps)
+  $(".item-row[data-wowheadid='" + itemId + "']").find('.item-dps').text(medianDps)
   $('#item-selection-table').trigger('update')
 }
 

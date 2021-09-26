@@ -2,7 +2,7 @@
 $('#item-selection-table tbody').on('click', 'tr', function () {
   const itemSlot = $(this).attr('data-slot')
   const itemName = $(this).attr('data-name')
-  const itemId = $(this).closest('tr').data('wowhead-id')
+  const itemId = $(this).closest('tr').data('wowheadid')
   const subSlot = localStorage.selectedItemSubSlot || $(this).data('subslot') || '' // Workaround for having two selections for rings and trinkets but only one selection for the other slots.
 
   // Toggle the item's data-selected boolean.
@@ -12,7 +12,7 @@ $('#item-selection-table tbody').on('click', 'tr', function () {
   // Check if the user already has an item equipped in this slot and unequip it if so
   if (selectedItems[itemSlot + subSlot]) {
     // Set the old item's data-selected value to false and remove the item's stats from the player.
-    $('[data-wowhead-id="' + selectedItems[itemSlot + subSlot] + '"]').attr('data-selected', false)
+    $('[data-wowheadid="' + selectedItems[itemSlot + subSlot] + '"]').attr('data-selected', false)
     itemLoop:
     for (const slot in items) {
       for (const item in items[slot]) {
@@ -20,7 +20,7 @@ $('#item-selection-table tbody').on('click', 'tr', function () {
           // Remove the stats from the item
           modifyStatsFromItem(items[slot][item], 'remove')
           // Remove socket bonus if active
-          if ($(".item-row[data-wowhead-id='" + items[slot][item].id + "']").attr('data-socket-bonus-active') == 'true') {
+          if (document.querySelector(".item-row[data-wowheadid='" + items[slot][item].id + "']").dataset.socketbonusactive == 'true') {
             modifyStatsFromItemSocketBonus(items[slot][item].id, 'remove')
           }
 
@@ -44,7 +44,7 @@ $('#item-selection-table tbody').on('click', 'tr', function () {
   if (!equipped) {
     modifyStatsFromItem(items[itemSlot][itemName], 'add')
     selectedItems[itemSlot + subSlot] = items[itemSlot][itemName].id
-    if ($(this).attr('data-socket-bonus-active') == 'true') {
+    if ($(this).attr('data-socketbonusactive') == 'true') {
       modifyStatsFromItemSocketBonus(itemId, 'add')
     }
 
@@ -147,10 +147,10 @@ $('#item-selection-table tbody').on('click', '.gem', function (event) {
 
   $('#gem-selection-table').css('top', event.pageY - $('#gem-selection-table').height() / 5)
   $('#gem-selection-table').css('left', event.pageX + 50)
-  $('#gem-selection-table').css('visibility', 'visible')
-  $('#gem-selection-table').data('color', $(this).data('color'))
-  $('#gem-selection-table').data('itemId', $(this).closest('tr').data('wowhead-id'))
-  $('#gem-selection-table').data('socketSlot', $(this).data('order'))
+  document.getElementById("gem-selection-table").style.display = ""
+  document.getElementById("gem-selection-table").dataset.color = $(this).data('color')
+  document.getElementById("gem-selection-table").dataset.itemid = $(this).closest("tr").data("wowheadid")
+  document.getElementById("gem-selection-table").dataset.socketslot = $(this).data("order")
 
   // Stop the click from being registered by the .item-row listener as well.
   event.stopPropagation()
@@ -183,7 +183,7 @@ $('#hide-show-items-btn').click(function () {
 
 // User clicks on the red x next to an item row to hide (or un-hide) it
 $('#item-selection-table tbody').on('click', '.hide-item-btn', function (event) {
-  const itemId = Number($(this).closest('tr').attr('data-wowhead-id'))
+  const itemId = Number($(this).closest('tr').attr('data-wowheadid'))
 
   if (hiddenItems.includes(itemId)) {
     hiddenItems.splice(hiddenItems.indexOf(itemId), 1)
@@ -344,9 +344,9 @@ function loadItemsBySlot (itemSlot = 'mainhand', subSlot = '') {
       }
     }
 
-    tableBody.append("<tr data-hidden='" + itemIsHidden + "' data-subslot='" + localStorage.selectedItemSubSlot + "' data-socket-bonus-active='false' data-slot='" + itemSlot + "' data-name='" + item + "' data-selected='" + (selectedItems[itemSlot + localStorage.selectedItemSubSlot] == i.id || 'false') + "' class='item-row' data-wowhead-id='" + i.id + "'><td title='" + (itemIsHidden ? 'Show Item' : 'Hide Item') + "' class='hide-item-btn' data-hidden='" + (itemIsHidden ? 'true' : 'false') + "'>❌</td><td><a href='https://tbc.wowhead.com/item=" + (i.displayId || i.id) + "'>" + i.name + '</a></td><td><div>' + getGemsInItemAsHTML(itemSlot, i) + '</div></td><td>' + i.source + '</td><td>' + (i.stamina || '') + '</td><td>' + (i.intellect || '') + '</td><td>' + (i.spellPower || '') + '</td><td>' + (i.shadowPower || '') + '</td><td>' + (i.firePower || '') + '</td><td>' + (i.critRating || '') + '</td><td>' + (i.hitRating || '') + '</td><td>' + (i.hasteRating || '') + "</td><td class='item-dps'>" + (savedItemDps[itemSlot + subSlot][i.id] || '') + '</td></tr>').trigger('update')
+    tableBody.append("<tr data-hidden='" + itemIsHidden + "' data-subslot='" + localStorage.selectedItemSubSlot + "' data-socketbonusactive='false' data-slot='" + itemSlot + "' data-name='" + item + "' data-selected='" + (selectedItems[itemSlot + localStorage.selectedItemSubSlot] == i.id || 'false') + "' class='item-row' data-wowheadid='" + i.id + "'><td title='" + (itemIsHidden ? 'Show Item' : 'Hide Item') + "' class='hide-item-btn' data-hidden='" + (itemIsHidden ? 'true' : 'false') + "'>❌</td><td><a href='https://tbc.wowhead.com/item=" + (i.displayId || i.id) + "'>" + i.name + '</a></td><td><div>' + getGemsInItemAsHTML(itemSlot, i) + '</div></td><td>' + i.source + '</td><td>' + (i.stamina || '') + '</td><td>' + (i.intellect || '') + '</td><td>' + (i.spellPower || '') + '</td><td>' + (i.shadowPower || '') + '</td><td>' + (i.firePower || '') + '</td><td>' + (i.critRating || '') + '</td><td>' + (i.hitRating || '') + '</td><td>' + (i.hasteRating || '') + "</td><td class='item-dps'>" + (savedItemDps[itemSlot + subSlot][i.id] || '') + '</td></tr>').trigger('update')
     if (itemMeetsSocketRequirements(i.id)) {
-      $(".item-row[data-wowhead-id='" + i.id + "']").attr('data-socket-bonus-active', 'true')
+      $(".item-row[data-wowheadid='" + i.id + "']").attr('data-socketbonusactive', 'true')
     }
   }
 

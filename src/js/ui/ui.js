@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // When the user clicks anywhere on the webpage
   document.addEventListener("click", function(e) {
     // Hide the gem selection table if the user clicks outside of it.
-    if (e.target.id !== 'gem-selection-table' && !e.target.className.split(' ').includes('gem-info')) {
+    if (e.target.id !== 'gem-selection-table' && !e.target.className.split(' ').includes('gem-info') && e.target.id != 'show-hidden-gems-button') {
       document.getElementById("gem-selection-table").style.display = "none"
     }
   })

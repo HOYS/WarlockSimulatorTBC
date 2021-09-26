@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         refreshCharacterStats()
       }
       localStorage.auras = JSON.stringify(auras)
-      event.stopPropagation()
+      event.preventDefault()
     }
     // When a consumable is clicked, uncheck all other types of that consumable since we can only have one at a time (e.g. disable all other weapon oils if a weapon oil is clicked).
     if (e.target && e.target.matches(consumableTypesToTrack.join(','))) {
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
       
       localStorage.auras = JSON.stringify(auras)
       refreshCharacterStats()
-      event.stopPropagation()
+      event.preventDefault()
     }
   })
 })

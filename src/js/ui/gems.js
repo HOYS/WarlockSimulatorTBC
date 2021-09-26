@@ -1,166 +1,171 @@
-// User clicks on a star next to a gem to favorite it
-$(document).on('click', '.gem-favorite-star', function () {
-  const favorited = $(this).attr('data-favorited') == 'true'
-  const gemId = parseInt($(this).closest('tr').attr('data-id'))
-  const favoritesArrayIndex = gemPreferences.favorites.indexOf(gemId)
-  // Toggle the favorited data value
-  $(this).attr('data-favorited', !favorited)
+document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("click", function(e) {
+    // User clicks on a star next to a gem to favorite it
+    if (e.target && e.target.matches('.gem-favorite-star')) {
+      const favorited = e.target.dataset.favorited == 'true'
+      const gemId = parseInt(e.target.closest("tr").dataset.id)
+      const favoritesArrayIndex = gemPreferences.favorites.indexOf(gemId)
+      // Toggle the favorited data value
+      e.target.dataset.favorited = !favorited
 
-  // Remove or add the gem to the favorite gem array
-  if (favorited && favoritesArrayIndex > -1) {
-    gemPreferences.favorites.splice(favoritesArrayIndex, 1)
-  } else if (!favorited && favoritesArrayIndex < 0) {
-    gemPreferences.favorites.push(gemId)
-  }
-  localStorage.gemPreferences = JSON.stringify(gemPreferences)
-})
-
-// User clicks on the X next to a gem to hide it
-$(document).on('click', '.gem-hide', function () {
-  const hidden = $(this).attr('data-hidden') == 'true'
-  const gemId = parseInt($(this).closest('tr').attr('data-id'))
-  const hiddenArrayIndex = gemPreferences.hidden.indexOf(gemId)
-  $(this).attr('data-hidden', !hidden)
-
-  if (hidden && hiddenArrayIndex > -1) {
-    gemPreferences.hidden.splice(hiddenArrayIndex, 1)
-    $(this).closest('tr').attr('data-hidden', 'false')
-    if (gemPreferences.hidden.length == 0) {
-      $('#show-hidden-gems-button').closest('tr').hide()
-      $('#show-hidden-gems-button').attr('data-enabled', 'false')
+      // Remove or add the gem to the favorite gem array
+      if (favorited && favoritesArrayIndex > -1) {
+        gemPreferences.favorites.splice(favoritesArrayIndex, 1)
+      } else if (!favorited && favoritesArrayIndex < 0) {
+        gemPreferences.favorites.push(gemId)
+      }
+      localStorage.gemPreferences = JSON.stringify(gemPreferences)
     }
-  } else if (!hidden && hiddenArrayIndex < 0) {
-    gemPreferences.hidden.push(gemId)
-    $(this).closest('tr').attr('data-hidden', 'true')
-    if ($('#show-hidden-gems-button').attr('data-enabled') == 'false') {
-      $(this).closest('tr').hide()
+    // User clicks on the X next to a gem to hide it
+    else if (e.target && e.target.matches(".gem-hide")) {
+      const tr = e.target.closest("tr")
+      const hidden = e.target.dataset.hidden == 'true'
+      const gemId = parseInt(tr.dataset.id)
+      const hiddenArrayIndex = gemPreferences.hidden.indexOf(gemId)
+      e.target.dataset.hidden = !hidden
+
+      if (hidden && hiddenArrayIndex > -1) {
+        gemPreferences.hidden.splice(hiddenArrayIndex, 1)
+        tr.dataset.hidden = 'false'
+        if (gemPreferences.hidden.length == 0) {
+          document.getElementById("show-hidden-gems-button").closest("tr").style.display = "none"
+          document.getElementById("show-hidden-gems-button").dataset.enabled = 'false'
+        }
+      } else if (!hidden && hiddenArrayIndex < 0) {
+        gemPreferences.hidden.push(gemId)
+        tr.dataset.hidden = 'true'
+        if (document.getElementById("show-hidden-gems-button").dataset.enabled == 'false') {
+          tr.style.display = "none"
+        }
+        if (gemPreferences.hidden.length > 0) {
+          document.getElementById("show-hidden-gems-button").closest("tr").style.display = ""
+        }
+      }
+      localStorage.gemPreferences = JSON.stringify(gemPreferences)
     }
-    if (gemPreferences.hidden.length > 0) {
-      $('#show-hidden-gems-button').closest('tr').show()
+    // User clicks on a gem in the gem selection table
+    else if (e.target && e.target.matches(".gem-name, .gem-name a")) {
+      const tr = e.target.closest("tr")
+      const itemId = document.getElementById("gem-selection-table").dataset.itemid
+      const itemSlot = document.querySelector('.item-row[data-wowheadid="' + itemId + '"]').dataset.slot
+      const gemColor = tr.dataset.color
+      const gemId = tr.dataset.id
+      const socket = document.querySelector('.item-row[data-wowheadid="' + itemId + '"] .gem:nth-child(' + (parseInt(document.getElementById("gem-selection-table").dataset.socketslot) + 1) + ')')
+      const socketColor = e.target.closest("#gem-selection-table").dataset.color
+      const socketSlot = document.getElementById("gem-selection-table").dataset.socketslot
+      let gemIconName = null
+      let href = null
+      selectedGems[itemSlot] = selectedGems[itemSlot] || {}
+
+      if (!selectedGems[itemSlot][itemId]) {
+        // The amount of sockets in the item
+        const socketAmount = $('.item-row[data-wowheadid="' + itemId + '"]').find('.gem').last().data('order') + 1
+        if (socketAmount > 0) {
+          selectedGems[itemSlot][itemId] = Array(socketAmount).fill(null)
+        }
+      }
+
+      // Check whether the user chose a gem or the option to remove the current gem
+      if (gemId == '0') {
+        gemIconName = socketInfo[gemColor].iconName + '.jpg'
+        href = ''
+      } else {
+        gemIconName = gems[gemColor][gemId].iconName + '.jpg'
+        href = 'https://tbc.wowhead.com/item=' + gemId
+      }
+
+      // Check if the socket that was changed was on an equipped item
+      if (socket.closest('tr').dataset.wowheadid == selectedItems[itemSlot]) {
+        // Remove stats from old gem if equipped
+        if (selectedGems[itemSlot][itemId][socketSlot]) {
+          modifyStatsFromGem(selectedGems[itemSlot][itemId][socketSlot][1], 'remove')
+          if (document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'true') {
+            modifyStatsFromItemSocketBonus(itemId, 'remove')
+          }
+        }
+        // Add stats from new gem
+        if (gemId) {
+          modifyStatsFromGem(gemId, 'add')
+        }
+      }
+
+
+      if (document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'true') {
+        document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'false'
+      }
+
+      if (gemId == 0) {
+        selectedGems[itemSlot][itemId][socketSlot] = null
+      } else {
+        selectedGems[itemSlot][itemId][socketSlot] = [socketColor, gemId]
+      }
+      if (itemMeetsSocketRequirements(itemId)) {
+        // Only add the socket bonus if the player has the item equipped
+        if (socket.closest('tr').dataset.wowheadid == selectedItems[itemSlot]) {
+          modifyStatsFromItemSocketBonus(itemId, 'add')
+        }
+        document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive = 'true'
+      }
+      socket.setAttribute('src', 'img/' + gemIconName)
+      socket.closest('a').setAttribute('href', href)
+      localStorage.selectedGems = JSON.stringify(selectedGems)
+      document.getElementById("gem-selection-table").style.display = "none"
+      refreshCharacterStats()
+      e.preventDefault()
     }
-  }
-  localStorage.gemPreferences = JSON.stringify(gemPreferences)
-})
+    // User clicks on the "Toggle Hidden Gems" button in the gem selection table
+    else if (e.target && e.target.matches("#show-hidden-gems-button")) {
+      const enabled = e.target.dataset.enabled == 'true'
+      e.target.dataset.enabled = !enabled
 
-// User clicks on a gem in the gem selection table
-$('#gem-selection-table').on('click', '.gem-name', function () {
-  const itemId = $('#gem-selection-table').data('itemId')
-  const itemSlot = $('tr[data-wowhead-id="' + itemId + '"]').data('slot')
-  const gemColor = $(this).closest('tr').data('color')
-  let gemIconName = href = null
-  const gemId = $(this).closest('tr').data('id')
-  const socket = $('tr[data-wowhead-id="' + itemId + '"]').find('.gem').eq($('#gem-selection-table').data('socketSlot'))
-  const socketColor = $(this).closest('#gem-selection-table').data('color')
-  const socketSlot = $('#gem-selection-table').data('socketSlot')
-  selectedGems[itemSlot] = selectedGems[itemSlot] || {}
-
-  if (!selectedGems[itemSlot][itemId]) {
-    // The amount of sockets in the item
-    const socketAmount = $('tr[data-wowhead-id="' + itemId + '"]').find('.gem').last().data('order') + 1
-    if (socketAmount > 0) {
-      selectedGems[itemSlot][itemId] = Array(socketAmount).fill(null)
+      // Hide/show all the hidden gems
+      Array.from(document.querySelectorAll(".gem-row[data-hidden='true']")).forEach(element => {
+        element.style.display = enabled ? "none" : ""
+      })
+      e.preventDefault()
     }
-  }
+    // "Fill Item Sockets" button clicked
+    else if (e.target && e.target.matches('#gem-options-button')) {
+      // Toggle the visibility of the gem options window
+      document.getElementById("gem-options-window").style.display = document.getElementById("gem-options-window").style.display == "none" ? "" : "none"
 
-  // Check whether the user chose a gem or the option to remove the current gem
-  if (gemId == '0') {
-    gemIconName = socketInfo[gemColor].iconName + '.jpg'
-    href = ''
-  } else {
-    gemIconName = gems[gemColor][gemId].iconName + '.jpg'
-    href = 'https://tbc.wowhead.com/item=' + gemId
-  }
-
-  // Check if the socket that was changed was on an equipped item
-  if (socket.closest('tr').data('wowhead-id') == selectedItems[itemSlot]) {
-    // Remove stats from old gem if equipped
-    if (selectedGems[itemSlot][itemId][socketSlot]) {
-      modifyStatsFromGem(selectedGems[itemSlot][itemId][socketSlot][1], 'remove')
-      if ($(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active') == 'true') {
-        modifyStatsFromItemSocketBonus(itemId, 'remove')
+      if (document.getElementById("gem-options-window").style.display == "") {
+        const selectedSocketColor = document.querySelector('#gem-options-window-socket-selection input[type="radio"]:checked').value
+        refreshGemOptionsGems(selectedSocketColor)
       }
     }
-    // Add stats from new gem
-    if (gemId) {
-      modifyStatsFromGem(gemId, 'add')
-    }
-  }
+  })
+  document.addEventListener("contextmenu", function(e) {
+    // Remove gem from item socket if user right clicks on the socket
+    if (e.target && e.target.matches("#item-selection-table tbody .gem")) {
+      // Check whether there is a gem in the socket or not
+      if (e.target.closest("a").getAttribute("href") !== '') {
+        const tr = e.target.closest("tr")
+        const socketColor = e.target.dataset.color
+        const itemSlot = tr.dataset.slot
+        const itemId = tr.dataset.wowheadid
+        const socketOrder = e.target.dataset.order
 
-  if ($(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active') == 'true') {
-    $(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active', 'false')
-  }
+        if (document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive == 'true') {
+          if (selectedItems[itemSlot] == itemId) {
+            modifyStatsFromItemSocketBonus(itemId, 'remove')
+          }
+          document.querySelector(".item-row[data-wowheadid='" + itemId + "']").dataset.socketbonusactive = 'false'
+        }
 
-  if (gemId == 0) {
-    selectedGems[itemSlot][itemId][socketSlot] = null
-  } else {
-    selectedGems[itemSlot][itemId][socketSlot] = [socketColor, gemId]
-  }
-  if (itemMeetsSocketRequirements(itemId)) {
-    // Only add the socket bonus if the player has the item equipped
-    if (socket.closest('tr').data('wowhead-id') == selectedItems[itemSlot]) {
-      modifyStatsFromItemSocketBonus(itemId, 'add')
-    }
-    $(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active', 'true')
-  }
-  socket.attr('src', 'img/' + gemIconName)
-  socket.closest('a').attr('href', href)
-  localStorage.selectedGems = JSON.stringify(selectedGems)
-  $('#gem-selection-table').css('visibility', 'hidden')
-  refreshCharacterStats()
-  return false
-})
-
-// Remove gem from item socket if user right clicks on the socket
-$('#item-selection-table tbody').on('contextmenu', '.gem', function (event) {
-  // Check whether there is a gem in the socket or not
-  if ($(this).closest('a').attr('href') !== '') {
-    const socketColor = $(this).data('color')
-    const itemSlot = $(this).closest('tr').data('slot')
-    const itemId = $(this).closest('tr').data('wowhead-id')
-    const socketOrder = $(this).data('order')
-
-    if ($(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active') == 'true') {
-      if (selectedItems[itemSlot] == itemId) {
-        modifyStatsFromItemSocketBonus(itemId, 'remove')
+        if (selectedItems[itemSlot] == itemId) {
+          modifyStatsFromGem(selectedGems[itemSlot][itemId][socketOrder][1], 'remove')
+        }
+        e.target.setAttribute("src", 'img/' + socketInfo[socketColor].iconName + '.jpg')
+        e.target.closest("a").setAttribute("href", "")
+        selectedGems[itemSlot][itemId][socketOrder][1] = null
+        localStorage.selectedGems = JSON.stringify(selectedGems)
+        refreshCharacterStats()
       }
-      $(".item-row[data-wowhead-id='" + itemId + "']").attr('data-socket-bonus-active', 'false')
+
+      e.preventDefault()
     }
-
-    if (selectedItems[itemSlot] == itemId) {
-      modifyStatsFromGem(selectedGems[itemSlot][itemId][socketOrder][1], 'remove')
-    }
-    $(this).attr('src', 'img/' + socketInfo[socketColor].iconName + '.jpg')
-    $(this).closest('a').attr('href', '')
-    selectedGems[itemSlot][itemId][socketOrder][1] = null
-    localStorage.selectedGems = JSON.stringify(selectedGems)
-    refreshCharacterStats()
-  }
-
-  return false
-})
-
-// User clicks on the "Toggle Hidden Gems" button in the gem selection table
-$(document).on('click', '#show-hidden-gems-button', function (e) {
-  const enabled = $(this).attr('data-enabled') == 'true'
-  $(this).attr('data-enabled', !enabled)
-
-  if (enabled) {
-    $(".gem-row[data-hidden='true']").hide()
-  } else {
-    $(".gem-row[data-hidden='true']").show()
-  }
-
-  e.stopPropagation()
-})
-
-// "Fill Item Sockets" button clicked
-$('#gem-options-button').click(function () {
-  $('#gem-options-window').toggle()
-
-  if ($('#gem-options-window').is(':visible')) {
-    const selectedSocketColor = $('#gem-options-window-socket-selection input[type="radio"]:checked').val()
-    refreshGemOptionsGems(selectedSocketColor)
-  }
+  })
 })
 
 // When one of the socket selection radio buttons gets changed in the "Fill Item Sockets"
