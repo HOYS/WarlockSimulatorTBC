@@ -112,7 +112,7 @@ void Spell::startCast(double predictedDamage)
     }
     if (predictedDamage > 0 && player->shouldWriteToCombatLog())
     {
-        combatLogMsg.append(" - Estimated damage / Cast time: " + std::to_string(round(predictedDamage)));
+        combatLogMsg.append(" - Estimated damage / Cast time: " + truncateTrailingZeros(std::to_string(round(predictedDamage))));
     }
 
     if (player->shouldWriteToCombatLog())
@@ -138,19 +138,21 @@ void Spell::tick(double t)
 
 void Spell::cast()
 {
+    int currentMana = player->stats->mana;
+    bool isCrit = false;
+    cooldownRemaining = cooldown;
+    casting = false;
+
     if (!isAura)
     {
         player->combatLogBreakdown.at(name)->casts++;
     }
-    const int currentMana = player->stats->mana;
+
     if (manaCost > 0 && !player->settings->infinitePlayerMana)
     {
         player->stats->mana -= manaCost * player->stats->manaCostModifier;
         player->fiveSecondRuleTimer = 5;
     }
-
-    cooldownRemaining = cooldown;
-    casting = false;
 
     if (castTime > 0 && player->shouldWriteToCombatLog())
     {
@@ -158,7 +160,6 @@ void Spell::cast()
         player->combatLog(msg);
     }
 
-    bool isCrit = false;
     if (canCrit)
     {
         isCrit = player->isCrit(type, bonusCrit);
@@ -757,6 +758,19 @@ void SeedOfCorruption::damage(bool isCrit)
     player->combatLogBreakdown.at(name)->misses += resistAmount;
     // the cast() function already adds 1 to the amount of casts so we only need to add enemiesHit - 1 to the cast amount
     player->combatLogBreakdown.at(name)->casts += (enemiesHit - 1);
+}
+
+double SeedOfCorruption::getModifier()
+{
+    double modifier = Spell::getModifier();
+    if (player->talents->shadowMastery > 0 && player->talents->contagion > 0)
+    {
+        // Divide away the bonus from Shadow Mastery
+        modifier /= (1 + (player->talents->shadowMastery * 0.02));
+        // Multiply the modifier with the bonus from Shadow Mastery + Contagion
+        modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0))));
+    }
+    return modifier;
 }
 
 DarkPact::DarkPact(Player* player) : Spell(player)

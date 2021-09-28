@@ -1,3 +1,5 @@
+var histogram = null
+
 // to-do: don't allow people to start multiple simulations
 // Starts a normal simulation
 $('#sim-dps').click(function () {
@@ -39,6 +41,8 @@ function simDPS (items) {
   let totalDamageDone = 0
   let spellDamageDict = {}
   let spellManaGainDict = {}
+  let dpsCount = {}
+  let dpsArray = []
   let startTime = performance.now()
 
   if (items.length > 1) {
@@ -49,6 +53,12 @@ function simDPS (items) {
     multiSimInfo.push([items[i], 0])
 
     simulations.push(new SimWorker(
+      // DPS callback for histogram
+      (dpsUpdate) => {
+        dpsArray.push(dpsUpdate.dps)
+        const dps = Math.round(dpsUpdate.dps)
+        dpsCount[dps] = Math.round(dpsCount[dps]) + 1 || 1
+      },
       // Combat Log Vector callback
       (combatLogVector) => {
         spellDamageDict[combatLogVector.name] = spellDamageDict[combatLogVector.name] + combatLogVector.damage || combatLogVector.damage
@@ -87,10 +97,44 @@ function simDPS (items) {
           $('#avg-dps').text(medianDps)
           $('#min-dps').text(minDps)
           $('#max-dps').text(maxDps)
+          if (dpsArray.length > 0)
+          {
+            document.getElementById("dps-stdev").innerHTML = "±" + Math.round(getStdev(dpsArray) * 100) / 100
+          }
         }
         // DPS information on the sidebar
-        if (itemAmount === 1) {
+        if (itemAmount == 1) {
           $('#sim-dps').text('Simulate')
+          // Histogram
+          var ctx = document.getElementById('dps-histogram').getContext('2d');
+
+          let newHistogram = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(dpsCount),
+                datasets: [{
+                    label: 'DPS Histogram',
+                    data: Object.keys(dpsCount).map(function (key) { return dpsCount[key]; }),
+                    borderWidth: 1,
+                    borderColor: '#9482C9'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true,
+                        }
+                    }]
+                }
+            }
+          });
+
+          // Delete the old histogram after creating a new one because otherwise it will close by itself if we delete before creating a new one
+          if (histogram != null) {
+            histogram.destroy()
+          }
+          histogram = newHistogram
 
           populateCombatLog(combatLog)
         } else if (simulationsFinished == itemAmount) {
@@ -220,6 +264,7 @@ function simStatWeights () {
   const statAmount = 100
   const stats = {
     normal: 0,
+    stamina: statAmount,
     intellect: statAmount,
     spellPower: statAmount,
     shadowPower: statAmount,
@@ -252,6 +297,8 @@ function simStatWeights () {
 
   // Normal sim with no added or removed stats
   sims.push(new SimWorker(
+    // DPS callback (for histogram)
+    (dpsUpdate) => {},
     // Combat Log Vector callback
     (combatLogVector) => {},
     // Error callback
@@ -279,6 +326,8 @@ function simStatWeights () {
 
   for (const stat in stats) {
     sims.push(new SimWorker(
+      // DPS callback (for histogram)
+      (dpsUpdate) => {},
       // Combat Log Vector callback
       (combatLogVector) => {},
       // Error callback
@@ -296,7 +345,9 @@ function simStatWeights () {
         simsFinished++
 
         if (simsFinished == sims.length) {
-          const pawnString = '( Pawn: v1: "' + (localStorage.selectedProfile || 'Warlock') + '": Class=Warlock, Spec=Affliction, Intellect=' + $('#stat-weight-intellect').text() +
+          const pawnString = '( Pawn: v1: "' + (localStorage.selectedProfile || 'Warlock') + '": Class=Warlock, Spec=Affliction' +
+          ', Stamina=' + $('#stat-weight-stamina').text() +
+          ', Intellect=' + $('#stat-weight-intellect').text() +
           ', SpellCritRating=' + $('#stat-weight-critRating').text() +
           ', SpellHitRating=' + $('#stat-weight-hitRating').text() +
           ', FireSpellDamage=' + $('#stat-weight-firePower').text() +

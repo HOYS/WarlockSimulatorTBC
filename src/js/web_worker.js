@@ -80,7 +80,9 @@ onmessage = function (e) {
                     }
                   }
                 }
-              } else { // No gem in this socket
+              }
+              // No gem in this socket
+              else {
                 socketBonusActive = false
               }
             }
@@ -190,7 +192,7 @@ onmessage = function (e) {
       , b.natureResist, b.arcaneResist, b.fireResist, b.frostResist, b.shadowResist)
     // Player settings
     let playerSettings = module._allocPlayerSettings(auras, talents, sets, stats, equippedItems, e.data.itemId, (metaGemIds[0] || -1), c["automatically-open-sim-details"] === "yes" && e.data.itemAmount == 1
-    , e.data.customStat === "intellect", e.data.customStat === "spellPower", e.data.customStat === "shadowPower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
+    , e.data.customStat === "stamina", e.data.customStat === "intellect", e.data.customStat === "spellPower", e.data.customStat === "shadowPower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
     , e.data.customStat === "critRating", e.data.customStat === "hasteRating", e.data.customStat === "mp5", c.shattrathFaction === "Aldor", parseInt(c['target-level']), parseInt(c['target-shadow-resistance'])
     , parseInt(c['target-fire-resistance']), parseInt(c.mageAtieshAmount), parseInt(c.totemOfWrathAmount), c.sacrificePet === "yes", c.petChoice === "0", c.petChoice === "2", c.petChoice === "4"
     , parseInt(c.ferociousInspirationAmount), parseInt(c.improvedCurseOfTheElements), c.customIsbUptime === "yes", parseInt(c.customIsbUptimeValue), parseInt(c.improvedDivineSpirit), parseInt(c.improvedImp)
@@ -201,7 +203,7 @@ onmessage = function (e) {
     , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.curse.curseOfDoom, d.finisher.deathCoil, d.finisher.shadowburn, d.finisher.conflagrate, d.other.shadowfury, d.other.amplifyCurse, d.other.darkPact
     , c.improvedWrathOfAirTotem === "yes")
     let player = module._allocPlayer(playerSettings)
-    let simSettings = module._allocSimSettings(e.data.simulation.iterations, e.data.simulation.minTime, e.data.simulation.maxTime, randomSeeds)
+    let simSettings = module._allocSimSettings(e.data.simulation.iterations, e.data.simulation.minTime, e.data.simulation.maxTime, randomSeeds, e.data.itemAmount > 1)
     let sim = module._allocSim(player, simSettings)
     module._startSimulation(sim)
     module._freeUnsignedIntArr(randomSeeds)

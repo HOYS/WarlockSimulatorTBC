@@ -58,11 +58,11 @@ void Simulation::start()
             // Use Bloodlust
             if (!player->spells->Bloodlust.empty() && !player->auras->Bloodlust->active)
             {
-                for (int i = 0; i < player->spells->Bloodlust.size(); i++)
+                for (auto bloodlust : player->spells->Bloodlust)
                 {
-                    if (player->spells->Bloodlust[i]->ready())
+                    if (bloodlust->ready())
                     {
-                        player->spells->Bloodlust[i]->startCast();
+                        bloodlust->startCast();
                         break;
                     }
                 }
@@ -207,8 +207,7 @@ void Simulation::start()
                             // If a max damage spell was not found or if the max damage spell isn't ready (no mana), then cast Life Tap
                             if (maxDamageSpell != NULL && maxDamageSpell->hasEnoughMana())
                             {
-                                player->useCooldowns();
-                                maxDamageSpell->startCast();
+                                castSelectedSpell(maxDamageSpell, maxDamageSpellValue);
                             }
                             else
                             {
@@ -271,6 +270,7 @@ void Simulation::start()
 
         player->totalDuration += fightLength;
         double dps = player->iterationDamage / static_cast<double>(fightLength);
+
         if (dps > maxDps)
         {
             maxDps = dps;
@@ -281,10 +281,17 @@ void Simulation::start()
         }
         dpsVector.push_back(dps);
 
+        // Only send the iteration's dps to the web worker if we're doing a normal simulation (this is just for the dps histogram)
+        if (!settings->multiItemSimulation && !player->settings->simmingStamina && !player->settings->simmingIntellect && !player->settings->simmingSpellPower && !player->settings->simmingShadowPower 
+            && !player->settings->simmingFirePower && !player->settings->simmingCritRating && !player->settings->simmingHitRating && !player->settings->simmingHasteRating && !player->settings->simmingMp5)
+        {
+            dpsUpdate(dps);
+        }
+
         if (player->iteration % static_cast<int>(std::floor(settings->iterations / 100.0)) == 0)
         {
             simulationUpdate(player->iteration, settings->iterations, median(dpsVector), player->settings->itemId,
-                player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" : 
+                player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" : 
                 player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
                 player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
         }
@@ -306,7 +313,7 @@ void Simulation::start()
         }
     }
     simulationEnd(median(dpsVector), minDps, maxDps, player->settings->itemId, settings->iterations, player->totalDuration,
-        player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" :
+        player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" :
         player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
         player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
 }
@@ -586,7 +593,7 @@ double Simulation::passTime()
 }
 
 // Handle the logic for when a spell is selected to be cast
-void Simulation::selectedSpellHandler(std::shared_ptr<Spell> spell, std::map<std::shared_ptr<Spell>, double>& predictedDamageOfSpells)
+void Simulation::selectedSpellHandler(std::shared_ptr<Spell>& spell, std::map<std::shared_ptr<Spell>, double>& predictedDamageOfSpells)
 {
     // If the sim is choosing the rotation for the player (or if it's a finisher spell) then predict the damage of the spell and put it in the map
     if ((player->settings->simChoosingRotation || spell->isFinisher) && predictedDamageOfSpells.count(spell) == 0)
@@ -596,18 +603,23 @@ void Simulation::selectedSpellHandler(std::shared_ptr<Spell> spell, std::map<std
     // Else if the player is choosing the rotation themselves then just cast the spell right away if they have enough mana
     else if (spell->hasEnoughMana())
     {
-        player->useCooldowns();
-
-        // Cast Amplify Curse if it's selected and the spell we're casting is either CoA or CoD
-        if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->ready() && ((player->spells->CurseOfAgony != NULL && spell == player->spells->CurseOfAgony) || (player->spells->CurseOfDoom != NULL && spell == player->spells->CurseOfDoom)))
-        {
-            player->spells->AmplifyCurse->startCast();
-        }
-
-        spell->startCast();
+        castSelectedSpell(spell);
     }
     else
     {
         player->castLifeTapOrDarkPact();
     }
+}
+
+void Simulation::castSelectedSpell(std::shared_ptr<Spell>& spell, double predictedDamage)
+{
+    player->useCooldowns();
+
+    // Cast Amplify Curse if it's selected and the spell we're casting is either CoA or CoD
+    if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->ready() && ((player->spells->CurseOfAgony != NULL && spell == player->spells->CurseOfAgony) || (player->spells->CurseOfDoom != NULL && spell == player->spells->CurseOfDoom)))
+    {
+        player->spells->AmplifyCurse->startCast();
+    }
+
+    spell->startCast(predictedDamage);
 }
