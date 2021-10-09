@@ -91,7 +91,7 @@ void combatLogUpdate(const char* combatLogEntry)
 #endif
 }
 
-void simulationUpdate(int iteration, int iterationAmount, double medianDps, int itemId, const char* customStat)
+void simulationUpdate(int iteration, int iterationAmount, double medianDps, int itemId, const char* customStat, int startingIteration)
 {
 #ifdef EMSCRIPTEN
     EM_ASM({
@@ -102,16 +102,17 @@ void simulationUpdate(int iteration, int iterationAmount, double medianDps, int 
                 iteration: $1,
                 iterationAmount: $2,
                 itemId: $3,
-                customStat: UTF8ToString($4)
+                customStat: UTF8ToString($4),
+                startingIteration: $5
             }
         })
-    }, medianDps, iteration, iterationAmount, itemId, customStat);
+    }, medianDps, iteration, iterationAmount, itemId, customStat, startingIteration);
 #else
     std::cout << "Iteration: " << std::to_string(iteration) << "/" << std::to_string(iterationAmount) << ". Median DPS: " << std::to_string(medianDps) << std::endl;
 #endif
 }
 
-void simulationEnd(double medianDps, double minDps, double maxDps, int itemId, int iterationAmount, int totalDuration, const char* customStat)
+void simulationEnd(double medianDps, double minDps, double maxDps, int itemId, int iterationAmount, int totalDuration, const char* customStat, int startingIteration)
 {
 #ifdef EMSCRIPTEN
     EM_ASM({
@@ -124,10 +125,11 @@ void simulationEnd(double medianDps, double minDps, double maxDps, int itemId, i
                 itemId: $3,
                 iterationAmount: $4,
                 totalDuration: $5,
-                customStat: UTF8ToString($6)
+                customStat: UTF8ToString($6),
+                startingIteration: $7
             }
         })
-    }, medianDps, minDps, maxDps, itemId, iterationAmount, totalDuration, customStat);
+    }, medianDps, minDps, maxDps, itemId, iterationAmount, totalDuration, customStat, startingIteration);
 #else
     std::cout << "Median DPS: " << std::to_string(medianDps) << ". Min DPS: " << std::to_string(minDps) << ". Max DPS: " << std::to_string(maxDps) << std::endl;
 #endif
@@ -234,9 +236,9 @@ Player* allocPlayer(PlayerSettings* settings)
 }
 
 EMSCRIPTEN_KEEPALIVE
-SimulationSettings* allocSimSettings(int iterations, int minTime, int maxTime, unsigned int* randomSeeds, bool multiItemSimulation)
+SimulationSettings* allocSimSettings(int iterations, int minTime, int maxTime, unsigned int* randomSeeds, bool multiItemSimulation, int startingIteration)
 {
-    return new SimulationSettings(iterations, minTime, maxTime, randomSeeds, multiItemSimulation);
+    return new SimulationSettings(iterations, minTime, maxTime, randomSeeds, multiItemSimulation, startingIteration);
 }
 
 EMSCRIPTEN_KEEPALIVE

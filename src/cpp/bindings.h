@@ -15,8 +15,8 @@ void errorCallback(const char* errorMsg);
 void postCombatLogBreakdownVector(const char* name, int manaGain, int damage);
 void postCombatLogBreakdown(const char* name, int casts, int crits, int misses, int count, double uptime, int dodges, int glancingBlows);
 void combatLogUpdate(const char* combatLogEntry);
-void simulationUpdate(int iteration, int iterationAmount, double medianDps, int itemId, const char* customStat);
-void simulationEnd(double medianDps, double minDps, double maxDps, int itemId, int iterationAmount, int totalDuration, const char* customStat);
+void simulationUpdate(int iteration, int iterationAmount, double medianDps, int itemId, const char* customStat, int startingIteration);
+void simulationEnd(double medianDps, double minDps, double maxDps, int itemId, int iterationAmount, int totalDuration, const char* customStat, int startingIteration);
 
 extern "C"
 {
@@ -50,7 +50,7 @@ extern "C"
         , bool hasCorruption, bool hasSiphonLife, bool hasUnstableAffliction, bool hasSearingPain, bool hasShadowBolt, bool hasIncinerate, bool hasCurseOfRecklessness, bool hasCurseOfTheElements
         , bool hasCurseOfAgony, bool hasCurseOfDoom, bool hasDeathCoil, bool hasShadowburn, bool hasConflagrate, bool hasShadowfury, bool hasAmplifyCurse, bool hasDarkPact, bool hasElementalShamanT4Bonus);
     Player* allocPlayer(PlayerSettings* settings);
-    SimulationSettings* allocSimSettings(int iterations, int minTime, int maxTime, unsigned int* randomSeeds, bool multiItemSimulation);
+    SimulationSettings* allocSimSettings(int iterations, int minTime, int maxTime, unsigned int* randomSeeds, bool multiItemSimulation, int startingIteration);
     Simulation* allocSim(Player* player, SimulationSettings* simulationSettings);
     void freeUnsignedIntArr(unsigned int* arr);
     void freeItems(Items* items);

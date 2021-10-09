@@ -34,29 +34,53 @@ function simDPS (items) {
   const multiSimInfo = []
   const simulations = []
   let simIndex = 0
-  let combatLog = []
-  let combatLogBreakdownArr = []
+  const combatLog = []
+  const combatLogBreakdownArr = []
   let playerHasMeleePet = false
   let totalManaRegenerated = 0
   let totalDamageDone = 0
   let spellDamageDict = {}
   let spellManaGainDict = {}
   let dpsCount = {}
-  let dpsArray = []
+  const dpsArray = []
   let startTime = performance.now()
+  const playerSettings = Player.getSettings()
+  const simSettings = Simulation.getSettings()
+  let totalIterationAmount = simSettings.iterations
+  const multiThreadSimInformation = []
 
-  if (items.length > 1) {
+  // If doing a normal sim then divide the sim into multiple segments to multi-thread it.
+  // For each web worker we have available (maxWorkers variable), divide the total iterations by that number and have each thread do that many iterations
+  // If totalIterationAmount starts at 100,000 and we have 7 web workers available, then it will do 100,000 / 7 and get 14,285 (floored).
+  // Then it subtracts that amount from totalIterationAmount and the next loop will do 85,715 / 6 to get 14,285 (floored) etc. And in the end totalIterationAmount will end at 0.
+  if (itemAmount == 1) {
+    let currentStartingIteration = 0
+    let workerAmount = maxWorkers
+
+    for (let i = 0; i < workerAmount; i++) {
+      const workerIterations = Math.floor(totalIterationAmount / (workerAmount - i))
+      // Add a new array to the multiThreadSimInformation array where the first index is the sim's starting iterations
+      // the second index is the sim's total iterations
+      // the third index is the sim's current progress %
+      // and the fourth index is the sim's median dps
+      multiThreadSimInformation.push([currentStartingIteration, workerIterations, 0, 0])
+      currentStartingIteration += workerIterations
+      totalIterationAmount -= workerIterations
+    }
+  }
+
+  if (itemAmount > 1) {
     $('.item-dps').text('')
   }
 
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < Math.max(itemAmount, multiThreadSimInformation.length); i++) {
     multiSimInfo.push([items[i], 0])
 
     simulations.push(new SimWorker(
       // DPS callback for histogram
       (dpsUpdate) => {
-        dpsArray.push(dpsUpdate.dps)
         const dps = Math.round(dpsUpdate.dps)
+        dpsArray.push(dpsUpdate.dps)
         dpsCount[dps] = Math.round(dpsCount[dps]) + 1 || 1
       },
       // Combat Log Vector callback
@@ -85,6 +109,7 @@ function simDPS (items) {
       },
       // Simulation End callback
       (simulationEnd) => {
+        console.log(multiThreadSimInformation)
         let minDps = Math.round(simulationEnd.minDps * 100) / 100
         let maxDps = Math.round(simulationEnd.maxDps * 100) / 100
         let medianDps = Math.round(simulationEnd.medianDps * 100) / 100
@@ -212,14 +237,34 @@ function simDPS (items) {
       (simulationUpdate) => {
         let medianDps = Math.round(simulationUpdate.medianDps * 100) / 100
 
-        if (simulationUpdate.itemId == equippedItemId || itemAmount == 1) {
-          $('#avg-dps').text(medianDps)
+        if (simulationUpdate.itemId == equippedItemId) {
+          document.getElementById("avg-dps").innerHTML = medianDps
         }
+        if (itemAmount == 1) {
+          var progressPercent = Math.ceil((simulationUpdate.iteration / (simulationUpdate.startingIteration + simulationUpdate.iterationAmount)) * 100)
+
+          // Update the sim's median dps in the multiThreadSimInformation array
+          for (let i = 0; i < multiThreadSimInformation.length; i++) {
+            if (multiThreadSimInformation[i][0] == simulationUpdate.startingIteration) {
+              multiThreadSimInformation[i][2] = progressPercent
+              multiThreadSimInformation[i][3] = simulationUpdate.medianDps
+              break
+            }
+          }
+
+          medianDps = median(multiThreadSimInformation.map(a => a[3]))
+        }
+
         if (itemAmount === 1) {
-          let progressPercent = Math.ceil((simulationUpdate.iteration / simulationUpdate.iterationAmount) * 100)
+          let averageSimProgressPercent = 0
+          multiThreadSimInformation.forEach(a => {
+            averageSimProgressPercent += a[2]
+          })
+          averageSimProgressPercent = ~~(averageSimProgressPercent / multiThreadSimInformation.length)
+
           // Uses the sim button as a progress bar by coloring it based on how many iterations are done with
-          $('#sim-dps').css('background', 'linear-gradient(to right, #9482C9 ' + progressPercent + '%, transparent ' + progressPercent + '%)')
-          $('#sim-dps').text(Math.round(progressPercent) + '%')
+          $('#sim-dps').css('background', 'linear-gradient(to right, #9482C9 ' + averageSimProgressPercent + '%, transparent ' + averageSimProgressPercent + '%)')
+          $('#sim-dps').text(Math.round(averageSimProgressPercent) + '%')
         } else {
           // multiSimInfo tracks the % progress of each simulation and the average simulation progress % is used for the multi-item simulation progress bar
           let totalProgress = 0
@@ -236,14 +281,17 @@ function simDPS (items) {
         }
         // Set the DPS value on the item in the item selection list
         updateItemRowDps(simulationUpdate.itemId, medianDps)
+        console.log(multiThreadSimInformation.map(a => a[2]))
       },
       {
-        player: Player.getSettings(),
-        simulation: Simulation.getSettings(),
+        player: playerSettings,
+        simulation: simSettings,
         itemSlot: itemSlot,
         itemSubSlot: itemSubSlot,
-        itemId: items[i],
-        itemAmount: itemAmount
+        itemId: itemAmount > 1 ? items[i] : items[0],
+        itemAmount: itemAmount,
+        startingIteration: itemAmount > 1 ? 0 : multiThreadSimInformation[i][0],
+        iterationAmount: itemAmount > 1 ? simSettings.iterations : multiThreadSimInformation[i][1]
       }
     ))
   }

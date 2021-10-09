@@ -19,8 +19,9 @@ void Simulation::start()
     double maxDps = 0;
     std::mt19937 gen;
     std::uniform_int_distribution<> randomFightLength(settings->minTime, settings->maxTime);
+    std::cout << settings->startingIteration << " " << settings->iterations << std::endl;
 
-    for (player->iteration = 0; player->iteration < settings->iterations; player->iteration++)
+    for (player->iteration = settings->startingIteration; player->iteration < settings->startingIteration + settings->iterations; player->iteration++)
     {
         // Set the random seeds
         player->gen.seed(settings->randomSeeds[player->iteration]);
@@ -293,7 +294,7 @@ void Simulation::start()
                 player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpirit ? "spirit" :
                 player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" : 
                 player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
-                player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
+                player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal", settings->startingIteration);
         }
     }
 
@@ -316,7 +317,7 @@ void Simulation::start()
         player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpirit ? "spirit" :
         player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" :
         player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
-        player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
+        player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal", settings->startingIteration);
 }
 
 double Simulation::passTime()
