@@ -105,11 +105,6 @@ struct Corruption : public Spell
     Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
 };
 
-struct UnstableAffliction : public Spell
-{
-    UnstableAffliction(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
-};
-
 struct SiphonLife : public Spell
 {
     SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);

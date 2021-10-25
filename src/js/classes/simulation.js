@@ -44,7 +44,6 @@ class Simulation {
 
     if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.auras.improvedShadowBolt.durationRemaining < time) time = this.player.auras.improvedShadowBolt.durationRemaining
     if (this.player.auras.corruption && this.player.auras.corruption.active && this.player.auras.corruption.tickTimerRemaining < time) time = this.player.auras.corruption.tickTimerRemaining
-    if (this.player.auras.unstableAffliction && this.player.auras.unstableAffliction.active && this.player.auras.unstableAffliction.tickTimerRemaining < time) time = this.player.auras.unstableAffliction.tickTimerRemaining
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active && this.player.auras.siphonLife.tickTimerRemaining < time) time = this.player.auras.siphonLife.tickTimerRemaining
     if (this.player.auras.immolate && this.player.auras.immolate.active && this.player.auras.immolate.tickTimerRemaining < time) time = this.player.auras.immolate.tickTimerRemaining
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active && this.player.auras.curseOfAgony.tickTimerRemaining < time) time = this.player.auras.curseOfAgony.tickTimerRemaining
@@ -165,7 +164,6 @@ class Simulation {
     if (this.player.auras.powerInfusion && this.player.auras.powerInfusion.active) this.player.auras.powerInfusion.tick(time)
     if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active) this.player.auras.improvedShadowBolt.tick(time)
     if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.tick(time)
-    if (this.player.auras.unstableAffliction && this.player.auras.unstableAffliction.active) this.player.auras.unstableAffliction.tick(time)
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.tick(time)
     if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.tick(time)
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.tick(time)
@@ -201,7 +199,6 @@ class Simulation {
     if (this.player.spells.shadowBolt && this.player.spells.shadowBolt.casting) this.player.spells.shadowBolt.tick(time)
     if (this.player.spells.immolate && this.player.spells.immolate.casting) this.player.spells.immolate.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
-    if (this.player.spells.unstableAffliction && this.player.spells.unstableAffliction.casting) this.player.spells.unstableAffliction.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
     if (this.player.spells.superManaPotion && this.player.spells.superManaPotion.cooldownRemaining > 0) this.player.spells.superManaPotion.tick(time)
     if (this.player.spells.demonicRune && this.player.spells.demonicRune.cooldownRemaining > 0) this.player.spells.demonicRune.tick(time)
@@ -288,7 +285,6 @@ class Simulation {
       // Reset/initialize values for spells that have a cooldown or a cast time
       if (this.player.spells.shadowBolt) this.player.spells.shadowBolt.reset()
       if (this.player.spells.corruption) this.player.spells.corruption.reset()
-      if (this.player.spells.unstableAffliction) this.player.spells.unstableAffliction.reset()
       if (this.player.spells.immolate) this.player.spells.immolate.reset()
       if (this.player.spells.destructionPotion) this.player.spells.destructionPotion.reset()
       if (this.player.spells.superManaPotion) this.player.spells.superManaPotion.reset()
@@ -419,14 +415,6 @@ class Simulation {
                       this.player.cast('shadowBolt')
                     }
                   }
-                  // Cast Unstable Affliction if it's not up or if it's about to expire
-                  if (this.player.spells.unstableAffliction && this.player.spells.unstableAffliction.canCast() && (!this.player.auras.unstableAffliction.active || (this.player.auras.unstableAffliction.ticksRemaining == 1 && this.player.auras.unstableAffliction.tickTimerRemaining < this.player.spells.unstableAffliction.getCastTime())) && (timeRemaining - this.player.spells.unstableAffliction.getCastTime()) >= this.player.auras.unstableAffliction.minimumDuration) {
-                    if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.unstableAffliction.varName, this.player.spells.unstableAffliction.predictDamage()])
-                    } else if (this.player.spells.unstableAffliction.hasEnoughMana()) {
-                      this.player.cast('unstableAffliction')
-                    }
-                  }
                   // Cast Siphon Life if it's not up (todo: add option to only cast it while ISB is active if not using custom ISB uptime %)
                   if (this.player.spells.siphonLife && !this.player.auras.siphonLife.active && this.player.spells.siphonLife.canCast() && /* (!this.player.auras.improvedShadowBolt || this.player.auras.improvedShadowBolt.active) && */ timeRemaining >= this.player.auras.siphonLife.minimumDuration) {
                     if (this.player.simChoosingRotation) {
@@ -543,7 +531,6 @@ class Simulation {
       if (this.player.auras.powerInfusion) this.player.auras.powerInfusion.fade(true)
       if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active) this.player.auras.improvedShadowBolt.fade(true)
       if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.fade(true)
-      if (this.player.auras.unstableAffliction && this.player.auras.unstableAffliction.active) this.player.auras.unstableAffliction.fade(true)
       if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.fade(true)
       if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.fade(true)
       if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.fade(true)
@@ -585,7 +572,6 @@ class Simulation {
       if (this.player.spells.corruption && this.player.auras.corruption.active) this.player.auras.corruption.fade(true)
       if (this.player.spells.immolate && this.player.auras.immolate.active) this.player.auras.immolate.fade(true)
       if (this.player.spells.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.fade(true)
-      if (this.player.spells.unstableAffliction && this.player.auras.unstableAffliction.active) this.player.auras.unstableAffliction.fade(true)
     }
     if (this.timeTotal > 0) {
       console.log(this.timeTotal)

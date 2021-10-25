@@ -16,11 +16,6 @@ const _spellSelection = {
         name: 'Siphon Life',
         iconName: 'spell_shadow_requiem',
         id: 30911
-      },
-      unstableAffliction: {
-        name: 'Unstable Affliction',
-        iconName: 'spell_shadow_unstableaffliction_3',
-        id: 30405
       }
     }
   },

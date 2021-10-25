@@ -13,7 +13,6 @@ const presetTalents = {
     shadowMastery: 5,
     contagion: 5,
     malediction: 3,
-    unstableAffliction: 1,
     improvedShadowBolt: 5,
     bane: 5,
     devastation: 5,

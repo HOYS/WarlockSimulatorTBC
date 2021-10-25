@@ -195,20 +195,6 @@ class CorruptionDot extends DamageOverTime {
   }
 }
 
-class UnstableAfflictionDot extends DamageOverTime {
-  constructor (player) {
-    super(player)
-    this.durationTotal = 18
-    this.tickTimerTotal = 3
-    this.dmg = 1050
-    this.school = 'shadow'
-    this.name = 'Unstable Affliction'
-    this.coefficient = 1.2
-    this.minimumDuration = 9
-    this.setup()
-  }
-}
-
 class SiphonLifeDot extends DamageOverTime {
   constructor (player) {
     super(player)

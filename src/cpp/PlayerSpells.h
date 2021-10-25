@@ -8,7 +8,6 @@ struct PlayerSpells
     std::shared_ptr<Spell> LifeTap;
     std::shared_ptr<Spell> ShadowBolt;
     std::shared_ptr<Spell> Corruption;
-    std::shared_ptr<Spell> UnstableAffliction;
     std::shared_ptr<Spell> SiphonLife;
     std::shared_ptr<Spell> Immolate;
     std::shared_ptr<Spell> CurseOfAgony;

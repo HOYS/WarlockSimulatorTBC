@@ -432,7 +432,6 @@ class Player {
     } else {
       if (this.rotation.filler.shadowBolt || this.filler == 'shadowBolt' || this.talents.nightfall > 0 || this.simChoosingRotation) this.spells.shadowBolt = new ShadowBolt(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
-      if (this.talents.unstableAffliction && (this.rotation.dot.unstableAffliction || this.simChoosingRotation)) this.spells.unstableAffliction = new UnstableAffliction(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
       if (this.rotation.dot.immolate  || this.simChoosingRotation) this.spells.immolate = new Immolate(this)
       if (this.rotation.curse.curseOfAgony) this.spells.curseOfAgony = new CurseOfAgony(this)
@@ -489,7 +488,6 @@ class Player {
     if (this.simSettings.fightType == "singleTarget") {
       if (this.talents.improvedShadowBolt > 0) this.auras.improvedShadowBolt = new ImprovedShadowBolt(this)
       if (this.spells.corruption) this.auras.corruption = new CorruptionDot(this)
-      if (this.spells.unstableAffliction) this.auras.unstableAffliction = new UnstableAfflictionDot(this)
       if (this.spells.siphonLife) this.auras.siphonLife = new SiphonLifeDot(this)
       if (this.spells.immolate) this.auras.immolate = new ImmolateDot(this)
       if (this.spells.curseOfAgony) this.auras.curseOfAgony = new CurseOfAgonyDot(this)

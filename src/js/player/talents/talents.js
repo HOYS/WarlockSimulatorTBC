@@ -149,17 +149,6 @@ const _talents = {
       iconName: 'spell_shadow_curseofachimonde',
       row: 8,
       column: 3
-    },
-    unstableAffliction: {
-      name: 'Unstable Affliction',
-      rankIDs: [30108],
-      iconName: 'spell_shadow_unstableaffliction_3',
-      row: 9,
-      column: 2,
-      requirement: {
-        name: 'contagion',
-        points: 5
-      }
     }
   },
   demonology: {

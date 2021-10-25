@@ -6,7 +6,6 @@
 struct PlayerAuras
 {
     std::shared_ptr<DamageOverTime> Corruption;
-    std::shared_ptr<DamageOverTime> UnstableAffliction;
     std::shared_ptr<DamageOverTime> SiphonLife;
     std::shared_ptr<DamageOverTime> Immolate;
     std::shared_ptr<DamageOverTime> CurseOfAgony;

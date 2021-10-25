@@ -302,7 +302,6 @@ void Player::initialize()
     {
         if (talents->improvedShadowBolt > 0) auras->ImprovedShadowBolt = std::make_shared<ImprovedShadowBoltAura>(this);
         if (settings->hasCorruption || settings->simChoosingRotation) auras->Corruption = std::make_shared<CorruptionDot>(this);
-        if (talents->unstableAffliction == 1 && (settings->hasUnstableAffliction || settings->simChoosingRotation)) auras->UnstableAffliction = std::make_shared<UnstableAfflictionDot>(this);
         if (talents->siphonLife == 1 && (settings->hasSiphonLife || settings->simChoosingRotation)) auras->SiphonLife = std::make_shared<SiphonLifeDot>(this);
         if (settings->hasImmolate || settings->simChoosingRotation) auras->Immolate = std::make_shared<ImmolateDot>(this);
         if (settings->hasCurseOfAgony) auras->CurseOfAgony = std::make_shared<CurseOfAgonyDot>(this);
@@ -352,7 +351,6 @@ void Player::initialize()
         if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
         if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
-        if (auras->UnstableAffliction != NULL) spells->UnstableAffliction = std::make_shared<UnstableAffliction>(this, nullptr, auras->UnstableAffliction);
         if (auras->SiphonLife != NULL) spells->SiphonLife = std::make_shared<SiphonLife>(this, nullptr, auras->SiphonLife);
         if (auras->Immolate != NULL) spells->Immolate = std::make_shared<Immolate>(this, nullptr, auras->Immolate);
         if (auras->CurseOfAgony != NULL) spells->CurseOfAgony = std::make_shared<CurseOfAgony>(this, nullptr, auras->CurseOfAgony);
@@ -442,7 +440,6 @@ void Player::reset()
     if (spells->LifeTap != NULL) spells->LifeTap->reset();
     if (spells->ShadowBolt != NULL) spells->ShadowBolt->reset();
     if (spells->Corruption != NULL) spells->Corruption->reset();
-    if (spells->UnstableAffliction != NULL) spells->UnstableAffliction->reset();
     if (spells->SiphonLife != NULL) spells->SiphonLife->reset();
     if (spells->Immolate != NULL) spells->Immolate->reset();
     if (spells->CurseOfAgony != NULL) spells->CurseOfAgony->reset();
@@ -494,7 +491,6 @@ void Player::reset()
         }
     }
     if (auras->Corruption != NULL && auras->Corruption->active) auras->Corruption->fade(true);
-    if (auras->UnstableAffliction != NULL && auras->UnstableAffliction->active) auras->UnstableAffliction->fade(true);
     if (auras->SiphonLife != NULL && auras->SiphonLife->active) auras->SiphonLife->fade(true);
     if (auras->Immolate != NULL && auras->Immolate->active) auras->Immolate->fade(true);
     if (auras->CurseOfAgony != NULL && auras->CurseOfAgony->active) auras->CurseOfAgony->fade(true);

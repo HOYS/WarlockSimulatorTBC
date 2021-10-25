@@ -619,17 +619,6 @@ Corruption::Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_p
     setup();
 }
 
-UnstableAffliction::UnstableAffliction(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
-{
-    name = "Unstable Affliction";
-    manaCost = 400;
-    castTime = 1.5;
-    isDot = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::AFFLICTION;
-    setup();
-}
-
 SiphonLife::SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {
     name = "Siphon Life";

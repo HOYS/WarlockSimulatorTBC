@@ -554,19 +554,6 @@ class Corruption extends Spell {
   }
 }
 
-class UnstableAffliction extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Unstable Affliction'
-    this.manaCost = 400
-    this.castTime = 1.5
-    this.isDot = true
-    this.school = 'shadow'
-    this.type = 'affliction'
-    this.setup()
-  }
-}
-
 class SiphonLife extends Spell {
   constructor (player) {
     super(player)

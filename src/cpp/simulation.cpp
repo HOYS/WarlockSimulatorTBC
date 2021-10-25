@@ -294,7 +294,6 @@ double Simulation::passTime()
 
     #pragma region Auras & Dots
     if (player->auras->Corruption != NULL && player->auras->Corruption->active && player->auras->Corruption->tickTimerRemaining < time) time = player->auras->Corruption->tickTimerRemaining;
-    if (player->auras->UnstableAffliction != NULL && player->auras->UnstableAffliction->active && player->auras->UnstableAffliction->tickTimerRemaining < time) time = player->auras->UnstableAffliction->tickTimerRemaining;
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining < time) time = player->auras->SiphonLife->tickTimerRemaining;
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining < time) time = player->auras->Immolate->tickTimerRemaining;
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining < time) time = player->auras->CurseOfAgony->tickTimerRemaining;
@@ -361,7 +360,6 @@ double Simulation::passTime()
     // This was also causing buffs like e.g. the t4 4pc buffs to expire sooner than they should.
     #pragma region Auras
     if (player->auras->Corruption != NULL && player->auras->Corruption->active && player->auras->Corruption->tickTimerRemaining > 0) player->auras->Corruption->tick(time);
-    if (player->auras->UnstableAffliction != NULL && player->auras->UnstableAffliction->active && player->auras->UnstableAffliction->tickTimerRemaining > 0) player->auras->UnstableAffliction->tick(time);
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining > 0) player->auras->SiphonLife->tick(time);
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining > 0) player->auras->Immolate->tick(time);
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining > 0) player->auras->CurseOfAgony->tick(time);
@@ -401,7 +399,6 @@ double Simulation::passTime()
     #pragma region Spells
     if (player->spells->ShadowBolt != NULL && player->spells->ShadowBolt->casting) player->spells->ShadowBolt->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
-    if (player->spells->UnstableAffliction != NULL && player->spells->UnstableAffliction->casting) player->spells->UnstableAffliction->tick(time);
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
     if (player->spells->Conflagrate != NULL && (player->spells->Conflagrate->cooldownRemaining > 0 || player->spells->Conflagrate->casting)) player->spells->Conflagrate->tick(time);
     if (player->spells->Shadowfury != NULL && (player->spells->Shadowfury->cooldownRemaining > 0 || player->spells->Shadowfury->casting)) player->spells->Shadowfury->tick(time);

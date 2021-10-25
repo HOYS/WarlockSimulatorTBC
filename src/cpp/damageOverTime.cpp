@@ -251,18 +251,6 @@ void CorruptionDot::apply()
     DamageOverTime::apply();
 }
 
-UnstableAfflictionDot::UnstableAfflictionDot(Player* player) : DamageOverTime(player)
-{
-    name = "Unstable Affliction";
-    duration = 18;
-    tickTimerTotal = 3;
-    dmg = 1050;
-    school = SpellSchool::SHADOW;
-    coefficient = 1.2;
-    minimumDuration = 9;
-    setup();
-}
-
 SiphonLifeDot::SiphonLifeDot(Player* player) : DamageOverTime(player)
 {
     name = "Siphon Life";

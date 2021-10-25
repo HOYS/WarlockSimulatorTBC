@@ -66,7 +66,6 @@ struct PlayerSettings
     bool hasImmolate;
     bool hasCorruption;
     bool hasSiphonLife;
-    bool hasUnstableAffliction;
     bool hasShadowBolt;
     bool hasCurseOfRecklessness;
     bool hasCurseOfTheElements;
@@ -83,7 +82,7 @@ struct PlayerSettings
         , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int improvedImp, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
         , bool isOrc, int powerInfusionAmount, int bloodlustAmount, int innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
         , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool simChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility
-        , bool hasImmolate, bool hasCorruption, bool hasSiphonLife, bool hasUnstableAffliction, bool hasShadowBolt, bool hasCurseOfRecklessness
+        , bool hasImmolate, bool hasCorruption, bool hasSiphonLife, bool hasShadowBolt, bool hasCurseOfRecklessness
         , bool hasCurseOfTheElements, bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury, bool hasAmplifyCurse
         , bool hasDarkPact, bool hasElementalShamanT4Bonus);
 };

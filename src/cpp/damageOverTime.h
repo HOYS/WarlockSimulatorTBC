@@ -44,11 +44,6 @@ struct CorruptionDot : public DamageOverTime
     CorruptionDot(Player* player);
 };
 
-struct UnstableAfflictionDot : public DamageOverTime
-{
-    UnstableAfflictionDot(Player* player);
-};
-
 struct SiphonLifeDot : public DamageOverTime
 {
     SiphonLifeDot(Player* player);
