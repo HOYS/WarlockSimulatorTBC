@@ -156,7 +156,7 @@ class CorruptionDot extends DamageOverTime {
     this.dmg = 900
     this.school = 'shadow'
     this.name = 'Corruption'
-    this.coefficient = 0.936 + (0.12 * player.talents.empoweredCorruption)
+    this.coefficient = 0.936 + (0.12 * player.talents.unrelentingStorm)
     this.minimumDuration = 9
     this.t5BonusModifier = 1
     this.setup()
@@ -167,12 +167,12 @@ class CorruptionDot extends DamageOverTime {
 
   getModifier () {
     let modifier = super.getModifier()
-    if (this.player.talents.shadowMastery > 0 && this.player.talents.contagion > 0) {
-      // Divide away the bonus from Shadow Mastery
-      modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
-      // Multiply the modifier with the bonus from Shadow Mastery + Contagion
-      modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100))))
-    }
+    // if (this.player.talents.shadowMastery > 0 && this.player.talents.contagion > 0) {
+    //   // Divide away the bonus from Shadow Mastery
+    //   modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
+    //   // Multiply the modifier with the bonus from Shadow Mastery + Contagion
+    //   modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100))))
+    // }
     return modifier
   }
 
@@ -234,8 +234,8 @@ class CurseOfAgonyDot extends DamageOverTime {
   getModifier () {
     let modifier = super.getModifier()
     // Remove bonus from Shadow Mastery and add bonus from Shadow Mastery + Contagion + Improved Curse of Agony
-    modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
-    modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100) + (this.player.talents.reverberation * 0.05))))
+    // modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
+    // modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100) + (this.player.talents.reverberation * 0.05))))
     return modifier
   }
 }

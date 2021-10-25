@@ -205,7 +205,7 @@ class Player {
       }
     }
 
-    this.stats.shadowModifier *= (1 + (0.02 * settings.talents.shadowMastery))
+    // this.stats.shadowModifier *= (1 + (0.02 * settings.talents.shadowMastery))
     this.spellTravelTime = 1
 
     // The Twin Stars 2-set bonus
@@ -441,7 +441,6 @@ class Player {
       if (this.talents.shadowfury == 1 && (this.rotation.other.shadowfury || this.simChoosingRotation)) this.spells.shadowfury = new Shadowfury(this)
     }
 
-    if (this.talents.darkPact == 1 && (this.rotation.other.darkPact || this.simChoosingRotation)) this.spells.darkPact = new DarkPact(this)
     if (this.selectedAuras.destructionPotion) this.spells.destructionPotion = new DestructionPotion(this)
     if (this.selectedAuras.superManaPotion) this.spells.superManaPotion = new SuperManaPotion(this)
     if (this.selectedAuras.demonicRune) this.spells.demonicRune = new DemonicRune(this)
@@ -619,11 +618,9 @@ class Player {
   }
 
   castLifeTapOrDarkPact() {
-    if (this.spells.darkPact && this.spells.darkPact.ready()) {
-      this.cast('darkPact')
-    } else {
-      this.cast('lifeTap')
-    }
+
+    this.cast('lifeTap')
+    
   }
 
   getGcdValue(spellVarName = '') {

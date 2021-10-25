@@ -585,28 +585,6 @@ Shadowfury::Shadowfury(Player* player) : Spell(player)
     setup();
 }
 
-DarkPact::DarkPact(Player* player) : Spell(player)
-{
-    name = "Dark Pact";
-    manaReturn = 700;
-    coefficient = 0.96;
-    setup();
-}
-
-double DarkPact::manaGain()
-{
-    return 0;
-}
-
-bool DarkPact::ready()
-{
-    return false;
-}
-
-void DarkPact::cast()
-{
-
-}
 
 Corruption::Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {

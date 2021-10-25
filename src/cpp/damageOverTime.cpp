@@ -203,7 +203,7 @@ CorruptionDot::CorruptionDot(Player* player) : DamageOverTime(player)
     tickTimerTotal = 3;
     dmg = 900;
     school = SpellSchool::SHADOW;
-    coefficient = 0.936 + (0.12 * player->talents->empoweredCorruption);
+    coefficient = 0.936 + (0.12 * player->talents->unrelentingStorm);
     minimumDuration = 9;
     t5BonusModifier = 1;
     setup();
@@ -218,13 +218,13 @@ CorruptionDot::CorruptionDot(Player* player) : DamageOverTime(player)
 double CorruptionDot::getModifier()
 {
     double modifier = DamageOverTime::getModifier();
-    if (player->talents->shadowMastery > 0 && player->talents->contagion > 0)
-    {
-        // Divide away the bonus from Shadow Mastery
-        modifier /= (1 + (player->talents->shadowMastery * 0.02));
-        // Multiply the modifier with the bonus from Shadow Mastery + Contagion
-        modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0))));
-    }
+    // if (player->talents->shadowMastery > 0 && player->talents->contagion > 0)
+    // {
+    //     // Divide away the bonus from Shadow Mastery
+    //     modifier /= (1 + (player->talents->shadowMastery * 0.02));
+    //     // Multiply the modifier with the bonus from Shadow Mastery + Contagion
+    //     modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0))));
+    // }
     return modifier;
 }
 
@@ -283,7 +283,7 @@ double CurseOfAgonyDot::getModifier()
 {
     double modifier = DamageOverTime::getModifier();
     // Remove bonus from Shadow Mastery and add bonus from Shadow Mastery + Contagion + Improved Curse of Agony
-    modifier /= (1 + (player->talents->shadowMastery * 0.02));
-    modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0) + (player->talents->reverberation * 0.05))));
+    // modifier /= (1 + (player->talents->shadowMastery * 0.02));
+    // modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0) + (player->talents->reverberation * 0.05))));
     return modifier;
 }

@@ -72,7 +72,6 @@ struct PlayerSettings
     bool hasCurseOfAgony;
     bool hasConflagrate;
     bool hasShadowfury;
-    bool hasDarkPact;
     bool hasElementalShamanT4Bonus;
 
     PlayerSettings(Auras* auras, Talents* talents, Sets* sets, CharacterStats* stats, Items* items, int itemId, int metaGemId, bool recordingCombatLogBreakdown, bool simmingStamina, bool simmingIntellect, bool simmingSpirit, bool simmingSpellPower
@@ -83,5 +82,5 @@ struct PlayerSettings
         , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool simChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility
         , bool hasImmolate, bool hasCorruption, bool hasSiphonLife, bool hasShadowBolt, bool hasCurseOfRecklessness
         , bool hasCurseOfTheElements, bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury
-        , bool hasDarkPact, bool hasElementalShamanT4Bonus);
+        , bool hasElementalShamanT4Bonus);
 };

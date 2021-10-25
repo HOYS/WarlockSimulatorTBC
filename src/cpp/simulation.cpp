@@ -241,7 +241,7 @@ double Simulation::passTime()
     // Pet
     if (player->pet != NULL)
     {
-        if ((player->talents->darkPact > 0 || player->pet->mode == PetMode::AGGRESSIVE) && player->pet->spiritTickTimerRemaining < time) time = player->pet->spiritTickTimerRemaining;
+        if ( player->pet->mode == PetMode::AGGRESSIVE && player->pet->spiritTickTimerRemaining < time) time = player->pet->spiritTickTimerRemaining;
 
         // Pet's attacks/abilities and such
         if (player->pet->mode == PetMode::AGGRESSIVE)

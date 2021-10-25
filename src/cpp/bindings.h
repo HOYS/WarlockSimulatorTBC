@@ -33,8 +33,8 @@ extern "C"
         , bool bloodthistle, bool petBlessingOfKings, bool petBlessingOfWisdom, bool petBlessingOfMight, bool petArcaneIntellect, bool petMarkOfTheWild, bool petPrayerOfFortitude, bool petPrayerOfSpirit
         , bool petKiblersBits, bool petHeroicPresence, bool petStrengthOfEarthTotem, bool petGraceOfAirTotem, bool petBattleShout, bool petTrueshotAura, bool petLeaderOfThePack, bool petUnleashedRage
         , bool petStaminaScroll, bool petIntellectScroll, bool petStrengthScroll, bool petAgilityScroll, bool petSpiritScroll);
-    Talents* allocTalents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int empoweredCorruption, int siphonLife, int shadowMastery
-        , int contagion, int darkPact, int improvedImp, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice
+    Talents* allocTalents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int unrelentingStorm, int siphonLife, int elementalPrecision, int lightningMastery
+        , int elementalMastery, int lightningOverload, int improvedImp, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice
         , int manaFeed, int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int improvedFirebolt, int improvedLashOfPain
         , int devastation, int improvedSearingPain, int improvedImmolate, int ruin, int emberstorm, int backlash, int conflagrate, int shadowAndFlame, int shadowfury);
     Sets* allocSets(int plagueheart, int spellfire, int frozenShadoweave, int spellstrike, int oblivion, int manaEtched, int twinStars, int t4, int t5, int t6);
@@ -48,7 +48,7 @@ extern "C"
         , bool isOrc, int powerInfusionAmount, bool bloodlustAmount, bool innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
         , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasImmolate
         , bool hasCorruption, bool hasSiphonLife, bool hasShadowBolt, bool hasCurseOfRecklessness, bool hasCurseOfTheElements
-        , bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury, bool hasDarkPact, bool hasElementalShamanT4Bonus);
+        , bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury, bool hasElementalShamanT4Bonus);
     Player* allocPlayer(PlayerSettings* settings);
     SimulationSettings* allocSimSettings(int iterations, int minTime, int maxTime, unsigned int* randomSeeds, bool multiItemSimulation);
     Simulation* allocSim(Player* player, SimulationSettings* simulationSettings);

@@ -110,7 +110,7 @@ Player::Player(PlayerSettings* playerSettings)
         }
     }
     // Shadow Mastery
-    stats->shadowModifier *= (1 + (0.02 * talents->shadowMastery));
+    // stats->shadowModifier *= (1 + (0.02 * talents->shadowMastery));
     // Ferocious Inspiration
     if (selectedAuras->ferociousInspiration)
     {
@@ -357,7 +357,6 @@ void Player::initialize()
     }
     if (selectedAuras->superManaPotion) spells->SuperManaPotion = std::make_shared<SuperManaPotion>(this);
     if (selectedAuras->demonicRune) spells->DemonicRune = std::make_shared<DemonicRune>(this);
-    if (talents->darkPact == 1 && (settings->hasDarkPact || settings->simChoosingRotation)) spells->DarkPact = std::make_shared<DarkPact>(this);
     if (auras->DestructionPotion != NULL) spells->DestructionPotion = std::make_shared<DestructionPotion>(this, auras->DestructionPotion);
     if (auras->FlameCap != NULL) spells->FlameCap = std::make_shared<FlameCap>(this, auras->FlameCap);
     if (auras->BloodFury != NULL) spells->BloodFury = std::make_shared<BloodFury>(this, auras->BloodFury);
@@ -444,7 +443,6 @@ void Player::reset()
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
     if (spells->Conflagrate != NULL) spells->Conflagrate->reset();
     if (spells->Shadowfury != NULL) spells->Shadowfury->reset();
-    if (spells->DarkPact != NULL) spells->DarkPact->reset();
     if (spells->DestructionPotion != NULL) spells->DestructionPotion->reset();
     if (spells->SuperManaPotion != NULL) spells->SuperManaPotion->reset();
     if (spells->DemonicRune != NULL) spells->DemonicRune->reset();
@@ -675,14 +673,9 @@ void Player::useCooldowns()
 
 void Player::castLifeTapOrDarkPact()
 {
-    if (spells->DarkPact != NULL && spells->DarkPact->ready())
-    {
-        spells->DarkPact->startCast();
-    }
-    else
-    {
-        spells->LifeTap->startCast();
-    }
+
+    spells->LifeTap->startCast();
+    
 }
 
 double Player::getPartialResistMultiplier(SpellSchool school)

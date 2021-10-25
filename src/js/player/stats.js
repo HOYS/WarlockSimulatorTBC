@@ -178,7 +178,7 @@ function refreshCharacterStats () {
   $('#character-crit-val').text(Math.round(critRating) + ' (' + critChance + '%)')
   $('#character-hit-val').text(Math.round(hitRating) + ' (' + hitChance + '%)')
   $('#character-haste-val').text(Math.round(characterStats.hasteRating) + ' (' + (Math.round((characterStats.hasteRating / hasteRatingPerPercent) * 100) / 100) + '%)')
-  $('#character-shadow-damage-modifier-val').text(Math.round((shadowModifier * (1 + (0.02 * talents.shadowMastery))) * 100) + '%')
+  $('#character-shadow-damage-modifier-val').text(Math.round((shadowModifier ) * 100) + '%')
   $('#character-fire-damage-modifier-val').text(Math.round(fireModifier * 100) + '%')
   $('#character-mp5-val').text(Math.round(mp5))
   $('#enemy-armor-val').text(Math.max(0, enemyArmor))

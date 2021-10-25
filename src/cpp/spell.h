@@ -92,14 +92,6 @@ struct Shadowfury : public Spell
     Shadowfury(Player* player);
 };
 
-struct DarkPact : public Spell
-{
-    DarkPact(Player* player);
-    void cast();
-    bool ready();
-    double manaGain();
-};
-
 struct Corruption : public Spell
 {
     Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);

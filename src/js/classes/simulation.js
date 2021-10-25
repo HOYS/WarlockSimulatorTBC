@@ -27,7 +27,6 @@ class Simulation {
 
     // Look for the shortest time until an action needs to be done
     if (this.player.pet) {
-      if ((this.player.talents.darkPact > 0 || this.player.pet.mode == PetMode.AGGRESSIVE) && this.player.pet.spiritTickTimerRemaining < time) time = this.player.pet.spiritTickTimerRemaining
 
       // Pet's attacks/abilities and such
       if (this.player.pet.mode == PetMode.AGGRESSIVE) {
@@ -368,8 +367,6 @@ class Simulation {
                 // todo: need to rework this thing to just choose the highest damage spell of the three ( conflag)
                 if (this.player.spells.conflagrate && this.player.auras.immolate && this.player.auras.immolate.active && this.player.spells.conflagrate.ready()) {
                   this.player.cast('conflagrate')
-                } else if (this.player.spells.darkPact && this.player.spells.darkPact.ready()) {
-                  this.player.cast('darkPact')
                 } else {
                   this.player.cast('lifeTap')
                 }
@@ -422,10 +419,6 @@ class Simulation {
                   // Cast filler spell if sim is not choosing the rotation for the user
                   if (!this.player.simChoosingRotation && this.player.spells[this.player.filler].ready()) {
                     this.player.cast(this.player.filler)
-                  }
-                  // Cast Dark Pact/Life Tap if nothing else is possible and the sim is not choosing the rotation for the user
-                  if (!this.player.simChoosingRotation && this.player.spells.darkPact && this.player.spells.darkPact.ready()) {
-                    this.player.cast('darkPact')
                   }
                   if (!this.player.simChoosingRotation && this.player.spells.lifeTap.ready()) {
                     this.player.cast('lifeTap')

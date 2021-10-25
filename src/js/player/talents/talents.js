@@ -16,14 +16,14 @@ const _talents = {
       row: 1,
       column: 3
     },
-    improvedCurseOfWeakness: {
+    earthsgrasp: {
       name: 'Earth\'s Grasp',
       rankIDs: [16043, 16130],
       iconName: 'spell_shadow_curseofmannoroth',
       row: 2,
       column: 1
     },
-    improvedDrainSoul: {
+    elementalWarding: {
       name: 'Elemental Warding',
       rankIDs: [28996, 28997, 28998],
       iconName: 'spell_shadow_haunting',
@@ -72,14 +72,14 @@ const _talents = {
       row: 4,
       column: 2
     },
-    nightfall: {
+    elementalDevastation: {
       name: 'Elemental Devastation',
       rankIDs: [30160, 29179, 29180],
       iconName: 'spell_shadow_twilight',
       row: 4,
       column: 4
     },
-    empoweredCorruption: {
+    stormReach: {
       name: 'Storm Reach',
       rankIDs: [28999, 29000],
       iconName: 'spell_shadow_abominationexplosion',
@@ -93,14 +93,14 @@ const _talents = {
       row: 5,
       column: 2
     },
-    siphonLife: {
+    unrelentingStorm: {
       name: 'Unrelenting Storm',
       rankIDs: [30664, 30665, 30666, 30667, 30668],
       iconName: 'spell_shadow_requiem',
       row: 5,
       column: 4
     },
-    curseOfExhaustion: {
+    elementalPrecision: {
       name: 'Elemental Precision',
       rankIDs: [30672, 30673, 30674],
       iconName: 'spell_shadow_grimward',
@@ -111,7 +111,7 @@ const _talents = {
         points: 1
       }
     },
-    shadowMastery: {
+    lightningMastery: {
       name: 'Lightning Mastery',
       rankIDs: [16578, 16579, 16580, 16581, 16582],
       iconName: 'spell_shadow_shadetruesight',
@@ -122,7 +122,7 @@ const _talents = {
         points: 5
       }
     },
-    contagion: {
+    elementalMastery: {
       name: 'Elemental Mastery',
       rankIDs: [16166],
       iconName: 'Spell_shadow_painfulafflictions',
@@ -133,21 +133,21 @@ const _talents = {
         points: 1
       }
     },
-    darkPact: {
+    elementalShields: {
       name: 'Elemental Shields',
       rankIDs: [30669, 30670, 30671],
       iconName: 'spell_shadow_darkritual',
       row: 7,
       column: 3
     },
-    improvedHowlOfTerror: {
+    lightningOverload: {
       name: 'Lightning Overload',
       rankIDs: [30675, 30678, 30679, 30680, 30681],
       iconName: 'spell_shadow_deathscream',
       row: 8,
       column: 2
     },
-    unstableAffliction: {
+    totemOfWrath: {
       name: 'Totem of Wrath',
       rankIDs: [30706],
       iconName: 'spell_shadow_unstableaffliction_3',

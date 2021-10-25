@@ -66,11 +66,6 @@ const _spellSelection = {
         name: 'Shadowfury',
         iconName: 'spell_shadow_shadowfury',
         id: 30414
-      },
-      darkPact: {
-        name: 'Dark Pact',
-        iconName: 'spell_shadow_darkritual',
-        id: 27265
       }
     }
   }

@@ -182,8 +182,8 @@ onmessage = function (e) {
       , a.heroicPresence, a.strengthOfEarthTotem, a.graceOfAirTotem, a.battleShout, a.trueshotAura, a.leaderOfThePack, a.unleashedRage, a.scrollOfStaminaV, a.scrollOfIntellectV, a.scrollOfStrengthV
       , a.scrollOfAgilityV, a.scrollOfSpiritV)
     // Talents
-    let talents = module._allocTalents(t.convection, t.concussion, t.callOfFlame, t.elementalFocus, t.reveberation, t.callOfThunder, t.elementalFury, t.empoweredCorruption, t.siphonLife, t.shadowMastery
-      , t.contagion, t.darkPact, t.improvedImp, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
+    let talents = module._allocTalents(t.convection, t.concussion, t.callOfFlame, t.elementalFocus, t.reveberation, t.callOfThunder, t.elementalFury, t.unrelentingStorm, t.siphonLife, t.elementalPrecision, t.lightningMastery
+      , t.elementalMastery, t.lightningOverload, t.improvedImp, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
       , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.improvedFirebolt, t.improvedLashOfPain, t.devastation
       , t.improvedSearingPain, t.improvedImmolate, t.ruin, t.emberstorm, t.backlash, t.conflagrate, t.shadowAndFlame, t.shadowfury)
     // Sets
@@ -202,7 +202,7 @@ onmessage = function (e) {
     , parseInt(c.bloodlustAmount), parseInt(c.innervateAmount), parseInt(c.enemyArmor), parseInt(c.exposeWeaknessUptime), c.improvedFaerieFire === "yes", c.infinitePlayerMana === "yes", c.infinitePetMana === "yes"
     , c.lashOfPainUsage === "onCooldown", c.petMode === "1", c.prepopBlackBook === "yes", c.randomizeValues === "yes", c.rotationOption === "simChooses", c.shattrathFactionReputation === "yes"
     , parseInt(c.survivalHunterAgility), d.dot.immolate, d.dot.corruption, d.dot.siphonLife, d.filler.shadowBolt, d.curse.curseOfRecklessness
-    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.finisher.conflagrate, d.other.shadowfury, d.other.callOfThunder, d.other.darkPact
+    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.finisher.conflagrate, d.other.shadowfury, d.other.callOfThunder
     , c.improvedWrathOfAirTotem === "yes")
     let player = module._allocPlayer(playerSettings)
     let simSettings = module._allocSimSettings(e.data.simulation.iterations, e.data.simulation.minTime, e.data.simulation.maxTime, randomSeeds, e.data.itemAmount > 1)

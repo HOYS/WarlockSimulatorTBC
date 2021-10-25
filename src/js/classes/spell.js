@@ -500,46 +500,6 @@ class LifeTap extends Spell {
   }
 }
 
-class DarkPact extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Dark Pact'
-    this.manaReturn = 700
-    this.coefficient = 0.96
-    this.breakdownTable = 'manaGain'
-    this.setup()
-  }
-
-  manaGain() {
-    return this.manaReturn + (this.player.getSpellPower() + this.player.stats.shadowPower) * this.coefficient
-  }
-
-  ready() {
-    return super.ready() && this.player.pet.stats.mana >= this.manaGain() + this.player.mana
-  }
-
-  cast () {
-    this.casting = false
-    const manaGain = this.manaGain()
-    const currentPlayerMana = this.player.mana
-    const currentPetMana = this.player.pet.stats.mana
-    this.player.mana = Math.min(this.player.stats.maxMana, this.player.mana + manaGain)
-    const manaGained = this.player.mana - currentPlayerMana
-    this.player.totalManaRegenerated += manaGained
-    this.player[this.breakdownTable + 'Breakdown'][this.varName].casts = this.player[this.breakdownTable + 'Breakdown'][this.varName].casts + 1 || 1
-    this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain = this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain + manaGained || manaGained
-    let combatLogMsg = this.name + ' ' + Math.round(manaGained) + '. Player mana: ' + Math.round(currentPlayerMana) + ' -> ' + Math.round(this.player.mana)
-    if (this.player.simSettings.infinitePetMana !== 'yes') {
-      this.player.pet.stats.mana = Math.max(0, this.player.pet.stats.mana - manaGain)
-      combatLogMsg += '. Pet mana: ' + Math.round(currentPetMana) + ' -> ' + Math.round(this.player.pet.stats.mana)
-    }
-    combatLogMsg += ' (' + this.manaReturn + ' Base Mana Return - ' + this.player.getSpellPower() + ' Spell Power - ' + this.coefficient + ' Coefficient)'
-    this.player.combatLog(combatLogMsg)
-    if (currentPlayerMana + manaGain > this.player.stats.maxMana) {
-      console.log('Dark Pact used at too high mana (mana wasted)')
-    }
-  }
-}
 
 class Corruption extends Spell {
   constructor (player) {
