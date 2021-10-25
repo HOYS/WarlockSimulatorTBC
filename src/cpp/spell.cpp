@@ -612,7 +612,7 @@ Corruption::Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_p
 {
     name = "Corruption";
     manaCost = 370;
-    castTime = round((2 - (0.4 * player->talents->improvedCorruption)) * 100) / 100.0;
+    castTime = round((2 - (0.4 * player->talents->concussion)) * 100) / 100.0;
     isDot = true;
     school = SpellSchool::SHADOW;
     type = SpellType::AFFLICTION;

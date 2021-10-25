@@ -546,7 +546,7 @@ class Corruption extends Spell {
     super(player)
     this.name = 'Corruption'
     this.manaCost = 370
-    this.castTime = Math.round((2 - (0.4 * player.talents.improvedCorruption)) * 100) / 100
+    this.castTime = Math.round((2 - (0.4 * player.talents.concussion)) * 100) / 100
     this.isDot = true
     this.school = 'shadow'
     this.type = 'affliction'

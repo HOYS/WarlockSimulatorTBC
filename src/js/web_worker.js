@@ -182,7 +182,7 @@ onmessage = function (e) {
       , a.heroicPresence, a.strengthOfEarthTotem, a.graceOfAirTotem, a.battleShout, a.trueshotAura, a.leaderOfThePack, a.unleashedRage, a.scrollOfStaminaV, a.scrollOfIntellectV, a.scrollOfStrengthV
       , a.scrollOfAgilityV, a.scrollOfSpiritV)
     // Talents
-    let talents = module._allocTalents(t.suppression, t.improvedCorruption, t.improvedLifeTap, t.improvedCurseOfAgony, t.amplifyCurse, t.nightfall, t.empoweredCorruption, t.siphonLife, t.shadowMastery
+    let talents = module._allocTalents(t.suppression, t.concussion, t.improvedLifeTap, t.improvedCurseOfAgony, t.amplifyCurse, t.nightfall, t.empoweredCorruption, t.siphonLife, t.shadowMastery
       , t.contagion, t.darkPact, t.improvedImp, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
       , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.improvedFirebolt, t.improvedLashOfPain, t.devastation
       , t.improvedSearingPain, t.improvedImmolate, t.ruin, t.emberstorm, t.backlash, t.conflagrate, t.shadowAndFlame, t.shadowfury)

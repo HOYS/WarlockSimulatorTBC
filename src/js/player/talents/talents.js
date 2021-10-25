@@ -3,152 +3,160 @@ var talentPointsRemaining = totalTalentPoints
 const _talents = {
   affliction: {
     suppression: {
-      name: 'Suppression',
-      rankIDs: [18174, 18175, 18176, 18177, 18178],
+      name: 'Convection',
+      rankIDs: [16039, 16109, 16110, 16111, 16112],
       iconName: 'spell_shadow_unsummonbuilding',
       row: 1,
       column: 2
     },
-    improvedCorruption: {
-      name: 'Improved Corruption',
-      rankIDs: [17810, 17811, 17812, 17813, 17814],
+    concussion: {
+      name: 'Concussion',
+      rankIDs: [16035, 16105, 16106, 16107, 16108],
       iconName: 'spell_shadow_abominationexplosion',
       row: 1,
       column: 3
     },
     improvedCurseOfWeakness: {
-      name: 'Improved Curse of Weakness',
-      rankIDs: [18179, 18180],
+      name: 'Earth\'s Grasp',
+      rankIDs: [16043, 16130],
       iconName: 'spell_shadow_curseofmannoroth',
       row: 2,
       column: 1
     },
     improvedDrainSoul: {
-      name: 'Improved Drain Soul',
-      rankIDs: [18213, 18372],
+      name: 'Elemental Warding',
+      rankIDs: [28996, 28997, 28998],
       iconName: 'spell_shadow_haunting',
       row: 2,
       column: 2
     },
     improvedLifeTap: {
-      name: 'Improved Life Tap',
-      rankIDs: [18182, 18183],
+      name: 'Call of Flame',
+      rankIDs: [16038, 16160, 16161],
       iconName: 'spell_shadow_burningspirit',
       row: 2,
       column: 3
     },
     soulSiphon: {
-      name: 'Soul Siphon',
-      rankIDs: [17804, 17805],
+      name: 'Elemental Focus',
+      rankIDs: [16164],
       iconName: 'spell_shadow_lifedrain02',
-      row: 2,
-      column: 4
-    },
-    improvedCurseOfAgony: {
-      name: 'Improved Curse of Agony',
-      rankIDs: [18827, 18829],
-      iconName: 'spell_shadow_curseofsargeras',
       row: 3,
       column: 1
     },
-    felConcentration: {
-      name: 'Fel Concentration',
-      rankIDs: [17783, 17784, 17785, 17786, 17787],
-      iconName: 'spell_shadow_fingerofdeath',
+    improvedCurseOfAgony: {
+      name: 'Reverberation',
+      rankIDs: [16040, 16113, 16114, 16115, 16116],
+      iconName: 'spell_shadow_curseofsargeras',
       row: 3,
       column: 2
     },
-    amplifyCurse: {
-      name: 'Amplify Curse',
-      rankIDs: [18288],
-      iconName: 'spell_shadow_contagion',
+    felConcentration: {
+      name: 'Call of Thunder',
+      rankIDs: [16041, 16117, 16118, 16119, 16120],
+      iconName: 'spell_shadow_fingerofdeath',
       row: 3,
       column: 3
     },
-    grimReach: {
-      name: 'Grim Reach',
-      rankIDs: [18218, 18219],
-      iconName: 'spell_shadow_callofbone',
+    amplifyCurse: {
+      name: 'Improved Fire Totems',
+      rankIDs: [16086, 16544],
+      iconName: 'spell_shadow_contagion',
       row: 4,
       column: 1
     },
-    nightfall: {
-      name: 'Nightfall',
-      rankIDs: [18094, 18095],
-      iconName: 'spell_shadow_twilight',
+    grimReach: {
+      name: 'Eye of the Storm',
+      rankIDs: [29062, 29064, 29065],
+      iconName: 'spell_shadow_callofbone',
       row: 4,
       column: 2
     },
-    empoweredCorruption: {
-      name: 'Empowered Corruption',
-      rankIDs: [32381, 32382, 32383],
-      iconName: 'spell_shadow_abominationexplosion',
+    nightfall: {
+      name: 'Elemental Devastation',
+      rankIDs: [30160, 29179, 29180],
+      iconName: 'spell_shadow_twilight',
       row: 4,
       column: 4
     },
-    shadowEmbrace: {
-      name: 'Shadow Embrace',
-      rankIDs: [32385, 32387, 32392, 32393, 32394],
-      iconName: 'spell_shadow_shadowembrace',
+    empoweredCorruption: {
+      name: 'Storm Reach',
+      rankIDs: [28999, 29000],
+      iconName: 'spell_shadow_abominationexplosion',
       row: 5,
       column: 1
     },
-    siphonLife: {
-      name: 'Siphon Life',
-      rankIDs: [18265],
-      iconName: 'spell_shadow_requiem',
+    shadowEmbrace: {
+      name: 'Elemental Fury',
+      rankIDs: [16089],
+      iconName: 'spell_shadow_shadowembrace',
       row: 5,
       column: 2
     },
-    curseOfExhaustion: {
-      name: 'Curse of Exhaustion',
-      rankIDs: [18223],
-      iconName: 'spell_shadow_grimward',
+    siphonLife: {
+      name: 'Unrelenting Storm',
+      rankIDs: [30664, 30665, 30666, 30667, 30668],
+      iconName: 'spell_shadow_requiem',
       row: 5,
-      column: 3,
+      column: 4
+    },
+    curseOfExhaustion: {
+      name: 'Elemental Precision',
+      rankIDs: [30672, 30673, 30674],
+      iconName: 'spell_shadow_grimward',
+      row: 6,
+      column: 1,
       requirement: {
         name: 'amplifyCurse',
         points: 1
       }
     },
     shadowMastery: {
-      name: 'Shadow Mastery',
-      rankIDs: [18271, 18272, 18273, 18274, 18275],
+      name: 'Lightning Mastery',
+      rankIDs: [16578, 16579, 16580, 16581, 16582],
       iconName: 'spell_shadow_shadetruesight',
       row: 6,
-      column: 2,
+      column: 3,
       requirement: {
-        name: 'siphonLife',
-        points: 1
+        name: 'felConcentration',
+        points: 5
       }
     },
     contagion: {
-      name: 'Contagion',
-      rankIDs: [30060, 30061, 30062, 30063, 30064],
+      name: 'Elemental Mastery',
+      rankIDs: [16166],
       iconName: 'Spell_shadow_painfulafflictions',
       row: 7,
-      column: 2
+      column: 2,
+      requirement: {
+        name: 'shadowEmbrace',
+        points: 1
+      }
     },
     darkPact: {
-      name: 'Dark Pact',
-      rankIDs: [18220],
+      name: 'Elemental Shields',
+      rankIDs: [30669, 30670, 30671],
       iconName: 'spell_shadow_darkritual',
       row: 7,
       column: 3
     },
     improvedHowlOfTerror: {
-      name: 'Improved Howl of Terror',
-      rankIDs: [30054, 30057],
+      name: 'Lightning Overload',
+      rankIDs: [30675, 30678, 30679, 30680, 30681],
       iconName: 'spell_shadow_deathscream',
       row: 8,
-      column: 1
+      column: 2
     },
-    malediction: {
-      name: 'Malediction',
-      rankIDs: [32477, 32483, 32484],
-      iconName: 'spell_shadow_curseofachimonde',
-      row: 8,
-      column: 3
+    unstableAffliction: {
+      name: 'Totem of Wrath',
+      rankIDs: [30706],
+      iconName: 'spell_shadow_unstableaffliction_3',
+      row: 9,
+      column: 2,
+      requirement: {
+        name: 'improvedHowlOfTerror',
+        points: 5
+      }
     }
   },
   demonology: {
