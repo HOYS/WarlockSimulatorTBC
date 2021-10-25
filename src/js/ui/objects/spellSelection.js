@@ -36,11 +36,6 @@ const _spellSelection = {
         name: 'Shadow Bolt',
         iconName: 'spell_shadow_shadowbolt',
         id: 27209
-      },
-      incinerate: {
-        name: 'Incinerate',
-        iconName: 'spell_fire_burnout',
-        id: 32231
       }
     }
   },

@@ -81,10 +81,6 @@ struct ShadowBolt : public Spell
     double calculateCastTime();
 };
 
-struct Incinerate : public Spell
-{
-    Incinerate(Player* player);
-};
 
 struct SearingPain : public Spell
 {

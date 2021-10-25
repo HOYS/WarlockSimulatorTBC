@@ -100,88 +100,9 @@ void Simulation::start()
                             {
                                 predictedDamageOfSpells.insert(std::make_pair(player->spells->ShadowBolt, player->spells->ShadowBolt->predictDamage()));
                             }
-                            if (timeRemaining >= player->spells->Incinerate->getCastTime())
-                            {
-                                predictedDamageOfSpells.insert(std::make_pair(player->spells->Incinerate, player->spells->Incinerate->predictDamage()));
-                            }
-                            if (timeRemaining >= player->spells->SearingPain->getCastTime())
-                            {
-                                predictedDamageOfSpells.insert(std::make_pair(player->spells->SearingPain, player->spells->SearingPain->predictDamage()));
-                            }
                         }
 
-                        // Cast Conflagrate if there's not enough time for another filler and Immolate is up
-                        if (notEnoughTimeForFiller && player->spells->Conflagrate != NULL && player->auras->Immolate != NULL && player->spells->Conflagrate->canCast() && player->auras->Immolate->active)
-                        {
-                            selectedSpellHandler(player->spells->Conflagrate, predictedDamageOfSpells);
-                        }
-                        // Cast Shadowburn if there's not enough time for another filler
-                        if (player->gcdRemaining <= 0 && notEnoughTimeForFiller && player->spells->Shadowburn != NULL && player->spells->Shadowburn->canCast())
-                        {
-                            selectedSpellHandler(player->spells->Shadowburn, predictedDamageOfSpells);
-                        }
-                        // Cast Death Coil if there's not enough time for another filler
-                        if (player->gcdRemaining <= 0 && notEnoughTimeForFiller && player->spells->DeathCoil != NULL && player->spells->DeathCoil->canCast())
-                        {
-                            selectedSpellHandler(player->spells->DeathCoil, predictedDamageOfSpells);
-                        }
-                        // Cast Curse of the Elements or Curse of Recklessness if they're the selected curse and they're not active
-                        if (timeRemaining >= 10 && player->gcdRemaining <= 0 && (player->curseSpell == player->spells->CurseOfRecklessness || player->curseSpell == player->spells->CurseOfTheElements) && !player->curseAura->active && player->curseSpell->canCast())
-                        {
-                            if (player->curseSpell->hasEnoughMana())
-                            {
-                                player->curseSpell->startCast();
-                            }
-                            else
-                            {
-                                player->castLifeTapOrDarkPact();
-                            }
-                        }
-                        // Cast Curse of Doom if it's the selected curse and there's more than 60 seconds remaining
-                        if (player->gcdRemaining <= 0 && timeRemaining > 60 && player->curseSpell == player->spells->CurseOfDoom && !player->auras->CurseOfDoom->active && player->spells->CurseOfDoom->canCast())
-                        {
-                            selectedSpellHandler(player->spells->CurseOfDoom, predictedDamageOfSpells);
-                        }
-                        // Cast Curse of Agony if CoA is the selected curse or if Curse of Doom is the selected curse and there's less than 60 seconds remaining of the fight
-                        if (player->gcdRemaining <= 0 && player->auras->CurseOfAgony != NULL && !player->auras->CurseOfAgony->active && player->spells->CurseOfAgony->canCast() && timeRemaining > player->auras->CurseOfAgony->minimumDuration && ((player->curseSpell == player->spells->CurseOfDoom && !player->auras->CurseOfDoom->active && (player->spells->CurseOfDoom->cooldownRemaining > player->auras->CurseOfAgony->minimumDuration || timeRemaining < 60)) || player->curseSpell == player->spells->CurseOfAgony))
-                        {
-                            selectedSpellHandler(player->spells->CurseOfAgony, predictedDamageOfSpells);
-                        }
-                        // Cast Corruption if Corruption isn't up or if it will expire before the cast finishes (if no instant Corruption)
-                        if (player->gcdRemaining <= 0 && player->spells->Corruption != NULL && (!player->auras->Corruption->active || (player->auras->Corruption->ticksRemaining == 1 && player->auras->Corruption->tickTimerRemaining < player->spells->Corruption->getCastTime())) && player->spells->Corruption->canCast() && (timeRemaining - player->spells->Corruption->getCastTime()) >= player->auras->Corruption->minimumDuration)
-                        {
-                            selectedSpellHandler(player->spells->Corruption, predictedDamageOfSpells);
-                        }
-                        // Cast Shadow Bolt if Shadow Trance (Nightfall) is active and Corruption is active as well to avoid potentially wasting another Nightfall proc
-                        if (player->gcdRemaining <= 0 && player->spells->ShadowBolt != NULL && player->auras->ShadowTrance != NULL && player->auras->ShadowTrance->active && player->auras->Corruption->active && player->spells->ShadowBolt->canCast())
-                        {
-                            selectedSpellHandler(player->spells->ShadowBolt, predictedDamageOfSpells);
-                        }
-                        // Cast Unstable Affliction if it's not up or if it's about to expire
-                        if (player->gcdRemaining <= 0 && player->spells->UnstableAffliction != NULL && player->spells->UnstableAffliction->canCast() && (!player->auras->UnstableAffliction->active || (player->auras->UnstableAffliction->ticksRemaining == 1 && player->auras->UnstableAffliction->tickTimerRemaining < player->spells->UnstableAffliction->getCastTime())) && (timeRemaining - player->spells->UnstableAffliction->getCastTime()) >= player->auras->UnstableAffliction->minimumDuration)
-                        {
-                            selectedSpellHandler(player->spells->UnstableAffliction, predictedDamageOfSpells);
-                        }
-                        // Cast Siphon Life if it's not up (todo: add option to only cast it while ISB is active if not using custom ISB uptime %)
-                        if (player->gcdRemaining <= 0 && player->spells->SiphonLife != NULL && !player->auras->SiphonLife->active && player->spells->SiphonLife->canCast() && timeRemaining >= player->auras->SiphonLife->minimumDuration)
-                        {
-                            selectedSpellHandler(player->spells->SiphonLife, predictedDamageOfSpells);
-                        }
-                        // Cast Immolate if it's not up or about to expire
-                        if (player->gcdRemaining <= 0 && player->spells->Immolate != NULL && player->spells->Immolate->canCast() && (!player->auras->Immolate->active || (player->auras->Immolate->ticksRemaining == 1 && player->auras->Immolate->tickTimerRemaining < player->spells->Immolate->getCastTime())) && (timeRemaining - player->spells->Immolate->getCastTime()) >= player->auras->Immolate->minimumDuration)
-                        {
-                            selectedSpellHandler(player->spells->Immolate, predictedDamageOfSpells);
-                        }
-                        // Cast Shadow Bolt if Shadow Trance (Nightfall) is active
-                        if (player->gcdRemaining <= 0 && player->spells->ShadowBolt != NULL && player->auras->ShadowTrance != NULL && player->auras->ShadowTrance->active && player->spells->ShadowBolt->canCast())
-                        {
-                            selectedSpellHandler(player->spells->ShadowBolt, predictedDamageOfSpells);
-                        }
-                        // Cast Shadowfury
-                        if (player->gcdRemaining <= 0 && player->spells->Shadowfury != NULL && player->spells->Shadowfury->canCast())
-                        {
-                            selectedSpellHandler(player->spells->Shadowfury, predictedDamageOfSpells);
-                        }
+                       
                         // Cast filler spell if sim is not choosing the rotation for the user or if the predictedDamageOfSpells map is empty
                         if (player->gcdRemaining <= 0 && ((!notEnoughTimeForFiller && !player->settings->simChoosingRotation) || predictedDamageOfSpells.size() == 0) && player->filler->canCast())
                         {
@@ -493,7 +414,6 @@ double Simulation::passTime()
     #pragma region Spells
     if (player->spells->SeedOfCorruption != NULL && player->spells->SeedOfCorruption->casting) player->spells->SeedOfCorruption->tick(time);
     if (player->spells->ShadowBolt != NULL && player->spells->ShadowBolt->casting) player->spells->ShadowBolt->tick(time);
-    if (player->spells->Incinerate != NULL && player->spells->Incinerate->casting) player->spells->Incinerate->tick(time);
     if (player->spells->SearingPain != NULL && player->spells->SearingPain->casting) player->spells->SearingPain->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->UnstableAffliction != NULL && player->spells->UnstableAffliction->casting) player->spells->UnstableAffliction->tick(time);

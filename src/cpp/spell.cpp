@@ -277,11 +277,6 @@ void Spell::damage(bool isCrit)
         {
             player->auras->Corruption->t5BonusModifier *= 1.1;
         }
-        else if (player->spells->Incinerate != NULL && name == player->spells->Incinerate->name && player->auras->Immolate != NULL && player->auras->Immolate->active)
-        {
-
-            player->auras->Immolate->t5BonusModifier *= 1.1;
-        }
     }
 }
 
@@ -295,11 +290,6 @@ std::vector<double> Spell::getConstantDamage(bool noRng)
     double dmgModifier = getModifier();
     double partialResistMultiplier = player->getPartialResistMultiplier(school);
 
-    // If casting Incinerate and Immolate is up, add the bonus damage
-    if (player->spells->Incinerate != NULL && name == player->spells->Incinerate->name && player->auras->Immolate != NULL && player->auras->Immolate->active)
-    {
-        totalDmg += player->settings->randomizeValues && noRng ? random(bonusDamageFromImmolateMin, bonusDamageFromImmolateMax) : bonusDamageFromImmolate;
-    }
     // Add damage from Spell Power
     totalDmg += spellPower * coefficient;
     // Modifier & Partial Resist
@@ -563,28 +553,6 @@ void LifeTap::cast()
     player->stats->mana = std::min(player->stats->maxMana, player->stats->mana + manaGain);
 }
 
-Incinerate::Incinerate(Player* player) : Spell(player)
-{
-    name = "Incinerate";
-    castTime = round((2.5 * (1 - 0.02 * player->talents->emberstorm)) * 100) / 100;
-    manaCost = 355 * (1 - 0.01 * player->talents->cataclysm);
-    coefficient = (2.5 / 3.5) + (0.04 * player->talents->shadowAndFlame);
-    minDmg = 444;
-    maxDmg = 514;
-    bonusDamageFromImmolateMin = 111;
-    bonusDamageFromImmolateMax = 128;
-    bonusDamageFromImmolate = (bonusDamageFromImmolateMin + bonusDamageFromImmolateMax) / 2;
-    doesDamage = true;
-    canCrit = true;
-    school = SpellSchool::FIRE;
-    type = SpellType::DESTRUCTION;
-    setup();
-
-    if (player->sets->t6 >= 4)
-    {
-        modifier *= 1.06;
-    }
-}
 
 SearingPain::SearingPain(Player* player) : Spell(player)
 {

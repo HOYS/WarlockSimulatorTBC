@@ -205,7 +205,6 @@ class Simulation {
     // Spells
     if (this.player.spells.seedOfCorruption && this.player.spells.seedOfCorruption.casting) this.player.spells.seedOfCorruption.tick(time)
     if (this.player.spells.shadowBolt && this.player.spells.shadowBolt.casting) this.player.spells.shadowBolt.tick(time)
-    if (this.player.spells.incinerate && this.player.spells.incinerate.casting) this.player.spells.incinerate.tick(time)
     if (this.player.spells.searingPain && this.player.spells.searingPain.casting) this.player.spells.searingPain.tick(time)
     if (this.player.spells.immolate && this.player.spells.immolate.casting) this.player.spells.immolate.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
@@ -298,7 +297,6 @@ class Simulation {
     for (this.player.iteration = 1; this.player.iteration <= this.iterations; this.player.iteration++) {
       // Reset/initialize values for spells that have a cooldown or a cast time
       if (this.player.spells.shadowBolt) this.player.spells.shadowBolt.reset()
-      if (this.player.spells.incinerate) this.player.spells.incinerate.reset()
       if (this.player.spells.searingPain) this.player.spells.searingPain.reset()
       if (this.player.spells.corruption) this.player.spells.corruption.reset()
       if (this.player.spells.unstableAffliction) this.player.spells.unstableAffliction.reset()
@@ -388,7 +386,6 @@ class Simulation {
               // If the sim is choosing the rotation for the user then predict the damage of the three filler spells if they're available (maybe just skip Searing Pain to save time, there's no way it will ever be the best spell to cast)
               if (this.player.simChoosingRotation) {
                 predictedDamageOfSpells.push([this.player.spells.shadowBolt.varName, this.player.spells.shadowBolt.predictDamage()])
-                predictedDamageOfSpells.push([this.player.spells.incinerate.varName, this.player.spells.incinerate.predictDamage()])
                 predictedDamageOfSpells.push([this.player.spells.searingPain.varName, this.player.spells.searingPain.predictDamage()])
               }
 

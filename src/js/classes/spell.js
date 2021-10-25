@@ -261,8 +261,6 @@ class Spell {
     if (this.player.sets['646'] >= 4) {
       if (this.varName == 'shadowBolt' && this.player.auras.corruption && this.player.auras.corruption.active) {
         this.player.auras.corruption.t5BonusModifier *= 1.1
-      } else if (this.varName == 'incinerate' && this.player.auras.immolate && this.player.auras.immolate.active) {
-        this.player.auras.immolate.t5BonusModifier *= 1.1
       }
     }
   }
@@ -276,10 +274,6 @@ class Spell {
     let modifier = this.getModifier()
     const partialResistMultiplier = this.player.getPartialResistMultiplier(this.player.enemy[this.school + 'Resist'])
 
-    // If casting Incinerate and Immolate is up, add the bonus damage.
-    if (this.varName == 'incinerate' && this.player.auras.immolate && this.player.auras.immolate.active) {
-      dmg += this.player.simSettings.randomizeValues === 'yes' && !noRNG ? random(this.bonusDamageFromImmolateMin, this.bonusDamageFromImmolateMax) : this.bonusDamageFromImmolate
-    }
 
     // Add damage from Spell Power
     dmg += spellPower * this.coefficient
@@ -425,31 +419,6 @@ class ShadowBolt extends Spell {
   }
 }
 
-class Incinerate extends Spell {
-  constructor (player) {
-    super(player)
-    this.castTime = Math.round((2.5 * (1 - 0.02 * player.talents.emberstorm)) * 100) / 100
-    this.manaCost = 355 * (1 - 0.01 * player.talents.cataclysm)
-    this.coefficient = (2.5 / 3.5) + (0.04 * player.talents.shadowAndFlame)
-    this.minDmg = 444
-    this.maxDmg = 514
-    this.bonusDamageFromImmolateMin = 111
-    this.bonusDamageFromImmolateMax = 128
-    this.bonusDamageFromImmolate = (this.bonusDamageFromImmolateMin + this.bonusDamageFromImmolateMax) / 2 // The bonus damage gained when Immolate is up on the target
-    this.name = 'Incinerate'
-    this.doesDamage = true
-    this.canCrit = true
-    this.school = 'fire'
-    this.type = 'destruction'
-    this.travelTime = player.spellTravelTime
-    this.setup()
-
-    // T6 4pc
-    if (player.sets['670'] >= 4) {
-      this.modifier *= 1.06
-    }
-  }
-}
 
 class SearingPain extends Spell {
   constructor (player) {

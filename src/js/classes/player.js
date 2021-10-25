@@ -431,7 +431,6 @@ class Player {
       this.spells.seedOfCorruption = new SeedOfCorruption(this)
     } else {
       if (this.rotation.filler.shadowBolt || this.filler == 'shadowBolt' || this.talents.nightfall > 0 || this.simChoosingRotation) this.spells.shadowBolt = new ShadowBolt(this)
-      if (this.rotation.filler.incinerate  || this.simChoosingRotation) this.spells.incinerate = new Incinerate(this)
       if (this.rotation.filler.searingPain  || this.simChoosingRotation) this.spells.searingPain = new SearingPain(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
       if (this.talents.unstableAffliction && (this.rotation.dot.unstableAffliction || this.simChoosingRotation)) this.spells.unstableAffliction = new UnstableAffliction(this)
