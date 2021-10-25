@@ -12,8 +12,6 @@ struct PlayerAuras
     std::shared_ptr<Aura> ImprovedShadowBolt;
     std::shared_ptr<Aura> CurseOfTheElements;
     std::shared_ptr<Aura> CurseOfRecklessness;
-    std::shared_ptr<Aura> ShadowTrance;
-    std::shared_ptr<Aura> AmplifyCurse;
     std::shared_ptr<Aura> PowerInfusion;
     std::shared_ptr<Aura> Innervate;
     std::shared_ptr<Aura> BloodFury;

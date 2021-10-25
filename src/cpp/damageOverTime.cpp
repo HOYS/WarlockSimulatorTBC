@@ -13,7 +13,6 @@ DamageOverTime::DamageOverTime(Player* player) : player(player)
     modifier = 1;
     active = false;
     coefficient = 0;
-    amplified = false;
 }
 
 void DamageOverTime::setup()
@@ -64,16 +63,6 @@ void DamageOverTime::apply()
     {
         isbActive = !player->settings->usingCustomIsbUptime && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active;
     }
-    // Amplify Curse
-    if (((player->spells->CurseOfAgony != NULL && name == player->spells->CurseOfAgony->name) && player->auras->AmplifyCurse != NULL && player->auras->AmplifyCurse->active))
-    {
-        amplified = true;
-        player->auras->AmplifyCurse->fade();
-    }
-    else
-    {
-        amplified = false;
-    }
 }
 
 void DamageOverTime::fade(bool endOfIteration)
@@ -122,11 +111,6 @@ std::vector<double> DamageOverTime::getConstantDamage()
     double modifier = getModifier();
     double partialResistMultiplier = player->getPartialResistMultiplier(school);
     double baseDamage = dmg;
-    // Amplify Curse
-    if (amplified)
-    {
-        baseDamage *= 1.5;
-    }
     // Add the t5 4pc bonus modifier to the base damage
     if (((player->spells->Corruption != NULL && name == player->spells->Corruption->name) || (player->spells->Immolate != NULL && name == player->spells->Immolate->name)) && player->sets->t5 >= 4)
     {
@@ -170,11 +154,11 @@ void DamageOverTime::tick(double t)
         double partialResistMultiplier = constantDamage[4];
 
         // Check for Nightfall proc
-        if (player->spells->Corruption != NULL && name == player->spells->Corruption->name && player->talents->nightfall > 0)
+        if (player->spells->Corruption != NULL && name == player->spells->Corruption->name && player->talents->elementalFury > 0)
         {
-            if (player->getRand() <= player->talents->nightfall * 2 * player->critChanceMultiplier)
+            if (player->getRand() <= player->talents->elementalFury * 2 * player->critChanceMultiplier)
             {
-                player->auras->ShadowTrance->apply();
+                // player->auras->ShadowTrance->apply();
             }
         }
 
@@ -300,6 +284,6 @@ double CurseOfAgonyDot::getModifier()
     double modifier = DamageOverTime::getModifier();
     // Remove bonus from Shadow Mastery and add bonus from Shadow Mastery + Contagion + Improved Curse of Agony
     modifier /= (1 + (player->talents->shadowMastery * 0.02));
-    modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0) + (player->talents->improvedCurseOfAgony * 0.05))));
+    modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0) + (player->talents->reverberation * 0.05))));
     return modifier;
 }

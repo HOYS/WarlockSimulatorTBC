@@ -430,7 +430,7 @@ class Player {
     if (this.simSettings.fightType == "aoe") {
       
     } else {
-      if (this.rotation.filler.shadowBolt || this.filler == 'shadowBolt' || this.talents.nightfall > 0 || this.simChoosingRotation) this.spells.shadowBolt = new ShadowBolt(this)
+      if (this.rotation.filler.shadowBolt || this.filler == 'shadowBolt'  || this.simChoosingRotation) this.spells.shadowBolt = new ShadowBolt(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
       if (this.rotation.dot.immolate  || this.simChoosingRotation) this.spells.immolate = new Immolate(this)
@@ -439,7 +439,6 @@ class Player {
       if (this.rotation.curse.curseOfRecklessness) this.spells.curseOfRecklessness = new CurseOfRecklessness(this)
       if (this.talents.conflagrate == 1 && (this.rotation.finisher.conflagrate || this.simChoosingRotation)) this.spells.conflagrate = new Conflagrate(this)
       if (this.talents.shadowfury == 1 && (this.rotation.other.shadowfury || this.simChoosingRotation)) this.spells.shadowfury = new Shadowfury(this)
-      if (this.talents.amplifyCurse == 1 && (this.rotation.other.amplifyCurse || this.simChoosingRotation)) this.spells.amplifyCurse = new AmplifyCurse(this)
     }
 
     if (this.talents.darkPact == 1 && (this.rotation.other.darkPact || this.simChoosingRotation)) this.spells.darkPact = new DarkPact(this)
@@ -493,8 +492,6 @@ class Player {
       if (this.spells.curseOfAgony) this.auras.curseOfAgony = new CurseOfAgonyDot(this)
       if (this.rotation.curse.curseOfTheElements) this.auras.curseOfTheElements = new CurseOfTheElementsAura(this)
       if (this.rotation.curse.curseOfRecklessness) this.auras.curseOfRecklessness = new CurseOfRecklessnessAura(this)
-      if (this.talents.nightfall > 0) this.auras.shadowTrance = new ShadowTrance(this)
-      if (this.spells.amplifyCurse) this.auras.amplifyCurse = new AmplifyCurseAura(this)
     }
 
     if (this.selectedAuras.powerInfusion) this.auras.powerInfusion = new PowerInfusionAura(this)
@@ -647,7 +644,7 @@ class Player {
   getHitChance(isAfflictionSpell) {
     let hitChance = this.stats.hitChance + this.stats.extraHitChance
     if (isAfflictionSpell) {
-      hitChance += this.talents.suppression * 2
+      hitChance += this.talents.convection * 2
     }
     return Math.min(99, hitChance)
   }

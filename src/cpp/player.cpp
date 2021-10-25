@@ -307,8 +307,6 @@ void Player::initialize()
         if (settings->hasCurseOfAgony) auras->CurseOfAgony = std::make_shared<CurseOfAgonyDot>(this);
         if (settings->hasCurseOfTheElements) auras->CurseOfTheElements = std::make_shared<CurseOfTheElementsAura>(this);
         if (settings->hasCurseOfRecklessness) auras->CurseOfRecklessness = std::make_shared<CurseOfRecklessnessAura>(this);
-        if (talents->nightfall > 0) auras->ShadowTrance = std::make_shared<ShadowTranceAura>(this);
-        if (talents->amplifyCurse == 1 && (settings->hasAmplifyCurse || settings->simChoosingRotation)) auras->AmplifyCurse = std::make_shared<AmplifyCurseAura>(this);
     }
     if (selectedAuras->powerInfusion) auras->PowerInfusion = std::make_shared<PowerInfusionAura>(this);
     if (selectedAuras->innervate) auras->Innervate = std::make_shared<InnervateAura>(this);
@@ -347,7 +345,7 @@ void Player::initialize()
     }
     else
     {
-        if (settings->hasShadowBolt || talents->nightfall > 0 || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
+        if (settings->hasShadowBolt || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
         if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
         if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
@@ -356,7 +354,6 @@ void Player::initialize()
         if (auras->CurseOfAgony != NULL) spells->CurseOfAgony = std::make_shared<CurseOfAgony>(this, nullptr, auras->CurseOfAgony);
         if (auras->CurseOfTheElements != NULL) spells->CurseOfTheElements = std::make_shared<CurseOfTheElements>(this, auras->CurseOfTheElements);
         if (auras->CurseOfRecklessness != NULL) spells->CurseOfRecklessness = std::make_shared<CurseOfRecklessness>(this, auras->CurseOfRecklessness);
-        if (auras->AmplifyCurse != NULL) spells->AmplifyCurse = std::make_shared<AmplifyCurse>(this, auras->AmplifyCurse);
     }
     if (selectedAuras->superManaPotion) spells->SuperManaPotion = std::make_shared<SuperManaPotion>(this);
     if (selectedAuras->demonicRune) spells->DemonicRune = std::make_shared<DemonicRune>(this);
@@ -447,7 +444,6 @@ void Player::reset()
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
     if (spells->Conflagrate != NULL) spells->Conflagrate->reset();
     if (spells->Shadowfury != NULL) spells->Shadowfury->reset();
-    if (spells->AmplifyCurse != NULL) spells->AmplifyCurse->reset();
     if (spells->DarkPact != NULL) spells->DarkPact->reset();
     if (spells->DestructionPotion != NULL) spells->DestructionPotion->reset();
     if (spells->SuperManaPotion != NULL) spells->SuperManaPotion->reset();
@@ -497,8 +493,6 @@ void Player::reset()
     if (auras->ImprovedShadowBolt != NULL && auras->ImprovedShadowBolt->active) auras->ImprovedShadowBolt->fade(true);
     if (auras->CurseOfTheElements != NULL && auras->CurseOfTheElements->active) auras->CurseOfTheElements->fade(true);
     if (auras->CurseOfRecklessness != NULL && auras->CurseOfRecklessness->active) auras->CurseOfRecklessness->fade(true);
-    if (auras->ShadowTrance != NULL && auras->ShadowTrance->active) auras->ShadowTrance->fade(true);
-    if (auras->AmplifyCurse != NULL && auras->AmplifyCurse->active) auras->AmplifyCurse->fade(true);
     if (auras->PowerInfusion != NULL && auras->PowerInfusion->active) auras->PowerInfusion->fade(true);
     if (auras->Innervate != NULL && auras->Innervate->active) auras->Innervate->fade(true);
     if (auras->BloodFury != NULL && auras->BloodFury->active) auras->BloodFury->fade(true);
@@ -582,7 +576,7 @@ double Player::getHitChance(SpellType spellType)
     double hitChance = stats->hitChance + stats->extraHitChance;
     if (spellType == SpellType::AFFLICTION)
     {
-        hitChance += talents->suppression * 2;
+        hitChance += talents->convection * 2;
     }
     return std::min(99.0, hitChance);
 }

@@ -170,7 +170,7 @@ void Spell::cast()
         }
     }
 
-    if (((!isItem && !isNonWarlockAbility && (!player->auras->AmplifyCurse || name != player->auras->AmplifyCurse->name)) || doesDamage) && !player->isHit(type))
+    if (((!isItem && !isNonWarlockAbility && doesDamage) && !player->isHit(type)))
     {
         if (player->shouldWriteToCombatLog())
         {
@@ -196,7 +196,7 @@ void Spell::cast()
     }
 
     // If it's an item such as mana potion, demonic rune, destruction potion, or if it's a proc with a hidden cooldown like Blade of Wizardry or Robe of the Elder Scribes then don't check for on-hit procs
-    if (!isItem && !isProc && !isNonWarlockAbility && (!player->auras->AmplifyCurse || name != player->auras->AmplifyCurse->name))
+    if (!isItem && !isProc && !isNonWarlockAbility)
     {
         onHitProcs();
     }
@@ -505,20 +505,20 @@ ShadowBolt::ShadowBolt(Player* player) : Spell(player)
 
 void ShadowBolt::startCast(double predictedDamage = 0)
 {
-    bool hasShadowTrance = player->auras->ShadowTrance != NULL;
+    // bool hasShadowTrance = player->auras->ShadowTrance != NULL;
 
-    if (hasShadowTrance && player->auras->ShadowTrance->active)
-    {
-        castTime = 0;
-    }
+    // if (hasShadowTrance && player->auras->ShadowTrance->active)
+    // {
+    //     castTime = 0;
+    // }
 
     Spell::startCast();
     
-    if (hasShadowTrance && player->auras->ShadowTrance->active)
-    {
-        castTime = calculateCastTime();
-        player->auras->ShadowTrance->fade();
-    }
+    // if (hasShadowTrance && player->auras->ShadowTrance->active)
+    // {
+    //     castTime = calculateCastTime();
+    //     player->auras->ShadowTrance->fade();
+    // }
 }
 
 double ShadowBolt::calculateCastTime()
@@ -531,7 +531,7 @@ LifeTap::LifeTap(Player* player) : Spell(player)
     name = "Life Tap";
     manaReturn = 582;
     coefficient = 0.8;
-    modifier = 1 * (1 + 0.1 * player->talents->improvedLifeTap);
+    modifier = 1 * (1 + 0.1 * player->talents->callOfFlame);
     setup();
 }
 
@@ -1038,15 +1038,6 @@ void InsightfulEarthstormDiamond::cast()
         std::string msg = "Player gains " + std::to_string(round(player->stats->mana - currentPlayerMana)) + " mana from " + name + " (" + std::to_string(round(currentPlayerMana)) + " -> " + std::to_string(round(player->stats->mana)) + ")";
         player->combatLog(msg);
     }
-}
-
-AmplifyCurse::AmplifyCurse(Player* player, std::shared_ptr<Aura> aura) : Spell(player, aura)
-{
-    name = "Amplify Curse";
-    cooldown = 180;
-    isAura = true;
-    onGcd = false;
-    setup();
 }
 
 PowerInfusion::PowerInfusion(Player* player, std::shared_ptr<Aura> aura) : Spell(player, aura)

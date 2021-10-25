@@ -250,11 +250,6 @@ struct InsightfulEarthstormDiamond : public Spell
     void cast();
 };
 
-struct AmplifyCurse : public Spell
-{
-    AmplifyCurse(Player* player, std::shared_ptr<Aura> aura);
-};
-
 struct PowerInfusion : public Spell
 {
     PowerInfusion(Player* player, std::shared_ptr<Aura> aura);

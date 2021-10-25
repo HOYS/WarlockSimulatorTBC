@@ -273,13 +273,6 @@ CurseOfRecklessnessAura::CurseOfRecklessnessAura(Player* player) : Aura(player)
     setup();
 }
 
-ShadowTranceAura::ShadowTranceAura(Player* player) : Aura(player)
-{
-    name = "Shadow Trance (Nightfall)";
-    duration = 10;
-    setup();
-}
-
 FlameshadowAura::FlameshadowAura(Player* player) : Aura(player)
 {
     name = "Flameshadow";
@@ -625,13 +618,6 @@ MysticalSkyfireDiamondAura::MysticalSkyfireDiamondAura(Player* player) : Aura(pl
     Aura::stats = std::make_unique<AuraStats>(0, 0, 0, 320, 0, 0);
     setup();
 }
-
-AmplifyCurseAura::AmplifyCurseAura(Player* player) : Aura(player)
-{
-    name = "Amplify Curse";
-    duration = 30;
-    setup();
-};
 
 WrathOfCenariusAura::WrathOfCenariusAura(Player* player) : Aura(player)
 {

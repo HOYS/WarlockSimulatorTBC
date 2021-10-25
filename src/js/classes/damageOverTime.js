@@ -13,7 +13,6 @@ class DamageOverTime {
     this.active = false
     this.name = null
     this.coefficient = 0
-    this.amplified = false // Amplify Curse
   }
 
   setup () {
@@ -48,13 +47,6 @@ class DamageOverTime {
     if (this.varName == 'siphonLife') {
       this.isbActive = (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.simSettings.customIsbUptime == 'no')
     }
-    // Amplify Curse
-    if ((this.varName == 'curseOfAgony') && this.player.auras.amplifyCurse && this.player.auras.amplifyCurse.active) {
-      this.amplified = true
-      this.player.auras.amplifyCurse.fade()
-    } else {
-      this.amplified = false
-    }
   }
 
   fade (endOfIteration = false) {
@@ -70,10 +62,6 @@ class DamageOverTime {
 
   getModifier () {
     let modifier = this.modifier * this.player.stats[this.school + 'Modifier']
-    // Amplify Curse
-    if (this.amplified) {
-      modifier *= 1.5
-    }
     // Improved Shadow Bolt
     if ((this.school == 'shadow' && this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.varName != 'siphonLife') || (this.varName == 'siphonLife' && this.isbActive)) {
       modifier *= this.player.auras.improvedShadowBolt.modifier
@@ -125,9 +113,9 @@ class DamageOverTime {
         const partialResistMultiplier = constantDamage[3]
 
         // Check for Nightfall proc
-        if (this.varName == 'corruption' && this.player.talents.nightfall > 0) {
-          if (random(1, 100) <= this.player.talents.nightfall * 2) {
-            this.player.auras.shadowTrance.apply()
+        if (this.varName == 'corruption' && this.player.talents.elementalFury > 0) {
+          if (random(1, 100) <= this.player.talents.elementalFury * 2) {
+            // this.player.auras.shadowTrance.apply()
           }
         }
 
@@ -247,7 +235,7 @@ class CurseOfAgonyDot extends DamageOverTime {
     let modifier = super.getModifier()
     // Remove bonus from Shadow Mastery and add bonus from Shadow Mastery + Contagion + Improved Curse of Agony
     modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
-    modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100) + (this.player.talents.improvedCurseOfAgony * 0.05))))
+    modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100) + (this.player.talents.reverberation * 0.05))))
     return modifier
   }
 }

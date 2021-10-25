@@ -58,11 +58,6 @@ struct CurseOfRecklessnessAura : public Aura
     CurseOfRecklessnessAura(Player* player);
 };
 
-struct ShadowTranceAura : public Aura
-{
-    ShadowTranceAura(Player* player);
-};
-
 struct FlameshadowAura : public Aura
 {
     FlameshadowAura(Player* player);
@@ -195,11 +190,6 @@ struct RobeOfTheElderScribesAura : public Aura
 struct MysticalSkyfireDiamondAura : public Aura
 {
     MysticalSkyfireDiamondAura(Player* player);
-};
-
-struct AmplifyCurseAura : public Aura
-{
-    AmplifyCurseAura(Player* player);
 };
 
 struct WrathOfCenariusAura : public Aura

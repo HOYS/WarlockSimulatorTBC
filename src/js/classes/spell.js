@@ -121,7 +121,7 @@ class Spell {
     }
 
     // Check if the spell hits or misses
-    if (((!this.isItem && !this.isNonWarlockAbility && this.varName !== 'amplifyCurse') || this.doesDamage) && !this.player.isHit(this.type === 'affliction')) {
+    if (((!this.isItem && !this.isNonWarlockAbility ) || this.doesDamage) && !this.player.isHit(this.type === 'affliction')) {
       this.player.combatLog(this.name + ' *resist*')
       this.player[this.breakdownTable + 'Breakdown'][this.varName].misses = this.player[this.breakdownTable + 'Breakdown'][this.varName].misses + 1 || 1
       return
@@ -136,7 +136,7 @@ class Spell {
     }
 
     // If it's an item such as mana potion, demonic rune, destruction potion, or if it's a proc with a hidden cooldown like Blade of Wizardry or Robe of the Elder Scribes then jump out of the method
-    if (this.isItem || this.isProc || this.isNonWarlockAbility || this.varName == 'amplifyCurse') {
+    if (this.isItem || this.isProc || this.isNonWarlockAbility ) {
       return
     }
 
@@ -404,14 +404,14 @@ class ShadowBolt extends Spell {
   }
 
   startCast () {
-    if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) {
-      this.castTime = 0
-    }
+    // if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) {
+    //   this.castTime = 0
+    // }
     super.startCast()
-    if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) {
-      this.castTime = this.calculateCastTime()
-      this.player.auras.shadowTrance.fade()
-    }
+    // if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) {
+    //   this.castTime = this.calculateCastTime()
+    //   this.player.auras.shadowTrance.fade()
+    // }
   }
 
   calculateCastTime () {
@@ -463,7 +463,7 @@ class LifeTap extends Spell {
     this.name = 'Life Tap'
     this.manaReturn = 582
     this.coefficient = 0.8
-    this.modifier = 1 * (1 + 0.1 * this.player.talents.improvedLifeTap)
+    this.modifier = 1 * (1 + 0.1 * this.player.talents.callOfFlame)
     this.breakdownTable = 'manaGain'
     this.setup()
   }
@@ -1010,17 +1010,6 @@ class InsightfulEarthstormDiamond extends Spell {
     this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain = this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain + this.manaGain || this.manaGain
     this.player.mana = Math.min(this.player.stats.maxMana, currentPlayerMana + this.manaGain)
     this.player.combatLog('Player gains ' + Math.round(this.player.mana - currentPlayerMana) + ' mana from ' + this.name + ' (' + Math.round(currentPlayerMana) + ' -> ' + Math.round(this.player.mana) + ')')
-  }
-}
-
-class AmplifyCurse extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Amplify Curse'
-    this.cooldown = 180
-    this.isAura = true
-    this.onGcd = false
-    this.setup()
   }
 }
 

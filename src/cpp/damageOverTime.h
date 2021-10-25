@@ -22,7 +22,6 @@ struct DamageOverTime
     double coefficient;
     double t5BonusModifier; // T5 4pc damage modifier
     bool active;
-    bool amplified; // Applied while the Amplify Curse aura was active
     bool isbActive; // Siphon Life
     std::string name;
 

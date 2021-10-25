@@ -177,16 +177,6 @@ class CurseOfRecklessnessAura extends Aura {
   }
 }
 
-class ShadowTrance extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Shadow Trance (Nightfall)'
-    this.durationTotal = 10
-    this.isImportant = true
-    this.setup()
-  }
-}
-
 class Flameshadow extends Aura {
   constructor (player) {
     super(player)
@@ -601,15 +591,6 @@ class MysticalSkyfireDiamondAura extends Aura {
     this.stats = {
       hasteRating: 320
     }
-    this.setup()
-  }
-}
-
-class AmplifyCurseAura extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Amplify Curse'
-    this.durationTotal = 30
     this.setup()
   }
 }

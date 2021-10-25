@@ -257,7 +257,6 @@ double Simulation::passTime()
     #pragma region Spells
     if (player->spells->Conflagrate != NULL && player->spells->Conflagrate->cooldownRemaining > 0 && player->spells->Conflagrate->cooldownRemaining < time) time = player->spells->Conflagrate->cooldownRemaining;
     if (player->spells->Shadowfury != NULL && player->spells->Shadowfury->cooldownRemaining > 0 && player->spells->Shadowfury->cooldownRemaining < time) time = player->spells->Shadowfury->cooldownRemaining;
-    if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->cooldownRemaining > 0 && player->spells->AmplifyCurse->cooldownRemaining < time) time = player->spells->AmplifyCurse->cooldownRemaining;
     if (player->spells->DestructionPotion != NULL && player->spells->DestructionPotion->cooldownRemaining > 0 && player->spells->DestructionPotion->cooldownRemaining < time) time = player->spells->DestructionPotion->cooldownRemaining;
     if (player->spells->SuperManaPotion != NULL && player->spells->SuperManaPotion->cooldownRemaining > 0 && player->spells->SuperManaPotion->cooldownRemaining < time) time = player->spells->SuperManaPotion->cooldownRemaining;
     if (player->spells->DemonicRune != NULL && player->spells->DemonicRune->cooldownRemaining > 0 && player->spells->DemonicRune->cooldownRemaining < time) time = player->spells->DemonicRune->cooldownRemaining;
@@ -300,8 +299,6 @@ double Simulation::passTime()
     if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active && player->auras->ImprovedShadowBolt->durationRemaining < time) time = player->auras->ImprovedShadowBolt->durationRemaining;
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active && player->auras->CurseOfTheElements->durationRemaining < time) time = player->auras->CurseOfTheElements->durationRemaining;
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active && player->auras->CurseOfRecklessness->durationRemaining < time) time = player->auras->CurseOfRecklessness->durationRemaining;
-    if (player->auras->ShadowTrance != NULL && player->auras->ShadowTrance->active && player->auras->ShadowTrance->durationRemaining < time) time = player->auras->ShadowTrance->durationRemaining;
-    if (player->auras->AmplifyCurse != NULL && player->auras->AmplifyCurse->active && player->auras->AmplifyCurse->durationRemaining < time) time = player->auras->AmplifyCurse->durationRemaining;
     if (player->auras->PowerInfusion != NULL && player->auras->PowerInfusion->active && player->auras->PowerInfusion->durationRemaining < time) time = player->auras->PowerInfusion->durationRemaining;
     if (player->auras->Innervate != NULL && player->auras->Innervate->active && player->auras->Innervate->durationRemaining < time) time = player->auras->Innervate->durationRemaining;
     if (player->auras->BloodFury != NULL && player->auras->BloodFury->active && player->auras->BloodFury->durationRemaining < time) time = player->auras->BloodFury->durationRemaining;
@@ -366,8 +363,6 @@ double Simulation::passTime()
     if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active) player->auras->ImprovedShadowBolt->tick(time);
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active) player->auras->CurseOfTheElements->tick(time);
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active) player->auras->CurseOfRecklessness->tick(time);
-    if (player->auras->ShadowTrance != NULL && player->auras->ShadowTrance->active) player->auras->ShadowTrance->tick(time);
-    if (player->auras->AmplifyCurse != NULL && player->auras->AmplifyCurse->active) player->auras->AmplifyCurse->tick(time);
     if (player->auras->PowerInfusion != NULL && player->auras->PowerInfusion->active) player->auras->PowerInfusion->tick(time);
     if (player->auras->Innervate != NULL && player->auras->Innervate->active) player->auras->Innervate->tick(time);
     if (player->auras->BloodFury != NULL && player->auras->BloodFury->active) player->auras->BloodFury->tick(time);
@@ -402,7 +397,6 @@ double Simulation::passTime()
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
     if (player->spells->Conflagrate != NULL && (player->spells->Conflagrate->cooldownRemaining > 0 || player->spells->Conflagrate->casting)) player->spells->Conflagrate->tick(time);
     if (player->spells->Shadowfury != NULL && (player->spells->Shadowfury->cooldownRemaining > 0 || player->spells->Shadowfury->casting)) player->spells->Shadowfury->tick(time);
-    if (player->spells->AmplifyCurse != NULL && (player->spells->AmplifyCurse->cooldownRemaining > 0 || player->spells->AmplifyCurse->casting)) player->spells->AmplifyCurse->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);
     if (player->spells->SuperManaPotion != NULL && (player->spells->SuperManaPotion->cooldownRemaining > 0 || player->spells->SuperManaPotion->casting)) player->spells->SuperManaPotion->tick(time);
     if (player->spells->DemonicRune != NULL && (player->spells->DemonicRune->cooldownRemaining > 0 || player->spells->DemonicRune->casting)) player->spells->DemonicRune->tick(time);
@@ -514,12 +508,6 @@ void Simulation::selectedSpellHandler(std::shared_ptr<Spell>& spell, std::map<st
 void Simulation::castSelectedSpell(std::shared_ptr<Spell>& spell, double predictedDamage)
 {
     player->useCooldowns();
-
-    // Cast Amplify Curse if it's selected and the spell we're casting is either CoA or CoD
-    if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->ready() && ((player->spells->CurseOfAgony != NULL && spell == player->spells->CurseOfAgony) != NULL ))
-    {
-        player->spells->AmplifyCurse->startCast();
-    }
 
     spell->startCast(predictedDamage);
 }

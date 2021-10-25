@@ -2,7 +2,7 @@ const totalTalentPoints = 61
 var talentPointsRemaining = totalTalentPoints
 const _talents = {
   affliction: {
-    suppression: {
+    convection: {
       name: 'Convection',
       rankIDs: [16039, 16109, 16110, 16111, 16112],
       iconName: 'spell_shadow_unsummonbuilding',
@@ -30,42 +30,42 @@ const _talents = {
       row: 2,
       column: 2
     },
-    improvedLifeTap: {
+    callOfFlame: {
       name: 'Call of Flame',
       rankIDs: [16038, 16160, 16161],
       iconName: 'spell_shadow_burningspirit',
       row: 2,
       column: 3
     },
-    soulSiphon: {
+    elementalFocus: {
       name: 'Elemental Focus',
       rankIDs: [16164],
       iconName: 'spell_shadow_lifedrain02',
       row: 3,
       column: 1
     },
-    improvedCurseOfAgony: {
+    reverberation: {
       name: 'Reverberation',
       rankIDs: [16040, 16113, 16114, 16115, 16116],
       iconName: 'spell_shadow_curseofsargeras',
       row: 3,
       column: 2
     },
-    felConcentration: {
+    callOfThunder: {
       name: 'Call of Thunder',
       rankIDs: [16041, 16117, 16118, 16119, 16120],
       iconName: 'spell_shadow_fingerofdeath',
       row: 3,
       column: 3
     },
-    amplifyCurse: {
+    improvedFireTotems: {
       name: 'Improved Fire Totems',
       rankIDs: [16086, 16544],
       iconName: 'spell_shadow_contagion',
       row: 4,
       column: 1
     },
-    grimReach: {
+    eyeOfTheStorm: {
       name: 'Eye of the Storm',
       rankIDs: [29062, 29064, 29065],
       iconName: 'spell_shadow_callofbone',
@@ -86,7 +86,7 @@ const _talents = {
       row: 5,
       column: 1
     },
-    shadowEmbrace: {
+    elementalFury: {
       name: 'Elemental Fury',
       rankIDs: [16089],
       iconName: 'spell_shadow_shadowembrace',
@@ -107,7 +107,7 @@ const _talents = {
       row: 6,
       column: 1,
       requirement: {
-        name: 'amplifyCurse',
+        name: 'improvedFireTotems',
         points: 1
       }
     },

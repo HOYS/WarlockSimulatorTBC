@@ -84,10 +84,6 @@ class Simulation {
       if (this.player.spells.mysticalSkyfireDiamond.cooldownRemaining > 0 && this.player.spells.mysticalSkyfireDiamond.cooldownRemaining < time) time = this.player.spells.mysticalSkyfireDiamond.cooldownRemaining
       if (this.player.auras.mysticalSkyfireDiamond.active && this.player.spells.mysticalSkyfireDiamond.durationRemaining < time) time = this.player.auras.mysticalSkyfireDiamond.durationRemaining
     }
-    if (this.player.spells.amplifyCurse) {
-      if (this.player.spells.amplifyCurse.cooldownRemaining > 0 && this.player.spells.amplifyCurse.cooldownRemaining < time) time = this.player.spells.amplifyCurse.cooldownRemaining
-      if (this.player.auras.amplifyCurse.active && this.player.auras.amplifyCurse.durationRemaining < time) time = this.player.auras.amplifyCurse.durationRemaining
-    }
     if (this.player.spells.shadowfury && this.player.spells.shadowfury.cooldownRemaining > 0 && this.player.spells.shadowfury.cooldownRemaining < time) time = this.player.spells.shadowfury.cooldownRemaining
     if (this.player.spells.insightfulEarthstormDiamond && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining > 0 && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining < time) time = this.player.spells.insightfulEarthstormDiamond.cooldownRemaining
     if (this.player.spells.timbalsFocusingCrystal && this.player.spells.timbalsFocusingCrystal.cooldownRemaining > 0 && this.player.spells.timbalsFocusingCrystal.cooldownRemaining < time) time = this.player.spells.timbalsFocusingCrystal.cooldownRemaining
@@ -99,7 +95,6 @@ class Simulation {
     if (this.player.auras.drumsOfBattle && this.player.auras.drumsOfBattle.active && this.player.auras.drumsOfBattle.durationRemaining < time) time = this.player.auras.drumsOfBattle.durationRemaining
     if (this.player.auras.drumsOfWar && this.player.auras.drumsOfWar.active && this.player.auras.drumsOfWar.durationRemaining < time) time = this.player.auras.drumsOfWar.durationRemaining
     if (this.player.auras.drumsOfRestoration && this.player.auras.drumsOfRestoration.active && this.player.auras.drumsOfRestoration.tickTimerRemaining < time) time = this.player.auras.drumsOfRestoration.tickTimerRemaining
-    if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active && this.player.auras.shadowTrance.durationRemaining < time) time = this.player.auras.shadowTrance.durationRemaining
     if (this.player.auras.wrathOfCenarius && this.player.auras.wrathOfCenarius.active && this.player.auras.wrathOfCenarius.durationRemaining < time) time = this.player.auras.wrathOfCenarius.durationRemaining
     if (this.player.auras.flameshadow && this.player.auras.flameshadow.active && this.player.auras.flameshadow.durationRemaining < time) time = this.player.auras.flameshadow.durationRemaining
     if (this.player.auras.shadowflame && this.player.auras.shadowflame.active && this.player.auras.shadowflame.durationRemaining < time) time = this.player.auras.shadowflame.durationRemaining
@@ -191,7 +186,6 @@ class Simulation {
     if (this.player.auras.robeOfTheElderScribes && this.player.auras.robeOfTheElderScribes.active) this.player.auras.robeOfTheElderScribes.tick(time)
     if (this.player.auras.bandOfTheEternalSage && this.player.auras.bandOfTheEternalSage.active) this.player.auras.bandOfTheEternalSage.tick(time)
     if (this.player.auras.mysticalSkyfireDiamond && this.player.auras.mysticalSkyfireDiamond.active) this.player.auras.mysticalSkyfireDiamond.tick(time)
-    if (this.player.auras.amplifyCurse && this.player.auras.amplifyCurse.active) this.player.auras.amplifyCurse.tick(time)
     if (this.player.auras.wrathOfCenarius && this.player.auras.wrathOfCenarius.active) this.player.auras.wrathOfCenarius.tick(time)
     if (this.player.auras.innervate && this.player.auras.innervate.active) this.player.auras.innervate.tick(time)
 
@@ -207,7 +201,6 @@ class Simulation {
     if (this.player.spells.mysticalSkyfireDiamond && this.player.spells.mysticalSkyfireDiamond.cooldownRemaining > 0) this.player.spells.mysticalSkyfireDiamond.tick(time)
     if (this.player.spells.conflagrate && this.player.spells.conflagrate.cooldownRemaining > 0) this.player.spells.conflagrate.tick(time)
     if (this.player.spells.shadowfury && (this.player.spells.shadowfury.cooldownRemaining > 0 || this.player.spells.shadowfury.casting)) this.player.spells.shadowfury.tick(time)
-    if (this.player.spells.amplifyCurse && this.player.spells.amplifyCurse.cooldownRemaining > 0) this.player.spells.amplifyCurse.tick(time)
     if (this.player.spells.drumsOfBattle && this.player.spells.drumsOfBattle.cooldownRemaining > 0) this.player.spells.drumsOfBattle.tick(time)
     if (this.player.spells.drumsOfWar && this.player.spells.drumsOfWar.cooldownRemaining > 0) this.player.spells.drumsOfWar.tick(time)
     if (this.player.spells.drumsOfRestoration && this.player.spells.drumsOfRestoration.cooldownRemaining > 0) this.player.spells.drumsOfRestoration.tick(time)
@@ -308,7 +301,6 @@ class Simulation {
       if (this.player.spells.insightfulEarthstormDiamond) this.player.spells.insightfulEarthstormDiamond.reset()
       if (this.player.spells.conflagrate) this.player.spells.conflagrate.reset()
       if (this.player.spells.shadowfury) this.player.spells.shadowfury.reset()
-      if (this.player.spells.amplifyCurse) this.player.spells.amplifyCurse.reset()
       if (this.player.spells.powerInfusion) {
         for (let i = 0; i < this.player.spells.powerInfusion.length; i++) {
           this.player.spells.powerInfusion[i].reset()
@@ -392,9 +384,6 @@ class Simulation {
                     if (this.player.simChoosingRotation) {
                       predictedDamageOfSpells.push([this.player.spells.curseOfAgony.varName, this.player.spells.curseOfAgony.predictDamage()])
                     } else if (this.player.spells.curseOfAgony.hasEnoughMana()) {
-                      if (this.player.spells.amplifyCurse && this.player.spells.amplifyCurse.ready()) {
-                        this.player.cast('amplifyCurse')
-                      }
                       this.player.cast('curseOfAgony')
                     }
                   }
@@ -404,15 +393,6 @@ class Simulation {
                       predictedDamageOfSpells.push([this.player.spells.corruption.varName, this.player.spells.corruption.predictDamage()])
                     } else if (this.player.spells.corruption.hasEnoughMana()) {
                       this.player.cast('corruption')
-                    }
-                  }
-                  // Cast Shadow Bolt if Shadow Trance (Nightfall) is active and Corruption is active as well to avoid potentially wasting another Nightfall proc
-                  if (this.player.spells.shadowBolt && this.player.auras.shadowTrance && this.player.auras.shadowTrance.active && this.player.auras.corruption.active && this.player.spells.shadowBolt.canCast()) {
-                    if (this.player.simChoosingRotation) {
-                      // todo: check if the spell is already in the array before adding it
-                      predictedDamageOfSpells.push([this.player.spells.shadowBolt.varName, this.player.spells.shadowBolt.predictDamage()])
-                    } else if (this.player.spells.shadowBolt.hasEnoughMana()) {
-                      this.player.cast('shadowBolt')
                     }
                   }
                   // Cast Siphon Life if it's not up (todo: add option to only cast it while ISB is active if not using custom ISB uptime %)
@@ -429,14 +409,6 @@ class Simulation {
                       predictedDamageOfSpells.push([this.player.spells.immolate.varName, this.player.spells.immolate.predictDamage()])
                     } else if (this.player.spells.immolate.hasEnoughMana()) {
                       this.player.cast('immolate')
-                    }
-                  }
-                  // Cast Shadow Bolt if Shadow Trance (Nightfall) is active
-                  if (this.player.spells.shadowBolt && this.player.auras.shadowTrance && this.player.auras.shadowTrance.active && this.player.spells.shadowBolt.canCast()) {
-                    if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.shadowBolt.varName, this.player.spells.shadowBolt.predictDamage()])
-                    } else if (this.player.spells.shadowBolt.hasEnoughMana()) {
-                      this.player.cast('shadowBolt')
                     }
                   }
                   // Cast Shadowfury
@@ -536,7 +508,6 @@ class Simulation {
       if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.fade(true)
       if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.fade(true)
       if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.fade(true)
-      if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) this.player.auras.shadowTrance.fade(true)
       if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.fade(true)
       if (this.player.auras.shadowflame && this.player.auras.shadowflame.active) this.player.auras.shadowflame.fade(true)
       if (this.player.auras.spellstrikeProc && this.player.auras.spellstrikeProc.active) this.player.auras.spellstrikeProc.fade(true)
@@ -560,7 +531,6 @@ class Simulation {
       if (this.player.auras.shatteredSunPendantOfAcumen && this.player.auras.shatteredSunPendantOfAcumen.active) this.player.auras.shatteredSunPendantOfAcumen.fade(true)
       if (this.player.auras.robeOfTheElderScribes && this.player.auras.robeOfTheElderScribes.active) this.player.auras.robeOfTheElderScribes.fade(true)
       if (this.player.auras.mysticalSkyfireDiamond && this.player.auras.mysticalSkyfireDiamond.active) this.player.auras.mysticalSkyfireDiamond.fade(true)
-      if (this.player.auras.amplifyCurse && this.player.auras.amplifyCurse.active) this.player.auras.amplifyCurse.fade(true)
       if (this.player.auras.wrathOfCenarius && this.player.auras.wrathOfCenarius.active) this.player.auras.wrathOfCenarius.fade(true)
       if (this.player.auras.innervate && this.player.auras.innervate.active) this.player.auras.innervate.fade(true)
       for (let i = 0; i < this.player.trinkets.length; i++) {

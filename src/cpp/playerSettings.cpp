@@ -12,7 +12,7 @@ PlayerSettings::PlayerSettings(Auras* auras, Talents* talents, Sets* sets, Chara
     , bool isOrc, int powerInfusionAmount, int bloodlustAmount, int innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
     , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool simChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility
     , bool hasImmolate, bool hasCorruption, bool hasSiphonLife, bool hasShadowBolt, bool hasCurseOfRecklessness
-    , bool hasCurseOfTheElements, bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury, bool hasAmplifyCurse
+    , bool hasCurseOfTheElements, bool hasCurseOfAgony, bool hasConflagrate, bool hasShadowfury
     , bool hasDarkPact, bool hasElementalShamanT4Bonus)
   : auras(auras), talents(talents), sets(sets), stats(stats), items(items), itemId(itemId), metaGemId(metaGemId), recordingCombatLogBreakdown(recordingCombatLogBreakdown), simmingStamina(simmingStamina), simmingIntellect(simmingIntellect)
     , simmingSpirit(simmingSpirit), simmingSpellPower(simmingSpellPower), simmingShadowPower(simmingShadowPower), simmingFirePower(simmingFirePower), simmingHitRating(simmingHitRating), simmingCritRating(simmingCritRating)
@@ -26,4 +26,4 @@ PlayerSettings::PlayerSettings(Auras* auras, Talents* talents, Sets* sets, Chara
     , survivalHunterAgility(survivalHunterAgility), hasImmolate(hasImmolate), hasCorruption(hasCorruption), hasSiphonLife(hasSiphonLife)
     , hasShadowBolt(hasShadowBolt), hasCurseOfRecklessness(hasCurseOfRecklessness), hasCurseOfTheElements(hasCurseOfTheElements)
     , hasCurseOfAgony(hasCurseOfAgony), hasConflagrate(hasConflagrate), hasShadowfury(hasShadowfury)
-    , hasAmplifyCurse(hasAmplifyCurse), hasDarkPact(hasDarkPact), hasElementalShamanT4Bonus(hasElementalShamanT4Bonus) {}
+    , hasDarkPact(hasDarkPact), hasElementalShamanT4Bonus(hasElementalShamanT4Bonus) {}
