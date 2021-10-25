@@ -44,18 +44,10 @@ const characterStats = {
 }
 
 const raceStats = {
-  gnome: {
-    stamina: 75,
-    intellect: 136,
-    spirit: 139,
-    arcaneResist: 10,
-    intellectModifier: 1.05
-  },
-  human: {
-    stamina: 76,
-    intellect: 133,
-    spirit: 139,
-    spiritModifier: 1.1
+  draenei: {
+    stamina: 74,
+    intellect: 131,
+    spirit : 138
   },
   orc: {
     stamina: 78,
@@ -63,21 +55,15 @@ const raceStats = {
     spirit: 142,
     petDamageModifier: 1.05
   },
-  undead: {
+  tauren: {
     stamina: 77,
     intellect: 131,
-    spirit: 144,
-    shadowResist: 10
+    spirit: 144
   },
-  bloodElf: {
+  troll: {
     stamina: 74,
     intellect: 137,
-    spirit: 138,
-    fireResist: 5,
-    frostResist: 5,
-    shadowResist: 5,
-    arcaneResist: 5,
-    natureResist: 5
+    spirit: 138
   }
 }
 

@@ -435,12 +435,10 @@ class Player {
       if (this.talents.unstableAffliction && (this.rotation.dot.unstableAffliction || this.simChoosingRotation)) this.spells.unstableAffliction = new UnstableAffliction(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
       if (this.rotation.dot.immolate  || this.simChoosingRotation) this.spells.immolate = new Immolate(this)
-      if (this.rotation.curse.curseOfAgony || this.rotation.curse.curseOfDoom) this.spells.curseOfAgony = new CurseOfAgony(this)
+      if (this.rotation.curse.curseOfAgony) this.spells.curseOfAgony = new CurseOfAgony(this)
       if (this.rotation.curse.curseOfTheElements) this.spells.curseOfTheElements = new CurseOfTheElements(this)
       if (this.rotation.curse.curseOfRecklessness) this.spells.curseOfRecklessness = new CurseOfRecklessness(this)
-      if (this.rotation.curse.curseOfDoom) this.spells.curseOfDoom = new CurseOfDoom(this)
       if (this.talents.conflagrate == 1 && (this.rotation.finisher.conflagrate || this.simChoosingRotation)) this.spells.conflagrate = new Conflagrate(this)
-      if (this.rotation.finisher.deathCoil || this.simChoosingRotation) this.spells.deathCoil = new DeathCoil(this)
       if (this.talents.shadowfury == 1 && (this.rotation.other.shadowfury || this.simChoosingRotation)) this.spells.shadowfury = new Shadowfury(this)
       if (this.talents.amplifyCurse == 1 && (this.rotation.other.amplifyCurse || this.simChoosingRotation)) this.spells.amplifyCurse = new AmplifyCurse(this)
     }
@@ -497,7 +495,6 @@ class Player {
       if (this.spells.curseOfAgony) this.auras.curseOfAgony = new CurseOfAgonyDot(this)
       if (this.rotation.curse.curseOfTheElements) this.auras.curseOfTheElements = new CurseOfTheElementsAura(this)
       if (this.rotation.curse.curseOfRecklessness) this.auras.curseOfRecklessness = new CurseOfRecklessnessAura(this)
-      if (this.rotation.curse.curseOfDoom) this.auras.curseOfDoom = new CurseOfDoomDot(this)
       if (this.talents.nightfall > 0) this.auras.shadowTrance = new ShadowTrance(this)
       if (this.spells.amplifyCurse) this.auras.amplifyCurse = new AmplifyCurseAura(this)
     }

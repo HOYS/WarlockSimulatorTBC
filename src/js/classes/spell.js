@@ -439,23 +439,6 @@ class SoulFire extends Spell {
 }
 
 
-class DeathCoil extends Spell {
-  constructor (player) {
-    super(player)
-    this.cooldown = 120
-    this.manaCost = 600
-    this.coefficient = 0.4286
-    this.dmg = 526
-    this.name = 'Death Coil'
-    this.doesDamage = true
-    this.canCrit = false // confirm
-    this.school = 'shadow'
-    this.type = 'affliction'
-    this.travelTime = player.spellTravelTime
-    this.setup()
-  }
-}
-
 class Shadowfury extends Spell {
   constructor (player) {
     super(player)
@@ -656,18 +639,6 @@ class CurseOfRecklessness extends Spell {
   }
 }
 
-class CurseOfDoom extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Curse of Doom'
-    this.manaCost = 380
-    this.cooldown = 60
-    this.school = 'shadow'
-    this.type = 'affliction'
-    this.isDot = true
-    this.setup()
-  }
-}
 
 class Conflagrate extends Spell {
   constructor (player) {

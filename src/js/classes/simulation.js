@@ -50,10 +50,6 @@ class Simulation {
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active && this.player.auras.curseOfAgony.tickTimerRemaining < time) time = this.player.auras.curseOfAgony.tickTimerRemaining
     if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active && this.player.auras.curseOfTheElements.durationRemaining < time) time = this.player.auras.curseOfTheElements.durationRemaining
     if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active && this.player.auras.curseOfRecklessness.durationRemaining < time) time = this.player.auras.curseOfRecklessness.durationRemaining
-    if (this.player.auras.curseOfDoom) {
-      if (this.player.auras.curseOfDoom.active && this.player.auras.curseOfDoom.durationRemaining < time) time = this.player.auras.curseOfDoom.durationRemaining
-      if (this.player.spells.curseOfDoom.cooldownRemaining > 0 && this.player.spells.curseOfDoom.cooldownRemaining < time) time = this.player.spells.curseOfDoom.cooldownRemaining
-    }
     if (this.player.auras.destructionPotion) {
       if (this.player.spells.destructionPotion.cooldownRemaining > 0 && this.player.spells.destructionPotion.cooldownRemaining < time) time = this.player.spells.destructionPotion.cooldownRemaining
       if (this.player.auras.destructionPotion.active && this.player.auras.destructionPotion.durationRemaining < time) time = this.player.auras.destructionPotion.durationRemaining
@@ -175,7 +171,6 @@ class Simulation {
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.tick(time)
     if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.tick(time)
     if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.tick(time)
-    if (this.player.auras.curseOfDoom && (this.player.auras.curseOfDoom.active || this.player.auras.curseOfDoom.cooldownRemaining > 0)) this.player.auras.curseOfDoom.tick(time)
     if (this.player.auras.destructionPotion && this.player.auras.destructionPotion.active) this.player.auras.destructionPotion.tick(time)
     if (this.player.auras.flameCap && this.player.auras.flameCap.active) this.player.auras.flameCap.tick(time)
     if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.tick(time)
@@ -207,8 +202,6 @@ class Simulation {
     if (this.player.spells.immolate && this.player.spells.immolate.casting) this.player.spells.immolate.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
     if (this.player.spells.unstableAffliction && this.player.spells.unstableAffliction.casting) this.player.spells.unstableAffliction.tick(time)
-    if (this.player.spells.curseOfDoom && this.player.spells.curseOfDoom.cooldownRemaining > 0) this.player.spells.curseOfDoom.tick(time)
-    if (this.player.spells.deathCoil && this.player.spells.deathCoil.cooldownRemaining > 0) this.player.spells.deathCoil.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
     if (this.player.spells.superManaPotion && this.player.spells.superManaPotion.cooldownRemaining > 0) this.player.spells.superManaPotion.tick(time)
     if (this.player.spells.demonicRune && this.player.spells.demonicRune.cooldownRemaining > 0) this.player.spells.demonicRune.tick(time)
@@ -297,8 +290,6 @@ class Simulation {
       if (this.player.spells.corruption) this.player.spells.corruption.reset()
       if (this.player.spells.unstableAffliction) this.player.spells.unstableAffliction.reset()
       if (this.player.spells.immolate) this.player.spells.immolate.reset()
-      if (this.player.spells.curseOfDoom) this.player.spells.curseOfDoom.reset()
-      if (this.player.spells.deathCoil) this.player.spells.deathCoil.reset()
       if (this.player.spells.destructionPotion) this.player.spells.destructionPotion.reset()
       if (this.player.spells.superManaPotion) this.player.spells.superManaPotion.reset()
       if (this.player.spells.demonicRune) this.player.spells.demonicRune.reset()
@@ -384,13 +375,11 @@ class Simulation {
               }
 
               // Not enough time left to cast another filler spell.
-              if (timeRemaining <= this.player.spells[this.player.filler].getCastTime() && (this.player.rotation.finisher.deathCoil)) {
+              if (timeRemaining <= this.player.spells[this.player.filler].getCastTime()) {
                 this.player.useCooldowns()
-                // todo: need to rework this thing to just choose the highest damage spell of the three (death coil and conflag)
+                // todo: need to rework this thing to just choose the highest damage spell of the three ( conflag)
                 if (this.player.spells.conflagrate && this.player.auras.immolate && this.player.auras.immolate.active && this.player.spells.conflagrate.ready()) {
                   this.player.cast('conflagrate')
-                } else if (this.player.spells.deathCoil && this.player.spells.deathCoil.ready()) {
-                  this.player.cast('deathCoil')
                 } else if (this.player.spells.darkPact && this.player.spells.darkPact.ready()) {
                   this.player.cast('darkPact')
                 } else {
@@ -402,22 +391,8 @@ class Simulation {
                   this.player.cast(this.player.curse)
                 } else {
                   this.player.useCooldowns()
-                  // Cast Curse of Doom if there's more than 60 seconds remaining
-                  if (this.player.curse && !this.player.auras[this.player.curse].active && this.player.curse == 'curseOfDoom' && timeRemaining > 60 && this.player.spells.curseOfDoom.canCast()) {
-                    // If the sim is choosing the rotation for the player then predict the damage of the spell and put it in the array
-                    if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.curseOfDoom.varName, this.player.spells.curseOfDoom.predictDamage()])
-                    }
-                    // Else if the player is choosing the rotation themselves then just cast the highest priority spell that needs to be cast
-                    else if(this.player.spells.curseOfDoom.hasEnoughMana()) {
-                      if (this.player.spells.amplifyCurse && this.player.spells.amplifyCurse.ready()) {
-                        this.player.cast('amplifyCurse')
-                      }
-                      this.player.cast('curseOfDoom')
-                    }
-                  }
-                  // Cast Curse of Agony if CoA is the selected curse or if Curse of Doom is the selected curse and there's less than 60 seconds remaining of the fight
-                  if (this.player.curse && this.player.auras.curseOfAgony && !this.player.auras.curseOfAgony.active && this.player.spells.curseOfAgony.canCast() && timeRemaining > this.player.auras.curseOfAgony.minimumDuration && ((this.player.curse == 'curseOfDoom' && !this.player.auras.curseOfDoom.active && (this.player.spells.curseOfDoom.cooldownRemaining > this.player.auras.curseOfAgony.minimumDuration || timeRemaining < 60)) || this.player.curse == 'curseOfAgony')) {
+                  // Cast Curse of Agony if CoA is the selected curse
+                  if (this.player.curse && this.player.auras.curseOfAgony && !this.player.auras.curseOfAgony.active && this.player.spells.curseOfAgony.canCast() && timeRemaining > this.player.auras.curseOfAgony.minimumDuration && this.player.curse == 'curseOfAgony') {
                     if (this.player.simChoosingRotation) {
                       predictedDamageOfSpells.push([this.player.spells.curseOfAgony.varName, this.player.spells.curseOfAgony.predictDamage()])
                     } else if (this.player.spells.curseOfAgony.hasEnoughMana()) {
@@ -574,7 +549,6 @@ class Simulation {
       if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.fade(true)
       if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.fade(true)
       if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.fade(true)
-      if (this.player.auras.curseOfDoom && this.player.auras.curseOfDoom.active) this.player.auras.curseOfDoom.fade(true)
       if (this.player.auras.shadowTrance && this.player.auras.shadowTrance.active) this.player.auras.shadowTrance.fade(true)
       if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.fade(true)
       if (this.player.auras.shadowflame && this.player.auras.shadowflame.active) this.player.auras.shadowflame.fade(true)

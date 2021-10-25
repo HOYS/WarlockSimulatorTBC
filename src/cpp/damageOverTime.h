@@ -66,9 +66,4 @@ struct CurseOfAgonyDot : public DamageOverTime
     double getModifier();
 };
 
-struct CurseOfDoomDot : public DamageOverTime
-{
-    CurseOfDoomDot(Player* player);
-    double getModifier();
-};
 

@@ -569,21 +569,6 @@ SoulFire::SoulFire(Player* player) : Spell(player)
     setup();
 };
 
-
-DeathCoil::DeathCoil(Player* player) : Spell(player)
-{
-    name = "Death Coil";
-    cooldown = 120;
-    manaCost = 600;
-    coefficient = 0.4286;
-    dmg = 526;
-    doesDamage = true;
-    isFinisher = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::AFFLICTION;
-    setup();
-};
-
 Shadowfury::Shadowfury(Player* player) : Spell(player)
 {
     name = "Shadowfury";
@@ -709,16 +694,6 @@ CurseOfRecklessness::CurseOfRecklessness(Player* player, std::shared_ptr<Aura> a
     setup();
 }
 
-CurseOfDoom::CurseOfDoom(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
-{
-    name = "Curse of Doom";
-    manaCost = 380;
-    cooldown = 60;
-    school = SpellSchool::SHADOW;
-    type = SpellType::AFFLICTION;
-    isDot = true;
-    setup();
-}
 
 Conflagrate::Conflagrate(Player* player) : Spell(player)
 {

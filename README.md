@@ -1,7 +1,21 @@
 # Warlock Simulator TBC
  
  Warlock simulator for WoW TBCC written in C++ & Javascript
+
+ ## TODO
+ Remove all Warlock spells
+ Change to Shaman Talents
+ Change to shaman spells
+ add shaman procs (clearcasting)
+ add shaman gear pieces 
+ calculate totem dropping effect on GCD?
+ add shaman consumables
+ add shaman gear by phase
+ remove pet logic (refactor to fire ele?)
  
+    bugs I've made:
+    fix racial base stats, can't find a good source
+
  ## Building Locally
  ### Requirements:  
  [Emscripten SDK to compile the C++ code with Makefile](https://emscripten.org/docs/getting_started/downloads.html)    

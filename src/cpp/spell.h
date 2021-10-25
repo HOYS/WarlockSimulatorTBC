@@ -87,11 +87,6 @@ struct SoulFire : public Spell
     SoulFire(Player* player);
 };
 
-struct DeathCoil : public Spell
-{
-    DeathCoil(Player* player);
-};
-
 struct Shadowfury : public Spell
 {
     Shadowfury(Player* player);
@@ -139,11 +134,6 @@ struct CurseOfTheElements : public Spell
 struct CurseOfRecklessness : public Spell
 {
     CurseOfRecklessness(Player* player, std::shared_ptr<Aura> aura);
-};
-
-struct CurseOfDoom : public Spell
-{
-    CurseOfDoom(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
 };
 
 struct Conflagrate : public Spell

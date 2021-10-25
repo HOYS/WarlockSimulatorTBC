@@ -255,9 +255,7 @@ double Simulation::passTime()
     }
 
     #pragma region Spells
-    if (player->spells->CurseOfDoom != NULL && player->spells->CurseOfDoom->cooldownRemaining > 0 && player->spells->CurseOfDoom->cooldownRemaining < time) time = player->spells->CurseOfDoom->cooldownRemaining;
     if (player->spells->Conflagrate != NULL && player->spells->Conflagrate->cooldownRemaining > 0 && player->spells->Conflagrate->cooldownRemaining < time) time = player->spells->Conflagrate->cooldownRemaining;
-    if (player->spells->DeathCoil != NULL && player->spells->DeathCoil->cooldownRemaining > 0 && player->spells->DeathCoil->cooldownRemaining < time) time = player->spells->DeathCoil->cooldownRemaining;
     if (player->spells->Shadowfury != NULL && player->spells->Shadowfury->cooldownRemaining > 0 && player->spells->Shadowfury->cooldownRemaining < time) time = player->spells->Shadowfury->cooldownRemaining;
     if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->cooldownRemaining > 0 && player->spells->AmplifyCurse->cooldownRemaining < time) time = player->spells->AmplifyCurse->cooldownRemaining;
     if (player->spells->DestructionPotion != NULL && player->spells->DestructionPotion->cooldownRemaining > 0 && player->spells->DestructionPotion->cooldownRemaining < time) time = player->spells->DestructionPotion->cooldownRemaining;
@@ -300,7 +298,6 @@ double Simulation::passTime()
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining < time) time = player->auras->SiphonLife->tickTimerRemaining;
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining < time) time = player->auras->Immolate->tickTimerRemaining;
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining < time) time = player->auras->CurseOfAgony->tickTimerRemaining;
-    if (player->auras->CurseOfDoom != NULL && player->auras->CurseOfDoom->active && player->auras->CurseOfDoom->tickTimerRemaining < time) time = player->auras->CurseOfDoom->tickTimerRemaining;
     if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active && player->auras->ImprovedShadowBolt->durationRemaining < time) time = player->auras->ImprovedShadowBolt->durationRemaining;
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active && player->auras->CurseOfTheElements->durationRemaining < time) time = player->auras->CurseOfTheElements->durationRemaining;
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active && player->auras->CurseOfRecklessness->durationRemaining < time) time = player->auras->CurseOfRecklessness->durationRemaining;
@@ -368,7 +365,6 @@ double Simulation::passTime()
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining > 0) player->auras->SiphonLife->tick(time);
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining > 0) player->auras->Immolate->tick(time);
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining > 0) player->auras->CurseOfAgony->tick(time);
-    if (player->auras->CurseOfDoom != NULL && player->auras->CurseOfDoom->active && player->auras->CurseOfDoom->tickTimerRemaining > 0) player->auras->CurseOfDoom->tick(time);
     if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active) player->auras->ImprovedShadowBolt->tick(time);
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active) player->auras->CurseOfTheElements->tick(time);
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active) player->auras->CurseOfRecklessness->tick(time);
@@ -407,9 +403,7 @@ double Simulation::passTime()
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->UnstableAffliction != NULL && player->spells->UnstableAffliction->casting) player->spells->UnstableAffliction->tick(time);
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
-    if (player->spells->CurseOfDoom != NULL && (player->spells->CurseOfDoom->cooldownRemaining > 0 || player->spells->CurseOfDoom->casting)) player->spells->CurseOfDoom->tick(time);
     if (player->spells->Conflagrate != NULL && (player->spells->Conflagrate->cooldownRemaining > 0 || player->spells->Conflagrate->casting)) player->spells->Conflagrate->tick(time);
-    if (player->spells->DeathCoil != NULL && (player->spells->DeathCoil->cooldownRemaining > 0 || player->spells->DeathCoil->casting)) player->spells->DeathCoil->tick(time);
     if (player->spells->Shadowfury != NULL && (player->spells->Shadowfury->cooldownRemaining > 0 || player->spells->Shadowfury->casting)) player->spells->Shadowfury->tick(time);
     if (player->spells->AmplifyCurse != NULL && (player->spells->AmplifyCurse->cooldownRemaining > 0 || player->spells->AmplifyCurse->casting)) player->spells->AmplifyCurse->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);
@@ -525,7 +519,7 @@ void Simulation::castSelectedSpell(std::shared_ptr<Spell>& spell, double predict
     player->useCooldowns();
 
     // Cast Amplify Curse if it's selected and the spell we're casting is either CoA or CoD
-    if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->ready() && ((player->spells->CurseOfAgony != NULL && spell == player->spells->CurseOfAgony) || (player->spells->CurseOfDoom != NULL && spell == player->spells->CurseOfDoom)))
+    if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->ready() && ((player->spells->CurseOfAgony != NULL && spell == player->spells->CurseOfAgony) != NULL ))
     {
         player->spells->AmplifyCurse->startCast();
     }

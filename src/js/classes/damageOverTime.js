@@ -49,7 +49,7 @@ class DamageOverTime {
       this.isbActive = (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.simSettings.customIsbUptime == 'no')
     }
     // Amplify Curse
-    if ((this.varName == 'curseOfAgony' || this.varName == 'curseOfDoom') && this.player.auras.amplifyCurse && this.player.auras.amplifyCurse.active) {
+    if ((this.varName == 'curseOfAgony') && this.player.auras.amplifyCurse && this.player.auras.amplifyCurse.active) {
       this.amplified = true
       this.player.auras.amplifyCurse.fade()
     } else {
@@ -263,18 +263,5 @@ class CurseOfAgonyDot extends DamageOverTime {
     modifier /= (1 + (this.player.talents.shadowMastery * 0.02))
     modifier *= (1 * (1 + ((this.player.talents.shadowMastery * 0.02) + (this.player.talents.contagion / 100) + (this.player.talents.improvedCurseOfAgony * 0.05))))
     return modifier
-  }
-}
-
-class CurseOfDoomDot extends DamageOverTime {
-  constructor (player) {
-    super(player)
-    this.durationTotal = 60
-    this.tickTimerTotal = 60
-    this.dmg = 4200
-    this.school = 'shadow'
-    this.name = 'Curse of Doom'
-    this.coefficient = 2
-    this.setup()
   }
 }

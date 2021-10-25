@@ -47,11 +47,6 @@ const _spellSelection = {
         iconName: 'spell_shadow_chilltouch',
         id: 27228
       },
-      curseOfDoom: {
-        name: 'Curse of Doom',
-        iconName: 'spell_shadow_auraofdarkness',
-        id: 30910
-      },
       curseOfAgony: {
         name: 'Curse of Agony',
         iconName: 'spell_shadow_curseofsargeras',
@@ -62,11 +57,6 @@ const _spellSelection = {
   finisher: {
     header: 'Finishers',
     spells: {
-      deathCoil: {
-        name: 'Death Coil',
-        iconName: 'spell_shadow_deathcoil',
-        id: 27223
-      },
       conflagrate: {
         name: 'Conflagrate',
         iconName: 'spell_fire_fireball',

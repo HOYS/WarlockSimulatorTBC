@@ -305,10 +305,9 @@ void Player::initialize()
         if (talents->unstableAffliction == 1 && (settings->hasUnstableAffliction || settings->simChoosingRotation)) auras->UnstableAffliction = std::make_shared<UnstableAfflictionDot>(this);
         if (talents->siphonLife == 1 && (settings->hasSiphonLife || settings->simChoosingRotation)) auras->SiphonLife = std::make_shared<SiphonLifeDot>(this);
         if (settings->hasImmolate || settings->simChoosingRotation) auras->Immolate = std::make_shared<ImmolateDot>(this);
-        if (settings->hasCurseOfAgony || settings->hasCurseOfDoom) auras->CurseOfAgony = std::make_shared<CurseOfAgonyDot>(this);
+        if (settings->hasCurseOfAgony) auras->CurseOfAgony = std::make_shared<CurseOfAgonyDot>(this);
         if (settings->hasCurseOfTheElements) auras->CurseOfTheElements = std::make_shared<CurseOfTheElementsAura>(this);
         if (settings->hasCurseOfRecklessness) auras->CurseOfRecklessness = std::make_shared<CurseOfRecklessnessAura>(this);
-        if (settings->hasCurseOfDoom) auras->CurseOfDoom = std::make_shared<CurseOfDoomDot>(this);
         if (talents->nightfall > 0) auras->ShadowTrance = std::make_shared<ShadowTranceAura>(this);
         if (talents->amplifyCurse == 1 && (settings->hasAmplifyCurse || settings->simChoosingRotation)) auras->AmplifyCurse = std::make_shared<AmplifyCurseAura>(this);
     }
@@ -350,17 +349,15 @@ void Player::initialize()
     else
     {
         if (settings->hasShadowBolt || talents->nightfall > 0 || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
-        if (settings->hasDeathCoil || settings->simChoosingRotation) spells->DeathCoil = std::make_shared<DeathCoil>(this);
         if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
         if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
         if (auras->UnstableAffliction != NULL) spells->UnstableAffliction = std::make_shared<UnstableAffliction>(this, nullptr, auras->UnstableAffliction);
         if (auras->SiphonLife != NULL) spells->SiphonLife = std::make_shared<SiphonLife>(this, nullptr, auras->SiphonLife);
         if (auras->Immolate != NULL) spells->Immolate = std::make_shared<Immolate>(this, nullptr, auras->Immolate);
-        if (auras->CurseOfAgony != NULL || auras->CurseOfDoom != NULL) spells->CurseOfAgony = std::make_shared<CurseOfAgony>(this, nullptr, auras->CurseOfAgony);
+        if (auras->CurseOfAgony != NULL) spells->CurseOfAgony = std::make_shared<CurseOfAgony>(this, nullptr, auras->CurseOfAgony);
         if (auras->CurseOfTheElements != NULL) spells->CurseOfTheElements = std::make_shared<CurseOfTheElements>(this, auras->CurseOfTheElements);
         if (auras->CurseOfRecklessness != NULL) spells->CurseOfRecklessness = std::make_shared<CurseOfRecklessness>(this, auras->CurseOfRecklessness);
-        if (auras->CurseOfDoom != NULL) spells->CurseOfDoom = std::make_shared<CurseOfDoom>(this, nullptr, auras->CurseOfDoom);
         if (auras->AmplifyCurse != NULL) spells->AmplifyCurse = std::make_shared<AmplifyCurse>(this, auras->AmplifyCurse);
     }
     if (selectedAuras->superManaPotion) spells->SuperManaPotion = std::make_shared<SuperManaPotion>(this);
@@ -421,10 +418,6 @@ void Player::initialize()
         curseSpell = spells->CurseOfRecklessness;
         curseAura = auras->CurseOfRecklessness;
     }
-    else if (spells->CurseOfDoom != NULL)
-    {
-        curseSpell = spells->CurseOfDoom;
-    }
     else if (spells->CurseOfAgony != NULL)
     {
         curseSpell = spells->CurseOfAgony;
@@ -455,9 +448,7 @@ void Player::reset()
     if (spells->CurseOfAgony != NULL) spells->CurseOfAgony->reset();
     if (spells->CurseOfTheElements != NULL) spells->CurseOfTheElements->reset();
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
-    if (spells->CurseOfDoom != NULL) spells->CurseOfDoom->reset();
     if (spells->Conflagrate != NULL) spells->Conflagrate->reset();
-    if (spells->DeathCoil != NULL) spells->DeathCoil->reset();
     if (spells->Shadowfury != NULL) spells->Shadowfury->reset();
     if (spells->AmplifyCurse != NULL) spells->AmplifyCurse->reset();
     if (spells->DarkPact != NULL) spells->DarkPact->reset();
@@ -507,7 +498,6 @@ void Player::reset()
     if (auras->SiphonLife != NULL && auras->SiphonLife->active) auras->SiphonLife->fade(true);
     if (auras->Immolate != NULL && auras->Immolate->active) auras->Immolate->fade(true);
     if (auras->CurseOfAgony != NULL && auras->CurseOfAgony->active) auras->CurseOfAgony->fade(true);
-    if (auras->CurseOfDoom != NULL && auras->CurseOfDoom->active) auras->CurseOfDoom->fade(true);
     if (auras->ImprovedShadowBolt != NULL && auras->ImprovedShadowBolt->active) auras->ImprovedShadowBolt->fade(true);
     if (auras->CurseOfTheElements != NULL && auras->CurseOfTheElements->active) auras->CurseOfTheElements->fade(true);
     if (auras->CurseOfRecklessness != NULL && auras->CurseOfRecklessness->active) auras->CurseOfRecklessness->fade(true);

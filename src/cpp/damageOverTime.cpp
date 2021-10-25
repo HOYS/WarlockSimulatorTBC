@@ -65,7 +65,7 @@ void DamageOverTime::apply()
         isbActive = !player->settings->usingCustomIsbUptime && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active;
     }
     // Amplify Curse
-    if (((player->spells->CurseOfAgony != NULL && name == player->spells->CurseOfAgony->name) || (player->spells->CurseOfDoom != NULL && name == player->spells->CurseOfDoom->name)) && player->auras->AmplifyCurse != NULL && player->auras->AmplifyCurse->active)
+    if (((player->spells->CurseOfAgony != NULL && name == player->spells->CurseOfAgony->name) && player->auras->AmplifyCurse != NULL && player->auras->AmplifyCurse->active))
     {
         amplified = true;
         player->auras->AmplifyCurse->fade();
@@ -313,30 +313,5 @@ double CurseOfAgonyDot::getModifier()
     // Remove bonus from Shadow Mastery and add bonus from Shadow Mastery + Contagion + Improved Curse of Agony
     modifier /= (1 + (player->talents->shadowMastery * 0.02));
     modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0) + (player->talents->improvedCurseOfAgony * 0.05))));
-    return modifier;
-}
-
-CurseOfDoomDot::CurseOfDoomDot(Player* player) : DamageOverTime(player)
-{
-    name = "Curse of Doom";
-    duration = 60;
-    tickTimerTotal = 60;
-    dmg = 4200;
-    school = SpellSchool::SHADOW;
-    coefficient = 2;
-    minimumDuration = 60;
-    setup();
-}
-
-double CurseOfDoomDot::getModifier()
-{
-    double modifier = DamageOverTime::getModifier();
-
-    // CoD doesn't benefit from SM
-    if (player->talents->shadowMastery > 0)
-    {
-        modifier /= (1 + (0.02 * player->talents->shadowMastery));
-    }
-
     return modifier;
 }
