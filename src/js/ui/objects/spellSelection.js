@@ -27,11 +27,6 @@ const _spellSelection = {
   filler: {
     header: 'Filler',
     spells: {
-      searingPain: {
-        name: 'Searing Pain',
-        iconName: 'spell_fire_soulburn',
-        id: 30459
-      },
       shadowBolt: {
         name: 'Shadow Bolt',
         iconName: 'spell_shadow_shadowbolt',

@@ -6,9 +6,7 @@
 struct PlayerSpells
 {
     std::shared_ptr<Spell> LifeTap;
-    std::shared_ptr<Spell> SeedOfCorruption;
     std::shared_ptr<Spell> ShadowBolt;
-    std::shared_ptr<Spell> SearingPain;
     std::shared_ptr<Spell> Corruption;
     std::shared_ptr<Spell> UnstableAffliction;
     std::shared_ptr<Spell> SiphonLife;

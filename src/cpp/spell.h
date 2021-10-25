@@ -82,11 +82,6 @@ struct ShadowBolt : public Spell
 };
 
 
-struct SearingPain : public Spell
-{
-    SearingPain(Player* player);
-};
-
 struct SoulFire : public Spell
 {
     SoulFire(Player* player);
@@ -100,14 +95,6 @@ struct DeathCoil : public Spell
 struct Shadowfury : public Spell
 {
     Shadowfury(Player* player);
-};
-
-struct SeedOfCorruption : public Spell
-{
-    int dmgCap;
-    SeedOfCorruption(Player* player);
-    void damage(bool isCrit = false);
-    double getModifier();
 };
 
 struct DarkPact : public Spell

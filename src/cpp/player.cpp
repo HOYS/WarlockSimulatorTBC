@@ -346,12 +346,10 @@ void Player::initialize()
     spells->LifeTap = std::make_shared<LifeTap>(this);
     if (!settings->isSingleTarget)
     {
-        spells->SeedOfCorruption = std::make_shared<SeedOfCorruption>(this);
     }
     else
     {
         if (settings->hasShadowBolt || talents->nightfall > 0 || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
-        if (settings->hasSearingPain || settings->simChoosingRotation) spells->SearingPain = std::make_shared<SearingPain>(this);
         if (settings->hasDeathCoil || settings->simChoosingRotation) spells->DeathCoil = std::make_shared<DeathCoil>(this);
         if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
         if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
@@ -409,14 +407,8 @@ void Player::initialize()
     }
 
     // Set the filler property
-    if (settings->hasSearingPain)
-    {
-        filler = spells->SearingPain;
-    }
-    else
-    {
-        filler = spells->ShadowBolt;
-    }
+    filler = spells->ShadowBolt;
+
 
     // Set the curseSpell and curseAura properties
     if (spells->CurseOfTheElements != NULL)
@@ -455,9 +447,7 @@ void Player::reset()
 
     // Reset spells
     if (spells->LifeTap != NULL) spells->LifeTap->reset();
-    if (spells->SeedOfCorruption != NULL) spells->SeedOfCorruption->reset();
     if (spells->ShadowBolt != NULL) spells->ShadowBolt->reset();
-    if (spells->SearingPain != NULL) spells->SearingPain->reset();
     if (spells->Corruption != NULL) spells->Corruption->reset();
     if (spells->UnstableAffliction != NULL) spells->UnstableAffliction->reset();
     if (spells->SiphonLife != NULL) spells->SiphonLife->reset();

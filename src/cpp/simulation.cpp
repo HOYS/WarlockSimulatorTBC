@@ -135,18 +135,10 @@ void Simulation::start()
                             }
                         }
                     }
-                    // AoE (currently just does Seed of Corruption by default)
+                    // AoE 
                     else
                     {
-                        if (player->spells->SeedOfCorruption->ready())
-                        {
-                            player->useCooldowns();
-                            player->spells->SeedOfCorruption->startCast();
-                        }
-                        else
-                        {
-                            player->castLifeTapOrDarkPact();
-                        }
+
                     }
                 }
             }
@@ -411,9 +403,7 @@ double Simulation::passTime()
     #pragma endregion
 
     #pragma region Spells
-    if (player->spells->SeedOfCorruption != NULL && player->spells->SeedOfCorruption->casting) player->spells->SeedOfCorruption->tick(time);
     if (player->spells->ShadowBolt != NULL && player->spells->ShadowBolt->casting) player->spells->ShadowBolt->tick(time);
-    if (player->spells->SearingPain != NULL && player->spells->SearingPain->casting) player->spells->SearingPain->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->UnstableAffliction != NULL && player->spells->UnstableAffliction->casting) player->spells->UnstableAffliction->tick(time);
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);

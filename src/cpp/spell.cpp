@@ -554,22 +554,6 @@ void LifeTap::cast()
 }
 
 
-SearingPain::SearingPain(Player* player) : Spell(player)
-{
-    name = "Searing Pain";
-    castTime = 1.5;
-    manaCost = 205 * (1 - 0.01 * player->talents->cataclysm);
-    coefficient = 1.5 / 3.5;
-    minDmg = 270;
-    maxDmg = 320;
-    doesDamage = true;
-    canCrit = true;
-    school = SpellSchool::FIRE;
-    type = SpellType::DESTRUCTION;
-    bonusCrit = 4 * player->talents->improvedSearingPain;
-    setup();
-};
-
 SoulFire::SoulFire(Player* player) : Spell(player)
 {
     name = "Soul Fire";
@@ -614,116 +598,6 @@ Shadowfury::Shadowfury(Player* player) : Spell(player)
     cooldown = 20;
     coefficient = 0.195;
     setup();
-}
-
-SeedOfCorruption::SeedOfCorruption(Player* player) : Spell(player)
-{
-    name = "Seed of Corruption";
-    minDmg = 1110;
-    maxDmg = 1290;
-    manaCost = 882;
-    castTime = 2;
-    dmgCap = 13580;
-    doesDamage = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::AFFLICTION;
-    coefficient = 0.214;
-    setup();
-};
-
-void SeedOfCorruption::damage(bool isCrit)
-{
-    int baseDamage = player->settings->randomizeValues && minDmg && maxDmg ? random(minDmg, maxDmg) : dmg;
-    int enemyAmount = player->settings->enemyAmount - 1; // Minus one because the enemy that Seed is being cast on doesn't get hit
-    int resistAmount = 0;
-    int critAmount = 0;
-    int spellPower = player->getSpellPower(school);
-    double modifier = getModifier(); //todo debuffs increase dmg past the aoe cap
-    double critMultiplier = 0;
-
-    for (int i = 0; i < enemyAmount; i++)
-    {
-        // Check for a resist
-        if (!player->isHit(type))
-        {
-            resistAmount++;
-            continue;
-        }
-        else
-        {
-            onDamageProcs();
-        }
-        // Check for a crit
-        if (player->isCrit(type))
-        {
-            critAmount++;
-            onCritProcs();
-        }
-    }
-
-    double individualSeedDamage = baseDamage + (spellPower * coefficient);
-    // Oblivion Raiment (dungeon set) 4pc bonus
-    if (player->sets->oblivion >= 4)
-    {
-        individualSeedDamage += 180;
-    }
-    individualSeedDamage *= modifier;
-
-    int enemiesHit = enemyAmount - resistAmount;
-    double totalSeedDamage = individualSeedDamage * enemiesHit;
-    // If the total damage goes above the aoe cap then we need to reduce the amount of each seed's damage
-    if (totalSeedDamage > dmgCap)
-    {
-        // Set the damage of each individual seed to the aoe cap divided by the amount of enemies hit
-        // There's a bug with Seed of Corruption where if you hit the AoE cap,
-        // the number used to divide here is 1 higher because it's including the enemy that Seed is being cast on,
-        // even though that enemy doesn't actually get damaged by the Seed. Nice game :)
-        individualSeedDamage = dmgCap / (enemiesHit + 1);
-        // Re-calculate the total damage done by all seed hits
-        totalSeedDamage = individualSeedDamage * enemiesHit;
-    }
-    // Add damage from Seed crits
-    if (critAmount > 0)
-    {
-        critMultiplier = getCritMultiplier(player->critMultiplier);
-        double individualSeedCrit = individualSeedDamage * critMultiplier;
-        double bonusDamageFromCrit = individualSeedCrit - individualSeedDamage;
-        totalSeedDamage += bonusDamageFromCrit * critAmount;
-    }
-    // Partial resists (probably need to calculate a partial resist for each seed hit, not sure how it interacts for the aoe cap)
-    double partialResistMultiplier = player->getPartialResistMultiplier(school);
-    totalSeedDamage *= partialResistMultiplier;
-
-    player->iterationDamage += totalSeedDamage;
-
-    if (player->shouldWriteToCombatLog())
-    {
-        std::string msg = name + " " + truncateTrailingZeros(std::to_string(round(totalSeedDamage))) + " (" + std::to_string(enemyAmount) + " Enemies (" + std::to_string(resistAmount) + " Resists & " + std::to_string(critAmount) + " Crits) - " + std::to_string(baseDamage) + " Base Damage - " + truncateTrailingZeros(std::to_string(coefficient), 3) + " Coefficient - " + std::to_string(spellPower) + " Spell Power - " + truncateTrailingZeros(std::to_string(round(modifier * 1000) / 10), 1) + "% Modifier - ";
-        if (critAmount > 0)
-        {
-            msg += truncateTrailingZeros(std::to_string(critMultiplier), 3) + "% Crit Multiplier";
-        }
-        msg += " - " + truncateTrailingZeros(std::to_string(round(partialResistMultiplier * 1000) / 10)) + "% Partial Resist Multiplier)";
-        player->combatLog(msg);
-    }
-    player->addIterationDamageAndMana(name, 0, totalSeedDamage);
-    player->combatLogBreakdown.at(name)->crits += critAmount;
-    player->combatLogBreakdown.at(name)->misses += resistAmount;
-    // the cast() function already adds 1 to the amount of casts so we only need to add enemiesHit - 1 to the cast amount
-    player->combatLogBreakdown.at(name)->casts += (enemiesHit - 1);
-}
-
-double SeedOfCorruption::getModifier()
-{
-    double modifier = Spell::getModifier();
-    if (player->talents->shadowMastery > 0 && player->talents->contagion > 0)
-    {
-        // Divide away the bonus from Shadow Mastery
-        modifier /= (1 + (player->talents->shadowMastery * 0.02));
-        // Multiply the modifier with the bonus from Shadow Mastery + Contagion
-        modifier *= (1 * (1 + ((player->talents->shadowMastery * 0.02) + (player->talents->contagion / 100.0))));
-    }
-    return modifier;
 }
 
 DarkPact::DarkPact(Player* player) : Spell(player)
