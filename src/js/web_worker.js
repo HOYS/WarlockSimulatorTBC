@@ -184,7 +184,7 @@ onmessage = function (e) {
     // Talents
     let talents = module._allocTalents(t.suppression, t.improvedCorruption, t.improvedLifeTap, t.improvedCurseOfAgony, t.amplifyCurse, t.nightfall, t.empoweredCorruption, t.siphonLife, t.shadowMastery
       , t.contagion, t.darkPact, t.unstableAffliction, t.improvedImp, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
-      , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.improvedFirebolt, t.improvedLashOfPain, t.devastation, t.shadowburn
+      , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.improvedFirebolt, t.improvedLashOfPain, t.devastation
       , t.improvedSearingPain, t.improvedImmolate, t.ruin, t.emberstorm, t.backlash, t.conflagrate, t.shadowAndFlame, t.shadowfury)
     // Sets
     let sets = module._allocSets(s['529'], s['552'], s['553'], s['559'], s['644'], s['658'], s['667'], s['645'], s['646'], s['670'])
@@ -202,7 +202,7 @@ onmessage = function (e) {
     , parseInt(c.bloodlustAmount), parseInt(c.innervateAmount), parseInt(c.enemyArmor), parseInt(c.exposeWeaknessUptime), c.improvedFaerieFire === "yes", c.infinitePlayerMana === "yes", c.infinitePetMana === "yes"
     , c.lashOfPainUsage === "onCooldown", c.petMode === "1", c.prepopBlackBook === "yes", c.randomizeValues === "yes", c.rotationOption === "simChooses", c.shattrathFactionReputation === "yes"
     , parseInt(c.survivalHunterAgility), d.dot.immolate, d.dot.corruption, d.dot.siphonLife, d.dot.unstableAffliction, d.filler.searingPain, d.filler.shadowBolt, d.curse.curseOfRecklessness
-    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.curse.curseOfDoom, d.finisher.deathCoil, d.finisher.shadowburn, d.finisher.conflagrate, d.other.shadowfury, d.other.amplifyCurse, d.other.darkPact
+    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.curse.curseOfDoom, d.finisher.deathCoil, d.finisher.conflagrate, d.other.shadowfury, d.other.amplifyCurse, d.other.darkPact
     , c.improvedWrathOfAirTotem === "yes")
     let player = module._allocPlayer(playerSettings)
     let simSettings = module._allocSimSettings(e.data.simulation.iterations, e.data.simulation.minTime, e.data.simulation.maxTime, randomSeeds, e.data.itemAmount > 1)

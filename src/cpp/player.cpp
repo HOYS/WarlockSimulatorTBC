@@ -354,7 +354,6 @@ void Player::initialize()
         if (settings->hasSearingPain || settings->simChoosingRotation) spells->SearingPain = std::make_shared<SearingPain>(this);
         if (settings->hasDeathCoil || settings->simChoosingRotation) spells->DeathCoil = std::make_shared<DeathCoil>(this);
         if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
-        if (talents->shadowburn == 1 && (settings->hasShadowburn || settings->simChoosingRotation)) spells->Shadowburn = std::make_shared<Shadowburn>(this);
         if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
         if (auras->UnstableAffliction != NULL) spells->UnstableAffliction = std::make_shared<UnstableAffliction>(this, nullptr, auras->UnstableAffliction);
@@ -468,7 +467,6 @@ void Player::reset()
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
     if (spells->CurseOfDoom != NULL) spells->CurseOfDoom->reset();
     if (spells->Conflagrate != NULL) spells->Conflagrate->reset();
-    if (spells->Shadowburn != NULL) spells->Shadowburn->reset();
     if (spells->DeathCoil != NULL) spells->DeathCoil->reset();
     if (spells->Shadowfury != NULL) spells->Shadowfury->reset();
     if (spells->AmplifyCurse != NULL) spells->AmplifyCurse->reset();

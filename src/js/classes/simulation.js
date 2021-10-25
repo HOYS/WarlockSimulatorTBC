@@ -211,7 +211,6 @@ class Simulation {
     if (this.player.spells.unstableAffliction && this.player.spells.unstableAffliction.casting) this.player.spells.unstableAffliction.tick(time)
     if (this.player.spells.curseOfDoom && this.player.spells.curseOfDoom.cooldownRemaining > 0) this.player.spells.curseOfDoom.tick(time)
     if (this.player.spells.deathCoil && this.player.spells.deathCoil.cooldownRemaining > 0) this.player.spells.deathCoil.tick(time)
-    if (this.player.spells.shadowburn && this.player.spells.shadowburn.cooldownRemaining > 0) this.player.spells.shadowburn.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
     if (this.player.spells.superManaPotion && this.player.spells.superManaPotion.cooldownRemaining > 0) this.player.spells.superManaPotion.tick(time)
     if (this.player.spells.demonicRune && this.player.spells.demonicRune.cooldownRemaining > 0) this.player.spells.demonicRune.tick(time)
@@ -302,7 +301,6 @@ class Simulation {
       if (this.player.spells.unstableAffliction) this.player.spells.unstableAffliction.reset()
       if (this.player.spells.immolate) this.player.spells.immolate.reset()
       if (this.player.spells.curseOfDoom) this.player.spells.curseOfDoom.reset()
-      if (this.player.spells.shadowburn) this.player.spells.shadowburn.reset()
       if (this.player.spells.deathCoil) this.player.spells.deathCoil.reset()
       if (this.player.spells.destructionPotion) this.player.spells.destructionPotion.reset()
       if (this.player.spells.superManaPotion) this.player.spells.superManaPotion.reset()
@@ -390,13 +388,11 @@ class Simulation {
               }
 
               // Not enough time left to cast another filler spell.
-              if (timeRemaining <= this.player.spells[this.player.filler].getCastTime() && (this.player.rotation.finisher.deathCoil || this.player.rotation.finisher.shadowburn)) {
+              if (timeRemaining <= this.player.spells[this.player.filler].getCastTime() && (this.player.rotation.finisher.deathCoil)) {
                 this.player.useCooldowns()
-                // todo: need to rework this thing to just choose the highest damage spell of the three (death coil, shadowburn, and conflag)
+                // todo: need to rework this thing to just choose the highest damage spell of the three (death coil and conflag)
                 if (this.player.spells.conflagrate && this.player.auras.immolate && this.player.auras.immolate.active && this.player.spells.conflagrate.ready()) {
                   this.player.cast('conflagrate')
-                } else if (this.player.spells.shadowburn && this.player.spells.shadowburn.ready()) {
-                  this.player.cast('shadowburn')
                 } else if (this.player.spells.deathCoil && this.player.spells.deathCoil.ready()) {
                   this.player.cast('deathCoil')
                 } else if (this.player.spells.darkPact && this.player.spells.darkPact.ready()) {

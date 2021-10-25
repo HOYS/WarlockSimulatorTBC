@@ -441,7 +441,6 @@ class Player {
       if (this.rotation.curse.curseOfRecklessness) this.spells.curseOfRecklessness = new CurseOfRecklessness(this)
       if (this.rotation.curse.curseOfDoom) this.spells.curseOfDoom = new CurseOfDoom(this)
       if (this.talents.conflagrate == 1 && (this.rotation.finisher.conflagrate || this.simChoosingRotation)) this.spells.conflagrate = new Conflagrate(this)
-      if (this.talents.shadowburn > 0 && (this.rotation.finisher.shadowburn || this.simChoosingRotation)) this.spells.shadowburn = new Shadowburn(this)
       if (this.rotation.finisher.deathCoil || this.simChoosingRotation) this.spells.deathCoil = new DeathCoil(this)
       if (this.talents.shadowfury == 1 && (this.rotation.other.shadowfury || this.simChoosingRotation)) this.spells.shadowfury = new Shadowfury(this)
       if (this.talents.amplifyCurse == 1 && (this.rotation.other.amplifyCurse || this.simChoosingRotation)) this.spells.amplifyCurse = new AmplifyCurse(this)

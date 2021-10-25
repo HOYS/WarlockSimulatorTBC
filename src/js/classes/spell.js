@@ -456,22 +456,6 @@ class SoulFire extends Spell {
   }
 }
 
-class Shadowburn extends Spell {
-  constructor (player) {
-    super(player)
-    this.cooldown = 15
-    this.manaCost = 515 * (1 - 0.01 * player.talents.cataclysm)
-    this.coefficient = 0.22
-    this.minDmg = 597
-    this.maxDmg = 665
-    this.name = 'Shadowburn'
-    this.doesDamage = true
-    this.canCrit = true
-    this.school = 'shadow'
-    this.type = 'destruction'
-    this.setup()
-  }
-}
 
 class DeathCoil extends Spell {
   constructor (player) {

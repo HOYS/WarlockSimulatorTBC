@@ -265,7 +265,6 @@ double Simulation::passTime()
     #pragma region Spells
     if (player->spells->CurseOfDoom != NULL && player->spells->CurseOfDoom->cooldownRemaining > 0 && player->spells->CurseOfDoom->cooldownRemaining < time) time = player->spells->CurseOfDoom->cooldownRemaining;
     if (player->spells->Conflagrate != NULL && player->spells->Conflagrate->cooldownRemaining > 0 && player->spells->Conflagrate->cooldownRemaining < time) time = player->spells->Conflagrate->cooldownRemaining;
-    if (player->spells->Shadowburn != NULL && player->spells->Shadowburn->cooldownRemaining > 0 && player->spells->Shadowburn->cooldownRemaining < time) time = player->spells->Shadowburn->cooldownRemaining;
     if (player->spells->DeathCoil != NULL && player->spells->DeathCoil->cooldownRemaining > 0 && player->spells->DeathCoil->cooldownRemaining < time) time = player->spells->DeathCoil->cooldownRemaining;
     if (player->spells->Shadowfury != NULL && player->spells->Shadowfury->cooldownRemaining > 0 && player->spells->Shadowfury->cooldownRemaining < time) time = player->spells->Shadowfury->cooldownRemaining;
     if (player->spells->AmplifyCurse != NULL && player->spells->AmplifyCurse->cooldownRemaining > 0 && player->spells->AmplifyCurse->cooldownRemaining < time) time = player->spells->AmplifyCurse->cooldownRemaining;
@@ -420,7 +419,6 @@ double Simulation::passTime()
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
     if (player->spells->CurseOfDoom != NULL && (player->spells->CurseOfDoom->cooldownRemaining > 0 || player->spells->CurseOfDoom->casting)) player->spells->CurseOfDoom->tick(time);
     if (player->spells->Conflagrate != NULL && (player->spells->Conflagrate->cooldownRemaining > 0 || player->spells->Conflagrate->casting)) player->spells->Conflagrate->tick(time);
-    if (player->spells->Shadowburn != NULL && (player->spells->Shadowburn->cooldownRemaining > 0 || player->spells->Shadowburn->casting)) player->spells->Shadowburn->tick(time);
     if (player->spells->DeathCoil != NULL && (player->spells->DeathCoil->cooldownRemaining > 0 || player->spells->DeathCoil->casting)) player->spells->DeathCoil->tick(time);
     if (player->spells->Shadowfury != NULL && (player->spells->Shadowfury->cooldownRemaining > 0 || player->spells->Shadowfury->casting)) player->spells->Shadowfury->tick(time);
     if (player->spells->AmplifyCurse != NULL && (player->spells->AmplifyCurse->cooldownRemaining > 0 || player->spells->AmplifyCurse->casting)) player->spells->AmplifyCurse->tick(time);

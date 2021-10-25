@@ -18,7 +18,6 @@ struct PlayerSpells
     std::shared_ptr<Spell> CurseOfRecklessness;
     std::shared_ptr<Spell> CurseOfDoom;
     std::shared_ptr<Spell> Conflagrate;
-    std::shared_ptr<Spell> Shadowburn;
     std::shared_ptr<Spell> DeathCoil;
     std::shared_ptr<Spell> Shadowfury;
     std::shared_ptr<Spell> AmplifyCurse;

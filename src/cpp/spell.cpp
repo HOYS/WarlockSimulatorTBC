@@ -585,21 +585,6 @@ SoulFire::SoulFire(Player* player) : Spell(player)
     setup();
 };
 
-Shadowburn::Shadowburn(Player* player) : Spell(player)
-{
-    name = "Shadowburn";
-    cooldown = 15;
-    manaCost = 515 * (1 - 0.01 * player->talents->cataclysm);
-    coefficient = 0.22;
-    minDmg = 597;
-    maxDmg = 665;
-    doesDamage = true;
-    canCrit = true;
-    isFinisher = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::DESTRUCTION;
-    setup();
-};
 
 DeathCoil::DeathCoil(Player* player) : Spell(player)
 {

@@ -92,11 +92,6 @@ struct SoulFire : public Spell
     SoulFire(Player* player);
 };
 
-struct Shadowburn : public Spell
-{
-    Shadowburn(Player* player);
-};
-
 struct DeathCoil : public Spell
 {
     DeathCoil(Player* player);
