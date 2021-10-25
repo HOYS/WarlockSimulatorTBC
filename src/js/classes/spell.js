@@ -296,14 +296,6 @@ class Spell {
     if (this.player.metaGemIds.includes(34220)) {
       critMultiplier *= 1.03
     }
-    // Ruin
-    if (this.type == 'destruction' && this.player.talents.ruin > 0) {
-      // Ruin doubles the *bonus* of your crits, not the damage of the crit itself
-      // So if your crit damage % is e.g. 154.5% it would become 209% because the 54.5% is being doubled
-      critMultiplier -= 1
-      critMultiplier *= 2
-      critMultiplier += 1
-    }
 
     return critMultiplier
   }
@@ -386,7 +378,7 @@ class ShadowBolt extends Spell {
     super(player)
     this.castTime = this.calculateCastTime()
     this.manaCost = 420 * (1 - 0.01 * player.talents.cataclysm)
-    this.coefficient = (3 / 3.5) + (0.04 * player.talents.shadowAndFlame)
+    this.coefficient = (3 / 3.5)
     this.minDmg = 544
     this.maxDmg = 607
     this.name = 'Shadow Bolt'
@@ -438,24 +430,6 @@ class SoulFire extends Spell {
   }
 }
 
-
-class Shadowfury extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Shadowfury'
-    this.minDmg = 612
-    this.maxDmg = 728
-    this.manaCost = 710 * (1 - 0.01 * player.talents.cataclysm)
-    this.castTime = 0.5
-    this.doesDamage = true
-    this.school = 'shadow'
-    this.type = 'destruction'
-    this.cooldown = 20
-    this.coefficient = 0.195
-    this.canCrit = true // confirm
-    this.setup()
-  }
-}
 
 class LifeTap extends Spell {
   constructor (player) {
@@ -544,10 +518,6 @@ class Immolate extends Spell {
 
   getModifier () {
     let modifier = super.getModifier()
-    if (this.player.talents.emberstorm > 0) {
-      modifier /= (1 + 0.02 * this.player.talents.emberstorm)
-    }
-    modifier *= (1 + (0.02 * this.player.talents.emberstorm + 0.05 * this.player.talents.improvedImmolate))
     return modifier
   }
 }
@@ -583,31 +553,6 @@ class CurseOfRecklessness extends Spell {
     this.type = 'affliction'
     this.isAura = true
     this.setup()
-  }
-}
-
-
-class Conflagrate extends Spell {
-  constructor (player) {
-    super(player)
-    this.name = 'Conflagrate'
-    this.manaCost = 305 * (1 - 0.01 * player.talents.cataclysm)
-    this.cooldown = 10
-    this.minDmg = 579
-    this.maxDmg = 721
-    this.coefficient = 1.5/3.5
-    this.doesDamage = true
-    this.canCrit = true
-    this.school = 'fire'
-    this.type = 'destruction'
-    this.setup()
-  }
-
-  startCast() {
-    if (this.player.auras.immolate && this.player.auras.immolate.active) {
-      super.startCast()
-      this.player.auras.immolate.active = false
-    }
   }
 }
 

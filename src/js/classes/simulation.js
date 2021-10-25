@@ -83,14 +83,12 @@ class Simulation {
       if (this.player.spells.mysticalSkyfireDiamond.cooldownRemaining > 0 && this.player.spells.mysticalSkyfireDiamond.cooldownRemaining < time) time = this.player.spells.mysticalSkyfireDiamond.cooldownRemaining
       if (this.player.auras.mysticalSkyfireDiamond.active && this.player.spells.mysticalSkyfireDiamond.durationRemaining < time) time = this.player.auras.mysticalSkyfireDiamond.durationRemaining
     }
-    if (this.player.spells.shadowfury && this.player.spells.shadowfury.cooldownRemaining > 0 && this.player.spells.shadowfury.cooldownRemaining < time) time = this.player.spells.shadowfury.cooldownRemaining
     if (this.player.spells.insightfulEarthstormDiamond && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining > 0 && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining < time) time = this.player.spells.insightfulEarthstormDiamond.cooldownRemaining
     if (this.player.spells.timbalsFocusingCrystal && this.player.spells.timbalsFocusingCrystal.cooldownRemaining > 0 && this.player.spells.timbalsFocusingCrystal.cooldownRemaining < time) time = this.player.spells.timbalsFocusingCrystal.cooldownRemaining
     if (this.player.spells.markOfDefiance && this.player.spells.markOfDefiance.cooldownRemaining > 0 && this.player.spells.markOfDefiance.cooldownRemaining < time) time = this.player.spells.markOfDefiance.cooldownRemaining
     if (this.player.spells.drumsOfBattle && this.player.spells.drumsOfBattle.cooldownRemaining > 0 && this.player.spells.drumsOfBattle.cooldownRemaining < time) time = this.player.spells.drumsOfBattle.cooldownRemaining
     if (this.player.spells.drumsOfWar && this.player.spells.drumsOfWar.cooldownRemaining > 0 && this.player.spells.drumsOfWar.cooldownRemaining < time) time = this.player.spells.drumsOfWar.cooldownRemaining
     if (this.player.spells.drumsOfRestoration && this.player.spells.drumsOfRestoration.cooldownRemaining > 0 && this.player.spells.drumsOfRestoration.cooldownRemaining < time) time = this.player.spells.drumsOfRestoration.cooldownRemaining
-    if (this.player.spells.conflagrate && this.player.spells.conflagrate.cooldownRemaining > 0 && this.player.spells.conflagrate.cooldownRemaining < time) time = this.player.spells.conflagrate.cooldownRemaining
     if (this.player.auras.drumsOfBattle && this.player.auras.drumsOfBattle.active && this.player.auras.drumsOfBattle.durationRemaining < time) time = this.player.auras.drumsOfBattle.durationRemaining
     if (this.player.auras.drumsOfWar && this.player.auras.drumsOfWar.active && this.player.auras.drumsOfWar.durationRemaining < time) time = this.player.auras.drumsOfWar.durationRemaining
     if (this.player.auras.drumsOfRestoration && this.player.auras.drumsOfRestoration.active && this.player.auras.drumsOfRestoration.tickTimerRemaining < time) time = this.player.auras.drumsOfRestoration.tickTimerRemaining
@@ -198,8 +196,6 @@ class Simulation {
     if (this.player.spells.flameCap && this.player.spells.flameCap.cooldownRemaining > 0) this.player.spells.flameCap.tick(time)
     if (this.player.spells.bloodFury && this.player.spells.bloodFury.cooldownRemaining > 0) this.player.spells.bloodFury.tick(time)
     if (this.player.spells.mysticalSkyfireDiamond && this.player.spells.mysticalSkyfireDiamond.cooldownRemaining > 0) this.player.spells.mysticalSkyfireDiamond.tick(time)
-    if (this.player.spells.conflagrate && this.player.spells.conflagrate.cooldownRemaining > 0) this.player.spells.conflagrate.tick(time)
-    if (this.player.spells.shadowfury && (this.player.spells.shadowfury.cooldownRemaining > 0 || this.player.spells.shadowfury.casting)) this.player.spells.shadowfury.tick(time)
     if (this.player.spells.drumsOfBattle && this.player.spells.drumsOfBattle.cooldownRemaining > 0) this.player.spells.drumsOfBattle.tick(time)
     if (this.player.spells.drumsOfWar && this.player.spells.drumsOfWar.cooldownRemaining > 0) this.player.spells.drumsOfWar.tick(time)
     if (this.player.spells.drumsOfRestoration && this.player.spells.drumsOfRestoration.cooldownRemaining > 0) this.player.spells.drumsOfRestoration.tick(time)
@@ -298,8 +294,6 @@ class Simulation {
       if (this.player.spells.bandOfTheEternalSage) this.player.spells.bandOfTheEternalSage.reset()
       if (this.player.spells.mysticalSkyfireDiamond) this.player.spells.mysticalSkyfireDiamond.reset()
       if (this.player.spells.insightfulEarthstormDiamond) this.player.spells.insightfulEarthstormDiamond.reset()
-      if (this.player.spells.conflagrate) this.player.spells.conflagrate.reset()
-      if (this.player.spells.shadowfury) this.player.spells.shadowfury.reset()
       if (this.player.spells.powerInfusion) {
         for (let i = 0; i < this.player.spells.powerInfusion.length; i++) {
           this.player.spells.powerInfusion[i].reset()
@@ -364,12 +358,7 @@ class Simulation {
               // Not enough time left to cast another filler spell.
               if (timeRemaining <= this.player.spells[this.player.filler].getCastTime()) {
                 this.player.useCooldowns()
-                // todo: need to rework this thing to just choose the highest damage spell of the three ( conflag)
-                if (this.player.spells.conflagrate && this.player.auras.immolate && this.player.auras.immolate.active && this.player.spells.conflagrate.ready()) {
-                  this.player.cast('conflagrate')
-                } else {
-                  this.player.cast('lifeTap')
-                }
+                this.player.cast('lifeTap')
               } else {
                 // Cast selected curse if it's either CoR or CoE and it's not up
                 if (this.player.curse && !this.player.auras[this.player.curse].active && (this.player.curse == 'curseOfRecklessness' || this.player.curse == 'curseOfTheElements') && this.player.spells[this.player.curse].ready()) {
@@ -406,14 +395,6 @@ class Simulation {
                       predictedDamageOfSpells.push([this.player.spells.immolate.varName, this.player.spells.immolate.predictDamage()])
                     } else if (this.player.spells.immolate.hasEnoughMana()) {
                       this.player.cast('immolate')
-                    }
-                  }
-                  // Cast Shadowfury
-                  if (this.player.spells.shadowfury && this.player.spells.shadowfury.canCast()) {
-                    if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.shadowfury.varName, this.player.spells.shadowfury.predictDamage()])
-                    } else if (this.player.spells.shadowfury.hasEnoughMana()) {
-                      this.player.cast('shadowfury')
                     }
                   }
                   // Cast filler spell if sim is not choosing the rotation for the user
@@ -473,6 +454,7 @@ class Simulation {
 
         // If passTime() returns 0 then the simulation somehow got stuck in an endless loop. This should never happen, so the best solution is to fix the reason it returned 0 rather than setting a minimum value for it to return.
         if (this.passTime() == 0) {
+          // throw "error in js"
           throw "The simulation got stuck in an endless loop. If you'd like to help with fixing this bug then please export your current settings and send it to Kristofer#8003 on Discord."
         }
       }

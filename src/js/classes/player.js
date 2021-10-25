@@ -214,7 +214,7 @@ class Player {
     // Crit chance
     this.stats.critChanceMultiplier = 1000
     if (settings.auras.powerOfTheGuardianMage) this.stats.critRating += 28 * this.simSettings.mageAtieshAmount
-    this.stats.critChance = baseCritChancePercent + (this.stats.critRating / critRatingPerPercent) + settings.talents.devastation + settings.talents.backlash + settings.talents.demonicTactics
+    this.stats.critChance = baseCritChancePercent + (this.stats.critRating / critRatingPerPercent) + settings.talents.devastation + settings.talents.demonicTactics
     if (settings.auras.moonkinAura) this.stats.critChance += 5
     if (settings.auras.judgementOfTheCrusader) this.stats.critChance += 3
     if (settings.auras.totemOfWrath) this.stats.critChance += (3 * settings.simSettings.totemOfWrathAmount)
@@ -264,8 +264,6 @@ class Player {
       this.stats.shadowModifier *= 1.1 + (0.01 * (settings.simSettings.improvedCurseOfTheElements || 0))
       this.stats.fireModifier *= 1.1 + (0.01 * (settings.simSettings.improvedCurseOfTheElements || 0))
     }
-    // Add fire dmg % from Emberstorm
-    if (settings.talents.emberstorm > 0) this.stats.fireModifier *= 1 + (0.02 * settings.talents.emberstorm)
     // Add spell power from Fel Armor
     if (settings.auras.felArmor) {
       this.stats.spellPower += (100 * (1 + 0.1 * this.talents.demonicAegis))
@@ -281,10 +279,7 @@ class Player {
     }
     // Elemental Shaman T4 2pc bonus
     if (settings.auras.wrathOfAirTotem && settings.simSettings.improvedWrathOfAirTotem == "yes") this.stats.spellPower += 20
-    // Add extra stamina from Blood Pact from Improved Imp
-    if (settings.auras.bloodPact) {
-      this.stats.stamina += 70 * (0.1 * settings.simSettings.improvedImp)
-    }
+
     // Add stamina from Demonic Embrace
     this.stats.staminaModifier *= 1 + (0.03 * this.talents.demonicEmbrace)
     // Add mp5 from Vampiric Touch (add 25% instead of 5% since we're adding it to the mana per 5 seconds variable)
@@ -343,7 +338,6 @@ class Player {
       else if (selectedPet == PetName.VOIDWALKER) this.pet = new Voidwalker(this, settings)
       else if (selectedPet == PetName.SUCCUBUS) this.pet = new Succubus(this, settings)
       else if (selectedPet == PetName.FELHUNTER) this.pet = new Felhunter(this, settings)
-      else if (selectedPet == PetName.FELGUARD && settings.talents.summonFelguard > 0) this.pet = new Felguard(this, settings)
     }
 
     this.combatlog.push('---------------- Player stats ----------------')
@@ -437,8 +431,6 @@ class Player {
       if (this.rotation.curse.curseOfAgony) this.spells.curseOfAgony = new CurseOfAgony(this)
       if (this.rotation.curse.curseOfTheElements) this.spells.curseOfTheElements = new CurseOfTheElements(this)
       if (this.rotation.curse.curseOfRecklessness) this.spells.curseOfRecklessness = new CurseOfRecklessness(this)
-      if (this.talents.conflagrate == 1 && (this.rotation.finisher.conflagrate || this.simChoosingRotation)) this.spells.conflagrate = new Conflagrate(this)
-      if (this.talents.shadowfury == 1 && (this.rotation.other.shadowfury || this.simChoosingRotation)) this.spells.shadowfury = new Shadowfury(this)
     }
 
     if (this.selectedAuras.destructionPotion) this.spells.destructionPotion = new DestructionPotion(this)
@@ -624,18 +616,16 @@ class Player {
   }
 
   getGcdValue(spellVarName = '') {
-    // As far as I know, Shadowfury doesn't trigger a global cooldown
-    if (!this.spells.shadowfury || this.spells.shadowfury.varName !== spellVarName) {
-      let hastePercent = this.stats.hastePercent
 
-      // If both Bloodlust and Power Infusion are active then remove the 20% bonus from Power Infusion since they don't stack
-      if (this.auras.powerInfusion && this.auras.bloodlust && this.auras.powerInfusion.active && this.auras.bloodlust.active) {
-        hastePercent /= 1.2
-      }
+    let hastePercent = this.stats.hastePercent
 
-      return Math.max(this.minimumGcdValue, Math.round(this.gcdValue / ((1 + (this.stats.hasteRating / hasteRatingPerPercent / 100)) * hastePercent) * 10000) / 10000)
+    // If both Bloodlust and Power Infusion are active then remove the 20% bonus from Power Infusion since they don't stack
+    if (this.auras.powerInfusion && this.auras.bloodlust && this.auras.powerInfusion.active && this.auras.bloodlust.active) {
+      hastePercent /= 1.2
     }
-    return 0
+
+    return Math.max(this.minimumGcdValue, Math.round(this.gcdValue / ((1 + (this.stats.hasteRating / hasteRatingPerPercent / 100)) * hastePercent) * 10000) / 10000)
+
   }
 
   getHitChance(isAfflictionSpell) {

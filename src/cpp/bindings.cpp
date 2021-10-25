@@ -184,13 +184,13 @@ Auras* allocAuras(bool felArmor, bool blessingOfKings, bool blessingOfWisdom, bo
 
 EMSCRIPTEN_KEEPALIVE
 Talents* allocTalents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int unrelentingStorm, int siphonLife, int lightningMastery, int elementalPrecision, int elementalMastery
-    , int lightningOverload, int improvedImp, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice, int manaFeed
-    , int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int improvedFirebolt, int improvedLashOfPain, int devastation
-    , int improvedSearingPain, int improvedImmolate, int ruin, int emberstorm, int backlash, int conflagrate, int shadowAndFlame, int shadowfury)
+    , int lightningOverload, int ancestralKnowledge, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice, int manaFeed
+    , int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int totemicFocus, int naturesGuidance, int devastation
+    , int tidalMastery)
 {
     return new Talents(convection, concussion, callOfFlame, elementalFocus, reverberation, callOfThunder, elementalFury, unrelentingStorm, siphonLife, lightningMastery, elementalPrecision, elementalMastery, lightningOverload
-    , improvedImp, demonicEmbrace, felIntellect, felStamina, improvedSuccubus, demonicAegis, unholyPower, demonicSacrifice, manaFeed, masterDemonologist, soulLink, demonicKnowledge, demonicTactics
-    , felguard, improvedShadowBolt, cataclysm, bane, improvedFirebolt, improvedLashOfPain, devastation, improvedSearingPain, improvedImmolate, ruin, emberstorm, backlash, conflagrate, shadowAndFlame, shadowfury);
+    , ancestralKnowledge, demonicEmbrace, felIntellect, felStamina, improvedSuccubus, demonicAegis, unholyPower, demonicSacrifice, manaFeed, masterDemonologist, soulLink, demonicKnowledge, demonicTactics
+    , felguard, improvedShadowBolt, cataclysm, bane, totemicFocus, naturesGuidance, devastation, tidalMastery);
 }
 
 EMSCRIPTEN_KEEPALIVE
@@ -212,19 +212,19 @@ EMSCRIPTEN_KEEPALIVE
 PlayerSettings* allocPlayerSettings(Auras* auras, Talents* talents, Sets* sets, CharacterStats* stats, Items* items, int itemId, int metaGemId, bool recordingCombatLogBreakdown, bool simmingStamina, bool simmingIntellect, bool simmingSpirit, bool simmingSpellPower
     , bool simmingShadowPower, bool simmingFirePower, bool simmingHitRating, bool simmingCritRating, bool simmingHasteRating, bool simmingMp5, bool isAldor, int enemyLevel, int enemyShadowResist, int enemyFireResist
     , int mageAtieshAmount, int totemOfWrathAmount, bool sacrificingPet, bool petIsImp, bool petIsSuccubus, bool petIsFelguard, int ferociousInspirationAmount, int improvedCurseOfTheElements
-    , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int improvedImp, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
+    , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int ancestralKnowledge, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
     , bool isOrc, int powerInfusionAmount, bool bloodlustAmount, bool innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
     , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasImmolate
     , bool hasCorruption, bool hasSiphonLife, bool hasShadowBolt, bool hasCurseOfRecklessness, bool hasCurseOfTheElements, bool hasCurseOfAgony
-    , bool hasConflagrate, bool hasShadowfury, bool hasElementalShamanT4Bonus)
+    , bool hasElementalShamanT4Bonus)
 {
     return new PlayerSettings(auras, talents, sets, stats, items, itemId, metaGemId, recordingCombatLogBreakdown, simmingStamina, simmingIntellect, simmingSpirit, simmingSpellPower, simmingShadowPower, simmingFirePower, simmingHitRating, simmingCritRating
         , simmingHasteRating, simmingMp5, isAldor, enemyLevel, enemyShadowResist, enemyFireResist, mageAtieshAmount, totemOfWrathAmount, sacrificingPet, petIsImp, petIsSuccubus, petIsFelguard
-        , ferociousInspirationAmount, improvedCurseOfTheElements, usingCustomIsbUptime, customIsbUptimeValue, improvedDivineSpirit, improvedImp, shadowPriestDps, warlockAtieshAmount, improvedExposeArmor
+        , ferociousInspirationAmount, improvedCurseOfTheElements, usingCustomIsbUptime, customIsbUptimeValue, improvedDivineSpirit, ancestralKnowledge, shadowPriestDps, warlockAtieshAmount, improvedExposeArmor
         , isSingleTarget, enemyAmount, isOrc, powerInfusionAmount, bloodlustAmount, innervateAmount, enemyArmor, exposeWeaknessUptime, improvedFaerieFire, infinitePlayerMana, infinitePetMana
         , usingLashOfPainOnCooldown, petIsAggressive, prepopBlackBook, randomizeValues, userChoosingRotation, exaltedWithShattrathFaction, survivalHunterAgility, hasImmolate, hasCorruption, hasSiphonLife
-        , hasShadowBolt, hasCurseOfRecklessness, hasCurseOfTheElements, hasCurseOfAgony, hasConflagrate
-        , hasShadowfury, hasElementalShamanT4Bonus);
+        , hasShadowBolt, hasCurseOfRecklessness, hasCurseOfTheElements, hasCurseOfAgony
+        , hasElementalShamanT4Bonus);
 }
 
 EMSCRIPTEN_KEEPALIVE

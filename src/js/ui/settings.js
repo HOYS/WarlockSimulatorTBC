@@ -129,12 +129,6 @@ function updateSimulationSettingsVisibility () {
     $('#lashOfPainUsage').hide()
   }
 
-  if (talents.summonFelguard === 0) {
-    $("#petChoice option[value='felguard']").hide()
-  } else {
-    $("#petChoice option[value='felguard']").show()
-  }
-
   if (auras.curseOfTheElements) {
     $('#improvedCurseOfTheElements').show()
   } else {
@@ -146,12 +140,6 @@ function updateSimulationSettingsVisibility () {
   } else {
     $('#improvedDivineSpirit').hide()
   }
-
-  /* if (talents.conflagrate > 0) {
-    $('#conflagrateUse').show()
-  } else {
-    $('#conflagrateUse').hide()
-  } */
 
   if (auras.powerOfTheGuardianMage) {
     $('#mageAtieshAmount').show()
@@ -199,12 +187,6 @@ function updateSimulationSettingsVisibility () {
     $('#shadowPriestDps').show()
   } else {
     $('#shadowPriestDps').hide()
-  }
-
-  if (auras.bloodPact) {
-    $('#improvedImpSetting').show()
-  } else {
-    $('#improvedImpSetting').hide()
   }
 
   if ($('#faerieFire').is(':visible') && auras.faerieFire) {

@@ -183,9 +183,9 @@ onmessage = function (e) {
       , a.scrollOfAgilityV, a.scrollOfSpiritV)
     // Talents
     let talents = module._allocTalents(t.convection, t.concussion, t.callOfFlame, t.elementalFocus, t.reveberation, t.callOfThunder, t.elementalFury, t.unrelentingStorm, t.siphonLife, t.elementalPrecision, t.lightningMastery
-      , t.elementalMastery, t.lightningOverload, t.improvedImp, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
-      , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.improvedFirebolt, t.improvedLashOfPain, t.devastation
-      , t.improvedSearingPain, t.improvedImmolate, t.ruin, t.emberstorm, t.backlash, t.conflagrate, t.shadowAndFlame, t.shadowfury)
+      , t.elementalMastery, t.lightningOverload, t.ancestralKnowledge, t.demonicEmbrace, t.felIntellect, t.felStamina, t.improvedSuccubus, t.demonicAegis, t.unholyPower, t.demonicSacrifice, t.manaFeed
+      , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.totemicFocus, t.naturesGuidance, t.devastation
+      , t.tidalMastery)
     // Sets
     let sets = module._allocSets(s['529'], s['552'], s['553'], s['559'], s['644'], s['658'], s['667'], s['645'], s['646'], s['670'])
     // Stats
@@ -197,12 +197,12 @@ onmessage = function (e) {
     , e.data.customStat === "stamina", e.data.customStat === "intellect", e.data.customStat === "spirit", e.data.customStat === "spellPower", e.data.customStat === "shadowPower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
     , e.data.customStat === "critRating", e.data.customStat === "hasteRating", e.data.customStat === "mp5", c.shattrathFaction === "Aldor", parseInt(c['target-level']), parseInt(c['target-shadow-resistance'])
     , parseInt(c['target-fire-resistance']), parseInt(c.mageAtieshAmount), parseInt(c.totemOfWrathAmount), c.sacrificePet === "yes", c.petChoice === "0", c.petChoice === "2", c.petChoice === "4"
-    , parseInt(c.ferociousInspirationAmount), parseInt(c.improvedCurseOfTheElements), c.customIsbUptime === "yes", parseInt(c.customIsbUptimeValue), parseInt(c.improvedDivineSpirit), parseInt(c.improvedImpSetting)
+    , parseInt(c.ferociousInspirationAmount), parseInt(c.improvedCurseOfTheElements), c.customIsbUptime === "yes", parseInt(c.customIsbUptimeValue), parseInt(c.improvedDivineSpirit), parseInt(0) 
     , parseInt(c.shadowPriestDps), parseInt(c.warlockAtieshAmount), parseInt(c.improvedExposeArmor), c.fightType === "singleTarget", parseInt(c.enemyAmount), c.race === "orc", parseInt(c.powerInfusionAmount)
     , parseInt(c.bloodlustAmount), parseInt(c.innervateAmount), parseInt(c.enemyArmor), parseInt(c.exposeWeaknessUptime), c.improvedFaerieFire === "yes", c.infinitePlayerMana === "yes", c.infinitePetMana === "yes"
     , c.lashOfPainUsage === "onCooldown", c.petMode === "1", c.prepopBlackBook === "yes", c.randomizeValues === "yes", c.rotationOption === "simChooses", c.shattrathFactionReputation === "yes"
     , parseInt(c.survivalHunterAgility), d.dot.immolate, d.dot.corruption, d.dot.siphonLife, d.filler.shadowBolt, d.curse.curseOfRecklessness
-    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.finisher.conflagrate, d.other.shadowfury, d.other.callOfThunder
+    , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.other.callOfThunder
     , c.improvedWrathOfAirTotem === "yes")
     let player = module._allocPlayer(playerSettings)
     let simSettings = module._allocSimSettings(e.data.simulation.iterations, e.data.simulation.minTime, e.data.simulation.maxTime, randomSeeds, e.data.itemAmount > 1)

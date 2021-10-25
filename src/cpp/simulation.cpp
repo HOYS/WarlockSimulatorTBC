@@ -143,35 +143,11 @@ void Simulation::start()
                 }
             }
 
-            // Pet
-            if (player->pet != NULL && player->pet->mode == PetMode::AGGRESSIVE)
-            {
-                // Auto Attack
-                if (player->pet->spells->Melee != NULL && player->pet->spells->Melee->ready())
-                {
-                    player->pet->spells->Melee->startCast();
-                }
-                // Felguard Cleave
-                if (player->pet->spells->Cleave != NULL && player->pet->spells->Cleave->ready())
-                {
-                    player->pet->spells->Cleave->startCast();
-                }
-                // Succubus Lash of Pain
-                if (player->pet->spells->LashOfPain != NULL && player->pet->spells->LashOfPain->ready() && (player->settings->usingLashOfPainOnCooldown || (!player->settings->usingCustomIsbUptime && (player->auras->ImprovedShadowBolt == NULL || !player->auras->ImprovedShadowBolt->active))))
-                {
-                    player->pet->spells->LashOfPain->startCast();
-                }
-                // Imp Firebolt
-                if (player->pet->spells->Firebolt != NULL && player->pet->spells->Firebolt->ready())
-                {
-                    player->pet->spells->Firebolt->startCast();
-                }
-            }
-
             if (passTime() <= 0)
             {
                 std::cout << "Iteration " << std::to_string(player->iteration) << " fightTime: " << std::to_string(player->fightTime) << "/" << std::to_string(fightLength) << " passTime() returned <= 0" << std::endl;
-                player->throwError("The simulation got stuck in an endless loop. If you'd like to help with fixing this bug then please export your current settings and send it to Kristofer#8003 on Discord.");
+                // player->throwError("The simulation got stuck in an endless loop. If you'd like to help with fixing this bug then please export your current settings and send it to Kristofer#8003 on Discord.");
+                player->throwError("Error in CPP");
             }
         }
 
@@ -255,8 +231,6 @@ double Simulation::passTime()
     }
 
     #pragma region Spells
-    if (player->spells->Conflagrate != NULL && player->spells->Conflagrate->cooldownRemaining > 0 && player->spells->Conflagrate->cooldownRemaining < time) time = player->spells->Conflagrate->cooldownRemaining;
-    if (player->spells->Shadowfury != NULL && player->spells->Shadowfury->cooldownRemaining > 0 && player->spells->Shadowfury->cooldownRemaining < time) time = player->spells->Shadowfury->cooldownRemaining;
     if (player->spells->DestructionPotion != NULL && player->spells->DestructionPotion->cooldownRemaining > 0 && player->spells->DestructionPotion->cooldownRemaining < time) time = player->spells->DestructionPotion->cooldownRemaining;
     if (player->spells->SuperManaPotion != NULL && player->spells->SuperManaPotion->cooldownRemaining > 0 && player->spells->SuperManaPotion->cooldownRemaining < time) time = player->spells->SuperManaPotion->cooldownRemaining;
     if (player->spells->DemonicRune != NULL && player->spells->DemonicRune->cooldownRemaining > 0 && player->spells->DemonicRune->cooldownRemaining < time) time = player->spells->DemonicRune->cooldownRemaining;
@@ -395,8 +369,6 @@ double Simulation::passTime()
     if (player->spells->ShadowBolt != NULL && player->spells->ShadowBolt->casting) player->spells->ShadowBolt->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
-    if (player->spells->Conflagrate != NULL && (player->spells->Conflagrate->cooldownRemaining > 0 || player->spells->Conflagrate->casting)) player->spells->Conflagrate->tick(time);
-    if (player->spells->Shadowfury != NULL && (player->spells->Shadowfury->cooldownRemaining > 0 || player->spells->Shadowfury->casting)) player->spells->Shadowfury->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);
     if (player->spells->SuperManaPotion != NULL && (player->spells->SuperManaPotion->cooldownRemaining > 0 || player->spells->SuperManaPotion->casting)) player->spells->SuperManaPotion->tick(time);
     if (player->spells->DemonicRune != NULL && (player->spells->DemonicRune->cooldownRemaining > 0 || player->spells->DemonicRune->casting)) player->spells->DemonicRune->tick(time);
@@ -483,6 +455,8 @@ double Simulation::passTime()
         }
     }
 
+    // std::string msg = "TIME: " + std::to_string(time);
+    // player->combatLog(msg);
     return time;
 }
 

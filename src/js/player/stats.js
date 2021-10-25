@@ -73,15 +73,10 @@ function refreshCharacterStats () {
   const staminaModifier = characterStats.staminaModifier * (1 + (0.03 * talents.demonicEmbrace))
   let stamina = characterStats.stamina
 
-  // Stamina
-  if (auras.bloodPact) {
-    stamina += _auras.buffs.auras.bloodPact.stamina * (0.1 * $('select[name="improvedImpSetting"]').val())
-  }
-
   // Crit
   let critRating = characterStats.critRating
   if (auras.powerOfTheGuardianMage) critRating += 28 * $("select[name='mageAtieshAmount']").val()
-  let critChance = Math.round((critRating / critRatingPerPercent + baseCritChancePercent) * 100) / 100 + talents.devastation + talents.backlash + talents.demonicTactics + ((characterStats.intellect * characterStats.intellectModifier) * critPerInt)
+  let critChance = Math.round((critRating / critRatingPerPercent + baseCritChancePercent) * 100) / 100 + talents.devastation + talents.demonicTactics + ((characterStats.intellect * characterStats.intellectModifier) * critPerInt)
   if (auras.moonkinAura) critChance += 5
   if (auras.judgementOfTheCrusader) critChance += 3
   if (auras.totemOfWrath) critChance += 3 * $("select[name='totemOfWrathAmount']").val()
@@ -130,9 +125,6 @@ function refreshCharacterStats () {
   if (auras.curseOfTheElements) {
     shadowModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
     fireModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
-  }
-  if (talents.emberstorm > 0) {
-    fireModifier *= 1 + (0.02 * talents.emberstorm)
   }
   // Ferocious Inspiration
   if (auras.ferociousInspiration) {

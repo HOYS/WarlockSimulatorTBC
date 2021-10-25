@@ -308,15 +308,7 @@ double Spell::getCritMultiplier(double critMult)
     {
         critMultiplier *= 1.03;
     }
-    // Ruin
-    if (type == SpellType::DESTRUCTION && player->talents->ruin == 1)
-    {
-        // Ruin doubles the *bonus* of your crits, not the damage of the crit itself
-        // So if your crit damage % is e.g. 154.5% it would become 209% because the 54.5% is being doubled
-        critMultiplier -= 1;
-        critMultiplier *= 2;
-        critMultiplier += 1;
-    }
+
     return critMultiplier;
 }
 
@@ -486,7 +478,7 @@ ShadowBolt::ShadowBolt(Player* player) : Spell(player)
 {
     castTime = calculateCastTime();
     manaCost = 420 * (1 - 0.01 * player->talents->cataclysm);
-    coefficient = (3 / 3.5) + (0.04 * player->talents->shadowAndFlame);
+    coefficient = (3 / 3.5);
     minDmg = 544;
     maxDmg = 607;
     name = "Shadow Bolt";
@@ -569,22 +561,6 @@ SoulFire::SoulFire(Player* player) : Spell(player)
     setup();
 };
 
-Shadowfury::Shadowfury(Player* player) : Spell(player)
-{
-    name = "Shadowfury";
-    castTime = 0.5;
-    manaCost = 710 * (1 - 0.01 * player->talents->cataclysm);
-    minDmg = 612;
-    maxDmg = 728;
-    doesDamage = true;
-    canCrit = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::DESTRUCTION;
-    cooldown = 20;
-    coefficient = 0.195;
-    setup();
-}
-
 
 Corruption::Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {
@@ -625,11 +601,6 @@ Immolate::Immolate(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<D
 double Immolate::getModifier()
 {
     double modifier = Spell::getModifier();
-    if (player->talents->emberstorm > 0)
-    {
-        modifier /= (1 + 0.02 * player->talents->emberstorm);
-    }
-    modifier *= (1 + (0.02 * player->talents->emberstorm + 0.05 * player->talents->improvedImmolate));
     return modifier;
 }
 
@@ -659,32 +630,6 @@ CurseOfRecklessness::CurseOfRecklessness(Player* player, std::shared_ptr<Aura> a
     type = SpellType::AFFLICTION;
     isAura = true;
     setup();
-}
-
-
-Conflagrate::Conflagrate(Player* player) : Spell(player)
-{
-    name = "Conflagrate";
-    manaCost = 305 * (1 - 0.01 * player->talents->cataclysm);
-    cooldown = 10;
-    minDmg = 579;
-    maxDmg = 721;
-    coefficient = 1.5 / 3.5;
-    doesDamage = true;
-    isFinisher = true;
-    canCrit = true;
-    school = SpellSchool::FIRE;
-    type = SpellType::DESTRUCTION;
-    setup();
-}
-
-void Conflagrate::startCast()
-{
-    /*if (player->auras->Immolate != NULL && player->auras->immolate->active)
-    {
-        Spell::startCast();
-        player->auras->immolate->active = false;
-    }*/
 }
 
 DestructionPotion::DestructionPotion(Player* player, std::shared_ptr<Aura> aura) : Spell(player, aura)

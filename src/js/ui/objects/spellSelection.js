@@ -52,21 +52,21 @@ const _spellSelection = {
   finisher: {
     header: 'Finishers',
     spells: {
-      conflagrate: {
-        name: 'Conflagrate',
-        iconName: 'spell_fire_fireball',
-        id: 30912
-      }
+      // earthShock: {
+      //   name: 'Earth Shock',
+      //   iconName: 'spell_fire_fireball',
+      //   id: 30912
+      // }
     }
   },
   other: {
     header: 'Other',
     spells: {
-      shadowfury: {
-        name: 'Shadowfury',
-        iconName: 'spell_shadow_shadowfury',
-        id: 30414
-      }
+      // shadowfury: {
+      //   name: 'Shadowfury',
+      //   iconName: 'spell_shadow_shadowfury',
+      //   id: 30414
+      // }
     }
   }
 }

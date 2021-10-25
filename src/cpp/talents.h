@@ -16,7 +16,7 @@ struct Talents
     int elementalMastery;
     int lightningOverload;
 
-    int improvedImp;
+    int ancestralKnowledge;
     int demonicEmbrace;
     int felIntellect;
     int felStamina;
@@ -34,20 +34,13 @@ struct Talents
     int improvedShadowBolt;
     int cataclysm;
     int bane;
-    int improvedFirebolt;
-    int improvedLashOfPain;
+    int totemicFocus;
+    int naturesGuidance;
     int devastation;
-    int improvedSearingPain;
-    int improvedImmolate;
-    int ruin;
-    int emberstorm;
-    int backlash;
-    int conflagrate;
-    int shadowAndFlame;
-    int shadowfury;
+    int tidalMastery;
 
     Talents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int unrelentingStorm, int siphonLife, int elementalPrecision, int lightningMastery, int elementalMastery
-    , int lightningOverload, int improvedImp, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice, int manaFeed
-    , int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int improvedFirebolt, int improvedLashOfPain, int devastation
-    , int improvedSearingPain, int improvedImmolate, int ruin, int emberstorm, int backlash, int conflagrate, int shadowAndFlame, int shadowfury);
+    , int lightningOverload, int ancestralKnowledge, int demonicEmbrace, int felIntellect, int felStamina, int improvedSuccubus, int demonicAegis, int unholyPower, int demonicSacrifice, int manaFeed
+    , int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int totemicFocus, int naturesGuidance, int devastation
+    , int tidalMastery);
 };

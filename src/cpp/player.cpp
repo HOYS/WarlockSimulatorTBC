@@ -36,7 +36,7 @@ Player::Player(PlayerSettings* playerSettings)
     {
         stats->critRating += 28 * settings->mageAtieshAmount;
     }
-    stats->critChance = baseCritChancePercent + (stats->critRating / critRatingPerPercent) + talents->devastation + talents->backlash + talents->demonicTactics;
+    stats->critChance = baseCritChancePercent + (stats->critRating / critRatingPerPercent) + talents->devastation + talents->demonicTactics;
     if (selectedAuras->moonkinAura)
     {
         stats->critChance += 5;
@@ -123,11 +123,6 @@ Player::Player(PlayerSettings* playerSettings)
         stats->shadowModifier *= 1.1 + (0.01 * settings->improvedCurseOfTheElements);
         stats->fireModifier *= 1.1 + (0.01 * settings->improvedCurseOfTheElements);
     }
-    // Add fire dmg % from Emberstorm
-    if (talents->emberstorm > 0)
-    {
-        stats->fireModifier *= 1 + (0.02 * talents->emberstorm);
-    }
     // Add spell power from Fel Armor
     if (selectedAuras->felArmor)
     {
@@ -148,18 +143,6 @@ Player::Player(PlayerSettings* playerSettings)
     if (selectedAuras->wrathOfAirTotem && settings->hasElementalShamanT4Bonus)
     {
         stats->spellPower += 20;
-    }
-    // Add extra stamina from Blood Pact from Improved Imp
-    if (selectedAuras->bloodPact)
-    {
-        int improvedImpPoints = settings->improvedImp;
-
-        if (settings->petIsImp && (!settings->sacrificingPet || talents->demonicSacrifice == 0) && talents->improvedImp > improvedImpPoints)
-        {
-            improvedImpPoints = talents->improvedImp;
-        }
-
-        stats->stamina += 70 * 0.1 * improvedImpPoints;
     }
     // Add stamina from Demonic Embrace
     stats->staminaModifier *= 1 + (0.03 * talents->demonicEmbrace);
@@ -346,8 +329,6 @@ void Player::initialize()
     else
     {
         if (settings->hasShadowBolt || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
-        if (talents->conflagrate == 1 && (settings->hasConflagrate || settings->simChoosingRotation)) spells->Conflagrate = std::make_shared<Conflagrate>(this);
-        if (talents->shadowfury == 1 && (settings->hasShadowfury || settings->simChoosingRotation)) spells->Shadowfury = std::make_shared<Shadowfury>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
         if (auras->SiphonLife != NULL) spells->SiphonLife = std::make_shared<SiphonLife>(this, nullptr, auras->SiphonLife);
         if (auras->Immolate != NULL) spells->Immolate = std::make_shared<Immolate>(this, nullptr, auras->Immolate);
@@ -441,8 +422,6 @@ void Player::reset()
     if (spells->CurseOfAgony != NULL) spells->CurseOfAgony->reset();
     if (spells->CurseOfTheElements != NULL) spells->CurseOfTheElements->reset();
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
-    if (spells->Conflagrate != NULL) spells->Conflagrate->reset();
-    if (spells->Shadowfury != NULL) spells->Shadowfury->reset();
     if (spells->DestructionPotion != NULL) spells->DestructionPotion->reset();
     if (spells->SuperManaPotion != NULL) spells->SuperManaPotion->reset();
     if (spells->DemonicRune != NULL) spells->DemonicRune->reset();
@@ -534,10 +513,6 @@ double Player::getHastePercent()
 
 double Player::getGcdValue(const std::shared_ptr<Spell>& spell)
 {
-    if (spells->Shadowfury == NULL || spell != spells->Shadowfury)
-    {
-        return std::max(minimumGcdValue, round((gcdValue / getHastePercent()) * 10000) / 10000);
-    }
     return 0;
 }
 

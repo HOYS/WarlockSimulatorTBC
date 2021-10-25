@@ -357,9 +357,9 @@ void PetSpell::damage(bool isCrit, bool isGlancing)
 ImpFirebolt::ImpFirebolt(Pet* pet) : PetSpell(pet)
 {
     name = "Firebolt";
-    castTime = 2 - (0.25 * pet->player->talents->improvedFirebolt);
+    castTime = 2 - (0.25 * pet->player->talents->totemicFocus);
     manaCost = 145;
-    dmg = 119.5 * (1 + 0.1 * pet->player->talents->improvedImp);
+    dmg = 119.5 * (1 + 0.1 * pet->player->talents->ancestralKnowledge);
     coefficient = 2 / 3.5;
     school = SpellSchool::FIRE;
     type = AttackType::MAGICAL;
@@ -400,7 +400,7 @@ double FelguardCleave::getBaseDamage()
 
 SuccubusLashOfPain::SuccubusLashOfPain(Pet* pet) : PetSpell(pet)
 {
-    cooldown = 12 - 3 * pet->player->talents->improvedLashOfPain;
+    cooldown = 12 - 3 * pet->player->talents->naturesGuidance;
     manaCost = 190;
     name = "Lash of Pain";
     dmg = 123;

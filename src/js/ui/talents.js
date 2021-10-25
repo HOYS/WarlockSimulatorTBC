@@ -78,10 +78,10 @@ $(document).on('mousedown', '.talent-icon', function () {
     }
 
     updateTalentTreeNames()
-    if (talent.name == 'Conflagrate' || talent.name == 'Master Demonologist' || talent.name == 'Demonic Sacrifice' || talent.name == 'Summon Felguard' || talent.name == 'Dark Pact') {
+    if ( talent.name == 'Master Demonologist' || talent.name == 'Demonic Sacrifice' || talent.name == 'Summon Felguard') {
       updateSimulationSettingsVisibility()
     }
-    if (talent.name == 'Emberstorm' || talent.name == 'Improved Imp' || talent.name == 'Demonic Aegis' || talent.name == 'Demonic Embrace' || talent.name == 'Devastation' || talent.name == 'Backlash' || talent.name == 'Fel Stamina' || talent.name == 'Fel Intellect' || talent.name == 'Master Demonologist' || talent.name == 'Soul Link' || talent.name == 'Demonic Tactics' || talent.name == 'Shadow Mastery') {
+    if (talent.name == 'Improved Imp' || talent.name == 'Demonic Aegis' || talent.name == 'Demonic Embrace' || talent.name == 'Devastation' || talent.name == 'Fel Stamina' || talent.name == 'Fel Intellect' || talent.name == 'Master Demonologist' || talent.name == 'Soul Link' || talent.name == 'Demonic Tactics' || talent.name == 'Shadow Mastery') {
       refreshCharacterStats()
     }
     updateTalentInformation(icon)
