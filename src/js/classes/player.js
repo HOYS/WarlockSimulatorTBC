@@ -228,32 +228,6 @@ class Player {
     if (settings.auras.inspiringPresence === true) this.stats.extraHitChance += 1
     this.stats.hitChance = Math.round(getBaseHitChance(this.level, parseInt(this.enemy.level))) // The player's chance of hitting the enemy, usually between 83% and 99%
 
-    // Add bonus damage % from Demonic Sacrifice
-    if (settings.talents.demonicSacrifice === 1 && settings.simSettings.sacrificePet == 'yes') {
-      if (settings.simSettings.petChoice == PetName.IMP) {
-        this.stats.fireModifier *= 1.15
-      } else if (settings.simSettings.petChoice == PetName.SUCCUBUS) {
-        this.stats.shadowModifier *= 1.15
-      } else if (settings.simSettings.petChoice == PetName.FELGUARD) {
-        this.stats.shadowModifier *= 1.1
-        // todo add aura to regen mana and add Felhunter sacrifice
-      }
-    } else {
-      // Add damage % multiplier from Master Demonologist and Soul Link
-      if (settings.talents.soulLink > 0) {
-        this.stats.shadowModifier *= 1.05
-        this.stats.fireModifier *= 1.05
-      }
-      if (settings.talents.masterDemonologist > 0) {
-        if (settings.simSettings.petChoice == PetName.SUCCUBUS) {
-          this.stats.shadowModifier *= 1.1
-          this.stats.fireModifier *= 1.1
-        } else if (settings.simSettings.petChoice == PetName.FELGUARD) {
-          this.stats.shadowModifier *= 1.05
-          this.stats.fireModifier *= 1.05
-        }
-      }
-    }
     // Ferocious Inspiration
     if (settings.auras.ferociousInspiration) {
       this.stats.shadowModifier *= Math.pow(1.03, settings.simSettings.ferociousInspirationAmount)
@@ -266,14 +240,14 @@ class Player {
     }
     // Add spell power from Fel Armor
     if (settings.auras.felArmor) {
-      this.stats.spellPower += (100 * (1 + 0.1 * this.talents.demonicAegis))
+      this.stats.spellPower += 100
     }
     // If using a custom isb uptime % then just add to the shadow modifier % (this assumes 5/5 ISB giving 20% shadow damage)
     if (settings.simSettings.customIsbUptime == 'yes') {
       this.stats.shadowModifier *= (1 + 0.2 * (settings.simSettings.customIsbUptimeValue / 100))
     }
     // Add spell power from Improved Divine Spirit
-    this.stats.spiritModifier *= (1 - (0.01 * settings.talents.demonicEmbrace))
+    this.stats.spiritModifier = 1
     if (settings.auras.prayerOfSpirit && settings.simSettings.improvedDivineSpirit) {
       this.stats.spellPower += (this.stats.spirit * this.stats.spiritModifier * (0 + (settings.simSettings.improvedDivineSpirit / 20)))
     }
@@ -281,7 +255,7 @@ class Player {
     if (settings.auras.wrathOfAirTotem && settings.simSettings.improvedWrathOfAirTotem == "yes") this.stats.spellPower += 20
 
     // Add stamina from Demonic Embrace
-    this.stats.staminaModifier *= 1 + (0.03 * this.talents.demonicEmbrace)
+    this.stats.staminaModifier = 1
     // Add mp5 from Vampiric Touch (add 25% instead of 5% since we're adding it to the mana per 5 seconds variable)
     if (settings.auras.vampiricTouch) {
       this.stats.mp5 += settings.simSettings.shadowPriestDps * 0.25
@@ -298,8 +272,8 @@ class Player {
     if (settings.auras.annihilator) this.enemy.armor -= 600
     this.enemy.armor = Math.max(0, this.enemy.armor)
 
-    this.stats.health = (this.stats.health + (this.stats.stamina * this.stats.staminaModifier) * healthPerStamina) * (1 + (0.01 * settings.talents.felStamina))
-    this.stats.maxMana = (this.stats.mana + (this.stats.intellect * this.stats.intellectModifier) * manaPerInt) * (1 + (0.01 * settings.talents.felIntellect))
+    this.stats.health = (this.stats.health + (this.stats.stamina * this.stats.staminaModifier) * healthPerStamina)
+    this.stats.maxMana = (this.stats.mana + (this.stats.intellect * this.stats.intellectModifier) * manaPerInt)
 
     // Assign the filler spell.
     this.filler = null
@@ -332,13 +306,6 @@ class Player {
 
     // Pet
     this.demonicKnowledgeSp = 0 // Spell Power from the Demonic Knowledge talent
-    if (settings.simSettings.sacrificePet == 'no' || settings.talents.demonicSacrifice == 0) {
-      const selectedPet = settings.simSettings.petChoice
-      if (selectedPet == PetName.IMP) this.pet = new Imp(this, settings)
-      else if (selectedPet == PetName.VOIDWALKER) this.pet = new Voidwalker(this, settings)
-      else if (selectedPet == PetName.SUCCUBUS) this.pet = new Succubus(this, settings)
-      else if (selectedPet == PetName.FELHUNTER) this.pet = new Felhunter(this, settings)
-    }
 
     this.combatlog.push('---------------- Player stats ----------------')
     this.combatlog.push('Health: ' + Math.round(this.stats.health))

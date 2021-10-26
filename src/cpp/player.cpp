@@ -70,45 +70,6 @@ Player::Player(PlayerSettings* playerSettings)
     }
     stats->hitChance = round(getBaseHitChance(level, settings->enemyLevel));
 
-    // Add bonus damage % from Demonic Sacrifice
-    if (talents->demonicSacrifice == 1 && settings->sacrificingPet)
-    {
-        if (settings->petIsImp)
-        {
-            stats->fireModifier *= 1.15;
-        }
-        else if (settings->petIsSuccubus)
-        {
-            stats->shadowModifier *= 1.15;
-        }
-        else if (settings->petIsFelguard)
-        {
-            stats->shadowModifier *= 1.1;
-        }
-        //todo add felhunter mana regen maybe
-    }
-    else
-    {
-        // Add damage % multiplier from Master Demonologist and Soul Link
-        if (talents->soulLink == 1)
-        {
-            stats->shadowModifier *= 1.05;
-            stats->fireModifier *= 1.05;
-        }
-        if (talents->masterDemonologist > 0)
-        {
-            if (settings->petIsSuccubus)
-            {
-                stats->shadowModifier *= (1 + 0.02 * talents->masterDemonologist);
-                stats->fireModifier *= (1 + 0.02 * talents->masterDemonologist);
-            }
-            else if (settings->petIsFelguard)
-            {
-                stats->shadowModifier *= (1 + 0.01 * talents->masterDemonologist);
-                stats->fireModifier *= (1 + 0.01 * talents->masterDemonologist);
-            }
-        }
-    }
     // Shadow Mastery
     // stats->shadowModifier *= (1 + (0.02 * talents->shadowMastery));
     // Ferocious Inspiration
@@ -126,7 +87,7 @@ Player::Player(PlayerSettings* playerSettings)
     // Add spell power from Fel Armor
     if (selectedAuras->felArmor)
     {
-        stats->spellPower += 100 * (1 + 0.1 * talents->demonicAegis);
+        stats->spellPower += 100;
     }
     // If using a custom isb uptime % then just add to the shadow modifier % (this assumes 5/5 ISB giving 20% shadow damage)
     if (settings->usingCustomIsbUptime)
@@ -134,7 +95,7 @@ Player::Player(PlayerSettings* playerSettings)
         stats->shadowModifier *= (1.0 + 0.2 * (settings->customIsbUptimeValue / 100.0));
     }
     // Add spell power from Improved Divine Spirit
-    stats->spiritModifier *= (1 - (0.01 * talents->demonicEmbrace));
+    stats->spiritModifier *= 1;
     if (selectedAuras->prayerOfSpirit && settings->improvedDivineSpirit > 0)
     {
         stats->spellPower += (stats->spirit * stats->spiritModifier * (0 + (static_cast<double>(settings->improvedDivineSpirit) / 20.0)));
@@ -145,7 +106,7 @@ Player::Player(PlayerSettings* playerSettings)
         stats->spellPower += 20;
     }
     // Add stamina from Demonic Embrace
-    stats->staminaModifier *= 1 + (0.03 * talents->demonicEmbrace);
+    stats->staminaModifier *=1;
     // Add mp5 from Vampiric Touch (add 25% instead of 5% since we're adding it to the mana per 5 seconds variable)
     if (selectedAuras->vampiricTouch)
     {
@@ -184,13 +145,13 @@ Player::Player(PlayerSettings* playerSettings)
     settings->enemyArmor = std::max(0, settings->enemyArmor);
 
     // Health & Mana
-    stats->health = (stats->health + (stats->stamina * stats->staminaModifier) * healthPerStamina) * (1 + (0.01 * static_cast<double>(talents->felStamina)));
-    stats->maxMana = (stats->mana + (stats->intellect * stats->intellectModifier) * manaPerInt) * (1 + (0.01 * static_cast<double>(talents->felIntellect)));
+    stats->health = (stats->health + (stats->stamina * stats->staminaModifier) * healthPerStamina);
+    stats->maxMana = (stats->mana + (stats->intellect * stats->intellectModifier) * manaPerInt);
 
     // Pet
     // Spell Power from the Demonic Knowledge talent
     demonicKnowledgeSpellPower = 0;
-    if (!settings->sacrificingPet || talents->demonicSacrifice == 0)
+    if (!settings->sacrificingPet)
     {
         if (settings->petIsImp)
         {

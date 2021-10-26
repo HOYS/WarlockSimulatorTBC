@@ -65,13 +65,13 @@ class Pet {
       stamina: 0,
       intellect: 0,
       hastePercent: 1,
-      staminaModifier: 1 + (0.05 * player.talents.felStamina),
-      intellectModifier: 1 + (0.05 * player.talents.felIntellect),
+      staminaModifier: 1,
+      intellectModifier: 1,
       strengthModifier: 1,
       agilityModifier: 1,
       spiritModifier: 1,
       apModifier: 1,
-      damageModifier: 1 * (1 + (0.04 * player.talents.unholyPower)) * (1 + (0.05 * player.talents.soulLink)),
+      damageModifier: 1,
       currentMana: 0
     }
   }

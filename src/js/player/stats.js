@@ -69,8 +69,8 @@ const raceStats = {
 
 // Refreshes the player's values in the sidebar when changing e.g. gear, consumables, or buffs.
 function refreshCharacterStats () {
-  const spiritModifier = characterStats.spiritModifier * (1 - (0.01 * talents.demonicEmbrace))
-  const staminaModifier = characterStats.staminaModifier * (1 + (0.03 * talents.demonicEmbrace))
+  const spiritModifier = characterStats.spiritModifier * 1
+  const staminaModifier = characterStats.staminaModifier * 1
   let stamina = characterStats.stamina
 
   // Crit
@@ -95,33 +95,7 @@ function refreshCharacterStats () {
   // Shadow/Fire damage % modifiers
   let shadowModifier = characterStats.shadowModifier
   let fireModifier = characterStats.fireModifier
-  // Add stats from pets/pet-related talents
-  if (talents.demonicSacrifice === 1 && $("select[name='sacrificePet']").val() === 'yes') {
-    const pet = $("select[name='petChoice']").val()
-    if (pet == 0) {
-      fireModifier *= 1.15
-    } else if (pet == 2) {
-      shadowModifier *= 1.15
-    } else if (pet == 4) {
-      shadowModifier *= 1.1
-    }
-  } else {
-    // Master Demonologist
-    if (talents.masterDemonologist > 0) {
-      if ($("select[name='petChoice']").val() == 2) {
-        shadowModifier *= 1.1
-        fireModifier *= 1.1
-      } else if ($("select[name='petChoice']").val() == 4) {
-        shadowModifier *= 1.05
-        fireModifier *= 1.05
-      }
-    }
-    // Soul Link
-    if (talents.soulLink > 0) {
-      shadowModifier *= 1.05
-      fireModifier *= 1.05
-    }
-  }
+
   if (auras.curseOfTheElements) {
     shadowModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
     fireModifier *= 1.1 + (0.01 * $("select[name='improvedCurseOfTheElements']").val())
@@ -135,7 +109,7 @@ function refreshCharacterStats () {
   // Spell Power
   let spellPower = JSON.parse(JSON.stringify(characterStats.spellPower))
   if (localStorage.getItem('setBonuses') && JSON.parse(localStorage.setBonuses)['667'] == 2) spellPower += 15 // The Twin Stars 2-set bonus (15 spellpower)
-  if (auras.felArmor) spellPower += 100 * (1 + 0.1 * talents.demonicAegis)
+  if (auras.felArmor) spellPower += 100
   if (auras.prayerOfSpirit) spellPower += (characterStats.spirit * spiritModifier * (0.05 * $("select[name='improvedDivineSpirit']").val()))
   if (auras.powerOfTheGuardianWarlock) spellPower += 33 * $("select[name='warlockAtieshAmount']").val()
   // Spellfire 3-set bonus
@@ -159,8 +133,8 @@ function refreshCharacterStats () {
   if (auras.curseOfRecklessness) enemyArmor -= 800
   if (auras.annihilator) enemyArmor -= 600
 
-  $('#character-health-val').text(Math.round((characterStats.health + (stamina * staminaModifier) * healthPerStamina) * (1 + (0.01 * talents.felStamina))))
-  $('#character-mana-val').text(Math.round((characterStats.mana + (characterStats.intellect * characterStats.intellectModifier) * manaPerInt) * (1 + (0.01 * talents.felIntellect))))
+  $('#character-health-val').text(Math.round((characterStats.health + (stamina * staminaModifier) * healthPerStamina)))
+  $('#character-mana-val').text(Math.round((characterStats.mana + (characterStats.intellect * characterStats.intellectModifier) * manaPerInt)))
   $('#character-stamina-val').text(Math.round(stamina * staminaModifier))
   $('#character-intellect-val').text(Math.round(characterStats.intellect * characterStats.intellectModifier))
   $('#character-spirit-val').text(Math.round(characterStats.spirit * spiritModifier))

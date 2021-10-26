@@ -408,6 +408,6 @@ SuccubusLashOfPain::SuccubusLashOfPain(Pet* pet) : PetSpell(pet)
     coefficient = 0.429;
     type = AttackType::MAGICAL;
     canCrit = true;
-    modifier *= 1 + pet->player->talents->improvedSuccubus / 10.0;
+    modifier *= 1;
     setup();
 }

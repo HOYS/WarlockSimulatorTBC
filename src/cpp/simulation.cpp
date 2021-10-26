@@ -455,8 +455,6 @@ double Simulation::passTime()
         }
     }
 
-    // std::string msg = "TIME: " + std::to_string(time);
-    // player->combatLog(msg);
     return time;
 }
 

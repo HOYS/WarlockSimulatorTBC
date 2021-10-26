@@ -1,7 +1,7 @@
 const totalTalentPoints = 61
 var talentPointsRemaining = totalTalentPoints
 const _talents = {
-  affliction: {
+  elemental: {
     convection: {
       name: 'Convection',
       rankIDs: [16039, 16109, 16110, 16111, 16112],
@@ -159,7 +159,7 @@ const _talents = {
       }
     }
   },
-  demonology: {
+  enhancement: {
     ancestralKnowledge: {
       name: 'Ancestral Knowledge',
       rankIDs: [17485, 17486, 17487, 17488, 17489],
@@ -174,9 +174,9 @@ const _talents = {
       row: 1,
       column: 3
     },
-    demonicEmbrace: {
-      name: 'Enhancing Totems',
-      rankIDs: [16259, 16295],
+    guardianTotems: {
+      name: 'Guardian Totems',
+      rankIDs: [16258, 16293],
       iconName: 'spell_shadow_metamorphosis',
       row: 2,
       column: 1
@@ -195,14 +195,14 @@ const _talents = {
       row: 2,
       column: 3
     },
-    felIntellect: {
+    improvedLightningShield: {
       name: 'Improved Lightning Shield',
       rankIDs: [16261, 16290],
       iconName: 'spell_holy_magicalsentry',
       row: 2,
       column: 4
     },
-    improvedSuccubus: {
+    enhancingTotems: {
       name: 'Enhancing Totems',
       rankIDs: [16259, 16295],
       iconName: 'spell_shadow_summonsuccubus',
@@ -216,14 +216,14 @@ const _talents = {
       row: 3,
       column: 3
     },
-    felStamina: {
+    anticipation: {
       name: 'Anticipation',
       rankIDs: [16254, 16271, 16272, 16273, 16274],
       iconName: 'spell_shadow_antishadow',
       row: 3,
       column: 4
     },
-    demonicAegis: {
+    flurry: {
       name: 'Flurry',
       rankIDs: [16256, 16281, 16282, 16283, 16284],
       iconName: 'spell_shadow_ragingscream',
@@ -241,7 +241,7 @@ const _talents = {
       row: 4,
       column: 3
     },
-    unholyPower: {
+    improvedWeaponTotems: {
       name: 'Improved Weapon Totems',
       rankIDs: [29192, 29193],
       iconName: 'spell_shadow_shadowworddominate',
@@ -255,7 +255,7 @@ const _talents = {
       row: 5,
       column: 2
     },
-    demonicSacrifice: {
+    elementalWeapons: {
       name: 'Elemental Weapons',
       rankIDs: [16266, 29079, 29080],
       iconName: 'spell_shadow_psychicscream',
@@ -301,7 +301,7 @@ const _talents = {
       row: 7,
       column: 3,
       requirement: {
-        name: 'demonicSacrifice',
+        name: 'elementalWeapons',
         points: 3
       }
     },
@@ -320,7 +320,7 @@ const _talents = {
       column: 2
     }
   },
-  destruction: {
+  restoration: {
     improvedShadowBolt: {
       name: 'Improved Healing Wave',
       rankIDs: [16182, 16226, 16227, 16228, 16229],

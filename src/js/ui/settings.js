@@ -9,9 +9,6 @@ $(document).on('click', '#rotation-list div li', function () {
       rotation[$(this).data('type')][$(this).data('name')] = false
     })
 
-    if ($('#demonicSacrifice').data('points') == 1) {
-      refreshStats = true
-    }
   } else if ($(this).hasClass('rotation-curse')) {
     $('.rotation-curse').each(function () {
       if ($(this).data('name') !== clickedSpell) {
@@ -83,11 +80,6 @@ function updateSimulationSettingsVisibility () {
     $('#rotation-list div').show()
   }
 
-  if (talents.demonicSacrifice === 0) {
-    $('#sacrificePet').hide()
-  } else {
-    $('#sacrificePet').show()
-  }
 
   if ($('#sacrificePet').is(':visible') && $('#sacrificePet').children('select').val() == 'yes') {
     $('#petMode').hide()
@@ -123,11 +115,6 @@ function updateSimulationSettingsVisibility () {
     $('.petDebuff').hide()
   }
 
-  if ($('#petChoice').children('select').val() == 2 && $('#petMode').children('select').val() == 1 && (talents.demonicSacrifice == 0 || $('#sacrificePet').children('select').val() === 'no')) {
-    $('#lashOfPainUsage').show()
-  } else {
-    $('#lashOfPainUsage').hide()
-  }
 
   if (auras.curseOfTheElements) {
     $('#improvedCurseOfTheElements').show()
