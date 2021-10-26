@@ -627,6 +627,7 @@ class Player {
     if( (spell.name == "Lightning Bolt" || spell.name == "Chain Lightning"))
     {
       critChance += this.talents.callOfThunder
+      critChance += this.talents.tidalMastery
     }
 
 

@@ -502,6 +502,7 @@ double Player::getCritChance(SpellType spellType, const std::shared_ptr<Spell>& 
     if( (spell->name == "Lightning Bolt" || spell->name == "Chain Lightning"))
     {
         critChance += talents->callOfThunder;
+        critChance += talents->tidalMastery;
     }
     return critChance;
 }
