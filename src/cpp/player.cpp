@@ -152,23 +152,7 @@ Player::Player(PlayerSettings* playerSettings)
     stats->maxMana = (stats->mana + (stats->intellect * stats->intellectModifier) * manaPerInt);
 
     // Pet
-    // Spell Power from the Demonic Knowledge talent
     demonicKnowledgeSpellPower = 0;
-    if (!settings->sacrificingPet)
-    {
-        if (settings->petIsImp)
-        {
-            pet = std::make_unique<Imp>(this);
-        }
-        else if (settings->petIsSuccubus)
-        {
-            pet = std::make_unique<Succubus>(this);
-        }
-        else if (settings->petIsFelguard)
-        {
-            pet = std::make_unique<Felguard>(this);
-        }
-    }
 
     combatLogEntries.push_back("---------------- Player stats ----------------");
     combatLogEntries.push_back("Health: " + truncateTrailingZeros(std::to_string(round(stats->health))));
@@ -283,6 +267,12 @@ void Player::initialize()
     }
     if (sets->spellstrike >= 2) auras->Spellstrike = std::make_shared<SpellstrikeAura>(this);
     if (sets->manaEtched >= 4) auras->ManaEtched4Set = std::make_shared<ManaEtched4SetAura>(this);
+    if (talents->lightningOverload > 0)
+    {
+        auras->LightningOverloadAura = std::make_shared<LightningOverloadAura>(this);
+        combatLogEntries.push_back("Lightning Overload Talent Points: " + std::to_string(talents->lightningOverload));
+        combatLogEntries.push_back("Lightning Proc Chance: " + std::to_string(auras->LightningOverloadAura->procChance));
+    } 
 
     // Spells
     spells->LifeTap = std::make_shared<LifeTap>(this);
@@ -314,6 +304,7 @@ void Player::initialize()
     if (settings->metaGemId == 25901) spells->InsightfulEarthstormDiamond = std::make_shared<InsightfulEarthstormDiamond>(this);
     if (std::find(trinketIds.begin(), trinketIds.end(), 34470) != trinketIds.end()) spells->TimbalsFocusingCrystal = std::make_shared<TimbalsFocusingCrystal>(this);
     if (std::find(trinketIds.begin(), trinketIds.end(), 27922) != trinketIds.end()) spells->MarkOfDefiance = std::make_shared<MarkOfDefiance>(this);
+    if (talents->lightningOverload > 0) spells->LightningOverload = std::make_shared<LightningOverload>(this);
     if (auras->TheLightningCapacitor != NULL) spells->TheLightningCapacitor = std::make_shared<TheLightningCapacitor>(this, auras->TheLightningCapacitor);
     if (auras->QuagmirransEye != NULL) spells->QuagmirransEye = std::make_shared<QuagmirransEye>(this, auras->QuagmirransEye);
     if (auras->ShiffarsNexusHorn != NULL) spells->ShiffarsNexusHorn = std::make_shared<ShiffarsNexusHorn>(this, auras->ShiffarsNexusHorn);
@@ -400,6 +391,7 @@ void Player::reset()
     if (spells->InsightfulEarthstormDiamond != NULL) spells->InsightfulEarthstormDiamond->reset();
     if (spells->TimbalsFocusingCrystal != NULL) spells->TimbalsFocusingCrystal->reset();
     if (spells->MarkOfDefiance != NULL) spells->MarkOfDefiance->reset();
+    if (spells->LightningOverload != NULL) spells->LightningOverload->reset();
     if (spells->TheLightningCapacitor != NULL) spells->TheLightningCapacitor->reset();
     if (spells->QuagmirransEye != NULL) spells->QuagmirransEye->reset();
     if (spells->ShiffarsNexusHorn != NULL) spells->ShiffarsNexusHorn->reset();
@@ -458,6 +450,7 @@ void Player::reset()
     if (auras->Shadowflame != NULL && auras->Shadowflame->active) auras->Shadowflame->fade(true);
     if (auras->Spellstrike != NULL && auras->Spellstrike->active) auras->Spellstrike->fade(true);
     if (auras->ManaEtched4Set != NULL && auras->ManaEtched4Set->active) auras->ManaEtched4Set->fade(true);
+    if (auras->LightningOverloadAura != NULL && auras->LightningOverloadAura->active) auras->LightningOverloadAura->fade(true);
 }
 
 double Player::getHastePercent()

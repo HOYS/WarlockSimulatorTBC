@@ -85,6 +85,7 @@ class Simulation {
     if (this.player.spells.insightfulEarthstormDiamond && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining > 0 && this.player.spells.insightfulEarthstormDiamond.cooldownRemaining < time) time = this.player.spells.insightfulEarthstormDiamond.cooldownRemaining
     if (this.player.spells.timbalsFocusingCrystal && this.player.spells.timbalsFocusingCrystal.cooldownRemaining > 0 && this.player.spells.timbalsFocusingCrystal.cooldownRemaining < time) time = this.player.spells.timbalsFocusingCrystal.cooldownRemaining
     if (this.player.spells.markOfDefiance && this.player.spells.markOfDefiance.cooldownRemaining > 0 && this.player.spells.markOfDefiance.cooldownRemaining < time) time = this.player.spells.markOfDefiance.cooldownRemaining
+    if (this.player.spells.lightningOverload && this.player.spells.lightningOverload.cooldownRemaining > 0 && this.player.spells.lightningOverload.cooldownRemaining < time) time = this.player.spells.lightningOverload.cooldownRemaining
     if (this.player.spells.drumsOfBattle && this.player.spells.drumsOfBattle.cooldownRemaining > 0 && this.player.spells.drumsOfBattle.cooldownRemaining < time) time = this.player.spells.drumsOfBattle.cooldownRemaining
     if (this.player.spells.drumsOfWar && this.player.spells.drumsOfWar.cooldownRemaining > 0 && this.player.spells.drumsOfWar.cooldownRemaining < time) time = this.player.spells.drumsOfWar.cooldownRemaining
     if (this.player.spells.drumsOfRestoration && this.player.spells.drumsOfRestoration.cooldownRemaining > 0 && this.player.spells.drumsOfRestoration.cooldownRemaining < time) time = this.player.spells.drumsOfRestoration.cooldownRemaining
@@ -120,6 +121,7 @@ class Simulation {
     if (this.player.auras.ashtongueTalismanOfShadows && this.player.auras.ashtongueTalismanOfShadows.active && this.player.auras.ashtongueTalismanOfShadows.durationRemaining < time) time = this.player.auras.ashtongueTalismanOfShadows.durationRemaining
     if (this.player.auras.darkmoonCardCrusade && this.player.auras.darkmoonCardCrusade.active && this.player.auras.darkmoonCardCrusade.durationRemaining < time) time = this.player.auras.darkmoonCardCrusade.durationRemaining
     if (this.player.auras.manaEtched4Set && this.player.auras.manaEtched4Set.active && this.player.auras.manaEtched4Set.durationRemaining < time) time = this.player.auras.manaEtched4Set.durationRemaining
+    if (this.player.auras.lightningOverload && this.player.auras.lightningOverload.active && this.player.auras.lightningOverload.durationRemaining < time) time = this.player.auras.lightningOverload.durationRemaining
     if (this.player.spells.theLightningCapacitor && this.player.spells.theLightningCapacitor.cooldownRemaining > 0 && this.player.spells.theLightningCapacitor.cooldownRemaining < time) time = this.player.spells.theLightningCapacitor.cooldownRemaining
     if (this.player.auras.bandOfTheEternalSage) {
       if (this.player.auras.bandOfTheEternalSage.active && this.player.auras.bandOfTheEternalSage.durationRemaining < time) time = this.player.auras.bandOfTheEternalSage.durationRemaining
@@ -169,6 +171,7 @@ class Simulation {
     if (this.player.auras.quagmirransEye && (this.player.auras.quagmirransEye.active || this.player.auras.quagmirransEye.hiddenCooldownRemaining > 0)) this.player.auras.quagmirransEye.tick(time)
     if (this.player.auras.shiffarsNexusHorn && this.player.auras.shiffarsNexusHorn.active) this.player.auras.shiffarsNexusHorn.tick(time)
     if (this.player.auras.manaEtched4Set && this.player.auras.manaEtched4Set.active) this.player.auras.manaEtched4Set.tick(time)
+    if (this.player.auras.lightningOverload && this.player.auras.lightningOverload.active) this.player.auras.lightningOverload.tick(time)
     if (this.player.auras.bloodFury && this.player.auras.bloodFury.active) this.player.auras.bloodFury.tick(time)
     if (this.player.auras.bloodlust && this.player.auras.bloodlust.active) this.player.auras.bloodlust.tick(time)
     if (this.player.auras.drumsOfBattle && this.player.auras.drumsOfBattle.active) this.player.auras.drumsOfBattle.tick(time)
@@ -199,6 +202,7 @@ class Simulation {
     if (this.player.spells.drumsOfRestoration && this.player.spells.drumsOfRestoration.cooldownRemaining > 0) this.player.spells.drumsOfRestoration.tick(time)
     if (this.player.spells.timbalsFocusingCrystal && this.player.spells.timbalsFocusingCrystal.cooldownRemaining > 0) this.player.spells.timbalsFocusingCrystal.tick(time)
     if (this.player.spells.markOfDefiance && this.player.spells.markOfDefiance.cooldownRemaining > 0) this.player.spells.markOfDefiance.tick(time)
+    if (this.player.spells.lightningOverload && this.player.spells.lightningOverload.cooldownRemaining > 0) this.player.spells.lightningOverload.tick(time)
     if (this.player.spells.theLightningCapacitor && this.player.spells.theLightningCapacitor.cooldownRemaining > 0) this.player.spells.theLightningCapacitor.tick(time)
     if (this.player.spells.bladeOfWizardry && this.player.spells.bladeOfWizardry.cooldownRemaining > 0) this.player.spells.bladeOfWizardry.tick(time)
     if (this.player.spells.shatteredSunPendantOfAcumen && this.player.spells.shatteredSunPendantOfAcumen.cooldownRemaining > 0) this.player.spells.shatteredSunPendantOfAcumen.tick(time)
@@ -282,6 +286,7 @@ class Simulation {
       if (this.player.spells.drumsOfWar) this.player.spells.drumsOfWar.reset()
       if (this.player.spells.drumsOfRestoration) this.player.spells.drumsOfRestoration.reset()
       if (this.player.spells.markOfDefiance) this.player.spells.markOfDefiance.reset()
+      if (this.player.spells.lightningOverload) this.player.spells.lightningOverload.reset()
       if (this.player.spells.theLightningCapacitor) this.player.spells.theLightningCapacitor.reset()
       if (this.player.spells.bladeOfWizardry) this.player.spells.bladeOfWizardry.reset()
       if (this.player.spells.shatteredSunPendantOfAcumen) this.player.spells.shatteredSunPendantOfAcumen.reset()
@@ -480,6 +485,7 @@ class Simulation {
       if (this.player.auras.quagmirransEye && this.player.auras.quagmirransEye.active) this.player.auras.quagmirransEye.fade(true)
       if (this.player.auras.shiffarsNexusHorn && this.player.auras.shiffarsNexusHorn.active) this.player.auras.shiffarsNexusHorn.fade(true)
       if (this.player.auras.manaEtched4Set && this.player.auras.manaEtched4Set.active) this.player.auras.manaEtched4Set.fade(true)
+      if (this.player.auras.lightningOverload && this.player.auras.lightningOverload.active) this.player.auras.lightningOverload.fade(true)
       if (this.player.auras.destructionPotion && this.player.auras.destructionPotion.active) this.player.auras.destructionPotion.fade(true)
       if (this.player.auras.flameCap && this.player.auras.flameCap.active) this.player.auras.flameCap.fade(true)
       if (this.player.auras.bloodFury && this.player.auras.bloodFury.active) this.player.auras.bloodFury.fade(true)

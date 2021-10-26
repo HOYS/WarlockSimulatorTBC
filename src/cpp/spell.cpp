@@ -403,6 +403,11 @@ void Spell::onHitProcs()
     {
         player->auras->ManaEtched4Set->apply();
     }
+    // Lightning Overload
+    if (player->auras->LightningOverloadAura != NULL && player->getRand() <= player->auras->LightningOverloadAura->procChance * player->critChanceMultiplier)
+    {
+        player->spells->LightningOverload->startCast();
+    }
     // Mark of Defiance
     if (player->spells->MarkOfDefiance != NULL && player->spells->MarkOfDefiance->ready() && player->getRand() <= player->spells->MarkOfDefiance->procChance * player->critChanceMultiplier)
     {
@@ -484,9 +489,31 @@ void LightningBolt::startCast(double predictedDamage = 0)
     // }
 }
 
+
 double LightningBolt::calculateCastTime()
 {
     return 2.5 - (0.1 * player->talents->lightningMastery);
+}
+
+LightningOverload::LightningOverload(Player* player) : Spell(player)
+{
+    castTime = 0;
+    manaCost = 0;
+    coefficient = (3 / 3.5);
+    minDmg = 285;
+    maxDmg = 326;
+    name = "Lightning Bolt - Overload";
+    doesDamage = true;
+    canCrit = true;
+    school = SpellSchool::NATURE;
+    type = SpellType::ELEMENTAL;
+    setup();
+    
+}
+
+void LightningOverload::cast()
+{
+    Spell::startCast();   
 }
 
 LifeTap::LifeTap(Player* player) : Spell(player)

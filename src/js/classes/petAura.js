@@ -56,33 +56,3 @@ class DemonicFrenzy extends PetAura {
     super.fade(endOfIteration)
   }
 }
-
-class BlackBook extends PetAura {
-  constructor (pet) {
-    super(pet)
-    this.name = 'Black Book'
-    this.duration = 30
-  }
-
-  apply(announceInCombatlog = true) {
-    if (!this.active) {
-      super.apply()
-      this.pet.player.combatLog(this.pet.name + ' Spell Power + 200 (' + Math.round(this.pet.stats.spellPower) + ' -> ' + Math.round(this.pet.stats.spellPower + 200) + ')')
-      this.pet.player.combatLog(this.pet.name + ' Attack Power + 325 (' + Math.round(this.pet.stats.ap) + ' -> ' + Math.round(this.pet.stats.ap + 325) + ')')
-      this.pet.stats.buffs.spellPower += 200
-      this.pet.stats.buffs.ap += 325
-      this.pet.calculateStatsFromPlayer(announceInCombatlog)
-    }
-  }
-
-  fade(endOfIteration = false) {
-    if (this.active) {
-      super.fade(endOfIteration)
-      this.pet.player.combatLog(this.pet.name + ' Spell Power - 200 (' + Math.round(this.pet.stats.spellPower) + ' -> ' + Math.round(this.pet.stats.spellPower - 200) + ')')
-      this.pet.player.combatLog(this.pet.name + ' Attack Power - 325 (' + Math.round(this.pet.stats.ap) + ' -> ' + Math.round(this.pet.stats.ap - 325) + ')')
-      this.pet.stats.buffs.spellPower -= 200
-      this.pet.stats.buffs.ap -= 325
-      this.pet.calculateStatsFromPlayer(!endOfIteration)
-    }
-  }
-}

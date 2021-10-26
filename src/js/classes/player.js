@@ -413,6 +413,7 @@ class Player {
     if (this.metaGemIds.includes(25901)) this.spells.insightfulEarthstormDiamond = new InsightfulEarthstormDiamond(this)
     if (this.trinketIds.includes(34470)) this.spells.timbalsFocusingCrystal = new TimbalsFocusingCrystal(this)
     if (this.trinketIds.includes(27922)) this.spells.markOfDefiance = new MarkOfDefiance(this)
+    if (this.talents.lightningOverload > 0) this.spells.lightningOverload = new LightningOverload(this)
     if (this.trinketIds.includes(28785)) this.spells.theLightningCapacitor = new TheLightningCapacitor(this)
     if (this.trinketIds.includes(27683)) this.spells.quagmirransEye = new QuagmirransEye(this)
     if (this.trinketIds.includes(28418)) this.spells.shiffarsNexusHorn = new ShiffarsNexusHorn(this)
@@ -477,6 +478,7 @@ class Player {
     }
     if (this.sets['559'] == 2) this.auras.spellstrikeProc = new SpellstrikeProc(this)
     if (this.sets['658'] >= 4) this.auras.manaEtched4Set = new ManaEtched4Set(this)
+    if (this.talents.lightningOverload > 0) this.auras.lightningOverload = new LightningOverloadAura(this);
   }
 
   reset () {

@@ -312,6 +312,14 @@ ManaEtched4SetAura::ManaEtched4SetAura(Player* player) : Aura(player)
     setup();
 }
 
+LightningOverloadAura::LightningOverloadAura(Player* player) : Aura(player)
+{
+    name = "Lightning Overload";
+    hasDuration = false;
+    procChance = 1;
+    setup();
+}
+
 DestructionPotionAura::DestructionPotionAura(Player* player) : Aura(player)
 {
     name = "Destruction Potion";

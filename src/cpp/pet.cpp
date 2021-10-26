@@ -13,7 +13,7 @@ Pet::Pet(Player* player) : player(player)
     castTimeRemaining = 0;
     fiveSecondRuleTimerRemaining = 5;
     spiritTickTimerRemaining = 2;
-    mode = player->settings->petIsAggressive ? PetMode::AGGRESSIVE : PetMode::PASSIVE;
+    mode = PetMode::PASSIVE;
     critMultiplier = 1.5;
     glancingBlowMultiplier = 1 - (0.1 + (player->settings->enemyLevel * 5 - player->level * 5) / 100.0);
     glancingBlowChance = std::max(0.0, 6 + (player->settings->enemyLevel * 5 - player->level * 5) * 1.2);
@@ -41,10 +41,6 @@ void Pet::initialize()
         }
     }
 
-    if (player->settings->prepopBlackBook)
-    {
-        auras->BlackBook = std::make_unique<BlackBook>(this);
-    }
 }
 
 void Pet::calculateStatsFromAuras()
@@ -342,7 +338,6 @@ void Pet::reset()
     if (spells->Cleave != NULL) spells->Cleave->reset();
 
     // End Auras
-    if (auras->BlackBook != NULL && auras->BlackBook->active) auras->BlackBook->fade(true);
     if (auras->DemonicFrenzy != NULL && auras->DemonicFrenzy->active) auras->DemonicFrenzy->fade(true);
     
     calculateStatsFromPlayer(false);
@@ -413,9 +408,6 @@ void Pet::tick(double t)
     castTimeRemaining -= t;
     fiveSecondRuleTimerRemaining -= t;
     spiritTickTimerRemaining -= t;
-
-    // Auras
-    if (auras->BlackBook != NULL && auras->BlackBook->durationRemaining > 0) auras->BlackBook->tick(t);
 
     // Spells
     if (spells->Melee != NULL && spells->Melee->cooldownRemaining > 0) spells->Melee->tick(t);

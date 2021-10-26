@@ -68,10 +68,6 @@ class PetSpell {
         combatLogEntry += '. Attack Speed: ' + this.pet.spells.melee.getCooldown().toFixed(2) + ' (' + Math.round(this.pet.stats.hastePercent * 10000) / 10000 + '% haste at a base attack speed of ' + this.pet.spells.melee.cooldown.toFixed(2) + ')'
       }
     }
-    if (this.manaCost > 0 && this.pet.player.simSettings.infinitePetMana !== 'yes') {
-      this.pet.stats.mana = Math.max(0, this.pet.stats.mana - this.manaCost)
-      combatLogEntry += '. Pet mana: ' + Math.round(this.pet.stats.mana) + '/' + Math.round(this.pet.stats.maxMana)
-    }
     this.pet.player.combatLog(combatLogEntry)
     this.pet.player.damageBreakdown[this.varName].casts = this.pet.player.damageBreakdown[this.varName].casts + 1 || 1
 

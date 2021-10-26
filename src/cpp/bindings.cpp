@@ -211,18 +211,18 @@ CharacterStats* allocStats(int health, int mana, double stamina, double intellec
 EMSCRIPTEN_KEEPALIVE
 PlayerSettings* allocPlayerSettings(Auras* auras, Talents* talents, Sets* sets, CharacterStats* stats, Items* items, int itemId, int metaGemId, bool recordingCombatLogBreakdown, bool simmingStamina, bool simmingIntellect, bool simmingSpirit, bool simmingSpellPower
     , bool simmingNaturePower, bool simmingFirePower, bool simmingHitRating, bool simmingCritRating, bool simmingHasteRating, bool simmingMp5, bool isAldor, int enemyLevel, int enemyNatureResist, int enemyFireResist
-    , int mageAtieshAmount, int totemOfWrathAmount, bool sacrificingPet, bool petIsImp, bool petIsSuccubus, bool petIsFelguard, int ferociousInspirationAmount, int improvedCurseOfTheElements
+    , int mageAtieshAmount, int totemOfWrathAmount,int ferociousInspirationAmount, int improvedCurseOfTheElements
     , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int ancestralKnowledge, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
-    , bool isOrc, int powerInfusionAmount, bool bloodlustAmount, bool innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
-    , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasFlameShock
+    , bool isOrc, int powerInfusionAmount, bool bloodlustAmount, bool innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana
+    , bool usingLashOfPainOnCooldown, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasFlameShock
     , bool hasCorruption, bool hasSiphonLife, bool hasLightningBolt, bool hasCurseOfRecklessness, bool hasCurseOfTheElements, bool hasCurseOfAgony
     , bool hasElementalShamanT4Bonus)
 {
     return new PlayerSettings(auras, talents, sets, stats, items, itemId, metaGemId, recordingCombatLogBreakdown, simmingStamina, simmingIntellect, simmingSpirit, simmingSpellPower, simmingNaturePower, simmingFirePower, simmingHitRating, simmingCritRating
-        , simmingHasteRating, simmingMp5, isAldor, enemyLevel, enemyNatureResist, enemyFireResist, mageAtieshAmount, totemOfWrathAmount, sacrificingPet, petIsImp, petIsSuccubus, petIsFelguard
+        , simmingHasteRating, simmingMp5, isAldor, enemyLevel, enemyNatureResist, enemyFireResist, mageAtieshAmount, totemOfWrathAmount
         , ferociousInspirationAmount, improvedCurseOfTheElements, usingCustomIsbUptime, customIsbUptimeValue, improvedDivineSpirit, ancestralKnowledge, shadowPriestDps, warlockAtieshAmount, improvedExposeArmor
-        , isSingleTarget, enemyAmount, isOrc, powerInfusionAmount, bloodlustAmount, innervateAmount, enemyArmor, exposeWeaknessUptime, improvedFaerieFire, infinitePlayerMana, infinitePetMana
-        , usingLashOfPainOnCooldown, petIsAggressive, prepopBlackBook, randomizeValues, userChoosingRotation, exaltedWithShattrathFaction, survivalHunterAgility, hasFlameShock, hasCorruption, hasSiphonLife
+        , isSingleTarget, enemyAmount, isOrc, powerInfusionAmount, bloodlustAmount, innervateAmount, enemyArmor, exposeWeaknessUptime, improvedFaerieFire, infinitePlayerMana
+        , usingLashOfPainOnCooldown, randomizeValues, userChoosingRotation, exaltedWithShattrathFaction, survivalHunterAgility, hasFlameShock, hasCorruption, hasSiphonLife
         , hasLightningBolt, hasCurseOfRecklessness, hasCurseOfTheElements, hasCurseOfAgony
         , hasElementalShamanT4Bonus);
 }

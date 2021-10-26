@@ -81,41 +81,6 @@ function updateSimulationSettingsVisibility () {
   }
 
 
-  if ($('#sacrificePet').is(':visible') && $('#sacrificePet').children('select').val() == 'yes') {
-    $('#petMode').hide()
-  } else {
-    $('#petMode').show()
-  }
-
-  if ($('#sacrificePet').children('select').val() == 'no' || !$('#sacrificePet').is(':visible')) {
-    $('#petBuffs-heading').show()
-    $('.petBuffs').show()
-    if ($('#petMode').children('select').val() == 1) {
-      $('#prepopBlackBook').show()
-      if ($('#petChoice').children('select').val() != 0) {
-        $('#enemyArmor').show()
-        $('#enemy-armor-val').closest('li').show()
-      } else {
-        $('#enemyArmor').hide()
-        $('#enemy-armor-val').closest('li').hide()
-      }
-      $('.petDebuff').show()
-    } else {
-      $('#prepopBlackBook').hide()
-      $('#enemyArmor').hide()
-      $('#enemy-armor-val').closest('li').hide()
-      $('.petDebuff').hide()
-    }
-  } else {
-    $('#prepopBlackBook').hide()
-    $('#petBuffs-heading').hide()
-    $('.petBuffs').hide()
-    $('#enemyArmor').hide()
-    $('#enemy-armor-val').closest('li').hide()
-    $('.petDebuff').hide()
-  }
-
-
   if (auras.curseOfTheElements) {
     $('#improvedCurseOfTheElements').show()
   } else {

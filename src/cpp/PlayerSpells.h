@@ -30,6 +30,7 @@ struct PlayerSpells
     std::shared_ptr<Spell> MarkOfDefiance;
     std::shared_ptr<Spell> TheLightningCapacitor;
     std::shared_ptr<Spell> QuagmirransEye;
+    std::shared_ptr<Spell> LightningOverload;
     std::shared_ptr<Spell> ShiffarsNexusHorn;
     std::shared_ptr<Spell> SextantOfUnstableCurrents;
     std::shared_ptr<Spell> BandOfTheEternalSage;

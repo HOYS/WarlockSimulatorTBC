@@ -27,10 +27,3 @@ struct DemonicFrenzy : public PetAura
     void apply();
     void fade(bool endOfIteration = false);
 };
-
-struct BlackBook : public PetAura
-{
-    BlackBook(Pet* pet);
-    void apply(bool announceInCombatLog = true);
-    void fade(bool endOfIteration = false);
-};

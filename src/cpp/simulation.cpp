@@ -231,7 +231,6 @@ double Simulation::passTime()
             else if (player->pet->castTimeRemaining > 0 && player->pet->castTimeRemaining < time) time = player->pet->castTimeRemaining;
             if (player->pet->spells->LashOfPain != NULL && player->pet->spells->LashOfPain->cooldownRemaining > 0 && player->pet->spells->LashOfPain->cooldownRemaining < time) time = player->pet->spells->LashOfPain->cooldownRemaining;
             else if (player->pet->spells->Cleave != NULL && player->pet->spells->Cleave->cooldownRemaining > 0 && player->pet->spells->Cleave->cooldownRemaining < time) time = player->pet->spells->Cleave->cooldownRemaining;
-            if (player->pet->auras->BlackBook != NULL && player->pet->auras->BlackBook->active && player->pet->auras->BlackBook->durationRemaining < time) time = player->pet->auras->BlackBook->durationRemaining;
         }
     }
 
@@ -251,6 +250,7 @@ double Simulation::passTime()
     if (player->spells->InsightfulEarthstormDiamond != NULL && player->spells->InsightfulEarthstormDiamond->cooldownRemaining > 0 && player->spells->InsightfulEarthstormDiamond->cooldownRemaining < time) time = player->spells->InsightfulEarthstormDiamond->cooldownRemaining;
     if (player->spells->TimbalsFocusingCrystal != NULL && player->spells->TimbalsFocusingCrystal->cooldownRemaining > 0 && player->spells->TimbalsFocusingCrystal->cooldownRemaining < time) time = player->spells->TimbalsFocusingCrystal->cooldownRemaining;
     if (player->spells->MarkOfDefiance != NULL && player->spells->MarkOfDefiance->cooldownRemaining > 0 && player->spells->MarkOfDefiance->cooldownRemaining < time) time = player->spells->MarkOfDefiance->cooldownRemaining;
+    if (player->spells->LightningOverload != NULL && player->spells->LightningOverload->cooldownRemaining > 0 && player->spells->LightningOverload->cooldownRemaining < time) time = player->spells->LightningOverload->cooldownRemaining;
     if (player->spells->TheLightningCapacitor != NULL && player->spells->TheLightningCapacitor->cooldownRemaining > 0 && player->spells->TheLightningCapacitor->cooldownRemaining < time) time = player->spells->TheLightningCapacitor->cooldownRemaining;
     if (player->spells->QuagmirransEye != NULL && player->spells->QuagmirransEye->cooldownRemaining > 0 && player->spells->QuagmirransEye->cooldownRemaining < time) time = player->spells->QuagmirransEye->cooldownRemaining;
     if (player->spells->ShiffarsNexusHorn != NULL && player->spells->ShiffarsNexusHorn->cooldownRemaining > 0 && player->spells->ShiffarsNexusHorn->cooldownRemaining < time) time = player->spells->ShiffarsNexusHorn->cooldownRemaining;
@@ -302,6 +302,7 @@ double Simulation::passTime()
     if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active && player->auras->Shadowflame->durationRemaining < time) time = player->auras->Shadowflame->durationRemaining;
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active && player->auras->Spellstrike->durationRemaining < time) time = player->auras->Spellstrike->durationRemaining;
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active && player->auras->ManaEtched4Set->durationRemaining < time) time = player->auras->ManaEtched4Set->durationRemaining;
+    if (player->auras->LightningOverloadAura != NULL && player->auras->LightningOverloadAura->active && player->auras->LightningOverloadAura->durationRemaining < time) time = player->auras->LightningOverloadAura->durationRemaining;
     #pragma endregion
 
     // MP5
@@ -366,6 +367,7 @@ double Simulation::passTime()
     if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active) player->auras->Shadowflame->tick(time);
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active) player->auras->Spellstrike->tick(time);
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active) player->auras->ManaEtched4Set->tick(time);
+    if (player->auras->LightningOverloadAura != NULL && player->auras->LightningOverloadAura->active) player->auras->LightningOverloadAura->tick(time);
     #pragma endregion
 
     #pragma region Spells
@@ -387,6 +389,7 @@ double Simulation::passTime()
     if (player->spells->InsightfulEarthstormDiamond != NULL && (player->spells->InsightfulEarthstormDiamond->cooldownRemaining > 0 || player->spells->InsightfulEarthstormDiamond->casting)) player->spells->InsightfulEarthstormDiamond->tick(time);
     if (player->spells->TimbalsFocusingCrystal != NULL && (player->spells->TimbalsFocusingCrystal->cooldownRemaining > 0 || player->spells->TimbalsFocusingCrystal->casting)) player->spells->TimbalsFocusingCrystal->tick(time);
     if (player->spells->MarkOfDefiance != NULL && (player->spells->MarkOfDefiance->cooldownRemaining > 0 || player->spells->MarkOfDefiance->casting)) player->spells->MarkOfDefiance->tick(time);
+    if (player->spells->LightningOverload != NULL && (player->spells->LightningOverload->cooldownRemaining > 0 || player->spells->LightningOverload->casting)) player->spells->LightningOverload->tick(time);
     if (player->spells->TheLightningCapacitor != NULL && (player->spells->TheLightningCapacitor->cooldownRemaining > 0 || player->spells->TheLightningCapacitor->casting)) player->spells->TheLightningCapacitor->tick(time);
     if (player->spells->QuagmirransEye != NULL && (player->spells->QuagmirransEye->cooldownRemaining > 0 || player->spells->QuagmirransEye->casting)) player->spells->QuagmirransEye->tick(time);
     if (player->spells->ShiffarsNexusHorn != NULL && (player->spells->ShiffarsNexusHorn->cooldownRemaining > 0 || player->spells->ShiffarsNexusHorn->casting)) player->spells->ShiffarsNexusHorn->tick(time);

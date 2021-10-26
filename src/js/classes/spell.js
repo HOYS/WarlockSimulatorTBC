@@ -176,6 +176,11 @@ class Spell {
       this.player.auras.manaEtched4Set.apply()
     }
 
+    // Lightning Overload
+    if (this.player.auras.lightningOverload && random(1,100) <= this.player.auras.lightningOverload.procChance) {
+      this.player.spells.LightningOverload.cast()
+    }
+
     // Mark of Defiance
     if (this.player.spells.markOfDefiance && random(1, 100) <= this.player.spells.markOfDefiance.procChance) {
       this.player.spells.markOfDefiance.cast()
@@ -378,6 +383,24 @@ class LightningBolt extends Spell {
   }
 }
 
+class LightningOverload extends Spell {
+  constructor (player) {
+    super(player)
+    this.castTime = 0
+    this.manaCost = 0
+    this.coefficient = (3/3.5)
+    this.minDmg = 285
+    this.maxDmg = 326
+    this.name = "Lightning Bolt - Overload";
+    this.doesDamage = true
+    this.canCrit = true
+    this.school = 'nature'
+    this.type = 'elemental'
+    this.travelTime = player.spellTravelTime
+    this.setup()
+    
+  }
+}
 
 class SoulFire extends Spell {
   constructor (player) {

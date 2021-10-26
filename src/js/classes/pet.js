@@ -25,7 +25,7 @@ class Pet {
     this.castTimeRemaining = 0
     this.fiveSecondRuleTimerRemaining = 5
     this.spiritTickTimerRemaining = 2
-    this.mode = this.simSettings.petMode
+    this.mode = false
     this.critMultiplier = 1.5
     this.glancingBlowMultiplier = 1 - (0.1 + (player.enemy.level * 5 - player.level * 5) / 100)
     this.glancingBlowChance = Math.max(0, 6 + (player.enemy.level * 5 - player.level * 5) * 1.2)
@@ -78,7 +78,6 @@ class Pet {
 
   initialize () {
     if (this.type == PetType.MELEE) this.spells.melee = new Melee(this)
-    if (this.player.simSettings.prepopBlackBook === 'yes') this.auras.blackBook = new BlackBook(this)
   }
 
   // Calculates stats from buffs/debuffs/pet buffs
@@ -254,10 +253,6 @@ class Pet {
     // Remove Black Book if Active
     if (this.auras.blackBook && this.auras.blackBook.active) {
       this.auras.blackBook.fade(true)
-    }
-    // Black Book prepop
-    if (this.player.simSettings.prepopBlackBook === 'yes') {
-      this.auras.blackBook.apply(false)
     }
     this.calculateStatsFromPlayer(false)
   }

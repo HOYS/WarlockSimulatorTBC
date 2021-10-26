@@ -205,6 +205,12 @@ struct QuagmirransEye : public Spell
     QuagmirransEye(Player* player, std::shared_ptr<Aura> aura);
 };
 
+struct LightningOverload : public Spell
+{
+    LightningOverload(Player* player);
+    void cast();
+};
+
 struct ShiffarsNexusHorn : public Spell
 {
     ShiffarsNexusHorn(Player* player, std::shared_ptr<Aura> aura);

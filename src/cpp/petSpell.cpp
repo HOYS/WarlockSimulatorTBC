@@ -117,16 +117,6 @@ void PetSpell::cast()
         }
     }
 
-    if (manaCost > 0 && !pet->player->settings->infinitePetMana)
-    {
-        pet->stats->mana -= manaCost;
-        pet->fiveSecondRuleTimerRemaining = 5;
-
-        if (pet->player->shouldWriteToCombatLog())
-        {
-            combatLogMsg.append(" - Pet mana: " + std::to_string(pet->stats->mana) + "/" + std::to_string(pet->stats->maxMana));
-        }
-    }
 
     pet->player->combatLogBreakdown.at(name)->casts++;
 
