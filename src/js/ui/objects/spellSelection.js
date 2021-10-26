@@ -22,10 +22,10 @@ const _spellSelection = {
   filler: {
     header: 'Filler',
     spells: {
-      shadowBolt: {
-        name: 'Shadow Bolt',
+      lightningBolt: {
+        name: 'Lightning Bolt',
         iconName: 'spell_shadow_shadowbolt',
-        id: 27209
+        id: 25449
       }
     }
   },

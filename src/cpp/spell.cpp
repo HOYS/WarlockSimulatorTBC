@@ -162,7 +162,7 @@ void Spell::cast()
 
     if (canCrit)
     {
-        isCrit = player->isCrit(type, bonusCrit);
+        isCrit = player->isCrit(type, shared_from_this(), bonusCrit);
         if (isCrit)
         {
             // Increment the crit counter whether the spell hits or not so that the crit % on the damage breakdown is correct. Otherwise the crit % will be lower due to lost crits when the spell misses.
@@ -314,7 +314,7 @@ double Spell::predictDamage()
     if (canCrit)
     {
         critDamage = normalDamage * getCritMultiplier(player->critMultiplier);
-        critChance = player->getCritChance(type) / 100;
+        critChance = player->getCritChance(type, shared_from_this()) / 100;
         chanceToNotCrit = 1 - critChance;
     }
 
@@ -556,7 +556,7 @@ SiphonLife::SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_p
 
 FlameShock::FlameShock(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {
-    name = "FlameShock";
+    name = "Flame Shock";
     //to-do add mentalQuickness
     manaCost = 500 * (1 - 0.02 * player->talents->convection);
     castTime = 0;

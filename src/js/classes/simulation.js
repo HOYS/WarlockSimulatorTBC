@@ -185,7 +185,7 @@ class Simulation {
     if (this.player.auras.innervate && this.player.auras.innervate.active) this.player.auras.innervate.tick(time)
 
     // Spells
-    if (this.player.spells.shadowBolt && this.player.spells.shadowBolt.casting) this.player.spells.shadowBolt.tick(time)
+    if (this.player.spells.lightningBolt && this.player.spells.lightningBolt.casting) this.player.spells.lightningBolt.tick(time)
     if (this.player.spells.flameshock && this.player.spells.flameshock.casting) this.player.spells.flameshock.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
@@ -269,7 +269,7 @@ class Simulation {
 
     for (this.player.iteration = 1; this.player.iteration <= this.iterations; this.player.iteration++) {
       // Reset/initialize values for spells that have a cooldown or a cast time
-      if (this.player.spells.shadowBolt) this.player.spells.shadowBolt.reset()
+      if (this.player.spells.lightningBolt) this.player.spells.lightningBolt.reset()
       if (this.player.spells.corruption) this.player.spells.corruption.reset()
       if (this.player.spells.flameshock) this.player.spells.flameshock.reset()
       if (this.player.spells.destructionPotion) this.player.spells.destructionPotion.reset()
@@ -350,7 +350,7 @@ class Simulation {
 
               // If the sim is choosing the rotation for the user then predict the damage of the three filler spells if they're available (maybe just skip Searing Pain to save time, there's no way it will ever be the best spell to cast)
               if (this.player.simChoosingRotation) {
-                predictedDamageOfSpells.push([this.player.spells.shadowBolt.varName, this.player.spells.shadowBolt.predictDamage()])
+                predictedDamageOfSpells.push([this.player.spells.lightningBolt.varName, this.player.spells.lightningBolt.predictDamage()])
               }
 
               // Not enough time left to cast another filler spell.

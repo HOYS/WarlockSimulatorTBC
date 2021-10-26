@@ -67,9 +67,9 @@ struct Player
   double getGcdValue(const std::shared_ptr<Spell>& spell);
   double getSpellPower(SpellSchool school = SpellSchool::NO_SCHOOL);
   double getHastePercent();
-  bool isCrit(SpellType spellType, double extraCrit = 0);
+  bool isCrit(SpellType spellType, const std::shared_ptr<Spell>& spell, double extraCrit = 0);
   bool isHit(SpellType spellType);
-  double getCritChance(SpellType spellType);
+  double getCritChance(SpellType spellType, const std::shared_ptr<Spell>& spell);
   double getHitChance(SpellType spellType);
   double getPartialResistMultiplier(SpellSchool school);
   double getBaseHitChance(int playerLevel, int enemyLevel);

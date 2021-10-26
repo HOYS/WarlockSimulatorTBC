@@ -178,7 +178,7 @@ Player::Player(PlayerSettings* playerSettings)
     combatLogEntries.push_back("Spell Power: " + truncateTrailingZeros(std::to_string(round(getSpellPower()))));
     combatLogEntries.push_back("Nature Power: " + std::to_string(stats->naturePower));
     combatLogEntries.push_back("Fire Power: " + std::to_string(stats->firePower));
-    combatLogEntries.push_back("Crit Chance: " + truncateTrailingZeros(std::to_string(round(getCritChance(SpellType::DESTRUCTION) * 100) / 100), 2) + "%");
+    // combatLogEntries.push_back("Crit Chance: " + truncateTrailingZeros(std::to_string(round(getCritChance(SpellType::DESTRUCTION) * 100) / 100), 2) + "%");
     combatLogEntries.push_back("Hit Chance: " + truncateTrailingZeros(std::to_string(std::min(static_cast<double>(16), round((stats->extraHitChance) * 100) / 100)), 2) + "%");
     combatLogEntries.push_back("Haste: " + truncateTrailingZeros(std::to_string(round((stats->hasteRating / hasteRatingPerPercent) * 100) / 100), 2) + "%");
     combatLogEntries.push_back("Nature Modifier: " + truncateTrailingZeros(std::to_string(stats->natureModifier * 100)) + "%");
@@ -496,9 +496,13 @@ double Player::getSpellPower(SpellSchool school)
     return spellPower;
 }
 
-double Player::getCritChance(SpellType spellType)
+double Player::getCritChance(SpellType spellType, const std::shared_ptr<Spell>& spell)
 {
     double critChance = stats->critChance + ((stats->intellect * stats->intellectModifier) * critPerInt);
+    if( (spell->name == "Lightning Bolt" || spell->name == "Chain Lightning"))
+    {
+        critChance += talents->callOfThunder;
+    }
     return critChance;
 }
 
@@ -512,9 +516,9 @@ double Player::getHitChance(SpellType spellType)
     return std::min(99.0, hitChance);
 }
 
-bool Player::isCrit(SpellType spellType, double extraCrit)
+bool Player::isCrit(SpellType spellType, const std::shared_ptr<Spell>& spell, double extraCrit)
 {
-    return getRand() <= ((getCritChance(spellType) + extraCrit) * critChanceMultiplier);
+    return getRand() <= ((getCritChance(spellType, spell) + extraCrit) * critChanceMultiplier);
 }
 
 bool Player::isHit(SpellType spellType)

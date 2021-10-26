@@ -313,7 +313,7 @@ class Player {
     this.combatlog.push('Spell Power: ' + this.getSpellPower())
     this.combatlog.push('Nature Power: ' + this.stats.naturePower)
     this.combatlog.push('Fire Power: ' + this.stats.firePower)
-    this.combatlog.push('Crit Chance: ' + Math.round(this.getCritChance('destruction') * 100) / 100 + '%')
+    // this.combatlog.push('Crit Chance: ' + Math.round(this.getCritChance('destruction') * 100) / 100 + '%')
     this.combatlog.push('Hit Chance: ' + Math.min(16, Math.round((this.stats.extraHitChance) * 100) / 100) + '%')
     this.combatlog.push('Haste: ' + Math.round((this.stats.hasteRating / hasteRatingPerPercent) * 100) / 100 + '%')
     this.combatlog.push('Nature Modifier: ' + Math.round(this.stats.natureModifier * 100) + '%')
@@ -389,7 +389,7 @@ class Player {
     if (this.simSettings.fightType == "aoe") {
       
     } else {
-      if (this.rotation.filler.shadowBolt || this.filler == 'lightningBolt'  || this.simChoosingRotation) this.spells.lightningBolt = new LightningBolt(this)
+      if (this.rotation.filler.lightningBolt || this.filler == 'lightningBolt'  || this.simChoosingRotation) this.spells.lightningBolt = new LightningBolt(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
       if (this.rotation.dot.flameshock  || this.simChoosingRotation) this.spells.flameshock = new FlameShock(this)
@@ -622,14 +622,19 @@ class Player {
 
   // Returns the crit percentage of the player.
   // Since crit gains a bonus from intellect, and intellect could fluctuate during the fight (through procs and such), it's better to calculate it by calling a function like this.
-  getCritChance (spellType) {
+  getCritChance (spell) {
     let critChance = this.stats.critChance + ((this.stats.intellect * this.stats.intellectModifier) * critPerInt)
+    if( (spell.name == "Lightning Bolt" || spell.name == "Chain Lightning"))
+    {
+      critChance += this.talents.callOfThunder
+    }
+
 
     return critChance
   }
 
-  isCrit (spellType, extraCrit = 0) {
-    return (random(1, (100 * this.stats.critChanceMultiplier)) <= ((this.getCritChance(spellType) + extraCrit) * this.stats.critChanceMultiplier))
+  isCrit (spell, extraCrit = 0) {
+    return (random(1, (100 * this.stats.critChanceMultiplier)) <= ((this.getCritChance(spell) + extraCrit) * this.stats.critChanceMultiplier))
   }
 
   // The formula is (75 * resistance) / (playerLevel * 5) which gives the number to multiply the damage with (between 0 and 1) to simulate the average partial resist mitigation.
