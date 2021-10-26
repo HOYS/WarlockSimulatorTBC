@@ -265,7 +265,7 @@ class Spell {
   getConstantDamage(noRNG = false) {
     let dmg = this.player.simSettings.randomizeValues === 'yes' && this.minDmg && this.maxDmg && !noRNG ? random(this.minDmg, this.maxDmg) : this.dmg
     const baseDamage = dmg // Creating a variable for the base damage just for the combat log
-    const spellPower = this.player.getSpellPower() + (this.school == 'shadow' ? this.player.stats.shadowPower : this.school == 'fire' ? this.player.stats.firePower : 0)
+    const spellPower = this.player.getSpellPower() + (this.school == 'nature' ? this.player.stats.naturePower : this.school == 'fire' ? this.player.stats.firePower : 0)
     let modifier = this.getModifier()
     const partialResistMultiplier = this.player.getPartialResistMultiplier(this.player.enemy[this.school + 'Resist'])
 
@@ -346,26 +346,26 @@ class Spell {
   }
 }
 
-class ShadowBolt extends Spell {
+class LightningBolt extends Spell {
   constructor (player) {
     super(player)
     this.castTime = this.calculateCastTime()
-    this.manaCost = 420 * (1 - 0.02 * player.talents.convection)
+    this.manaCost = 300 * (1 - 0.02 * player.talents.convection)
     this.coefficient = (3 / 3.5)
-    this.minDmg = 544
-    this.maxDmg = 607
-    this.name = 'Shadow Bolt'
+    this.minDmg = 571
+    this.maxDmg = 652
+    this.name = 'Lightning Bolt'
     this.doesDamage = true
     this.canCrit = true
-    this.school = 'shadow'
-    this.type = 'destruction'
+    this.school = 'nature'
+    this.type = 'elemental'
     this.travelTime = player.spellTravelTime
     this.setup()
 
      // T6 4pc
-    if (player.sets['670'] >= 4) {
-      this.modifier *= 1.06
-    }
+    // if (player.sets['670'] >= 4) {
+    //   this.modifier *= 1.06
+    // }
   }
 
   startCast () {
@@ -380,7 +380,7 @@ class ShadowBolt extends Spell {
   }
 
   calculateCastTime () {
-    return 4 - (0.1 * this.player.talents.lightningMastery)
+    return 2.5 - (0.1 * this.player.talents.lightningMastery)
   }
 }
 
@@ -420,13 +420,13 @@ class LifeTap extends Spell {
   }
 
   manaGain () {
-    return (this.manaReturn + ((this.player.getSpellPower() + this.player.stats.shadowPower) * this.coefficient)) * this.modifier
+    return (this.manaReturn + ((this.player.getSpellPower() + this.player.stats.naturePower) * this.coefficient)) * this.modifier
   }
 
   cast () {
     this.player[this.breakdownTable + 'Breakdown'][this.varName].casts = this.player[this.breakdownTable + 'Breakdown'][this.varName].casts + 1 || 1
     const manaGain = this.manaGain()
-    this.player.combatLog(this.name + ' ' + Math.round(manaGain) + ' (' + Math.round(this.player.getSpellPower() + this.player.stats.shadowPower) + ' Spell Power - ' + Math.round(this.modifier * 10000) / 100 + '% Mana Gain Modifier)')
+    this.player.combatLog(this.name + ' ' + Math.round(manaGain) + ' (' + Math.round(this.player.getSpellPower() + this.player.stats.naturePower) + ' Spell Power - ' + Math.round(this.modifier * 10000) / 100 + '% Mana Gain Modifier)')
     this.player.totalManaRegenerated += manaGain
     this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain = this.player[this.breakdownTable + 'Breakdown'][this.varName].manaGain + manaGain || manaGain
     // Warning for if Life Tap is used while there are important auras active

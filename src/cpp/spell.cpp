@@ -205,9 +205,9 @@ void Spell::cast()
 double Spell::getModifier()
 {
     double dmgModifier = modifier;
-    if (school == SpellSchool::SHADOW)
+    if (school == SpellSchool::NATURE)
     {
-        dmgModifier *= player->stats->shadowModifier;
+        dmgModifier *= player->stats->natureModifier;
     }
     else if (school == SpellSchool::FIRE)
     {
@@ -261,13 +261,13 @@ void Spell::damage(bool isCrit)
     }
 
     //T5 4pc
-    if (player->sets->t5 >= 4)
-    {
-        if (player->spells->ShadowBolt != NULL && name == player->spells->ShadowBolt->name && player->auras->Corruption != NULL && player->auras->Corruption->active)
-        {
-            player->auras->Corruption->t5BonusModifier *= 1.1;
-        }
-    }
+    // if (player->sets->t5 >= 4)
+    // {
+    //     if (player->spells->ShadowBolt != NULL && name == player->spells->ShadowBolt->name && player->auras->Corruption != NULL && player->auras->Corruption->active)
+    //     {
+    //         player->auras->Corruption->t5BonusModifier *= 1.1;
+    //     }
+    // }
 }
 
 // Returns the non-RNG damage of the spell (basically just the base damage + spell power + damage modifiers, no crit/miss etc.)
@@ -444,28 +444,28 @@ void Spell::onHitProcs()
     }
 }
 
-ShadowBolt::ShadowBolt(Player* player) : Spell(player)
+LightningBolt::LightningBolt(Player* player) : Spell(player)
 {
     castTime = calculateCastTime();
-    manaCost = 420 * (1 - 0.02 * player->talents->convection);
+    manaCost = 300 * (1 - 0.02 * player->talents->convection);
     coefficient = (3 / 3.5);
-    minDmg = 544;
-    maxDmg = 607;
-    name = "Shadow Bolt";
+    minDmg = 571;
+    maxDmg = 652;
+    name = "Lightning Bolt";
     doesDamage = true;
     canCrit = true;
-    school = SpellSchool::SHADOW;
-    type = SpellType::DESTRUCTION;
+    school = SpellSchool::NATURE;
+    type = SpellType::ELEMENTAL;
     setup();
 
     // T6 4pc bonus
-    if (player->sets->t6 >= 4)
-    {
-      modifier *= 1.06;
-    }
+    // if (player->sets->t6 >= 4)
+    // {
+    //   modifier *= 1.06;
+    // }
 }
 
-void ShadowBolt::startCast(double predictedDamage = 0)
+void LightningBolt::startCast(double predictedDamage = 0)
 {
     // bool hasShadowTrance = player->auras->ShadowTrance != NULL;
 
@@ -483,9 +483,9 @@ void ShadowBolt::startCast(double predictedDamage = 0)
     // }
 }
 
-double ShadowBolt::calculateCastTime()
+double LightningBolt::calculateCastTime()
 {
-    return 4 - (0.1 * player->talents->lightningMastery);
+    return 2.5 - (0.1 * player->talents->lightningMastery);
 }
 
 LifeTap::LifeTap(Player* player) : Spell(player)
@@ -499,7 +499,7 @@ LifeTap::LifeTap(Player* player) : Spell(player)
 
 int LifeTap::manaGain()
 {
-    return (manaReturn + ((player->getSpellPower() + player->stats->shadowPower) * coefficient)) * modifier;
+    return (manaReturn + ((player->getSpellPower() + player->stats->naturePower) * coefficient)) * modifier;
 }
 
 void LifeTap::cast()

@@ -96,9 +96,9 @@ void Simulation::start()
                         // If the sim is choosing the rotation for the user then predict the damage of the three filler spells if they're available (maybe just skip Searing Pain to save time, there's no way it will ever be the best spell to cast)
                         if (player->settings->simChoosingRotation)
                         {
-                            if (timeRemaining >= player->spells->ShadowBolt->getCastTime())
+                            if (timeRemaining >= player->spells->LightningBolt->getCastTime())
                             {
-                                predictedDamageOfSpells.insert(std::make_pair(player->spells->ShadowBolt, player->spells->ShadowBolt->predictDamage()));
+                                predictedDamageOfSpells.insert(std::make_pair(player->spells->LightningBolt, player->spells->LightningBolt->predictDamage()));
                             }
                         }
 
@@ -170,7 +170,7 @@ void Simulation::start()
         dpsVector.push_back(dps);
 
         // Only send the iteration's dps to the web worker if we're doing a normal simulation (this is just for the dps histogram)
-        if (!settings->multiItemSimulation && !player->settings->simmingStamina && !player->settings->simmingIntellect && !player->settings->simmingSpellPower && !player->settings->simmingShadowPower 
+        if (!settings->multiItemSimulation && !player->settings->simmingStamina && !player->settings->simmingIntellect && !player->settings->simmingSpellPower && !player->settings->simmingNaturePower 
             && !player->settings->simmingFirePower && !player->settings->simmingCritRating && !player->settings->simmingHitRating && !player->settings->simmingHasteRating && !player->settings->simmingMp5)
         {
             dpsUpdate(dps);
@@ -180,7 +180,7 @@ void Simulation::start()
         {
             simulationUpdate(player->iteration, settings->iterations, median(dpsVector), player->settings->itemId,
                 player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpirit ? "spirit" :
-                player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" : 
+                player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingNaturePower ? "naturePower" : 
                 player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
                 player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
         }
@@ -203,7 +203,7 @@ void Simulation::start()
     }
     simulationEnd(median(dpsVector), minDps, maxDps, player->settings->itemId, settings->iterations, player->totalDuration,
         player->settings->simmingStamina ? "stamina" : player->settings->simmingIntellect ? "intellect" : player->settings->simmingSpirit ? "spirit" :
-        player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingShadowPower ? "shadowPower" :
+        player->settings->simmingSpellPower ? "spellPower" : player->settings->simmingNaturePower ? "naturePower" :
         player->settings->simmingFirePower ? "firePower" : player->settings->simmingCritRating ? "critRating" : player->settings->simmingHitRating ? "hitRating" :
         player->settings->simmingHasteRating ? "hasteRating" : player->settings->simmingMp5 ? "mp5" : "normal");
 }
@@ -364,7 +364,7 @@ double Simulation::passTime()
     #pragma endregion
 
     #pragma region Spells
-    if (player->spells->ShadowBolt != NULL && player->spells->ShadowBolt->casting) player->spells->ShadowBolt->tick(time);
+    if (player->spells->LightningBolt != NULL && player->spells->LightningBolt->casting) player->spells->LightningBolt->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);

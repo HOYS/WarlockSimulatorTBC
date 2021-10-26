@@ -22,7 +22,7 @@ Player::Player(PlayerSettings* playerSettings)
     critMultiplier = 1.5;
     // I don't know if this formula only works for bosses or not, so for the moment I'm only using it for lvl >=73 targets.
     const double enemyBaseResistance = settings->enemyLevel >= 73 ? (6 * level * 5) / 75.0 : 0;
-    settings->enemyShadowResist = std::max(static_cast<double>(settings->enemyShadowResist), enemyBaseResistance);
+    settings->enemyNatureResist = std::max(static_cast<double>(settings->enemyNatureResist), enemyBaseResistance);
     settings->enemyFireResist = std::max(static_cast<double>(settings->enemyFireResist), enemyBaseResistance);
 
     combatLogBreakdown.insert(std::make_pair("Mp5", std::make_unique<CombatLogBreakdown>("Mp5")));
@@ -59,6 +59,14 @@ Player::Player(PlayerSettings* playerSettings)
     {
         stats->hitRating += 35;
     }
+    if(playerSettings->talents->elementalPrecision)
+    {
+        stats->hitRating += (playerSettings->talents->elementalPrecision * (hitRatingPerPercent * 2));
+    }
+    if(playerSettings->talents->naturesGuidance)
+    {
+        stats->hitRating += (playerSettings->talents->naturesGuidance * (hitRatingPerPercent));
+    }
     stats->extraHitChance = stats->hitRating / hitRatingPerPercent;
     if (selectedAuras->totemOfWrath)
     {
@@ -68,6 +76,7 @@ Player::Player(PlayerSettings* playerSettings)
     {
         stats->extraHitChance += 1;
     }
+
     stats->hitChance = round(getBaseHitChance(level, settings->enemyLevel));
 
     // Shadow Mastery
@@ -75,7 +84,7 @@ Player::Player(PlayerSettings* playerSettings)
     // Ferocious Inspiration
     if (selectedAuras->ferociousInspiration)
     {
-        stats->shadowModifier *= std::pow(1.03, settings->ferociousInspirationAmount);
+        stats->natureModifier *= std::pow(1.03, settings->ferociousInspirationAmount);
         stats->fireModifier *= std::pow(1.03, settings->ferociousInspirationAmount);
     }
     // Add % dmg modifiers from Curse of the Elements + Malediction
@@ -88,11 +97,6 @@ Player::Player(PlayerSettings* playerSettings)
     if (selectedAuras->felArmor)
     {
         stats->spellPower += 100;
-    }
-    // If using a custom isb uptime % then just add to the shadow modifier % (this assumes 5/5 ISB giving 20% shadow damage)
-    if (settings->usingCustomIsbUptime)
-    {
-        stats->shadowModifier *= (1.0 + 0.2 * (settings->customIsbUptimeValue / 100.0));
     }
     // Add spell power from Improved Divine Spirit
     stats->spiritModifier *= 1;
@@ -173,12 +177,12 @@ Player::Player(PlayerSettings* playerSettings)
     combatLogEntries.push_back("Stamina: " + truncateTrailingZeros(std::to_string(round(stats->stamina * stats->staminaModifier))));
     combatLogEntries.push_back("Intellect: " + truncateTrailingZeros(std::to_string(round(stats->intellect * stats->intellectModifier))));
     combatLogEntries.push_back("Spell Power: " + truncateTrailingZeros(std::to_string(round(getSpellPower()))));
-    combatLogEntries.push_back("Shadow Power: " + std::to_string(stats->shadowPower));
+    combatLogEntries.push_back("Nature Power: " + std::to_string(stats->naturePower));
     combatLogEntries.push_back("Fire Power: " + std::to_string(stats->firePower));
     combatLogEntries.push_back("Crit Chance: " + truncateTrailingZeros(std::to_string(round(getCritChance(SpellType::DESTRUCTION) * 100) / 100), 2) + "%");
     combatLogEntries.push_back("Hit Chance: " + truncateTrailingZeros(std::to_string(std::min(static_cast<double>(16), round((stats->extraHitChance) * 100) / 100)), 2) + "%");
     combatLogEntries.push_back("Haste: " + truncateTrailingZeros(std::to_string(round((stats->hasteRating / hasteRatingPerPercent) * 100) / 100), 2) + "%");
-    combatLogEntries.push_back("Shadow Modifier: " + truncateTrailingZeros(std::to_string(stats->shadowModifier * 100)) + "%");
+    combatLogEntries.push_back("Nature Modifier: " + truncateTrailingZeros(std::to_string(stats->natureModifier * 100)) + "%");
     combatLogEntries.push_back("Fire Modifier: " + truncateTrailingZeros(std::to_string(stats->fireModifier * 100)) + "%");
     combatLogEntries.push_back("MP5: " + std::to_string(stats->mp5));
     combatLogEntries.push_back("Spell Penetration: " + std::to_string(stats->spellPen));
@@ -210,7 +214,7 @@ Player::Player(PlayerSettings* playerSettings)
     }
     combatLogEntries.push_back("---------------- Enemy stats ----------------");
     combatLogEntries.push_back("Level: " + std::to_string(settings->enemyLevel));
-    combatLogEntries.push_back("Shadow Resistance: " + std::to_string(settings->enemyShadowResist));
+    combatLogEntries.push_back("Nature Resistance: " + std::to_string(settings->enemyNatureResist));
     combatLogEntries.push_back("Fire Resistance: " + std::to_string(settings->enemyFireResist));
     if (pet != NULL && pet->pet != PetName::IMP)
     {
@@ -288,7 +292,7 @@ void Player::initialize()
     }
     else
     {
-        if (settings->hasShadowBolt || settings->simChoosingRotation) spells->ShadowBolt = std::make_shared<ShadowBolt>(this);
+        if (settings->hasLightningBolt || settings->simChoosingRotation) spells->LightningBolt = std::make_shared<LightningBolt>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
         if (auras->SiphonLife != NULL) spells->SiphonLife = std::make_shared<SiphonLife>(this, nullptr, auras->SiphonLife);
         if (auras->Immolate != NULL) spells->Immolate = std::make_shared<Immolate>(this, nullptr, auras->Immolate);
@@ -339,7 +343,7 @@ void Player::initialize()
     }
 
     // Set the filler property
-    filler = spells->ShadowBolt;
+    filler = spells->LightningBolt;
 
 
     // Set the curseSpell and curseAura properties
@@ -375,7 +379,7 @@ void Player::reset()
 
     // Reset spells
     if (spells->LifeTap != NULL) spells->LifeTap->reset();
-    if (spells->ShadowBolt != NULL) spells->ShadowBolt->reset();
+    if (spells->LightningBolt != NULL) spells->LightningBolt->reset();
     if (spells->Corruption != NULL) spells->Corruption->reset();
     if (spells->SiphonLife != NULL) spells->SiphonLife->reset();
     if (spells->Immolate != NULL) spells->Immolate->reset();
@@ -482,9 +486,9 @@ double Player::getSpellPower(SpellSchool school)
     {
         spellPower += stats->intellect * stats->intellectModifier * 0.07;
     }
-    if (school == SpellSchool::SHADOW)
+    if (school == SpellSchool::NATURE)
     {
-        spellPower += stats->shadowPower;
+        spellPower += stats->naturePower;
     }
     else if (school == SpellSchool::FIRE)
     {
@@ -610,9 +614,9 @@ void Player::castLifeTapOrDarkPact()
 
 double Player::getPartialResistMultiplier(SpellSchool school)
 {
-    if (school == SpellSchool::SHADOW)
+    if (school == SpellSchool::NATURE)
     {
-        return 1.0 - ((75 * settings->enemyShadowResist) / (level * 5)) / 100.0;
+        return 1.0 - ((75 * settings->enemyNatureResist) / (level * 5)) / 100.0;
     }
     else if (school == SpellSchool::FIRE)
     {

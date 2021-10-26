@@ -56,15 +56,15 @@ void Aura::apply()
             player->stats->spellPower += stats->spellPower;
             recalculatePetStats = true;
         }
-        if (stats != NULL && stats->shadowPower > 0)
+        if (stats != NULL && stats->naturePower > 0)
         {
             if (player->shouldWriteToCombatLog())
             {
-                int currentShadowPower = player->stats->shadowPower;
-                std::string msg = "Shadow Power + " + std::to_string(stats->shadowPower) + " (" + std::to_string(currentShadowPower) + " -> " + std::to_string(currentShadowPower + stats->shadowPower) + ")";
+                int currentNaturePower = player->stats->naturePower;
+                std::string msg = "Nature Power + " + std::to_string(stats->naturePower) + " (" + std::to_string(currentNaturePower) + " -> " + std::to_string(currentNaturePower + stats->naturePower) + ")";
                 player->combatLog(msg);
             }
-            player->stats->shadowPower += stats->shadowPower;
+            player->stats->naturePower += stats->naturePower;
             recalculatePetStats = true;
         }
         if (stats != NULL && stats->firePower > 0)
@@ -146,15 +146,15 @@ void Aura::fade(bool endOfIteration)
         player->stats->spellPower -= stats->spellPower;
         recalculatePetStats = true;
     }
-    if (stats != NULL && stats->shadowPower > 0)
+    if (stats != NULL && stats->naturePower > 0)
     {
         if (!endOfIteration && player->shouldWriteToCombatLog())
         {
-            int currentShadowPower = player->stats->shadowPower;
-            std::string msg = "Shadow Power - " + std::to_string(stats->shadowPower) + " (" + std::to_string(currentShadowPower) + " -> " + std::to_string(currentShadowPower - stats->shadowPower) + ")";
+            int currentNaturePower = player->stats->naturePower;
+            std::string msg = "Nature Power - " + std::to_string(stats->naturePower) + " (" + std::to_string(currentNaturePower) + " -> " + std::to_string(currentNaturePower - stats->naturePower) + ")";
             player->combatLog(msg);
         }
-        player->stats->shadowPower -= stats->shadowPower;
+        player->stats->naturePower -= stats->naturePower;
         recalculatePetStats = true;
     }
     if (stats != NULL && stats->firePower > 0)

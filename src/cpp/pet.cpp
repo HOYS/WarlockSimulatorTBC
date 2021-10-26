@@ -297,10 +297,10 @@ void Pet::calculateStatsFromPlayer(bool announceInCombatLog)
     stats->intellect = baseStats->intellect + buffStats->intellect + (0.3 * player->stats->intellect * player->stats->intellectModifier);
     player->demonicKnowledgeSpellPower = ((stats->stamina * stats->staminaModifier) + (stats->intellect * stats->intellectModifier));
     baseStats->attackPower = (baseStats->strength + buffStats->strength) * stats->strengthModifier * 2 - 20;
-    stats->attackPower = baseStats->attackPower + buffStats->attackPower + debuffStats->attackPower + (player->getSpellPower() + std::max(player->stats->shadowPower, player->stats->firePower)) * 0.57;
+    stats->attackPower = baseStats->attackPower + buffStats->attackPower + debuffStats->attackPower + (player->getSpellPower() + std::max(player->stats->naturePower, player->stats->firePower)) * 0.57;
     stats->agility = baseStats->agility + buffStats->agility;
     stats->meleeCritChance = (stats->agility * stats->agilityModifier) * 0.04 + 0.65 + buffStats->meleeCritChance;
-    stats->spellPower = buffStats->spellPower + (player->getSpellPower() + std::max(player->stats->shadowPower, player->stats->firePower)) * 0.15;
+    stats->spellPower = buffStats->spellPower + (player->getSpellPower() + std::max(player->stats->naturePower, player->stats->firePower)) * 0.15;
     if (petType == PetType::MELEE)
     {
         // Halp, need confirmation that this is actually the right way to get its average melee damage.

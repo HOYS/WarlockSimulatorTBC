@@ -74,9 +74,9 @@ struct LifeTap : public Spell
     void cast();
 };
 
-struct ShadowBolt : public Spell
+struct LightningBolt : public Spell
 {
-    ShadowBolt(Player* player);
+    LightningBolt(Player* player);
     void startCast(double predictedDamage);
     double calculateCastTime();
 };

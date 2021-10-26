@@ -79,9 +79,9 @@ void DamageOverTime::fade(bool endOfIteration)
 double DamageOverTime::getModifier()
 {
     double dmgModifier = modifier;
-    if (school == SpellSchool::SHADOW)
+    if (school == SpellSchool::NATURE)
     {
-        dmgModifier *= player->stats->shadowModifier;
+        dmgModifier *= player->stats->natureModifier;
     }
     else if (school == SpellSchool::FIRE)
     {

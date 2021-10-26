@@ -1,6 +1,6 @@
 #include "characterStats.h"
 
-CharacterStats::CharacterStats(int health, int mana, double stamina, double intellect, double spirit, double spellPower, int shadowPower, int firePower, int hasteRating, int hitRating, int critRating,
+CharacterStats::CharacterStats(int health, int mana, double stamina, double intellect, double spirit, double spellPower, int naturePower, int firePower, int hasteRating, int hitRating, int critRating,
     double critChance, int mp5, int spellPen, double fireModifier, double frostModifier, double hastePercent, double damageModifier, double shadowModifier, double staminaModifier,
     double intellectModifier, double spiritModifier, double manaCostModifier, double arcaneModifier, double natureModifier, int natureResist, int arcaneResist, int fireResist, int frostResist,
     int shadowResist)
@@ -10,7 +10,7 @@ CharacterStats::CharacterStats(int health, int mana, double stamina, double inte
     , intellect(intellect)
     , spirit(spirit)
     , spellPower(spellPower)
-    , shadowPower(shadowPower)
+    , naturePower(naturePower)
     , firePower(firePower)
     , hasteRating(hasteRating)
     , hitRating(hitRating)

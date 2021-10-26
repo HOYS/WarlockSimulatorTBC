@@ -81,7 +81,7 @@ $(document).on('mousedown', '.talent-icon', function () {
     if ( talent.name == 'Master Demonologist' || talent.name == 'Demonic Sacrifice' || talent.name == 'Summon Felguard') {
       updateSimulationSettingsVisibility()
     }
-    if (talent.name == 'Improved Imp' || talent.name == 'Demonic Aegis' || talent.name == 'Demonic Embrace' || talent.name == 'Fel Stamina' || talent.name == 'Fel Intellect' || talent.name == 'Master Demonologist' || talent.name == 'Soul Link' || talent.name == 'Demonic Tactics' || talent.name == 'Shadow Mastery') {
+    if (talent.name == 'Elemental Precision' || talent.name == 'Nature\'s Guidance' || talent.name == 'Demonic Embrace' || talent.name == 'Fel Stamina' || talent.name == 'Fel Intellect' || talent.name == 'Master Demonologist' || talent.name == 'Soul Link' || talent.name == 'Demonic Tactics' || talent.name == 'Shadow Mastery') {
       refreshCharacterStats()
     }
     updateTalentInformation(icon)

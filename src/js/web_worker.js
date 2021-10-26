@@ -176,7 +176,7 @@ onmessage = function (e) {
       , a.prayerOfFortitude, a.prayerOfSpirit, a.bloodPact, a.inspiringPresence, a.moonkinAura, a.powerInfusion, a.powerOfTheGuardianWarlock, a.powerOfTheGuardianMage, a.eyeOfTheNight, a.chainOfTheTwilightOwl
       , a.jadePendantOfBlasting, a.idolOfTheRavenGoddess, a.drumsOfBattle, a.drumsOfWar, a.drumsOfRestoration, a.bloodlust, a.ferociousInspiration, a.innervate, a.curseOfTheElements, a.shadowWeaving
       , a.improvedScorch, a.misery, a.judgementOfTheCrusader, a.vampiricTouch, a.faerieFire, a.sunderArmor, a.exposeArmor, a.curseOfRecklessness, a.bloodFrenzy, a.exposeWeakness, a.annihilator, a.improvedHuntersMark
-      , a.flaskOfPureDeath, a.elixirOfMajorShadowPower, a.elixirOfMajorFirepower, a.greaterArcaneElixir, a.adeptsElixir, a.elixirOfDraenicWisdom, a.elixirOfMajorMageblood, a.superManaPotion, a.destructionPotion
+      , a.flaskofBlindingLight, a.elixirOfMajorFirepower, a.greaterArcaneElixir, a.adeptsElixir, a.elixirOfDraenicWisdom, a.elixirOfMajorMageblood, a.superManaPotion, a.destructionPotion
       , a.brilliantWizardOil, a.superiorWizardOil, a.blessedWizardOil, a.demonicRune, a.flameCap, a.rumseyRumBlackLabel, a.kreegsStoutBeatdown, a.blackenedBasilisk, a.skullfishSoup, a.veryBerryCream
       , a.midsummerSausage, a.bloodthistle, a.blessingOfKingsPet, a.blessingOfWisdomPet, a.blessingOfMight, a.arcaneIntellectPet, a.markOfTheWildPet, a.prayerOfFortitudePet, a.prayerOfSpiritPet, a.kiblersBits
       , a.heroicPresence, a.strengthOfEarthTotem, a.graceOfAirTotem, a.battleShout, a.trueshotAura, a.leaderOfThePack, a.unleashedRage, a.scrollOfStaminaV, a.scrollOfIntellectV, a.scrollOfStrengthV
@@ -189,13 +189,13 @@ onmessage = function (e) {
     // Sets
     let sets = module._allocSets(s['529'], s['552'], s['553'], s['559'], s['644'], s['658'], s['667'], s['645'], s['646'], s['670'])
     // Stats
-    let stats = module._allocStats(b.health, b.mana, b.stamina, b.intellect, b.spirit, b.spellPower, b.shadowPower, b.firePower, b.hasteRating, b.hitRating, b.critRating, b.critPercent, b.mp5, b.spellPen
+    let stats = module._allocStats(b.health, b.mana, b.stamina, b.intellect, b.spirit, b.spellPower, b.naturePower, b.firePower, b.hasteRating, b.hitRating, b.critRating, b.critPercent, b.mp5, b.spellPen
       , b.fireModifier, b.frostModifier, b.hastePercent, b.damageModifier, b.shadowModifier, b.staminaModifier, b.intellectModifier, b.spiritModifier, b.manaCostModifier, b.arcaneModifier, b.natureModifier
       , b.natureResist, b.arcaneResist, b.fireResist, b.frostResist, b.shadowResist)
     // Player settings
     let playerSettings = module._allocPlayerSettings(auras, talents, sets, stats, equippedItems, e.data.itemId, (metaGemIds[0] || -1), c["automatically-open-sim-details"] === "yes"
-    , e.data.customStat === "stamina", e.data.customStat === "intellect", e.data.customStat === "spirit", e.data.customStat === "spellPower", e.data.customStat === "shadowPower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
-    , e.data.customStat === "critRating", e.data.customStat === "hasteRating", e.data.customStat === "mp5", c.shattrathFaction === "Aldor", parseInt(c['target-level']), parseInt(c['target-shadow-resistance'])
+    , e.data.customStat === "stamina", e.data.customStat === "intellect", e.data.customStat === "spirit", e.data.customStat === "spellPower", e.data.customStat === "naturePower", e.data.customStat === "firePower", e.data.customStat === "hitRating"
+    , e.data.customStat === "critRating", e.data.customStat === "hasteRating", e.data.customStat === "mp5", c.shattrathFaction === "Aldor", parseInt(c['target-level']), parseInt(c['target-nature-resistance'])
     , parseInt(c['target-fire-resistance']), parseInt(c.mageAtieshAmount), parseInt(c.totemOfWrathAmount), c.sacrificePet === "yes", c.petChoice === "0", c.petChoice === "2", c.petChoice === "4"
     , parseInt(c.ferociousInspirationAmount), parseInt(c.improvedCurseOfTheElements), c.customIsbUptime === "yes", parseInt(c.customIsbUptimeValue), parseInt(c.improvedDivineSpirit), parseInt(0) 
     , parseInt(c.shadowPriestDps), parseInt(c.warlockAtieshAmount), parseInt(c.improvedExposeArmor), c.fightType === "singleTarget", parseInt(c.enemyAmount), c.race === "orc", parseInt(c.powerInfusionAmount)

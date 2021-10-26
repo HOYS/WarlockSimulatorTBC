@@ -15,6 +15,8 @@
  
     bugs I've made:
     fix racial base stats, can't find a good source
+    figure out totem of wrath talent deselection bug
+    player goes oom, sim stops
 
  ## Building Locally
  ### Requirements:  

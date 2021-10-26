@@ -4,7 +4,7 @@ Auras::Auras(bool felArmor, bool blessingOfKings, bool blessingOfWisdom, bool ju
     , bool prayerOfFortitude, bool prayerOfSpirit, bool bloodPact, bool inspiringPresence, bool moonkinAura, bool powerInfusion, bool powerOfTheGuardianWarlock, bool powerOfTheGuardianMage, bool eyeOfTheNight
     , bool chainOfTheTwilightOwl, bool jadePendantOfBlasting, bool idolOfTheRavenGoddess, bool drumsOfBattle, bool drumsOfWar, bool drumsOfRestoration, bool bloodlust, bool ferociousInspiration
     , bool innervate, bool curseOfTheElements, bool shadowWeaving, bool improvedScorch, bool misery, bool judgementOfTheCrusader, bool vampiricTouch, bool faerieFire, bool sunderArmor, bool exposeArmor
-        , bool curseOfRecklessness, bool bloodFrenzy, bool exposeWeakness, bool annihilator, bool improvedHuntersMark, bool flaskOfPureDeath, bool elixirOfMajorShadowPower, bool elixirOfMajorFirepower
+        , bool curseOfRecklessness, bool bloodFrenzy, bool exposeWeakness, bool annihilator, bool improvedHuntersMark, bool flaskofBlindingLight, bool elixirOfMajorFirepower
         , bool greaterArcaneElixir, bool adeptsElixir, bool elixirOfDraenicWisdom, bool elixirOfMajorMageblood, bool superManaPotion, bool destructionPotion, bool brilliantWizardOil, bool superiorWizardOil
         , bool blessedWizardOil, bool demonicRune, bool flameCap, bool rumseyRumBlackLabel, bool kreegsStoutBeatdown, bool blackenedBasilisk, bool skullfishSoup, bool veryBerryCream, bool midsummerSausage
         , bool bloodthistle, bool petBlessingOfKings, bool petBlessingOfWisdom, bool petBlessingOfMight, bool petArcaneIntellect, bool petMarkOfTheWild, bool petPrayerOfFortitude, bool petPrayerOfSpirit
@@ -17,7 +17,7 @@ Auras::Auras(bool felArmor, bool blessingOfKings, bool blessingOfWisdom, bool ju
     , drumsOfWar(drumsOfWar), drumsOfRestoration(drumsOfRestoration), bloodlust(bloodlust), ferociousInspiration(ferociousInspiration), innervate(innervate), curseOfTheElements(curseOfTheElements)
     , shadowWeaving(shadowWeaving), improvedScorch(improvedScorch), misery(misery), judgementOfTheCrusader(judgementOfTheCrusader), vampiricTouch(vampiricTouch), faerieFire(faerieFire), sunderArmor(sunderArmor)
     , exposeArmor(exposeArmor), curseOfRecklessness(curseOfRecklessness), bloodFrenzy(bloodFrenzy), exposeWeakness(exposeWeakness), annihilator(annihilator), improvedHuntersMark(improvedHuntersMark)
-    , flaskOfPureDeath(flaskOfPureDeath), elixirOfMajorShadowPower(elixirOfMajorShadowPower), elixirOfMajorFirepower(elixirOfMajorFirepower), greaterArcaneElixir(greaterArcaneElixir), adeptsElixir(adeptsElixir)
+    , flaskofBlindingLight(flaskofBlindingLight), elixirOfMajorFirepower(elixirOfMajorFirepower), greaterArcaneElixir(greaterArcaneElixir), adeptsElixir(adeptsElixir)
     , elixirOfDraenicWisdom(elixirOfDraenicWisdom), elixirOfMajorMageblood(elixirOfMajorMageblood), superManaPotion(superManaPotion), destructionPotion(destructionPotion), brilliantWizardOil(brilliantWizardOil)
     , superiorWizardOil(superiorWizardOil), blessedWizardOil(blessedWizardOil), demonicRune(demonicRune), flameCap(flameCap), rumseyRumBlackLabel(rumseyRumBlackLabel), kreegsStoutBeatdown(kreegsStoutBeatdown)
     , blackenedBasilisk(blackenedBasilisk), skullfishSoup(skullfishSoup), veryBerryCream(veryBerryCream), midsummerSausage(midsummerSausage), bloodthistle(bloodthistle), petBlessingOfKings(petBlessingOfKings)

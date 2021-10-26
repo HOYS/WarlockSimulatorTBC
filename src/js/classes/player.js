@@ -11,7 +11,7 @@ class Player {
       simSettings: settings,
       enemy: {
         level: parseInt($("input[name='target-level']").val()),
-        shadowResist: parseInt($("input[name='target-shadow-resistance']").val()),
+        natureResist: parseInt($("input[name='target-nature-resistance']").val()),
         fireResist: parseInt($("input[name='target-fire-resistance']").val()),
         armor: parseInt($("input[name='enemyArmor']").val())
       },
@@ -38,7 +38,7 @@ class Player {
     this.minimumGcdValue = 1
     // I don't know if this formula only works for bosses or not, so for the moment I'm only using it for lvl >=73 targets.
     const enemyBaseResistance = settings.enemy.level >= 73 ? (6 * this.level * 5) / 75 : 0
-    this.enemy.shadowResist = Math.max(this.enemy.shadowResist, enemyBaseResistance, 0)
+    this.enemy.natureResist = Math.max(this.enemy.natureResist, enemyBaseResistance, 0)
     this.enemy.fireResist = Math.max(this.enemy.fireResist, enemyBaseResistance, 0)
     this.enemy.natureResist = Math.max(enemyBaseResistance, 0)
     this.enemy.arcaneResist = Math.max(enemyBaseResistance, 0)
@@ -223,6 +223,8 @@ class Player {
     // Hit chance
     this.stats.hitChanceMultiplier = 1000
     if (settings.sets['658'] >= 2) this.stats.hitRating += 35 // Mana-Etched Regalia 2-set bonus (35 hit rating)
+    if ( settings.talents.elementalPrecision) this.stats.hitRating += (settings.talents.elementalPrecision * (hitRatingPerPercent * 2))
+    if ( settings.talents.naturesGuidance) this.stats.hitRating += (settings.talents.naturesGuidance * (hitRatingPerPercent * 1))
     this.stats.extraHitChance = this.stats.hitRating / hitRatingPerPercent // hit percent from hit rating
     if (settings.auras.totemOfWrath) this.stats.extraHitChance += (3 * settings.simSettings.totemOfWrathAmount)
     if (settings.auras.inspiringPresence === true) this.stats.extraHitChance += 1
@@ -230,7 +232,7 @@ class Player {
 
     // Ferocious Inspiration
     if (settings.auras.ferociousInspiration) {
-      this.stats.shadowModifier *= Math.pow(1.03, settings.simSettings.ferociousInspirationAmount)
+      this.stats.natureModifier *= Math.pow(1.03, settings.simSettings.ferociousInspirationAmount)
       this.stats.fireModifier *= Math.pow(1.03, settings.simSettings.ferociousInspirationAmount)
     }
     // Add % dmg modifiers from Curse of the Elements + Malediction
@@ -241,10 +243,6 @@ class Player {
     // Add spell power from Fel Armor
     if (settings.auras.felArmor) {
       this.stats.spellPower += 100
-    }
-    // If using a custom isb uptime % then just add to the shadow modifier % (this assumes 5/5 ISB giving 20% shadow damage)
-    if (settings.simSettings.customIsbUptime == 'yes') {
-      this.stats.shadowModifier *= (1 + 0.2 * (settings.simSettings.customIsbUptimeValue / 100))
     }
     // Add spell power from Improved Divine Spirit
     this.stats.spiritModifier = 1
@@ -284,7 +282,7 @@ class Player {
       }
     }
     if (this.filler == null) {
-      this.filler = 'shadowBolt'
+      this.filler = 'lightningBolt'
     }
 
     // Assign the curse (if selected)
@@ -313,12 +311,12 @@ class Player {
     this.combatlog.push('Stamina: ' + Math.round(this.stats.stamina * this.stats.staminaModifier))
     this.combatlog.push('Intellect: ' + Math.round(this.stats.intellect * this.stats.intellectModifier))
     this.combatlog.push('Spell Power: ' + this.getSpellPower())
-    this.combatlog.push('Shadow Power: ' + this.stats.shadowPower)
+    this.combatlog.push('Nature Power: ' + this.stats.naturePower)
     this.combatlog.push('Fire Power: ' + this.stats.firePower)
     this.combatlog.push('Crit Chance: ' + Math.round(this.getCritChance('destruction') * 100) / 100 + '%')
     this.combatlog.push('Hit Chance: ' + Math.min(16, Math.round((this.stats.extraHitChance) * 100) / 100) + '%')
     this.combatlog.push('Haste: ' + Math.round((this.stats.hasteRating / hasteRatingPerPercent) * 100) / 100 + '%')
-    this.combatlog.push('Shadow Modifier: ' + Math.round(this.stats.shadowModifier * 100) + '%')
+    this.combatlog.push('Nature Modifier: ' + Math.round(this.stats.natureModifier * 100) + '%')
     this.combatlog.push('Fire Modifier: ' + Math.round(this.stats.fireModifier * 100) + '%')
     this.combatlog.push('MP5: ' + this.stats.mp5)
     this.combatlog.push('Spell Penetration: ' + this.stats.spellPen)
@@ -353,7 +351,7 @@ class Player {
     }
     this.combatlog.push('---------------- Enemy stats ----------------')
     this.combatlog.push('Level: ' + this.enemy.level)
-    this.combatlog.push('Shadow Resistance: ' + this.enemy.shadowResist)
+    this.combatlog.push('Nature Resistance: ' + this.enemy.natureResist)
     this.combatlog.push('Fire Resistance: ' + this.enemy.fireResist)
     if (this.pet && this.pet.pet != PetName.IMP) {
       this.combatlog.push('Dodge Chance: ' + this.pet.enemyDodgeChance + '%')
@@ -391,7 +389,7 @@ class Player {
     if (this.simSettings.fightType == "aoe") {
       
     } else {
-      if (this.rotation.filler.shadowBolt || this.filler == 'shadowBolt'  || this.simChoosingRotation) this.spells.shadowBolt = new ShadowBolt(this)
+      if (this.rotation.filler.shadowBolt || this.filler == 'lightningBolt'  || this.simChoosingRotation) this.spells.lightningBolt = new LightningBolt(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
       if (this.rotation.dot.immolate  || this.simChoosingRotation) this.spells.immolate = new Immolate(this)

@@ -153,7 +153,7 @@ class Flameshadow extends Aura {
     this.procChance = 5
     this.isImportant = true
     this.stats = {
-      shadowPower: 135
+      naturePower: 135
     }
     this.setup()
   }

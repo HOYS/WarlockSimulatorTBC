@@ -173,12 +173,6 @@ const _auras = {
         iconName: 'spell_shadow_chilltouch',
         id: 27228
       },
-      shadowWeaving: {
-        name: 'Shadow Weaving',
-        shadowModifier: 1.1,
-        iconName: 'spell_shadow_blackplague',
-        id: 15334
-      },
       improvedScorch: {
         name: 'Improved Scorch',
         fireModifier: 1.15,
@@ -259,22 +253,13 @@ const _auras = {
     heading: 'Consumables',
     type: 'item',
     auras: {
-      flaskOfPureDeath: {
-        name: 'Flask of Pure Death',
-        shadowPower: 80,
-        firePower: 80,
-        frostPower: 80,
+      flaskofBlindingLight: {
+        name: 'Flask of Blinding Light',
+        naturePower: 80,
         iconName: 'inv_potion_115',
-        id: 22866,
+        id: 22861,
         battleElixir: true,
         guardianElixir: true
-      },
-      elixirOfMajorShadowPower: {
-        name: 'Elixir of Major Shadow Power',
-        shadowPower: 55,
-        iconName: 'inv_potion_145',
-        id: 22835,
-        battleElixir: true
       },
       elixirOfMajorFirepower: {
         name: 'Elixir of Major Firepower',

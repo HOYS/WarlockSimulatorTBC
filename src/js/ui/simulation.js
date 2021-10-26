@@ -268,7 +268,7 @@ function simStatWeights () {
     intellect: statAmount,
     spirit: statAmount,
     spellPower: statAmount,
-    shadowPower: statAmount,
+    naturePower: statAmount,
     firePower: statAmount,
     critRating: statAmount,
     hasteRating: statAmount,
@@ -353,7 +353,7 @@ function simStatWeights () {
           ', SpellCritRating=' + $('#stat-weight-critRating').text() +
           ', SpellHitRating=' + $('#stat-weight-hitRating').text() +
           ', FireSpellDamage=' + $('#stat-weight-firePower').text() +
-          ', ShadowSpellDamage=' + $('#stat-weight-shadowPower').text() +
+          ', NatureSpellDamage=' + $('#stat-weight-naturePower').text() +
           ', SpellDamage=' + $('#stat-weight-spellPower').text() +
           ', Mp5=' + $('#stat-weight-mp5').text() +
           ', SpellHasteRating=' + $('#stat-weight-hasteRating').text() + ')'

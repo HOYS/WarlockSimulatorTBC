@@ -664,14 +664,6 @@ var items = {
       source: 'Serpentshrine Cavern',
       phase: 2
     },
-    ritssynsLostPendant: {
-      name: "Ritssyn's Lost Pendant",
-      stamina: 24,
-      shadowPower: 51,
-      id: 30666,
-      source: 'Karazhan',
-      phase: 1
-    },
     manasurgePendant: {
       name: 'Manasurge Pendant',
       stamina: 24,
@@ -1061,21 +1053,6 @@ var items = {
       source: 'PVP',
       phase: 1
     },
-    frozenShadoweaveShoulders: {
-      name: 'Frozen Shadoweave Shoulders',
-      stamina: 21,
-      intellect: 15,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        hitRating: 3
-      },
-      shadowPower: 50,
-      setId: 553,
-      id: 21869,
-      source: 'Tailoring',
-      phase: 1
-    },
     mantleOfTheMindFlayer: {
       name: 'Mantle of the Mind Flayer',
       stamina: 33,
@@ -1268,16 +1245,6 @@ var items = {
       source: "Zul'Aman",
       phase: 4
     },
-    nethervoidCloak: {
-      name: 'Nethervoid Cloak',
-      stamina: 27,
-      intellect: 18,
-      shadowPower: 53,
-      hitRating: 18,
-      id: 32590,
-      source: 'Hyjal Summit & Black Temple',
-      phase: 3
-    },
     cloakOfTheIllidariCouncil: {
       name: 'Cloak of the Illidari Council',
       stamina: 24,
@@ -1306,14 +1273,6 @@ var items = {
       id: 29992,
       source: 'The Eye',
       phase: 2
-    },
-    illidariCloakOfShadowWrath: {
-      name: 'Illidari Cloak of Shadow Wrath',
-      shadowPower: 47,
-      displayId: 31201,
-      id: fakeItemIds.illidariCloakOfShadowWrath,
-      source: 'Netherstorm Rare Spawn',
-      phase: 1
     },
     illidariCloakOfFireWrath: {
       name: 'Illidari Cloak of Fire Wrath',
@@ -1693,14 +1652,6 @@ var items = {
       source: 'The Eye',
       phase: 2
     },
-    drakeweaveRaimentOfShadowWrath: {
-      name: 'Drakeweave Raiment of Shadow Wrath',
-      shadowPower: 85,
-      displayId: 31158,
-      id: fakeItemIds.drakeweaveRaimentOfShadowWrath,
-      source: 'Hemathion - BEM Rare',
-      phase: 1
-    },
     drakeweaveRaimentOfFireWrath: {
       name: 'Drakeweave Raiment of Fire Wrath',
       firePower: 85,
@@ -1743,21 +1694,6 @@ var items = {
       setId: 645,
       id: 28964,
       source: "Magtheridon's Lair",
-      phase: 1
-    },
-    frozenShadoweaveRobe: {
-      name: 'Frozen Shadoweave Robe',
-      stamina: 30,
-      intellect: 20,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        hitRating: 3
-      },
-      shadowPower: 72,
-      setId: 553,
-      id: 21871,
-      source: 'Tailoring',
       phase: 1
     },
     spellfireRobe: {
@@ -2178,14 +2114,6 @@ var items = {
       hitRating: 12,
       id: 27462,
       source: 'Heroic Hellfire Ramparts',
-      phase: 1
-    },
-    ravagersCuffsOfShadowWrath: {
-      name: "Ravager's Cuffs of Shadow Wrath",
-      shadowPower: 58,
-      displayId: 30684,
-      id: fakeItemIds.ravagersCuffsOfShadowWrath,
-      source: 'Karazhan',
       phase: 1
     },
     ravagersCuffsOfFireWrath: {
@@ -2869,14 +2797,6 @@ var items = {
       critRating: 23,
       id: 31283,
       source: 'World Drop',
-      phase: 1
-    },
-    lurkersCordOfShadowWrath: {
-      name: "Lurker's Cord of Shadow Wrath",
-      shadowPower: 78,
-      displayId: 30675,
-      id: fakeItemIds.lurkersCordOfShadowWrath,
-      source: 'Karazhan',
       phase: 1
     },
     lurkersCordOfFireWrath: {
@@ -3644,16 +3564,6 @@ var items = {
       source: 'PVP',
       phase: 2
     },
-    bootsOfTheShiftingNightmare: {
-      name: 'Boots of the Shifting Nightmare',
-      stamina: 41,
-      intellect: 22,
-      shadowPower: 59,
-      hitRating: 18,
-      id: 30050,
-      source: 'Serpentshrine Cavern',
-      phase: 2
-    },
     velvetBootsOfTheGuardian: {
       name: 'Velvet Boots of the Guardian',
       stamina: 21,
@@ -3676,14 +3586,6 @@ var items = {
       source: 'Tailoring',
       phase: 2
     },
-    glidersBootsOfShadowWrath: {
-      name: "Glider's Boots of Shadow Wrath",
-      shadowPower: 78,
-      displayId: 30680,
-      id: fakeItemIds.glidersBootsOfShadowWrath,
-      source: 'Karazhan',
-      phase: 1
-    },
     glidersBootsOfFireWrath: {
       name: "Glider's Boots of Fire Wrath",
       firePower: 78,
@@ -3702,27 +3604,11 @@ var items = {
       source: 'Karazhan',
       phase: 1
     },
-    elementalistBootsOfShadowWrath: {
-      name: 'Elementalist Boots of Shadow Wrath',
-      shadowPower: 60,
-      id: fakeItemIds.elementalistBootsOfShadowWrath,
-      displayId: 24686,
-      source: 'World Drop',
-      phase: 1
-    },
     elementalistBootsOfFireWrath: {
       name: 'Elementalist Boots of Fire Wrath',
       firePower: 60,
       id: fakeItemIds.elementalistBootsOfFireWrath,
       displayId: 24686,
-      source: 'World Drop',
-      phase: 1
-    },
-    archmageSlippersOfShadowWrath: {
-      name: 'Archmage Slippers of Shadow Wrath',
-      shadowPower: 58,
-      id: fakeItemIds.archmageSlippersOfShadowWrath,
-      displayId: 24678,
       source: 'World Drop',
       phase: 1
     },
@@ -3732,21 +3618,6 @@ var items = {
       id: fakeItemIds.archmageSlippersOfFireWrath,
       displayId: 24678,
       source: 'World Drop',
-      phase: 1
-    },
-    frozenShadoweaveBoots: {
-      name: 'Frozen Shadoweave Boots',
-      stamina: 15,
-      intellect: 9,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        hitRating: 3
-      },
-      shadowPower: 57,
-      setId: 553,
-      id: 21870,
-      source: 'Tailoring',
       phase: 1
     },
     bootsOfBlasphemy: {
@@ -3851,15 +3722,6 @@ var items = {
       critRating: 17,
       id: 28406,
       source: 'The Arcatraz',
-      phase: 1
-    },
-    bootsOfTheDarkwalker: {
-      name: 'Boots of the Darkwalker',
-      stamina: 36,
-      intellect: 25,
-      shadowPower: 37,
-      id: 27451,
-      source: 'Heroic Hellfire Ramparts',
       phase: 1
     },
     extravagantBootsOfMalice: {
@@ -5105,14 +4967,6 @@ var items = {
       source: 'Karazhan',
       phase: 1
     },
-    orbOfTheSoulEater: {
-      name: 'Orb of the Soul-Eater',
-      stamina: 18,
-      shadowPower: 51,
-      id: 29272,
-      source: "25 Badge of Justice - G'eras",
-      phase: 1
-    },
     flametongueSeal: {
       name: 'Flametongue Seal',
       firePower: 49,
@@ -5554,6 +5408,7 @@ var items = {
       stamina: 10,
       intellect: 9,
       spellPower: 15,
+      naturePower: 69,
       hitRating: 11,
       id: 28673,
       source: 'Karazhan',
@@ -5628,14 +5483,6 @@ var items = {
       critRating: 12,
       id: 25640,
       source: 'Nagrand Quest',
-      phase: 1
-    },
-    flawlessWandOfShadowWrath: {
-      name: 'Flawless Wand of Shadow Wrath',
-      shadowPower: 25,
-      id: fakeItemIds.flawlessWandOfShadowWrath,
-      displayId: 25295,
-      source: 'World Drop',
       phase: 1
     },
     flawlessWandOfFireWrath: {
