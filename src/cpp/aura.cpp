@@ -316,7 +316,7 @@ LightningOverloadAura::LightningOverloadAura(Player* player) : Aura(player)
 {
     name = "Lightning Overload";
     hasDuration = false;
-    procChance = 1;
+    procChance = 0;
     setup();
 }
 

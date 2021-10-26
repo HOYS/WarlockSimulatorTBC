@@ -271,7 +271,7 @@ class LightningOverloadAura extends Aura {
   constructor (player) {
     super(player)
     this.name = 'Lightning Overload'
-    this.procChance = 1
+    this.procChance = 0
     this.hasDuration = false
     this.isImportant = true
     this.setup()
