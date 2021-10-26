@@ -302,7 +302,6 @@ double Simulation::passTime()
     if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active && player->auras->Shadowflame->durationRemaining < time) time = player->auras->Shadowflame->durationRemaining;
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active && player->auras->Spellstrike->durationRemaining < time) time = player->auras->Spellstrike->durationRemaining;
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active && player->auras->ManaEtched4Set->durationRemaining < time) time = player->auras->ManaEtched4Set->durationRemaining;
-    if (player->auras->LightningOverloadAura != NULL && player->auras->LightningOverloadAura->active && player->auras->LightningOverloadAura->durationRemaining < time) time = player->auras->LightningOverloadAura->durationRemaining;
     #pragma endregion
 
     // MP5
@@ -367,7 +366,6 @@ double Simulation::passTime()
     if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active) player->auras->Shadowflame->tick(time);
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active) player->auras->Spellstrike->tick(time);
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active) player->auras->ManaEtched4Set->tick(time);
-    if (player->auras->LightningOverloadAura != NULL && player->auras->LightningOverloadAura->active) player->auras->LightningOverloadAura->tick(time);
     #pragma endregion
 
     #pragma region Spells

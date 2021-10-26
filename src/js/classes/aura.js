@@ -267,17 +267,6 @@ class ManaEtched4Set extends Aura {
   }
 }
 
-class LightningOverloadAura extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Lightning Overload'
-    this.procChance = 0
-    this.hasDuration = false
-    this.isImportant = true
-    this.setup()
-  }
-}
-
 class DestructionPotionAura extends Aura {
   constructor (player) {
     super(player)

@@ -177,8 +177,8 @@ class Spell {
     }
 
     // Lightning Overload
-    if (this.player.auras.lightningOverload && random(1,100) <= this.player.auras.lightningOverload.procChance) {
-      this.player.spells.LightningOverload.cast()
+    if (this.player.spells.lightningOverload && this.player.spells.lightningOverload.cooldownRemaining <= 0 && random(1, 100) <= this.player.spells.lightningOverload.procChance) {
+      this.player.spells.lightningOverload.startCast()
     }
 
     // Mark of Defiance
@@ -380,25 +380,6 @@ class LightningBolt extends Spell {
 
   calculateCastTime () {
     return 2.5 - (0.1 * this.player.talents.lightningMastery)
-  }
-}
-
-class LightningOverload extends Spell {
-  constructor (player) {
-    super(player)
-    this.castTime = 0
-    this.manaCost = 0
-    this.coefficient = (3/3.5)
-    this.minDmg = 285
-    this.maxDmg = 326
-    this.name = "Lightning Bolt - Overload";
-    this.doesDamage = true
-    this.canCrit = true
-    this.school = 'nature'
-    this.type = 'elemental'
-    this.travelTime = player.spellTravelTime
-    this.setup()
-    
   }
 }
 
@@ -683,6 +664,27 @@ class DrumsOfRestoration extends Spell {
 
   ready () {
     return this.cooldownRemaining <= 0
+  }
+}
+
+class LightningOverload extends Spell {
+  constructor (player) {
+    super(player)
+    this.castTime = 0
+    this.manaCost = 0
+    this.coefficient = (3/3.5)
+    this.onGcd = false
+    this.procChance = this.talents.lightningOverload * 4
+    this.minDmg = 285
+    this.maxDmg = 326
+    this.name = "Lightning Bolt - Overload";
+    this.doesDamage = true
+    this.canCrit = true
+    this.school = 'nature'
+    this.type = 'elemental'
+    this.travelTime = player.spellTravelTime
+    this.setup()
+    
   }
 }
 

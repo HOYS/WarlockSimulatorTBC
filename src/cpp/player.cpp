@@ -260,6 +260,7 @@ void Player::initialize()
     if (std::find(trinketIds.begin(), trinketIds.end(), 30626) != trinketIds.end()) auras->SextantOfUnstableCurrents = std::make_shared<SextantOfUnstableCurrentsAura>(this);
     if (items->ring1 == 29305 || items->ring2 == 29305) auras->BandOfTheEternalSage = std::make_shared<BandOfTheEternalSageAura>(this);
     if (items->ring1 == 21190 || items->ring2 == 21190) auras->WrathOfCenarius = std::make_shared<WrathOfCenariusAura>(this);
+    if (talents->lightningOverload > 0) spells->LightningOverload = std::make_shared<LightningOverload>(this);
     if (sets->t4 >= 2)
     {
         auras->Flameshadow = std::make_shared<FlameshadowAura>(this);
@@ -269,9 +270,8 @@ void Player::initialize()
     if (sets->manaEtched >= 4) auras->ManaEtched4Set = std::make_shared<ManaEtched4SetAura>(this);
     if (talents->lightningOverload > 0)
     {
-        auras->LightningOverloadAura = std::make_shared<LightningOverloadAura>(this);
         combatLogEntries.push_back("Lightning Overload Talent Points: " + std::to_string(talents->lightningOverload));
-        combatLogEntries.push_back("Lightning Proc Chance: " + std::to_string(auras->LightningOverloadAura->procChance));
+        combatLogEntries.push_back("Lightning Proc Chance: " + std::to_string(spells->LightningOverload->procChance));
     } 
 
     // Spells
@@ -304,7 +304,6 @@ void Player::initialize()
     if (settings->metaGemId == 25901) spells->InsightfulEarthstormDiamond = std::make_shared<InsightfulEarthstormDiamond>(this);
     if (std::find(trinketIds.begin(), trinketIds.end(), 34470) != trinketIds.end()) spells->TimbalsFocusingCrystal = std::make_shared<TimbalsFocusingCrystal>(this);
     if (std::find(trinketIds.begin(), trinketIds.end(), 27922) != trinketIds.end()) spells->MarkOfDefiance = std::make_shared<MarkOfDefiance>(this);
-    if (talents->lightningOverload > 0) spells->LightningOverload = std::make_shared<LightningOverload>(this);
     if (auras->TheLightningCapacitor != NULL) spells->TheLightningCapacitor = std::make_shared<TheLightningCapacitor>(this, auras->TheLightningCapacitor);
     if (auras->QuagmirransEye != NULL) spells->QuagmirransEye = std::make_shared<QuagmirransEye>(this, auras->QuagmirransEye);
     if (auras->ShiffarsNexusHorn != NULL) spells->ShiffarsNexusHorn = std::make_shared<ShiffarsNexusHorn>(this, auras->ShiffarsNexusHorn);
@@ -450,7 +449,6 @@ void Player::reset()
     if (auras->Shadowflame != NULL && auras->Shadowflame->active) auras->Shadowflame->fade(true);
     if (auras->Spellstrike != NULL && auras->Spellstrike->active) auras->Spellstrike->fade(true);
     if (auras->ManaEtched4Set != NULL && auras->ManaEtched4Set->active) auras->ManaEtched4Set->fade(true);
-    if (auras->LightningOverloadAura != NULL && auras->LightningOverloadAura->active) auras->LightningOverloadAura->fade(true);
 }
 
 double Player::getHastePercent()

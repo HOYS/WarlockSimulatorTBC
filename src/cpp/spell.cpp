@@ -404,7 +404,7 @@ void Spell::onHitProcs()
         player->auras->ManaEtched4Set->apply();
     }
     // Lightning Overload
-    if (player->auras->LightningOverloadAura != NULL && player->getRand() <= player->auras->LightningOverloadAura->procChance * player->critChanceMultiplier)
+    if (player->spells->LightningOverload != NULL && player->spells->LightningOverload->cooldownRemaining <= 0 && player->getRand() <= player->spells->LightningOverload->procChance * player->critChanceMultiplier)
     {
         player->spells->LightningOverload->startCast();
     }
@@ -493,27 +493,6 @@ void LightningBolt::startCast(double predictedDamage = 0)
 double LightningBolt::calculateCastTime()
 {
     return 2.5 - (0.1 * player->talents->lightningMastery);
-}
-
-LightningOverload::LightningOverload(Player* player) : Spell(player)
-{
-    castTime = 0;
-    manaCost = 0;
-    coefficient = (3 / 3.5);
-    minDmg = 285;
-    maxDmg = 326;
-    name = "Lightning Bolt - Overload";
-    doesDamage = true;
-    canCrit = true;
-    school = SpellSchool::NATURE;
-    type = SpellType::ELEMENTAL;
-    setup();
-    
-}
-
-void LightningOverload::cast()
-{
-    Spell::startCast();   
 }
 
 LifeTap::LifeTap(Player* player) : Spell(player)
@@ -769,6 +748,24 @@ DrumsOfRestoration::DrumsOfRestoration(Player* player, std::shared_ptr<Aura> aur
 bool DrumsOfRestoration::ready()
 {
     return cooldownRemaining <= 0;
+}
+
+LightningOverload::LightningOverload(Player* player) : Spell(player)
+{
+    castTime = 0;
+    manaCost = 0;
+    onGcd = false;
+    procChance = player->talents->lightningOverload * 4;
+    coefficient = (3 / 3.5);
+    minDmg = 285;
+    maxDmg = 326;
+    name = "Lightning Bolt - Overload";
+    doesDamage = true;
+    canCrit = true;
+    school = SpellSchool::NATURE;
+    type = SpellType::ELEMENTAL;
+    setup();
+    
 }
 
 TimbalsFocusingCrystal::TimbalsFocusingCrystal(Player* player) : Spell(player)

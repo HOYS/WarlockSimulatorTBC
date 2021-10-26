@@ -478,7 +478,6 @@ class Player {
     }
     if (this.sets['559'] == 2) this.auras.spellstrikeProc = new SpellstrikeProc(this)
     if (this.sets['658'] >= 4) this.auras.manaEtched4Set = new ManaEtched4Set(this)
-    if (this.talents.lightningOverload > 0) this.auras.lightningOverload = new LightningOverloadAura(this);
   }
 
   reset () {

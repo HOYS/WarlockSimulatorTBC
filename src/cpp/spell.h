@@ -208,7 +208,6 @@ struct QuagmirransEye : public Spell
 struct LightningOverload : public Spell
 {
     LightningOverload(Player* player);
-    void cast();
 };
 
 struct ShiffarsNexusHorn : public Spell

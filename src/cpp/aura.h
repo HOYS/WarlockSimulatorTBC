@@ -93,11 +93,6 @@ struct ManaEtched4SetAura : public Aura
     ManaEtched4SetAura(Player* player);
 };
 
-struct LightningOverloadAura : public Aura
-{
-    LightningOverloadAura(Player* player);
-};
-
 struct DestructionPotionAura : public Aura
 {
     DestructionPotionAura(Player* player);
