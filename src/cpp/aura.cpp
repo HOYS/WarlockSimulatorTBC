@@ -221,43 +221,6 @@ void Aura::fade(bool endOfIteration)
 
 void Aura::decrementStacks() {}
 
-ImprovedShadowBoltAura::ImprovedShadowBoltAura(Player* player) : Aura(player)
-{
-    name = "Improved Shadow Bolt";
-    duration = 12;
-    stacks = 0;
-    maxStacks = 0;
-    Aura::modifier = 1 + player->talents->improvedShadowBolt * 0.04;
-    uptimeSoFar = 0;
-    setup();
-}
-
-void ImprovedShadowBoltAura::apply()
-{
-    Aura::apply();
-    stacks = maxStacks;
-}
-
-void ImprovedShadowBoltAura::decrementStacks()
-{
-    stacks--;
-
-    if (stacks <= 0)
-    {
-        fade();
-    }
-    else if (player->shouldWriteToCombatLog())
-    {
-        std::string msg = name + " (" + std::to_string(stacks) + ")";
-        player->combatLog(msg);
-    }
-}
-
-void ImprovedShadowBoltAura::fade(bool endOfIteration)
-{
-    Aura::fade(endOfIteration);
-    uptimeSoFar = player->combatLogBreakdown.at(name)->uptime / player->totalDuration;
-}
 
 CurseOfTheElementsAura::CurseOfTheElementsAura(Player* player) : Aura(player)
 {

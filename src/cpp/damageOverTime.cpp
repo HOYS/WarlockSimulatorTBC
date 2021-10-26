@@ -58,11 +58,6 @@ void DamageOverTime::apply()
         std::string msg = name + " " + refreshedOrApplied + " (" + std::to_string(spellPower) + " Spell Power)";
         player->combatLog(msg);
     }
-    // Siphon Life snapshots the presence of ISB. So if ISB isn't up when it's cast, it doesn't get the benefit even if it comes up later during the duration.
-    if (player->spells->SiphonLife != NULL && name == player->spells->SiphonLife->name)
-    {
-        isbActive = !player->settings->usingCustomIsbUptime && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active;
-    }
 }
 
 void DamageOverTime::fade(bool endOfIteration)
@@ -91,11 +86,6 @@ double DamageOverTime::getModifier()
     else if (school == SpellSchool::FIRE)
     {
         dmgModifier *= player->stats->fireModifier;
-    }
-    // Improved Shadow Bolt
-    if ((school == SpellSchool::SHADOW && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active && (player->spells->SiphonLife == NULL || name != player->spells->SiphonLife->name)) || (player->spells->SiphonLife != NULL && name == player->spells->SiphonLife->name && isbActive))
-    {
-        dmgModifier *= player->auras->ImprovedShadowBolt->modifier;
     }
     return dmgModifier;
 }

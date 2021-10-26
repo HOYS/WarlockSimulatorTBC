@@ -161,18 +161,6 @@ class PetSpell {
         if (this.pet.playerAuras.shadowWeaving) {
           modifier *= 1.1 
         }
-        // ISB
-        if ((this.pet.player.auras.improvedShadowBolt && this.pet.player.auras.improvedShadowBolt.active) || this.pet.player.simSettings.customIsbUptime == 'yes') {
-          // Custom ISB Uptime
-          if (this.pet.player.simSettings.customIsbUptime == 'yes') {
-            modifier *= (1 + 0.2 * (this.pet.player.simSettings.customIsbUptimeValue / 100))
-          } 
-          // Normal ISB
-          else {
-            modifier *= this.pet.player.auras.improvedShadowBolt.modifier
-            this.pet.player.auras.improvedShadowBolt.decrementStacks()
-          }
-        }
       }
       // Fire damage multipliers
       else if (this.school == 'fire') {

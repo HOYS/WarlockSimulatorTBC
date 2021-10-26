@@ -208,12 +208,6 @@ double Spell::getModifier()
     if (school == SpellSchool::SHADOW)
     {
         dmgModifier *= player->stats->shadowModifier;
-        
-        // Improved Shadow Bolt
-        if (!player->settings->usingCustomIsbUptime && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active)
-        {
-            dmgModifier *= player->auras->ImprovedShadowBolt->modifier;
-        }
     }
     else if (school == SpellSchool::FIRE)
     {
@@ -238,10 +232,6 @@ void Spell::damage(bool isCrit)
         critMultiplier = getCritMultiplier(critMultiplier);
         totalDamage *= critMultiplier;
         onCritProcs();
-    }
-    else if (school == SpellSchool::SHADOW && !isDot && player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active && !player->settings->usingCustomIsbUptime)
-    {
-        player->auras->ImprovedShadowBolt->decrementStacks();
     }
 
     onDamageProcs();
@@ -336,32 +326,12 @@ double Spell::predictDamage()
         estimatedDamage += dotEffect->predictDamage();
     }
 
-    // If the player is not using a custom ISB uptime, they have the ISB talent selected, but the ISB aura is not active, then give some % modifier as an "average" for the damage.
-    // Without this, the sim will choose Incinerate over Shadow Bolt because it basically just doesn't know that ISB exists
-    if (school == SpellSchool::SHADOW && !player->settings->usingCustomIsbUptime && player->auras->ImprovedShadowBolt != NULL && !player->auras->ImprovedShadowBolt->active)
-    {
-        // If this isn't the player's first iteration then check what their ISB uptime is and add that %
-        if (player->iteration > 1)
-        {
-            estimatedDamage *= (1 + 0.2 * player->auras->ImprovedShadowBolt->uptimeSoFar);
-        }
-        // If it's the first iteration where we don't have enough data to assume what the player's ISB uptime is, then add a fixed amount
-        else
-        {
-            estimatedDamage *= 1.15;
-        }
-    }
 
     return (estimatedDamage * hitChance) / std::max(player->getGcdValue(shared_from_this()), getCastTime());
 }
 
 void Spell::onCritProcs()
 {
-    // ISB
-    if (player->spells->ShadowBolt != NULL && name == player->spells->ShadowBolt->name && !player->settings->usingCustomIsbUptime && player->talents->improvedShadowBolt > 0)
-    {
-        player->auras->ImprovedShadowBolt->apply();
-    }
     // The Lightning Capacitor
     if (player->spells->TheLightningCapacitor != NULL)
     {
@@ -477,7 +447,7 @@ void Spell::onHitProcs()
 ShadowBolt::ShadowBolt(Player* player) : Spell(player)
 {
     castTime = calculateCastTime();
-    manaCost = 420 * (1 - 0.01 * player->talents->cataclysm);
+    manaCost = 420 * (1 - 0.02 * player->talents->convection);
     coefficient = (3 / 3.5);
     minDmg = 544;
     maxDmg = 607;
@@ -515,7 +485,7 @@ void ShadowBolt::startCast(double predictedDamage = 0)
 
 double ShadowBolt::calculateCastTime()
 {
-    return 3 - (0.1 * player->talents->bane);
+    return 4 - (0.1 * player->talents->lightningMastery);
 }
 
 LifeTap::LifeTap(Player* player) : Spell(player)
@@ -549,8 +519,8 @@ void LifeTap::cast()
 SoulFire::SoulFire(Player* player) : Spell(player)
 {
     name = "Soul Fire";
-    castTime = 6 - (0.4 * player->talents->bane);
-    manaCost = 250 * (1 - 0.01 * player->talents->cataclysm);
+    castTime = 6 - (0.4 * player->talents->lightningMastery);
+    manaCost = 250 * (1 - 0.02 * player->talents->convection);
     coefficient = 1.15;
     minDmg = 1003;
     maxDmg = 1257;
@@ -586,8 +556,8 @@ SiphonLife::SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_p
 Immolate::Immolate(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {
     name = "Immolate";
-    manaCost = 445 * (1 - 0.01 * player->talents->cataclysm);
-    castTime = 2 - (0.1 * player->talents->bane);
+    manaCost = 445 * (1 - 0.02 * player->talents->convection);
+    castTime = 3 - (0.1 * player->talents->lightningMastery);
     isDot = true;
     doesDamage = true;
     canCrit = true;

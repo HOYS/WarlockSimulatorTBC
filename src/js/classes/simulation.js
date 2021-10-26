@@ -41,7 +41,6 @@ class Simulation {
       }
     }
 
-    if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.auras.improvedShadowBolt.durationRemaining < time) time = this.player.auras.improvedShadowBolt.durationRemaining
     if (this.player.auras.corruption && this.player.auras.corruption.active && this.player.auras.corruption.tickTimerRemaining < time) time = this.player.auras.corruption.tickTimerRemaining
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active && this.player.auras.siphonLife.tickTimerRemaining < time) time = this.player.auras.siphonLife.tickTimerRemaining
     if (this.player.auras.immolate && this.player.auras.immolate.active && this.player.auras.immolate.tickTimerRemaining < time) time = this.player.auras.immolate.tickTimerRemaining
@@ -154,7 +153,6 @@ class Simulation {
 
     // Auras
     if (this.player.auras.powerInfusion && this.player.auras.powerInfusion.active) this.player.auras.powerInfusion.tick(time)
-    if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active) this.player.auras.improvedShadowBolt.tick(time)
     if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.tick(time)
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.tick(time)
     if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.tick(time)
@@ -381,14 +379,6 @@ class Simulation {
                       this.player.cast('corruption')
                     }
                   }
-                  // Cast Siphon Life if it's not up (todo: add option to only cast it while ISB is active if not using custom ISB uptime %)
-                  if (this.player.spells.siphonLife && !this.player.auras.siphonLife.active && this.player.spells.siphonLife.canCast() && /* (!this.player.auras.improvedShadowBolt || this.player.auras.improvedShadowBolt.active) && */ timeRemaining >= this.player.auras.siphonLife.minimumDuration) {
-                    if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.siphonLife.varName, this.player.spells.siphonLife.predictDamage()])
-                    } else if (this.player.spells.siphonLife.hasEnoughMana()) {
-                      this.player.cast('siphonLife')
-                    }
-                  }
                   // Cast Immolate if it's not up or about to expire
                   if (this.player.spells.immolate && this.player.spells.immolate.canCast() && (!this.player.auras.immolate.active || (this.player.auras.immolate.ticksRemaining == 1 && this.player.auras.immolate.tickTimerRemaining < this.player.spells.immolate.getCastTime())) && (timeRemaining - this.player.spells.immolate.getCastTime()) >= this.player.auras.immolate.minimumDuration) {
                     if (this.player.simChoosingRotation) {
@@ -442,7 +432,7 @@ class Simulation {
             if (this.player.pet.spells.cleave && this.player.pet.spells.cleave.ready()) {
               this.player.pet.cast('cleave')
             }
-            if (this.player.pet.spells.lashOfPain && this.player.pet.spells.lashOfPain.ready() && (this.player.simSettings.lashOfPainUsage == 'onCooldown' || (this.player.simSettings.customIsbUptime == 'no' && (!this.player.auras.improvedShadowBolt || !this.player.auras.improvedShadowBolt.active)))) {
+            if (this.player.pet.spells.lashOfPain && this.player.pet.spells.lashOfPain.ready() && (this.player.simSettings.lashOfPainUsage == 'onCooldown' || (this.player.simSettings.customIsbUptime == 'no' ))) {
               this.player.pet.cast('lashOfPain')
             }
           } else if (this.player.pet.type == PetType.RANGED) {
@@ -476,7 +466,6 @@ class Simulation {
 
       // End all active auras
       if (this.player.auras.powerInfusion) this.player.auras.powerInfusion.fade(true)
-      if (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active) this.player.auras.improvedShadowBolt.fade(true)
       if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.fade(true)
       if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.fade(true)
       if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.fade(true)

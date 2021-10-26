@@ -210,11 +210,11 @@ class Pet {
   calculateStatsFromPlayer (announceInCombatlog = true) {
     this.stats.stamina = this.stats.baseStats.stamina + this.stats.buffs.stamina + (0.3 * this.player.stats.stamina * this.player.stats.staminaModifier)
     this.stats.intellect = this.stats.baseStats.intellect + this.stats.buffs.intellect + (0.3 * this.player.stats.intellect * this.player.stats.intellectModifier)
-    this.player.demonicKnowledgeSp = ((this.stats.stamina * this.stats.staminaModifier) + (this.stats.intellect * this.stats.intellectModifier)) * (0.04 * this.player.talents.demonicKnowledge)
+    this.player.demonicKnowledgeSp = ((this.stats.stamina * this.stats.staminaModifier) + (this.stats.intellect * this.stats.intellectModifier))
     this.stats.baseStats.ap = (this.stats.baseStats.strength + this.stats.buffs.strength) * 2 - 20
     this.stats.ap = this.stats.baseStats.ap + this.stats.buffs.ap + this.stats.debuffs.ap + (this.player.getSpellPower() + Math.max(this.player.stats.shadowPower, this.player.stats.firePower)) * 0.57
     this.stats.agility = this.stats.baseStats.agility + this.stats.buffs.agility
-    this.stats.critChance = this.player.talents.demonicTactics + (this.stats.agility * this.stats.agilityModifier) * 0.04 + 0.65 + this.stats.buffs.critChance
+    this.stats.critChance = (this.stats.agility * this.stats.agilityModifier) * 0.04 + 0.65 + this.stats.buffs.critChance
     this.stats.spellPower = this.stats.buffs.spellPower + (this.player.getSpellPower() + Math.max(this.player.stats.shadowPower, this.player.stats.firePower)) * 0.15
     if (this.type == PetType.MELEE) {
       // Halp, need confirmation that this is actually the right way to get its average melee damage.
@@ -225,7 +225,7 @@ class Pet {
       this.stats.maxMana = this.stats.baseStats.mana + this.stats.intellect * this.stats.intellectModifier * 4.95
     }
     if (this.pet == PetName.IMP || this.pet === PetName.SUCCUBUS) {
-      this.stats.spellCritChance = 0.0125 * (this.stats.intellect * this.stats.intellectModifier) + 0.91 + this.player.talents.demonicTactics + this.stats.buffs.spellCritChance + (this.stats.buffs.spellCritRating / critRatingPerPercent)
+      this.stats.spellCritChance = 0.0125 * (this.stats.intellect * this.stats.intellectModifier) + 0.91  + this.stats.buffs.spellCritChance + (this.stats.buffs.spellCritRating / critRatingPerPercent)
     }
     if (announceInCombatlog) {
       this.player.combatLog("Recalculated pet's stats")
@@ -396,7 +396,7 @@ class Succubus extends Pet {
     this.stats.baseStats.agility = 109
     this.baseMeleeSpeed = 2
     this.healthPerStamina = 7
-    this.stats.damageModifier *= 1 + (0.02 * player.talents.masterDemonologist)
+    this.stats.damageModifier *= 1
     this.setup()
   }
 
@@ -439,7 +439,7 @@ class Felguard extends Pet {
     this.stats.baseStats.spirit = 122
     this.stats.baseStats.mana = 893
     this.baseMeleeSpeed = 2
-    this.stats.damageModifier *= 1 + (0.01 * player.talents.masterDemonologist)
+    this.stats.damageModifier *= 1
     this.player.damageBreakdown.melee = { name: 'Melee (Felguard)' }
     this.setup()
   }

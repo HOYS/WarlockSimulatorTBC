@@ -35,8 +35,8 @@ extern "C"
         , bool petStaminaScroll, bool petIntellectScroll, bool petStrengthScroll, bool petAgilityScroll, bool petSpiritScroll);
     Talents* allocTalents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int unrelentingStorm, int siphonLife, int elementalPrecision, int lightningMastery
         , int elementalMastery, int lightningOverload, int ancestralKnowledge
-        , int manaFeed, int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int totemicFocus, int naturesGuidance
-        , int devastation, int tidalMastery);
+        , int felguard, int totemicFocus, int naturesGuidance
+        , int tidalMastery);
     Sets* allocSets(int plagueheart, int spellfire, int frozenShadoweave, int spellstrike, int oblivion, int manaEtched, int twinStars, int t4, int t5, int t6);
     CharacterStats* allocStats(int health, int mana, double stamina, double intellect, double spirit, double spellPower, int shadowPower, int firePower, int hasteRating, int hitRating, int critRating
         , double critPercent, int mp5, int spellPen, double fireModifier, double frostModifier, double hastePercent, double damageModifier, double shadowModifier, double staminaModifier, double intellectModifier

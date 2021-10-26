@@ -214,7 +214,7 @@ class Player {
     // Crit chance
     this.stats.critChanceMultiplier = 1000
     if (settings.auras.powerOfTheGuardianMage) this.stats.critRating += 28 * this.simSettings.mageAtieshAmount
-    this.stats.critChance = baseCritChancePercent + (this.stats.critRating / critRatingPerPercent) + settings.talents.devastation + settings.talents.demonicTactics
+    this.stats.critChance = baseCritChancePercent + (this.stats.critRating / critRatingPerPercent)
     if (settings.auras.moonkinAura) this.stats.critChance += 5
     if (settings.auras.judgementOfTheCrusader) this.stats.critChance += 3
     if (settings.auras.totemOfWrath) this.stats.critChance += (3 * settings.simSettings.totemOfWrathAmount)
@@ -443,7 +443,6 @@ class Player {
     this.auras = {}
     
     if (this.simSettings.fightType == "singleTarget") {
-      if (this.talents.improvedShadowBolt > 0) this.auras.improvedShadowBolt = new ImprovedShadowBolt(this)
       if (this.spells.corruption) this.auras.corruption = new CorruptionDot(this)
       if (this.spells.siphonLife) this.auras.siphonLife = new SiphonLifeDot(this)
       if (this.spells.immolate) this.auras.immolate = new ImmolateDot(this)
@@ -627,11 +626,6 @@ class Player {
   // Since crit gains a bonus from intellect, and intellect could fluctuate during the fight (through procs and such), it's better to calculate it by calling a function like this.
   getCritChance (spellType) {
     let critChance = this.stats.critChance + ((this.stats.intellect * this.stats.intellectModifier) * critPerInt)
-    
-    // Remove the 5% crit chance from Devastation if it isn't a Destruction spell
-    if (spellType !== 'destruction') {
-      critChance -= this.talents.devastation
-    }
 
     return critChance
   }

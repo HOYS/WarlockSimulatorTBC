@@ -184,13 +184,13 @@ Auras* allocAuras(bool felArmor, bool blessingOfKings, bool blessingOfWisdom, bo
 
 EMSCRIPTEN_KEEPALIVE
 Talents* allocTalents(int convection, int concussion, int callOfFlame, int elementalFocus, int reverberation, int callOfThunder, int elementalFury, int unrelentingStorm, int siphonLife, int lightningMastery, int elementalPrecision, int elementalMastery
-    , int lightningOverload, int ancestralKnowledge, int manaFeed
-    , int masterDemonologist, int soulLink, int demonicKnowledge, int demonicTactics, int felguard, int improvedShadowBolt, int cataclysm, int bane, int totemicFocus, int naturesGuidance, int devastation
+    , int lightningOverload, int ancestralKnowledge 
+    , int felguard, int totemicFocus, int naturesGuidance
     , int tidalMastery)
 {
     return new Talents(convection, concussion, callOfFlame, elementalFocus, reverberation, callOfThunder, elementalFury, unrelentingStorm, siphonLife, lightningMastery, elementalPrecision, elementalMastery, lightningOverload
-    , ancestralKnowledge, manaFeed, masterDemonologist, soulLink, demonicKnowledge, demonicTactics
-    , felguard, improvedShadowBolt, cataclysm, bane, totemicFocus, naturesGuidance, devastation, tidalMastery);
+    , ancestralKnowledge
+    , felguard, totemicFocus, naturesGuidance, tidalMastery);
 }
 
 EMSCRIPTEN_KEEPALIVE

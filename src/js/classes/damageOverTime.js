@@ -43,10 +43,6 @@ class DamageOverTime {
     this.spellPower = spellPower
     this.player.combatLog(this.name + ' ' + refreshedOrApplied + ' (' + Math.round(spellPower) + ' Spell Power)')
 
-    // Siphon Life snapshots the presence of ISB. So if ISB isn't up when it's cast, it doesn't get the benefit even if it comes up later during the duration.
-    if (this.varName == 'siphonLife') {
-      this.isbActive = (this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.simSettings.customIsbUptime == 'no')
-    }
   }
 
   fade (endOfIteration = false) {
@@ -62,10 +58,6 @@ class DamageOverTime {
 
   getModifier () {
     let modifier = this.modifier * this.player.stats[this.school + 'Modifier']
-    // Improved Shadow Bolt
-    if ((this.school == 'shadow' && this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.varName != 'siphonLife') || (this.varName == 'siphonLife' && this.isbActive)) {
-      modifier *= this.player.auras.improvedShadowBolt.modifier
-    }
     return modifier
   }
 

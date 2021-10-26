@@ -183,8 +183,8 @@ onmessage = function (e) {
       , a.scrollOfAgilityV, a.scrollOfSpiritV)
     // Talents
     let talents = module._allocTalents(t.convection, t.concussion, t.callOfFlame, t.elementalFocus, t.reveberation, t.callOfThunder, t.elementalFury, t.unrelentingStorm, t.siphonLife, t.elementalPrecision, t.lightningMastery
-      , t.elementalMastery, t.lightningOverload, t.ancestralKnowledge, t.manaFeed
-      , t.masterDemonologist, t.soulLink, t.demonicKnowledge, t.demonicTactics, t.felguard, t.improvedShadowBolt, t.cataclysm, t.bane, t.totemicFocus, t.naturesGuidance, t.devastation
+      , t.elementalMastery, t.lightningOverload, t.ancestralKnowledge
+      , t.felguard, t.totemicFocus, t.naturesGuidance
       , t.tidalMastery)
     // Sets
     let sets = module._allocSets(s['529'], s['552'], s['553'], s['559'], s['644'], s['658'], s['667'], s['645'], s['646'], s['670'])

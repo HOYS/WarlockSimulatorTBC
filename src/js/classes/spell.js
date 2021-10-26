@@ -236,11 +236,6 @@ class Spell {
       critMultiplier = this.getCritMultiplier(critMultiplier)
       dmg *= critMultiplier
       this.onCritProcs()
-    } else {
-      // Decrement the Improved Shadow Bolt stacks if it's not a crit
-      if (this.school == 'shadow' && !this.isDot && this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.simSettings.customIsbUptime == 'no') {
-        this.player.auras.improvedShadowBolt.decrementStacks()
-      }
     }
 
     this.onDamageProcs()
@@ -278,11 +273,6 @@ class Spell {
     // Add damage from Spell Power
     dmg += spellPower * this.coefficient
 
-    // Improved Shadow Bolt
-    if (this.school == 'shadow' && this.player.auras.improvedShadowBolt && this.player.auras.improvedShadowBolt.active && this.player.simSettings.customIsbUptime == 'no') {
-      modifier *= this.player.auras.improvedShadowBolt.modifier
-    }
-
     dmg *= modifier * partialResistMultiplier
 
     return [baseDamage, dmg, modifier, partialResistMultiplier, spellPower]
@@ -318,19 +308,6 @@ class Spell {
       estimatedDamage += this.player.auras[this.varName].predictDamage()
     }
 
-    // If the player is not using a custom ISB uptime, they have the ISB talent selected, but the ISB aura is not active, then give some % modifier as an "average" for the damage.
-    // Without this, the sim will choose Incinerate over Shadow Bolt because it basically just doesn't know that ISB exists
-    if (this.school == 'shadow' && this.player.simSettings.customIsbUptime !== 'yes' && this.player.auras.improvedShadowBolt && !this.player.auras.improvedShadowBolt.active) {
-      // If this isn't the player's first iteration then check what their ISB uptime is and add that %
-      if (this.player.iteration > 1) {
-        estimatedDamage *= (1 + 0.2 * this.player.auras.improvedShadowBolt.uptimeSoFar)
-      }
-      // If it's the first iteration where we don't have enough data to assume what the player's ISB uptime is, then add a fixed amount
-      else {
-        estimatedDamage *= 1.15;
-      }
-    }
-
     return (estimatedDamage * hitChance) / Math.max(this.player.getGcdValue(this.varName), this.getCastTime())
   }
 
@@ -346,10 +323,6 @@ class Spell {
   }
 
   onCritProcs() {
-    // Apply ISB debuff if casting Shadow Bolt
-    if (this.player.simSettings.customIsbUptime == 'no' && this.varName == 'shadowBolt' && this.player.talents.improvedShadowBolt > 0) {
-      this.player.auras.improvedShadowBolt.apply()
-    }
     // The Lightning Capacitor
     if (this.player.spells.theLightningCapacitor) {
       this.player.spells.theLightningCapacitor.startCast()
@@ -377,7 +350,7 @@ class ShadowBolt extends Spell {
   constructor (player) {
     super(player)
     this.castTime = this.calculateCastTime()
-    this.manaCost = 420 * (1 - 0.01 * player.talents.cataclysm)
+    this.manaCost = 420 * (1 - 0.02 * player.talents.convection)
     this.coefficient = (3 / 3.5)
     this.minDmg = 544
     this.maxDmg = 607
@@ -407,7 +380,7 @@ class ShadowBolt extends Spell {
   }
 
   calculateCastTime () {
-    return 3 - (0.1 * this.player.talents.bane)
+    return 4 - (0.1 * this.player.talents.lightningMastery)
   }
 }
 
@@ -415,8 +388,8 @@ class ShadowBolt extends Spell {
 class SoulFire extends Spell {
   constructor (player) {
     super(player)
-    this.castTime = 6 - (0.4 * player.talents.bane)
-    this.manaCost = 250 * (1 - 0.01 * player.talents.cataclysm)
+    this.castTime = 6 - (0.4 * player.talents.lightningMastery)
+    this.manaCost = 250 * (1 - 0.02 * player.talents.convection)
     this.coefficient = 1.15
     this.minDmg = 1003
     this.maxDmg = 1257
@@ -465,12 +438,6 @@ class LifeTap extends Spell {
       this.player.combatLog('Life Tap used at too high mana (mana wasted)')
     }
     this.player.mana = Math.min(this.player.stats.maxMana, this.player.mana + manaGain)
-    if (this.player.pet && this.player.talents.manaFeed > 0) {
-      const petManaGain = manaGain * (this.player.talents.manaFeed / 3)
-      const currentPetMana = this.player.pet.stats.mana
-      this.player.pet.stats.mana = Math.min(this.player.pet.stats.maxMana, this.player.pet.stats.mana + petManaGain)
-      this.player.combatLog(this.player.pet.name + ' gains ' + Math.round(this.player.pet.stats.mana - currentPetMana) + ' mana from Mana Feed (' + Math.round(currentPetMana) + ' -> ' + Math.round(this.player.pet.stats.mana) + ')')
-    }
   }
 }
 
@@ -504,8 +471,8 @@ class Immolate extends Spell {
   constructor (player) {
     super(player)
     this.name = 'Immolate'
-    this.manaCost = 445 * (1 - 0.01 * player.talents.cataclysm)
-    this.castTime = 2 - (0.1 * player.talents.bane)
+    this.manaCost = 445 * (1 - 0.02 * player.talents.convection)
+    this.castTime = 3 - (0.1 * player.talents.lightningMastery)
     this.isDot = true
     this.doesDamage = true
     this.canCrit = true

@@ -263,21 +263,6 @@ void PetSpell::damage(bool isCrit, bool isGlancing)
                 dmgModifier *= 1.1;
             }
 
-            // ISB
-            if ((pet->player->auras->ImprovedShadowBolt != NULL && pet->player->auras->ImprovedShadowBolt->active) || pet->player->settings->usingCustomIsbUptime)
-            {
-                // Custom ISB Uptime
-                if (pet->player->settings->usingCustomIsbUptime)
-                {
-                    dmgModifier *= (1 + 0.2 * (pet->player->settings->customIsbUptimeValue / 100.0));
-                }
-                // Normal ISB
-                else
-                {
-                    dmgModifier *= pet->player->auras->ImprovedShadowBolt->modifier;
-                    pet->player->auras->ImprovedShadowBolt->decrementStacks();
-                }
-            }
         }
         // Fire Damage Multipliers
         else if (school == SpellSchool::FIRE)

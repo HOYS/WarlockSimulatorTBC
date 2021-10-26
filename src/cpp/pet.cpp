@@ -295,11 +295,11 @@ void Pet::calculateStatsFromPlayer(bool announceInCombatLog)
 {
     stats->stamina = baseStats->stamina + buffStats->stamina + (0.3 * player->stats->stamina * player->stats->staminaModifier);
     stats->intellect = baseStats->intellect + buffStats->intellect + (0.3 * player->stats->intellect * player->stats->intellectModifier);
-    player->demonicKnowledgeSpellPower = ((stats->stamina * stats->staminaModifier) + (stats->intellect * stats->intellectModifier)) * (0.04 * player->talents->demonicKnowledge);
+    player->demonicKnowledgeSpellPower = ((stats->stamina * stats->staminaModifier) + (stats->intellect * stats->intellectModifier));
     baseStats->attackPower = (baseStats->strength + buffStats->strength) * stats->strengthModifier * 2 - 20;
     stats->attackPower = baseStats->attackPower + buffStats->attackPower + debuffStats->attackPower + (player->getSpellPower() + std::max(player->stats->shadowPower, player->stats->firePower)) * 0.57;
     stats->agility = baseStats->agility + buffStats->agility;
-    stats->meleeCritChance = player->talents->demonicTactics + (stats->agility * stats->agilityModifier) * 0.04 + 0.65 + buffStats->meleeCritChance;
+    stats->meleeCritChance = (stats->agility * stats->agilityModifier) * 0.04 + 0.65 + buffStats->meleeCritChance;
     stats->spellPower = buffStats->spellPower + (player->getSpellPower() + std::max(player->stats->shadowPower, player->stats->firePower)) * 0.15;
     if (petType == PetType::MELEE)
     {
@@ -313,7 +313,7 @@ void Pet::calculateStatsFromPlayer(bool announceInCombatLog)
     }
     if (pet == PetName::IMP || pet == PetName::SUCCUBUS)
     {
-        stats->spellCritChance = 0.0125 * (stats->intellect * stats->intellectModifier) + 0.91 + player->talents->demonicTactics + buffStats->spellCritChance + (buffStats->spellCritRating / player->critRatingPerPercent);
+        stats->spellCritChance = 0.0125 * (stats->intellect * stats->intellectModifier) + 0.91 + buffStats->spellCritChance + (buffStats->spellCritRating / player->critRatingPerPercent);
     }
     if (announceInCombatLog && player->shouldWriteToCombatLog())
     {
@@ -491,7 +491,7 @@ Succubus::Succubus(Player* player) : Pet(player)
     baseStats->strength = 153;
     baseStats->agility = 109;
     baseMeleeSpeed = 2;
-    stats->damageModifier *= 1 + (0.02 * player->talents->masterDemonologist);
+    stats->damageModifier *= 1;
     setup();
 }
 
@@ -507,6 +507,6 @@ Felguard::Felguard(Player* player) : Pet(player)
     baseStats->spirit = 122;
     baseStats->mana = 893;
     baseMeleeSpeed = 2;
-    stats->damageModifier *= 1 + (0.01 * player->talents->masterDemonologist);
+    stats->damageModifier *= 1;
     setup();
 }

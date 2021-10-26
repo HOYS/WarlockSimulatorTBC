@@ -36,7 +36,7 @@ Player::Player(PlayerSettings* playerSettings)
     {
         stats->critRating += 28 * settings->mageAtieshAmount;
     }
-    stats->critChance = baseCritChancePercent + (stats->critRating / critRatingPerPercent) + talents->devastation + talents->demonicTactics;
+    stats->critChance = baseCritChancePercent + (stats->critRating / critRatingPerPercent);
     if (selectedAuras->moonkinAura)
     {
         stats->critChance += 5;
@@ -244,7 +244,6 @@ void Player::initialize()
     // Auras
     if (settings->isSingleTarget)
     {
-        if (talents->improvedShadowBolt > 0) auras->ImprovedShadowBolt = std::make_shared<ImprovedShadowBoltAura>(this);
         if (settings->hasCorruption || settings->simChoosingRotation) auras->Corruption = std::make_shared<CorruptionDot>(this);
         if (talents->siphonLife == 1 && (settings->hasSiphonLife || settings->simChoosingRotation)) auras->SiphonLife = std::make_shared<SiphonLifeDot>(this);
         if (settings->hasImmolate || settings->simChoosingRotation) auras->Immolate = std::make_shared<ImmolateDot>(this);
@@ -428,7 +427,6 @@ void Player::reset()
     if (auras->SiphonLife != NULL && auras->SiphonLife->active) auras->SiphonLife->fade(true);
     if (auras->Immolate != NULL && auras->Immolate->active) auras->Immolate->fade(true);
     if (auras->CurseOfAgony != NULL && auras->CurseOfAgony->active) auras->CurseOfAgony->fade(true);
-    if (auras->ImprovedShadowBolt != NULL && auras->ImprovedShadowBolt->active) auras->ImprovedShadowBolt->fade(true);
     if (auras->CurseOfTheElements != NULL && auras->CurseOfTheElements->active) auras->CurseOfTheElements->fade(true);
     if (auras->CurseOfRecklessness != NULL && auras->CurseOfRecklessness->active) auras->CurseOfRecklessness->fade(true);
     if (auras->PowerInfusion != NULL && auras->PowerInfusion->active) auras->PowerInfusion->fade(true);
@@ -498,20 +496,16 @@ double Player::getSpellPower(SpellSchool school)
 double Player::getCritChance(SpellType spellType)
 {
     double critChance = stats->critChance + ((stats->intellect * stats->intellectModifier) * critPerInt);
-    if (spellType != SpellType::DESTRUCTION)
-    {
-        critChance -= talents->devastation;
-    }
     return critChance;
 }
 
 double Player::getHitChance(SpellType spellType)
 {
     double hitChance = stats->hitChance + stats->extraHitChance;
-    if (spellType == SpellType::AFFLICTION)
-    {
-        hitChance += talents->convection * 2;
-    }
+    // if (spellType == SpellType::AFFLICTION)
+    // {
+    //     hitChance += talents->convection * 2;
+    // }
     return std::min(99.0, hitChance);
 }
 

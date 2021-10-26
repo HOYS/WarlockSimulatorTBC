@@ -9,7 +9,6 @@ struct PlayerAuras
     std::shared_ptr<DamageOverTime> SiphonLife;
     std::shared_ptr<DamageOverTime> Immolate;
     std::shared_ptr<DamageOverTime> CurseOfAgony;
-    std::shared_ptr<Aura> ImprovedShadowBolt;
     std::shared_ptr<Aura> CurseOfTheElements;
     std::shared_ptr<Aura> CurseOfRecklessness;
     std::shared_ptr<Aura> PowerInfusion;

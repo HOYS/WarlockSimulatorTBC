@@ -118,7 +118,7 @@ const _talents = {
       row: 6,
       column: 3,
       requirement: {
-        name: 'felConcentration',
+        name: 'callOfThunder',
         points: 5
       }
     },
@@ -129,7 +129,7 @@ const _talents = {
       row: 7,
       column: 2,
       requirement: {
-        name: 'shadowEmbrace',
+        name: 'elementalFury',
         points: 1
       }
     },
@@ -154,7 +154,7 @@ const _talents = {
       row: 9,
       column: 2,
       requirement: {
-        name: 'improvedHowlOfTerror',
+        name: 'lightningOverload',
         points: 5
       }
     }
@@ -269,14 +269,14 @@ const _talents = {
       row: 6,
       column: 1
     },
-    manaFeed: {
+    weaponMastery: {
       name: 'Weapon Mastery',
       rankIDs: [29082, 29084, 29086, 29087, 29088],
       iconName: 'spell_shadow_manafeed',
       row: 6,
       column: 4
     },
-    masterDemonologist: {
+    dualWieldSpecialization: {
       name: 'Dual Wield Specialization',
       rankIDs: [30816, 30818, 30819],
       iconName: 'spell_shadow_shadowpact',
@@ -294,7 +294,7 @@ const _talents = {
       row: 7,
       column: 2
     },
-    soulLink: {
+    stormStrike: {
       name: 'Stormstrike',
       rankIDs: [17364],
       iconName: 'spell_shadow_gathershadows',
@@ -305,14 +305,14 @@ const _talents = {
         points: 3
       }
     },
-    demonicKnowledge: {
+    unleashedRage: {
       name: 'Unleashed Rage',
       rankIDs: [30802, 30808, 30809, 30810, 30811],
       iconName: 'Spell_shadow_improvedvampiricembrace',
       row: 8,
       column: 2
     },
-    demonicTactics: {
+    shamanisticRage: {
       name: 'Shamanistic Rage',
       rankIDs: [30823],
       iconName: 'Spell_shadow_demonictactics',
@@ -321,21 +321,21 @@ const _talents = {
     }
   },
   restoration: {
-    improvedShadowBolt: {
+    improvedHealingWay: {
       name: 'Improved Healing Wave',
       rankIDs: [16182, 16226, 16227, 16228, 16229],
       iconName: 'spell_shadow_shadowbolt',
       row: 1,
       column: 2
     },
-    cataclysm: {
+    tidalFocus: {
       name: 'Tidal Focus',
       rankIDs: [16179, 16214, 16215, 16216, 16217],
       iconName: 'spell_fire_windsofwoe',
       row: 1,
       column: 3
     },
-    bane: {
+    improvedReincarnation: {
       name: 'Improved Reincarnation',
       rankIDs: [16184, 16209],
       iconName: 'spell_shadow_deathpact',
@@ -363,7 +363,7 @@ const _talents = {
       row: 3,
       column: 1
     },
-    devastation: {
+    healingFocus: {
       name: 'Healing Focus',
       rankIDs: [16181, 16230, 16232, 16233, 16234],
       iconName: 'spell_fire_flameshock',
@@ -426,7 +426,7 @@ const _talents = {
       row: 6,
       column: 3
     },
-    emberstorm: {
+    manaTideTotem: {
       name: 'Mana Tide Totem',
       rankIDs: [16190],
       iconName: 'spell_fire_selfdestruct',
@@ -458,7 +458,7 @@ const _talents = {
       row: 8,
       column: 3
     },
-    shadowfury: {
+    earthShield: {
       name: 'Earth Shield',
       rankIDs: [974],
       iconName: 'spell_shadow_shadowfury',

@@ -270,7 +270,6 @@ double Simulation::passTime()
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining < time) time = player->auras->SiphonLife->tickTimerRemaining;
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining < time) time = player->auras->Immolate->tickTimerRemaining;
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining < time) time = player->auras->CurseOfAgony->tickTimerRemaining;
-    if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active && player->auras->ImprovedShadowBolt->durationRemaining < time) time = player->auras->ImprovedShadowBolt->durationRemaining;
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active && player->auras->CurseOfTheElements->durationRemaining < time) time = player->auras->CurseOfTheElements->durationRemaining;
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active && player->auras->CurseOfRecklessness->durationRemaining < time) time = player->auras->CurseOfRecklessness->durationRemaining;
     if (player->auras->PowerInfusion != NULL && player->auras->PowerInfusion->active && player->auras->PowerInfusion->durationRemaining < time) time = player->auras->PowerInfusion->durationRemaining;
@@ -334,7 +333,6 @@ double Simulation::passTime()
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining > 0) player->auras->SiphonLife->tick(time);
     if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining > 0) player->auras->Immolate->tick(time);
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining > 0) player->auras->CurseOfAgony->tick(time);
-    if (player->auras->ImprovedShadowBolt != NULL && player->auras->ImprovedShadowBolt->active) player->auras->ImprovedShadowBolt->tick(time);
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active) player->auras->CurseOfTheElements->tick(time);
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active) player->auras->CurseOfRecklessness->tick(time);
     if (player->auras->PowerInfusion != NULL && player->auras->PowerInfusion->active) player->auras->PowerInfusion->tick(time);

@@ -126,38 +126,6 @@ class Aura {
   }
 }
 
-class ImprovedShadowBolt extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Improved Shadow Bolt'
-    this.durationTotal = 12
-    this.stacks = 0
-    this.maxStacks = 4
-    this.modifier = 1 + (this.player.talents.improvedShadowBolt * 0.04)
-    this.uptimeSoFar = 0
-    this.setup()
-  }
-
-  apply () {
-    super.apply()
-    this.stacks = this.maxStacks
-  }
-
-  decrementStacks () {
-    this.stacks--
-
-    if (this.stacks <= 0) {
-      this.fade()
-    } else {
-      this.player.combatLog(this.name + '(' + this.stacks + ')')
-    }
-  }
-
-  fade() {
-    super.fade()
-    this.uptimeSoFar = this.player.auraBreakdown[this.varName].uptime / this.player.totalDuration
-  }
-}
 
 class CurseOfTheElementsAura extends Aura {
   constructor (player) {

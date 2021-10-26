@@ -38,16 +38,6 @@ struct Aura
     void decrementStacks(); // ISB
 };
 
-struct ImprovedShadowBoltAura : public Aura
-{
-    double modifier;
-
-    ImprovedShadowBoltAura(Player* player);
-    void apply();
-    void fade(bool endOfIteration = false);
-    void decrementStacks();
-};
-
 struct CurseOfTheElementsAura : public Aura
 {
     CurseOfTheElementsAura(Player* player);

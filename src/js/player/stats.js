@@ -76,7 +76,7 @@ function refreshCharacterStats () {
   // Crit
   let critRating = characterStats.critRating
   if (auras.powerOfTheGuardianMage) critRating += 28 * $("select[name='mageAtieshAmount']").val()
-  let critChance = Math.round((critRating / critRatingPerPercent + baseCritChancePercent) * 100) / 100 + talents.devastation + talents.demonicTactics + ((characterStats.intellect * characterStats.intellectModifier) * critPerInt)
+  let critChance = Math.round((critRating / critRatingPerPercent + baseCritChancePercent) * 100) / 100 + ((characterStats.intellect * characterStats.intellectModifier) * critPerInt)
   if (auras.moonkinAura) critChance += 5
   if (auras.judgementOfTheCrusader) critChance += 3
   if (auras.totemOfWrath) critChance += 3 * $("select[name='totemOfWrathAmount']").val()
