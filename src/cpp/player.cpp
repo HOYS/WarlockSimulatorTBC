@@ -14,7 +14,6 @@ Player::Player(PlayerSettings* playerSettings)
     castTimeRemaining = 0;
     gcdRemaining = 0;
     gcdValue = 1.5;
-    // Increases the cast time of spells by a very small amount to e.g. make it so that if Immolate has 1.5 seconds remaining, the sim can start precasting Immolate and it won't refresh before it expires.
     spellDelay = 0.0001;
     // Multiply hit and crit percent by this number to get rid of the decimals when calling random() since we need integers
     critChanceMultiplier = 1000;
@@ -250,7 +249,7 @@ void Player::initialize()
     {
         if (settings->hasCorruption || settings->simChoosingRotation) auras->Corruption = std::make_shared<CorruptionDot>(this);
         if (talents->siphonLife == 1 && (settings->hasSiphonLife || settings->simChoosingRotation)) auras->SiphonLife = std::make_shared<SiphonLifeDot>(this);
-        if (settings->hasImmolate || settings->simChoosingRotation) auras->Immolate = std::make_shared<ImmolateDot>(this);
+        if (settings->hasFlameShock || settings->simChoosingRotation) auras->FlameShock = std::make_shared<FlameShockDot>(this);
         if (settings->hasCurseOfAgony) auras->CurseOfAgony = std::make_shared<CurseOfAgonyDot>(this);
         if (settings->hasCurseOfTheElements) auras->CurseOfTheElements = std::make_shared<CurseOfTheElementsAura>(this);
         if (settings->hasCurseOfRecklessness) auras->CurseOfRecklessness = std::make_shared<CurseOfRecklessnessAura>(this);
@@ -295,7 +294,7 @@ void Player::initialize()
         if (settings->hasLightningBolt || settings->simChoosingRotation) spells->LightningBolt = std::make_shared<LightningBolt>(this);
         if (auras->Corruption != NULL) spells->Corruption = std::make_shared<Corruption>(this, nullptr, auras->Corruption);
         if (auras->SiphonLife != NULL) spells->SiphonLife = std::make_shared<SiphonLife>(this, nullptr, auras->SiphonLife);
-        if (auras->Immolate != NULL) spells->Immolate = std::make_shared<Immolate>(this, nullptr, auras->Immolate);
+        if (auras->FlameShock != NULL) spells->FlameShock = std::make_shared<FlameShock>(this, nullptr, auras->FlameShock);
         if (auras->CurseOfAgony != NULL) spells->CurseOfAgony = std::make_shared<CurseOfAgony>(this, nullptr, auras->CurseOfAgony);
         if (auras->CurseOfTheElements != NULL) spells->CurseOfTheElements = std::make_shared<CurseOfTheElements>(this, auras->CurseOfTheElements);
         if (auras->CurseOfRecklessness != NULL) spells->CurseOfRecklessness = std::make_shared<CurseOfRecklessness>(this, auras->CurseOfRecklessness);
@@ -382,7 +381,7 @@ void Player::reset()
     if (spells->LightningBolt != NULL) spells->LightningBolt->reset();
     if (spells->Corruption != NULL) spells->Corruption->reset();
     if (spells->SiphonLife != NULL) spells->SiphonLife->reset();
-    if (spells->Immolate != NULL) spells->Immolate->reset();
+    if (spells->FlameShock != NULL) spells->FlameShock->reset();
     if (spells->CurseOfAgony != NULL) spells->CurseOfAgony->reset();
     if (spells->CurseOfTheElements != NULL) spells->CurseOfTheElements->reset();
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
@@ -429,7 +428,7 @@ void Player::reset()
     }
     if (auras->Corruption != NULL && auras->Corruption->active) auras->Corruption->fade(true);
     if (auras->SiphonLife != NULL && auras->SiphonLife->active) auras->SiphonLife->fade(true);
-    if (auras->Immolate != NULL && auras->Immolate->active) auras->Immolate->fade(true);
+    if (auras->FlameShock != NULL && auras->FlameShock->active) auras->FlameShock->fade(true);
     if (auras->CurseOfAgony != NULL && auras->CurseOfAgony->active) auras->CurseOfAgony->fade(true);
     if (auras->CurseOfTheElements != NULL && auras->CurseOfTheElements->active) auras->CurseOfTheElements->fade(true);
     if (auras->CurseOfRecklessness != NULL && auras->CurseOfRecklessness->active) auras->CurseOfRecklessness->fade(true);

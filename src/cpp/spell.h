@@ -97,9 +97,9 @@ struct SiphonLife : public Spell
     SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
 };
 
-struct Immolate : public Spell
+struct FlameShock : public Spell
 {
-    Immolate(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
+    FlameShock(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);
     double getModifier();
 };
 

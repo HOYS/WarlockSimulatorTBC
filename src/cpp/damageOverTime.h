@@ -48,9 +48,9 @@ struct SiphonLifeDot : public DamageOverTime
     SiphonLifeDot(Player* player);
 };
 
-struct ImmolateDot : public DamageOverTime
+struct FlameShockDot : public DamageOverTime
 {
-    ImmolateDot(Player* player);
+    FlameShockDot(Player* player);
     void apply();
 };
 

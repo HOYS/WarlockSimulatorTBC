@@ -214,7 +214,7 @@ PlayerSettings* allocPlayerSettings(Auras* auras, Talents* talents, Sets* sets, 
     , int mageAtieshAmount, int totemOfWrathAmount, bool sacrificingPet, bool petIsImp, bool petIsSuccubus, bool petIsFelguard, int ferociousInspirationAmount, int improvedCurseOfTheElements
     , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int ancestralKnowledge, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
     , bool isOrc, int powerInfusionAmount, bool bloodlustAmount, bool innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
-    , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasImmolate
+    , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool userChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility, bool hasFlameShock
     , bool hasCorruption, bool hasSiphonLife, bool hasLightningBolt, bool hasCurseOfRecklessness, bool hasCurseOfTheElements, bool hasCurseOfAgony
     , bool hasElementalShamanT4Bonus)
 {
@@ -222,7 +222,7 @@ PlayerSettings* allocPlayerSettings(Auras* auras, Talents* talents, Sets* sets, 
         , simmingHasteRating, simmingMp5, isAldor, enemyLevel, enemyNatureResist, enemyFireResist, mageAtieshAmount, totemOfWrathAmount, sacrificingPet, petIsImp, petIsSuccubus, petIsFelguard
         , ferociousInspirationAmount, improvedCurseOfTheElements, usingCustomIsbUptime, customIsbUptimeValue, improvedDivineSpirit, ancestralKnowledge, shadowPriestDps, warlockAtieshAmount, improvedExposeArmor
         , isSingleTarget, enemyAmount, isOrc, powerInfusionAmount, bloodlustAmount, innervateAmount, enemyArmor, exposeWeaknessUptime, improvedFaerieFire, infinitePlayerMana, infinitePetMana
-        , usingLashOfPainOnCooldown, petIsAggressive, prepopBlackBook, randomizeValues, userChoosingRotation, exaltedWithShattrathFaction, survivalHunterAgility, hasImmolate, hasCorruption, hasSiphonLife
+        , usingLashOfPainOnCooldown, petIsAggressive, prepopBlackBook, randomizeValues, userChoosingRotation, exaltedWithShattrathFaction, survivalHunterAgility, hasFlameShock, hasCorruption, hasSiphonLife
         , hasLightningBolt, hasCurseOfRecklessness, hasCurseOfTheElements, hasCurseOfAgony
         , hasElementalShamanT4Bonus);
 }

@@ -9,7 +9,7 @@ struct PlayerSpells
     std::shared_ptr<Spell> LightningBolt;
     std::shared_ptr<Spell> Corruption;
     std::shared_ptr<Spell> SiphonLife;
-    std::shared_ptr<Spell> Immolate;
+    std::shared_ptr<Spell> FlameShock;
     std::shared_ptr<Spell> CurseOfAgony;
     std::shared_ptr<Spell> CurseOfTheElements;
     std::shared_ptr<Spell> CurseOfRecklessness;

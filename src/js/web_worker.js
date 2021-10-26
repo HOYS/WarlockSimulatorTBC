@@ -201,7 +201,7 @@ onmessage = function (e) {
     , parseInt(c.shadowPriestDps), parseInt(c.warlockAtieshAmount), parseInt(c.improvedExposeArmor), c.fightType === "singleTarget", parseInt(c.enemyAmount), c.race === "orc", parseInt(c.powerInfusionAmount)
     , parseInt(c.bloodlustAmount), parseInt(c.innervateAmount), parseInt(c.enemyArmor), parseInt(c.exposeWeaknessUptime), c.improvedFaerieFire === "yes", c.infinitePlayerMana === "yes", c.infinitePetMana === "yes"
     , c.lashOfPainUsage === "onCooldown", c.petMode === "1", c.prepopBlackBook === "yes", c.randomizeValues === "yes", c.rotationOption === "simChooses", c.shattrathFactionReputation === "yes"
-    , parseInt(c.survivalHunterAgility), d.dot.immolate, d.dot.corruption, d.dot.siphonLife, d.filler.shadowBolt, d.curse.curseOfRecklessness
+    , parseInt(c.survivalHunterAgility), d.dot.flameshock, d.dot.corruption, d.dot.siphonLife, d.filler.shadowBolt, d.curse.curseOfRecklessness
     , d.curse.curseOfTheElements, d.curse.curseOfAgony, d.other.callOfThunder
     , c.improvedWrathOfAirTotem === "yes")
     let player = module._allocPlayer(playerSettings)

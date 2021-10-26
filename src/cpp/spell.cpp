@@ -205,6 +205,7 @@ void Spell::cast()
 double Spell::getModifier()
 {
     double dmgModifier = modifier;
+    //to-do add damage mod for flameshock
     if (school == SpellSchool::NATURE)
     {
         dmgModifier *= player->stats->natureModifier;
@@ -553,22 +554,23 @@ SiphonLife::SiphonLife(Player* player, std::shared_ptr<Aura> aura, std::shared_p
     setup();
 }
 
-Immolate::Immolate(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
+FlameShock::FlameShock(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {
-    name = "Immolate";
-    manaCost = 445 * (1 - 0.02 * player->talents->convection);
-    castTime = 3 - (0.1 * player->talents->lightningMastery);
+    name = "FlameShock";
+    //to-do add mentalQuickness
+    manaCost = 500 * (1 - 0.02 * player->talents->convection);
+    castTime = 0;
     isDot = true;
     doesDamage = true;
     canCrit = true;
-    dmg = 331;
+    dmg = 377 * (1 - 0.1 * player->talents->concussion);
     coefficient = 0.2;
     school = SpellSchool::FIRE;
-    type = SpellType::DESTRUCTION;
+    type = SpellType::ELEMENTAL;
     setup();
 }
 
-double Immolate::getModifier()
+double FlameShock::getModifier()
 {
     double modifier = Spell::getModifier();
     return modifier;

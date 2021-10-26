@@ -2,10 +2,10 @@ const _spellSelection = {
   dot: {
     header: 'Dots',
     spells: {
-      immolate: {
-        name: 'Immolate',
+      flameshock: {
+        name: 'Flame Shock',
         iconName: 'spell_fire_immolation',
-        id: 27215
+        id: 25457
       },
       corruption: {
         name: 'Corruption',

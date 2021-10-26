@@ -252,12 +252,6 @@ class Spell {
     this.player[this.breakdownTable + 'Breakdown'][this.varName].damage = this.player[this.breakdownTable + 'Breakdown'][this.varName].damage + dmg || dmg
     this.player.iterationDamage += dmg
 
-    // T5 4pc. Increase Corruption & Immolate DoT dmg when Shadow Bolt/Incinerate hits
-    if (this.player.sets['646'] >= 4) {
-      if (this.varName == 'shadowBolt' && this.player.auras.corruption && this.player.auras.corruption.active) {
-        this.player.auras.corruption.t5BonusModifier *= 1.1
-      }
-    }
   }
 
   // Returns the non-RNG damage of the spell (basically just the base damage + spell power + damage modifiers, no crit/miss etc.)
@@ -467,19 +461,19 @@ class SiphonLife extends Spell {
   }
 }
 
-class Immolate extends Spell {
+class FlameShock extends Spell {
   constructor (player) {
     super(player)
-    this.name = 'Immolate'
-    this.manaCost = 445 * (1 - 0.02 * player.talents.convection)
-    this.castTime = 3 - (0.1 * player.talents.lightningMastery)
+    this.name = 'Flame Shock'
+    this.manaCost = 500 * (1 - 0.02 * player.talents.convection)
+    this.castTime = 0
     this.isDot = true
     this.doesDamage = true
     this.canCrit = true
     this.dmg = 331
     this.coefficient = 0.2
     this.school = 'fire'
-    this.type = 'destruction'
+    this.type = 'elemental'
     this.setup()
   }
 

@@ -19,11 +19,11 @@ void DamageOverTime::setup()
 {
     originalDuration = duration;
 
-    // T4 4pc
-    if ((name == "Corruption" || name == "Immolate") && player->sets->t4 >= 4)
-    {
-        duration += 3;
-    }
+    // // T4 4pc
+    // if ((name == "Corruption" || name == "Immolate") && player->sets->t4 >= 4)
+    // {
+    //     duration += 3;
+    // }
 
     ticksTotal = duration / tickTimerTotal;
     
@@ -102,10 +102,10 @@ std::vector<double> DamageOverTime::getConstantDamage()
     double partialResistMultiplier = player->getPartialResistMultiplier(school);
     double baseDamage = dmg;
     // Add the t5 4pc bonus modifier to the base damage
-    if (((player->spells->Corruption != NULL && name == player->spells->Corruption->name) || (player->spells->Immolate != NULL && name == player->spells->Immolate->name)) && player->sets->t5 >= 4)
-    {
-        baseDamage *= t5BonusModifier;
-    }
+    // if (((player->spells->Corruption != NULL && name == player->spells->Corruption->name) || (player->spells->Immolate != NULL && name == player->spells->Immolate->name)) && player->sets->t5 >= 4)
+    // {
+    //     baseDamage *= t5BonusModifier;
+    // }
     double totalDamage = baseDamage;
     totalDamage += spellPower * coefficient;
     totalDamage *= modifier * partialResistMultiplier;
@@ -121,11 +121,11 @@ double DamageOverTime::predictDamage()
     // If it's Corruption or Immolate then divide by the original duration (18s and 15s) and multiply by the durationTotal property
     // This is just for the t4 4pc bonus since their durationTotal property is increased by 3 seconds to include another tick
     // but the damage they do stays the same which assumes the normal duration without the bonus
-    if ((player->spells->Corruption != NULL && name == player->spells->Corruption->name) || (player->spells->Immolate != NULL && name == player->spells->Immolate->name))
-    {
-        dmg /= originalDuration;
-        dmg *= duration;
-    }
+    // if ((player->spells->Corruption != NULL && name == player->spells->Corruption->name) || (player->spells->Immolate != NULL && name == player->spells->Immolate->name))
+    // {
+    //     dmg /= originalDuration;
+    //     dmg *= duration;
+    // }
     
     return dmg;
 }
@@ -237,9 +237,9 @@ SiphonLifeDot::SiphonLifeDot(Player* player) : DamageOverTime(player)
     setup();
 }
 
-ImmolateDot::ImmolateDot(Player* player) : DamageOverTime(player)
+FlameShockDot::FlameShockDot(Player* player) : DamageOverTime(player)
 {
-    name = "Immolate";
+    name = "FlameShock";
     duration = 15;
     tickTimerTotal = 3;
     dmg = 615;
@@ -250,10 +250,10 @@ ImmolateDot::ImmolateDot(Player* player) : DamageOverTime(player)
     setup();
 }
 
-void ImmolateDot::apply()
+void FlameShockDot::apply()
 {
     // T5 4pc bonus modifier
-    t5BonusModifier = 1;
+    // t5BonusModifier = 1;
     DamageOverTime::apply();
 }
 

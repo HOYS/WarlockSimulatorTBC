@@ -11,7 +11,7 @@ PlayerSettings::PlayerSettings(Auras* auras, Talents* talents, Sets* sets, Chara
     , bool usingCustomIsbUptime, int customIsbUptimeValue, int improvedDivineSpirit, int ancestralKnowledge, int shadowPriestDps, int warlockAtieshAmount, int improvedExposeArmor, bool isSingleTarget, int enemyAmount
     , bool isOrc, int powerInfusionAmount, int bloodlustAmount, int innervateAmount, int enemyArmor, int exposeWeaknessUptime, bool improvedFaerieFire, bool infinitePlayerMana, bool infinitePetMana
     , bool usingLashOfPainOnCooldown, bool petIsAggressive, bool prepopBlackBook, bool randomizeValues, bool simChoosingRotation, bool exaltedWithShattrathFaction, int survivalHunterAgility
-    , bool hasImmolate, bool hasCorruption, bool hasSiphonLife, bool hasLightningBolt, bool hasCurseOfRecklessness
+    , bool hasFlameShock, bool hasCorruption, bool hasSiphonLife, bool hasLightningBolt, bool hasCurseOfRecklessness
     , bool hasCurseOfTheElements, bool hasCurseOfAgony
     , bool hasElementalShamanT4Bonus)
   : auras(auras), talents(talents), sets(sets), stats(stats), items(items), itemId(itemId), metaGemId(metaGemId), recordingCombatLogBreakdown(recordingCombatLogBreakdown), simmingStamina(simmingStamina), simmingIntellect(simmingIntellect)
@@ -23,7 +23,7 @@ PlayerSettings::PlayerSettings(Auras* auras, Talents* talents, Sets* sets, Chara
     , isSingleTarget(isSingleTarget), enemyAmount(enemyAmount), isOrc(isOrc), powerInfusionAmount(powerInfusionAmount), bloodlustAmount(bloodlustAmount), innervateAmount(innervateAmount), enemyArmor(enemyArmor)
     ,exposeWeaknessUptime(exposeWeaknessUptime), improvedFaerieFire(improvedFaerieFire), infinitePlayerMana(infinitePlayerMana), infinitePetMana(infinitePetMana), usingLashOfPainOnCooldown(usingLashOfPainOnCooldown)
     , petIsAggressive(petIsAggressive), prepopBlackBook(prepopBlackBook), randomizeValues(randomizeValues), simChoosingRotation(simChoosingRotation), exaltedWithShattrathFaction(exaltedWithShattrathFaction)
-    , survivalHunterAgility(survivalHunterAgility), hasImmolate(hasImmolate), hasCorruption(hasCorruption), hasSiphonLife(hasSiphonLife)
+    , survivalHunterAgility(survivalHunterAgility), hasFlameShock(hasFlameShock), hasCorruption(hasCorruption), hasSiphonLife(hasSiphonLife)
     , hasLightningBolt(hasLightningBolt), hasCurseOfRecklessness(hasCurseOfRecklessness), hasCurseOfTheElements(hasCurseOfTheElements)
     , hasCurseOfAgony(hasCurseOfAgony)
     , hasElementalShamanT4Bonus(hasElementalShamanT4Bonus) {}

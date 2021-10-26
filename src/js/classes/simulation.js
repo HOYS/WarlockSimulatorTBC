@@ -43,7 +43,7 @@ class Simulation {
 
     if (this.player.auras.corruption && this.player.auras.corruption.active && this.player.auras.corruption.tickTimerRemaining < time) time = this.player.auras.corruption.tickTimerRemaining
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active && this.player.auras.siphonLife.tickTimerRemaining < time) time = this.player.auras.siphonLife.tickTimerRemaining
-    if (this.player.auras.immolate && this.player.auras.immolate.active && this.player.auras.immolate.tickTimerRemaining < time) time = this.player.auras.immolate.tickTimerRemaining
+    if (this.player.auras.flameshock && this.player.auras.flameshock.active && this.player.auras.flameshock.tickTimerRemaining < time) time = this.player.auras.flameshock.tickTimerRemaining
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active && this.player.auras.curseOfAgony.tickTimerRemaining < time) time = this.player.auras.curseOfAgony.tickTimerRemaining
     if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active && this.player.auras.curseOfTheElements.durationRemaining < time) time = this.player.auras.curseOfTheElements.durationRemaining
     if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active && this.player.auras.curseOfRecklessness.durationRemaining < time) time = this.player.auras.curseOfRecklessness.durationRemaining
@@ -155,7 +155,7 @@ class Simulation {
     if (this.player.auras.powerInfusion && this.player.auras.powerInfusion.active) this.player.auras.powerInfusion.tick(time)
     if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.tick(time)
     if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.tick(time)
-    if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.tick(time)
+    if (this.player.auras.flameshock && this.player.auras.flameshock.active) this.player.auras.flameshock.tick(time)
     if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.tick(time)
     if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.tick(time)
     if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.tick(time)
@@ -186,7 +186,7 @@ class Simulation {
 
     // Spells
     if (this.player.spells.shadowBolt && this.player.spells.shadowBolt.casting) this.player.spells.shadowBolt.tick(time)
-    if (this.player.spells.immolate && this.player.spells.immolate.casting) this.player.spells.immolate.tick(time)
+    if (this.player.spells.flameshock && this.player.spells.flameshock.casting) this.player.spells.flameshock.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
     if (this.player.spells.superManaPotion && this.player.spells.superManaPotion.cooldownRemaining > 0) this.player.spells.superManaPotion.tick(time)
@@ -271,7 +271,7 @@ class Simulation {
       // Reset/initialize values for spells that have a cooldown or a cast time
       if (this.player.spells.shadowBolt) this.player.spells.shadowBolt.reset()
       if (this.player.spells.corruption) this.player.spells.corruption.reset()
-      if (this.player.spells.immolate) this.player.spells.immolate.reset()
+      if (this.player.spells.flameshock) this.player.spells.flameshock.reset()
       if (this.player.spells.destructionPotion) this.player.spells.destructionPotion.reset()
       if (this.player.spells.superManaPotion) this.player.spells.superManaPotion.reset()
       if (this.player.spells.demonicRune) this.player.spells.demonicRune.reset()
@@ -379,12 +379,12 @@ class Simulation {
                       this.player.cast('corruption')
                     }
                   }
-                  // Cast Immolate if it's not up or about to expire
-                  if (this.player.spells.immolate && this.player.spells.immolate.canCast() && (!this.player.auras.immolate.active || (this.player.auras.immolate.ticksRemaining == 1 && this.player.auras.immolate.tickTimerRemaining < this.player.spells.immolate.getCastTime())) && (timeRemaining - this.player.spells.immolate.getCastTime()) >= this.player.auras.immolate.minimumDuration) {
+                  // Cast Flame Shock if it's not up or about to expire
+                  if (this.player.spells.flameshock && this.player.spells.flameshock.canCast() && (!this.player.auras.flameshock.active || (this.player.auras.flameshock.ticksRemaining == 1 && this.player.auras.flameshock.tickTimerRemaining < this.player.spells.flameshock.getCastTime())) && (timeRemaining - this.player.spells.flameshock.getCastTime()) >= this.player.auras.flameshock.minimumDuration) {
                     if (this.player.simChoosingRotation) {
-                      predictedDamageOfSpells.push([this.player.spells.immolate.varName, this.player.spells.immolate.predictDamage()])
-                    } else if (this.player.spells.immolate.hasEnoughMana()) {
-                      this.player.cast('immolate')
+                      predictedDamageOfSpells.push([this.player.spells.flameshock.varName, this.player.spells.flameshock.predictDamage()])
+                    } else if (this.player.spells.flameshock.hasEnoughMana()) {
+                      this.player.cast('flameshock')
                     }
                   }
                   // Cast filler spell if sim is not choosing the rotation for the user
@@ -468,7 +468,7 @@ class Simulation {
       if (this.player.auras.powerInfusion) this.player.auras.powerInfusion.fade(true)
       if (this.player.auras.corruption && this.player.auras.corruption.active) this.player.auras.corruption.fade(true)
       if (this.player.auras.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.fade(true)
-      if (this.player.auras.immolate && this.player.auras.immolate.active) this.player.auras.immolate.fade(true)
+      if (this.player.auras.flameshock && this.player.auras.flameshock.active) this.player.auras.flameshock.fade(true)
       if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.fade(true)
       if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.fade(true)
       if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.fade(true)
@@ -504,7 +504,7 @@ class Simulation {
       }
       // End all damage over time effects to log their uptime
       if (this.player.spells.corruption && this.player.auras.corruption.active) this.player.auras.corruption.fade(true)
-      if (this.player.spells.immolate && this.player.auras.immolate.active) this.player.auras.immolate.fade(true)
+      if (this.player.spells.flameshock && this.player.auras.flameshock.active) this.player.auras.flameshock.fade(true)
       if (this.player.spells.siphonLife && this.player.auras.siphonLife.active) this.player.auras.siphonLife.fade(true)
     }
     if (this.timeTotal > 0) {

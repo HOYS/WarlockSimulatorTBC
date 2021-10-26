@@ -392,7 +392,7 @@ class Player {
       if (this.rotation.filler.shadowBolt || this.filler == 'lightningBolt'  || this.simChoosingRotation) this.spells.lightningBolt = new LightningBolt(this)
       if (this.rotation.dot.corruption  || this.simChoosingRotation) this.spells.corruption = new Corruption(this)
       if (this.talents.siphonLife && (this.rotation.dot.siphonLife || this.simChoosingRotation)) this.spells.siphonLife = new SiphonLife(this)
-      if (this.rotation.dot.immolate  || this.simChoosingRotation) this.spells.immolate = new Immolate(this)
+      if (this.rotation.dot.flameshock  || this.simChoosingRotation) this.spells.flameshock = new FlameShock(this)
       if (this.rotation.curse.curseOfAgony) this.spells.curseOfAgony = new CurseOfAgony(this)
       if (this.rotation.curse.curseOfTheElements) this.spells.curseOfTheElements = new CurseOfTheElements(this)
       if (this.rotation.curse.curseOfRecklessness) this.spells.curseOfRecklessness = new CurseOfRecklessness(this)
@@ -443,7 +443,7 @@ class Player {
     if (this.simSettings.fightType == "singleTarget") {
       if (this.spells.corruption) this.auras.corruption = new CorruptionDot(this)
       if (this.spells.siphonLife) this.auras.siphonLife = new SiphonLifeDot(this)
-      if (this.spells.immolate) this.auras.immolate = new ImmolateDot(this)
+      if (this.spells.flameshock) this.auras.flameshock = new FlameShockDot(this)
       if (this.spells.curseOfAgony) this.auras.curseOfAgony = new CurseOfAgonyDot(this)
       if (this.rotation.curse.curseOfTheElements) this.auras.curseOfTheElements = new CurseOfTheElementsAura(this)
       if (this.rotation.curse.curseOfRecklessness) this.auras.curseOfRecklessness = new CurseOfRecklessnessAura(this)

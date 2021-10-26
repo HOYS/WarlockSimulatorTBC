@@ -103,6 +103,11 @@ void Simulation::start()
                         }
 
                        
+                        // Cast Flame Shock if Flame Shock isn't up or if it will expire before the cast finishes
+                        if (player->gcdRemaining <= 0 && player->spells->FlameShock != NULL && (!player->auras->FlameShock->active || (player->auras->FlameShock->ticksRemaining == 1 && player->auras->FlameShock->tickTimerRemaining < player->spells->FlameShock->getCastTime())) && player->spells->FlameShock->canCast() && (timeRemaining - player->spells->FlameShock->getCastTime()) >= player->auras->FlameShock->minimumDuration)
+                        {
+                            selectedSpellHandler(player->spells->FlameShock, predictedDamageOfSpells);
+                        }
                         // Cast filler spell if sim is not choosing the rotation for the user or if the predictedDamageOfSpells map is empty
                         if (player->gcdRemaining <= 0 && ((!notEnoughTimeForFiller && !player->settings->simChoosingRotation) || predictedDamageOfSpells.size() == 0) && player->filler->canCast())
                         {
@@ -268,7 +273,7 @@ double Simulation::passTime()
     #pragma region Auras & Dots
     if (player->auras->Corruption != NULL && player->auras->Corruption->active && player->auras->Corruption->tickTimerRemaining < time) time = player->auras->Corruption->tickTimerRemaining;
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining < time) time = player->auras->SiphonLife->tickTimerRemaining;
-    if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining < time) time = player->auras->Immolate->tickTimerRemaining;
+    if (player->auras->FlameShock != NULL && player->auras->FlameShock->active && player->auras->FlameShock->tickTimerRemaining < time) time = player->auras->FlameShock->tickTimerRemaining;
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining < time) time = player->auras->CurseOfAgony->tickTimerRemaining;
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active && player->auras->CurseOfTheElements->durationRemaining < time) time = player->auras->CurseOfTheElements->durationRemaining;
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active && player->auras->CurseOfRecklessness->durationRemaining < time) time = player->auras->CurseOfRecklessness->durationRemaining;
@@ -331,7 +336,7 @@ double Simulation::passTime()
     #pragma region Auras
     if (player->auras->Corruption != NULL && player->auras->Corruption->active && player->auras->Corruption->tickTimerRemaining > 0) player->auras->Corruption->tick(time);
     if (player->auras->SiphonLife != NULL && player->auras->SiphonLife->active && player->auras->SiphonLife->tickTimerRemaining > 0) player->auras->SiphonLife->tick(time);
-    if (player->auras->Immolate != NULL && player->auras->Immolate->active && player->auras->Immolate->tickTimerRemaining > 0) player->auras->Immolate->tick(time);
+    if (player->auras->FlameShock != NULL && player->auras->FlameShock->active && player->auras->FlameShock->tickTimerRemaining > 0) player->auras->FlameShock->tick(time);
     if (player->auras->CurseOfAgony != NULL && player->auras->CurseOfAgony->active && player->auras->CurseOfAgony->tickTimerRemaining > 0) player->auras->CurseOfAgony->tick(time);
     if (player->auras->CurseOfTheElements != NULL && player->auras->CurseOfTheElements->active) player->auras->CurseOfTheElements->tick(time);
     if (player->auras->CurseOfRecklessness != NULL && player->auras->CurseOfRecklessness->active) player->auras->CurseOfRecklessness->tick(time);
@@ -366,7 +371,7 @@ double Simulation::passTime()
     #pragma region Spells
     if (player->spells->LightningBolt != NULL && player->spells->LightningBolt->casting) player->spells->LightningBolt->tick(time);
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
-    if (player->spells->Immolate != NULL && player->spells->Immolate->casting) player->spells->Immolate->tick(time);
+    if (player->spells->FlameShock != NULL && player->spells->FlameShock->casting) player->spells->FlameShock->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);
     if (player->spells->SuperManaPotion != NULL && (player->spells->SuperManaPotion->cooldownRemaining > 0 || player->spells->SuperManaPotion->casting)) player->spells->SuperManaPotion->tick(time);
     if (player->spells->DemonicRune != NULL && (player->spells->DemonicRune->cooldownRemaining > 0 || player->spells->DemonicRune->casting)) player->spells->DemonicRune->tick(time);

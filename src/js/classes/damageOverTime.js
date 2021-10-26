@@ -18,10 +18,6 @@ class DamageOverTime {
   setup () {
     this.varName = camelCase(this.name)
     this.originalDurationTotal = this.durationTotal
-    // T4 4pc
-    if ((this.varName == 'immolate' || this.varName == 'corruption') && this.player.sets['645'] >= 4) {
-      this.durationTotal += 3
-    }
     this.ticksTotal = Math.round(this.durationTotal / this.tickTimerTotal)
     this.player.damageBreakdown[this.varName] = this.player.damageBreakdown[this.varName] || { name: this.name }
     this.player.auraBreakdown[this.varName] = this.player.auraBreakdown[this.varName] || { name: this.name }
@@ -70,10 +66,6 @@ class DamageOverTime {
     let modifier = this.getModifier()
     const partialResistMultiplier = this.player.getPartialResistMultiplier(this.player.enemy[this.school + 'Resist'])
     let dmg = this.dmg
-    // Add the t5 4-set bonus modifier to the base damage
-    if (this.varName == 'corruption' || this.varName == 'immolate') {
-      dmg *= this.t5BonusModifier
-    }
     dmg += (spellPower * this.coefficient)
     dmg *= modifier * partialResistMultiplier
 
@@ -83,13 +75,6 @@ class DamageOverTime {
   // Predicts how much damage the dot will do over its full duration
   predictDamage() {
     let dmg = this.getConstantDamage()[0]
-    // If it's Corruption or Immolate then divide by the original duration (18s and 15s) and multiply by the durationTotal property
-    // This is just for the t4 4pc bonus since their durationTotal property is increased by 3 seconds to include another tick
-    // but the damage they do stays the same which assumes the normal duration without the bonus
-    if (this.varName == this.player.spells.corruption.varName || this.varName == this.player.spells.immolate.varName) {
-      dmg /= this.originalDurationTotal
-      dmg *= this.durationTotal
-    }
     return dmg
   }
 
@@ -189,23 +174,22 @@ class SiphonLifeDot extends DamageOverTime {
   }
 }
 
-class ImmolateDot extends DamageOverTime {
+class FlameShockDot extends DamageOverTime {
   constructor (player) {
     super(player)
-    this.durationTotal = 15
+    this.durationTotal = 12
     this.tickTimerTotal = 3
-    this.dmg = 615
+    this.dmg = 420
     this.school = 'fire'
-    this.name = 'Immolate'
+    this.name = 'Flame Shock Dot'
     this.coefficient = 0.65
     this.minimumDuration = 12
-    this.t5BonusModifier = 1
     this.setup()
   }
 
   apply (spellPower) {
     // T5 4-set bonus modifier
-    this.t5BonusModifier = 1
+    // this.t5BonusModifier = 1
     super.apply(spellPower)
   }
 }
