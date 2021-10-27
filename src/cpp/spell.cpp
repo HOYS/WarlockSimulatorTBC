@@ -567,6 +567,7 @@ FlameShock::FlameShock(Player* player, std::shared_ptr<Aura> aura, std::shared_p
     manaCost = 500 * (1 - 0.02 * player->talents->convection);
     castTime = 0;
     isDot = true;
+    onGcd = true;
     doesDamage = true;
     canCrit = true;
     dmg = 377 * (1 - 0.1 * player->talents->concussion);

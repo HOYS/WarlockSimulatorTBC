@@ -246,7 +246,6 @@ FlameShockDot::FlameShockDot(Player* player) : DamageOverTime(player)
     school = SpellSchool::FIRE;
     coefficient = 0.65;
     minimumDuration = 12;
-    t5BonusModifier = 1;
     setup();
 }
 

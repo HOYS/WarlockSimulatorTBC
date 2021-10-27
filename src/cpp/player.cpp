@@ -466,7 +466,7 @@ double Player::getHastePercent()
 
 double Player::getGcdValue(const std::shared_ptr<Spell>& spell)
 {
-    return 0;
+    return std::max(minimumGcdValue, round((gcdValue / getHastePercent()) * 10000) / 10000);
 }
 
 double Player::getSpellPower(SpellSchool school)

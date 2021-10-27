@@ -477,6 +477,7 @@ class FlameShock extends Spell {
     this.dmg = 331
     this.coefficient = 0.2
     this.school = 'fire'
+    this.onGcd = true
     this.type = 'elemental'
     this.setup()
   }
