@@ -286,6 +286,12 @@ class Spell {
       critMultiplier *= 1.03
     }
 
+    // Elemental Fury
+    if (this.player.talents.elementalFury > 0)
+    {
+        critMultiplier = critMultiplier * 2
+    }
+
     return critMultiplier
   }
 

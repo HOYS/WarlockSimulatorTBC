@@ -300,6 +300,12 @@ double Spell::getCritMultiplier(double critMult)
         critMultiplier *= 1.03;
     }
 
+    // Elemental Fury
+    if (player->talents->elementalFury > 0)
+    {
+        critMultiplier = critMultiplier * 2;
+    }
+
     return critMultiplier;
 }
 
