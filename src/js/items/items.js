@@ -2391,6 +2391,141 @@ var items = {
       source: "75 Badge of Justice - G'eras",
       phase: 5
     },
+    cataclysmHandgrips: {
+      name: 'Cataclysm Handgrips',
+      stamina: 25,
+      intellect: 27,
+      hitRating: 19,
+      critRating: 19,
+      spellPower: 41,
+      mp5: 7,
+      id: 30170,
+      source: "Serpent Shrine Cavern",
+      phase: 2
+    },
+    gripsOfNaturesWrath: {
+      name: "Grips of Nature's Wrath",
+      stamina: 30,
+      intellect: 27,
+      red: 1,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 4
+      },
+      critRating: 21,
+      spellPower: 34,
+      id: 33534,
+      source: 'Sunwell Plateau',
+      phase: 5
+    },
+    graspOfTheMoonkin: {
+      name: 'Grasp of the Moonkin',
+      stamina: 28,
+      intellect: 30,
+      hasteRating: 25,
+      spellPower: 30,
+      id: 33974,
+      source: "Zul'Aman",
+      phase: 4
+    },
+    skyshatterGauntlets: {
+      name: 'Skyshatter Gauntlets',
+      stamina: 30,
+      intellect: 31,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 2
+      },
+      hitRating: 19,
+      critRating: 26,
+      spellPower: 46,
+      id: 31008,
+      source: 'Mount Hyjal',
+      phase: 3
+    },
+    tranquilMoonlightWraps: {
+      name: 'Tranquil Moonlight Wraps',
+      stamina: 30,
+      intellect: 28,
+      spirit: 20,
+      red: 1,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 4
+      },
+      critRating: 30,
+      spellPower: 50,
+      id: 34407,
+      source: 'Sunwell Plateau',
+      phase: 5
+    },
+    gauntletsOfTheAncientShadowmoon: {
+      name: 'Gauntlets of the Ancient Shadowmoon',
+      stamina: 30,
+      intellect: 32,
+      red: 1,
+      blue: 1,
+      socketBonus: {
+        critRating: 2
+      },
+      critRating: 28,
+      hasteRating: 24,
+      spellPower: 43,
+      id: 34350,
+      source: 'Sunwell Plateau',
+      phase: 5
+    },
+    cycloneHandguards: {
+      name: 'Cyclone Handguards',
+      stamina: 26,
+      intellect: 29,
+      hitRating: 19,
+      spellPower: 34,
+      mp5: 6,
+      id: 29034,
+      source: 'Karazhan',
+      phase: 1
+    },
+    spiritwalkerGauntlets: {
+      name: 'Spiritwalker Gauntlets',
+      stamina: 38,
+      intellect: 27,
+      hasteRating: 37,
+      spellPower: 28,
+      id: 32275,
+      source: 'Black Temple',
+      phase: 3
+    },
+    botanistsGlovesOfGrowth: {
+      name: "Botanist's Gloves of Growth",
+      stamina: 22,
+      intellect: 21,
+      yellow: 1,
+      blue: 1,
+      socketBonus: {
+        spellPower: 3
+      },
+      hasteRating: 37,
+      spellPower: 28,
+      id: 32328,
+      source: 'Black Temple',
+      phase: 3
+    },
+    earthMantleHandwraps: {
+      name: 'Earth Mantle Handwraps',
+      stamina: 21,
+      intellect: 18,
+      red: 1,
+      yellow: 1,
+      socketBonus: {
+        intellect: 3
+      },
+      critRating: 16,
+      spellPower: 19,
+      id: 27793,
+      source: 'The Steamvault',
+      phase: 1
+    },
     barbedGlovesOfTheSage: {
       name: "Barbed Gloves of the Sage",
       stamina: 28,
@@ -2463,56 +2598,6 @@ var items = {
       source: "Magisters' Terrace",
       phase: 5
     },
-    glovesOfTheMalefic: {
-      name: 'Gloves of the Malefic',
-      stamina: 57,
-      intellect: 27,
-      yellow: 1,
-      socketBonus: {
-        hitRating: 2
-      },
-      spellPower: 46,
-      critRating: 19,
-      hitRating: 11,
-      setId: 670,
-      id: 31050,
-      source: 'Hyjal Summit',
-      phase: 3
-    },
-    mercilessGladiatorsFelweaveHandguards: {
-      name: "Merciless Gladiator's Felweave Handguards",
-      stamina: 46,
-      intellect: 15,
-      spellPower: 36,
-      critRating: 19,
-      resilienceRating: 23,
-      setId: 615,
-      id: 31981,
-      source: 'PVP',
-      phase: 2
-    },
-    mercilessGladiatorsDreadweaveGloves: {
-      name: "Merciless Gladiator's Dreadweave Gloves",
-      stamina: 45,
-      intellect: 25,
-      spellPower: 36,
-      resilienceRating: 21,
-      id: 31973,
-      setId: 568,
-      source: 'PVP',
-      phase: 2
-    },
-    glovesOfTheCorruptor: {
-      name: 'Gloves of the Corruptor',
-      stamina: 50,
-      intellect: 24,
-      spellPower: 42,
-      critRating: 25,
-      setId: 646,
-      id: 30211,
-      source: 'Serpentshrine Cavern',
-      phase: 2
-    },
     gauntletsOfTheSunKing: {
       name: 'Gauntlets of the Sun King',
       stamina: 28,
@@ -2523,17 +2608,6 @@ var items = {
       id: 29987,
       source: 'The Eye',
       phase: 2
-    },
-    voidheartGloves: {
-      name: 'Voidheart Gloves',
-      stamina: 34,
-      intellect: 28,
-      spellPower: 35,
-      critRating: 22,
-      setId: 645,
-      id: 28968,
-      source: 'Karazhan',
-      phase: 1
     },
     soulEatersHandwraps: {
       name: "Soul-Eater's Handwraps",
@@ -2600,18 +2674,6 @@ var items = {
       source: 'BoE World Drop',
       phase: 1
     },
-    gladiatorsFelweaveHandguards: {
-      name: "Gladiator's Felweave Handguards",
-      stamina: 39,
-      intellect: 14,
-      spellPower: 32,
-      critRating: 21,
-      resilienceRating: 21,
-      setId: 615,
-      id: 30188,
-      source: 'PVP',
-      phase: 1
-    },
     angerSparkGloves: {
       name: 'Anger-Spark Gloves',
       red: 2,
@@ -2623,17 +2685,6 @@ var items = {
       hitRating: 20,
       id: 30725,
       source: 'Doomwalker',
-      phase: 1
-    },
-    gladiatorsDreadweaveGloves: {
-      name: "Gladiator's Dreadweave Gloves",
-      stamina: 39,
-      intellect: 25,
-      spellPower: 32,
-      resilienceRating: 21,
-      setId: 568,
-      id: 24556,
-      source: 'PVP',
       phase: 1
     },
     manasparkGloves: {
@@ -2744,17 +2795,6 @@ var items = {
       source: 'AQ40',
       phase: 0
     },
-    plagueheartGloves: {
-      name: 'Plagueheart Gloves',
-      stamina: 25,
-      intellect: 17,
-      spellPower: 26,
-      critRating: 14,
-      setId: 529,
-      id: 22509,
-      source: 'Naxxramas',
-      phase: 0
-    }
   },
   belt: {
     aftershockWaistguard: {
