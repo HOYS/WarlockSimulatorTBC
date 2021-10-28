@@ -780,7 +780,7 @@ var items = {
       hasteRating: 33,
       spellPower: 25,
       id: 33281,
-      source "Zul'Aman",
+      source: "Zul'Aman",
       phase: 4
     },
     warpEngineersPrismaticChain: {
@@ -935,6 +935,38 @@ var items = {
       source: 'Sunwell Plateau',
       phase: 5
     },
+    eruptingEpaulets: {
+      name: 'Erupting Epaulets',
+      stamina: 30,
+      intellect: 30,
+      yellow: 1,
+      red: 1,
+      socketBonus: {
+        spellPower: 4
+      },
+      critRating: 30,
+      hasteRating: 24,
+      spellPower: 53,
+      id: 34390,
+      source: 'Sunwell Plateau',
+      phase: 5
+    },
+    spauldersOfDevastation: {
+      name: 'Spaulders of Devastation',
+      stamina: 27,
+      intellect: 30,
+      spirit: 26,
+      yellow: 1,
+      red: 1,
+      socketBonus: {
+        spellPower: 4
+      },
+      hasteRating: 30,
+      spellPower: 54,
+      id: 34391,
+      source: 'Sunwell Plateau',
+      phase: 5
+    },
     shoulderpadsOfKnowledgesPursuit: {
       name: "Shoulderpads of Knowledge's Pursuit",
       stamina: 33,
@@ -981,6 +1013,23 @@ var items = {
       source: "Magisters' Terrace",
       phase: 5
     },
+    skyshatterMantle: {
+      name: 'Skyshatter Mantle',
+      stamina: 30,
+      intellect: 31,
+      blue: 1,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 4
+      },
+      hitRating: 11,
+      critRating: 27,
+      spellPower: 46,
+      mp5: 4,
+      id: 31023,
+      source: "Black Temple",
+      phase: 3
+    },
     mantleOfIllIntent: {
       name: 'Mantle of Ill Intent',
       stamina: 28,
@@ -1017,22 +1066,15 @@ var items = {
       source: 'Hyjal Summit',
       phase: 3
     },
-    mantleOfTheMalefic: {
-      name: 'Mantle of the Malefic',
-      stamina: 45,
-      intellect: 22,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        spellPower: 4
-      },
-      spellPower: 46,
-      hitRating: 21,
-      critRating: 13,
-      setId: 670,
-      id: 31054,
-      source: 'Black Temple',
-      phase: 3
+    pauldronsOfTheFuriousElements: {
+      name: 'Pauldrons of the Furious Elements',
+      stamina: 28,
+      intellect: 24,
+      hasteRating: 33,
+      spellPower: 40,
+      id: 33970,
+      source: "Badges of Justice",
+      phase: 4
     },
     bloodcursedShoulderpads: {
       name: 'Blood-cursed Shoulderpads',
@@ -1045,54 +1087,36 @@ var items = {
       source: 'Black Temple',
       phase: 3
     },
-    mercilessGladiatorsFelweaveAmice: {
-      name: "Merciless Gladiator's Felweave Amice",
-      stamina: 46,
-      intellect: 10,
+    cataclysmShoulderpads: {
+      name: 'Cataclysm Shoulderpads',
+      stamina: 26,
+      intellect: 19,
       blue: 1,
       yellow: 1,
       socketBonus: {
-        resilienceRating: 3
+        critRating: 3
       },
-      spellPower: 36,
-      critRating: 14,
-      resilienceRating: 23,
-      source: 'PVP',
-      id: 31979,
-      setId: 615,
-      phase: 2
-    },
-    mercilessGladiatorsDreadweaveMantle: {
-      name: "Merciless Gladiator's Dreadweave Mantle",
-      stamina: 45,
-      intellect: 10,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        resilienceRating: 3
-      },
-      spellPower: 36,
-      resilienceRating: 21,
-      hitRating: 13,
-      source: 'PVP',
-      id: 31976,
-      setId: 568,
-      phase: 2
-    },
-    mantleOfTheCorruptor: {
-      name: 'Mantle of the Corruptor',
-      stamina: 37,
-      intellect: 24,
+      critRating: 24,
       spellPower: 41,
-      hitRating: 18,
-      yellow: 2,
+      mp5: 6,
+      id: 30173,
+      source: "Tempest Keep",
+      phase: 2
+    },
+    pauldronsOfTribalFury: {
+      name: 'Pauldrons of Tribal Fury',
+      stamina: 31,
+      intellect: 23,
+      red: 1,
+      yellow: 1,
       socketBonus: {
         spellPower: 4
       },
-      setId: 646,
-      id: 30215,
-      source: 'The Eye',
-      phase: 2
+      hitRating: 26,
+      spellPower: 39,
+      id: 33937,
+      source: "Zul'Aman",
+      phase: 4
     },
     mantleOfTheElvenKings: {
       name: 'Mantle of the Elven Kings',
@@ -1120,37 +1144,28 @@ var items = {
       source: 'Serpentshrine Cavern',
       phase: 2
     },
-    voidheartMantle: {
-      name: 'Voidheart Mantle',
-      stamina: 26,
-      intellect: 22,
-      blue: 1,
-      yellow: 1,
+    cycloneShoulderguards: {
+      name: 'Cyclone Shoulderguards',
+      stamina: 28,
+      intellect: 26,
+      yellow: 2,
       socketBonus: {
         spellPower: 4
       },
-      spellPower: 37,
-      hitRating: 14,
-      setId: 645,
-      id: 28967,
-      source: "Gruul's Lair",
+      critRating: 12,
+      spellPower: 36,
+      id: 29037,
+      source: "Karazhan",
       phase: 1
     },
-    HWLGMDreadweaveMantle: {
-      name: 'HWL/GM Dreadweave Mantle',
-      stamina: 19,
-      intellect: 15,
-      yellow: 1,
-      blue: 1,
-      socketBonus: {
-        resilienceRating: 3
-      },
-      id: 28820,
-      hitRating: 6,
-      resilienceRating: 17,
-      spellPower: 26,
-      setId: 592,
-      source: 'PVP',
+    pauldronsOfWildMagic: {
+      name: 'Pauldrons of Wild Magic',
+      stamina: 21,
+      intellect: 28,
+      critRating: 23,
+      spellPower: 33,
+      id: 32078,
+      source: "Heroic Slave Pens",
       phase: 1
     },
     mantleOfTheMindFlayer: {
@@ -1172,40 +1187,6 @@ var items = {
       critRating: 18,
       id: 30925,
       source: 'Shadowmoon Valley Quest',
-      phase: 1
-    },
-    gladiatorsFelweaveAmice: {
-      name: "Gladiator's Felweave Amice",
-      stamina: 42,
-      intellect: 14,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        resilienceRating: 3
-      },
-      spellPower: 32,
-      critRating: 12,
-      resilienceRating: 21,
-      setId: 615,
-      id: 30186,
-      source: 'PVP',
-      phase: 1
-    },
-    gladiatorsDreadweaveMantle: {
-      name: "Gladiator's Dreadweave Mantle",
-      stamina: 42,
-      intellect: 14,
-      blue: 1,
-      yellow: 1,
-      socketBonus: {
-        resilienceRating: 3
-      },
-      spellPower: 32,
-      resilienceRating: 21,
-      hitRating: 12,
-      setId: 568,
-      id: 24554,
-      source: 'PVP',
       phase: 1
     },
     manaSphereShoulderguards: {
@@ -1293,17 +1274,6 @@ var items = {
       id: 27816,
       source: 'Heroic Mana-Tombs',
       phase: 1
-    },
-    plagueheartShoulderpads: {
-      name: 'Plagueheart Shoulderpads',
-      stamina: 22,
-      intellect: 12,
-      spellPower: 36,
-      hitRating: 8,
-      setId: 529,
-      id: 22507,
-      source: 'Naxxramas',
-      phase: 0
     }
   },
   back: {
