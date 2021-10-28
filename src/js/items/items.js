@@ -2016,33 +2016,19 @@ var items = {
     }
   },
   bracer: {
-    bracersOfTheMalefic: {
-      name: 'Bracers of the Malefic',
-      stamina: 18,
-      intellect: 22,
+    skyshatterBands: {
+      name: 'Skyshatter Bands',
+      stamina: 15,
+      intellect: 23,
       yellow: 1,
       socketBonus: {
         spellPower: 2
       },
+      critRating: 28,
+      hasteRating: 11,
       spellPower: 39,
-      critRating: 18,
-      hasteRating: 21,
-      setId: 670,
-      id: 34436,
-      source: 'Sunwell Plateau',
-      phase: 5
-    },
-    vindicatorsDreadweaveCuffs: {
-      name: "Vindicator's Dreadweave Cuffs",
-      stamina: 34,
-      intellect: 20,
-      spellPower: 29,
-      yellow: 1,
-      socketBonus: {
-        spellPower: 2
-      },
-      id: 33883,
-      source: 'PVP',
+      id: 34437,
+      source: "Sunwell Plateau",
       phase: 5
     },
     bindingsOfRagingFire: {
@@ -2109,6 +2095,81 @@ var items = {
       source: 'Hyjal Summit',
       phase: 3
     },
+    eluniteEmpoweredBracers: {
+      name: 'Elunite Empowered Bracers',
+      stamina: 27,
+      intellect: 22,
+      hitRating: 19,
+      spellPower: 34,
+      mp5: 6,
+      id: 32351,
+      source: 'Black Temple',
+      phase: 3
+    },
+    windhawkBracers: {
+      name: 'Windhawk Bracers',
+      stamina: 22,
+      intellect: 17,
+      spirit: 7,
+      yellow: 1,
+      socketBonus: {
+        intellect: 2
+      },
+      critRating: 16,
+      spellPower: 27,
+      id: 29523,
+      source: 'Crafted',
+      phase: 1
+    },
+    armwrapsOfTheKaldoreiProtector: {
+      name: 'Armwraps of the Kaldorei Protector',
+      stamina: 19,
+      intellect: 22,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 2
+      },
+      critRating: 20,
+      spellPower: 26,
+      id: 33578,
+      source: "?",
+      phase: 3
+    },
+    bandsOfTheComingStorm: {
+      name: 'Bands of the Coming Storm',
+      stamina: 28,
+      intellect: 28,
+      critRating: 21,
+      spellPower: 32,
+      id: 32259,
+      source: 'Black Temple',
+      phase: 3
+    },
+    netherStrikeBracers: {
+      name: 'Netherstrike Bracers',
+      stamina: 13,
+      intellect: 13,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 2
+      },
+      critRating: 17,
+      spellPower: 20,
+      mp5: 6,
+      id: 29521,
+      source: 'Crafted',
+      phase: 1
+    },
+    worldsEndBracers: {
+      name: "World's End Bracers",
+      stamina: 18,
+      intellect: 19,
+      critRating: 17,
+      spellPower: 22,
+      id: 27522,
+      source: "Heroic Blood Furnace",
+      phase: 1
+    },
     bracersOfMartyrdom: {
       name: 'Bracers of Martyrdom',
       stamina: 15,
@@ -2158,20 +2219,6 @@ var items = {
       critRating: 14,
       resilienceRating: 13,
       id: 32820,
-      source: 'PVP',
-      phase: 2
-    },
-    veteransDreadweaveCuffs: {
-      name: "Veteran's Dreadweave Cuffs",
-      stamina: 31,
-      intellect: 16,
-      yellow: 1,
-      socketBonus: {
-        spellPower: 2
-      },
-      spellPower: 25,
-      resilienceRating: 17,
-      id: 32811,
       source: 'PVP',
       phase: 2
     },
@@ -2245,20 +2292,6 @@ var items = {
       spellPower: 26,
       id: 28477,
       source: 'Karazhan',
-      phase: 1
-    },
-    marshalsDreadweaveCuffs: {
-      name: "Marshal's Dreadweave Cuffs",
-      stamina: 25,
-      intellect: 14,
-      yellow: 1,
-      socketBonus: {
-        spellPower: 2
-      },
-      spellPower: 22,
-      resilienceRating: 14,
-      id: 28981,
-      source: 'PVP',
       phase: 1
     },
     bandsOfNefariousDeeds: {
@@ -2342,16 +2375,6 @@ var items = {
       source: 'Silithus Quest',
       phase: 0
     },
-    plagueheartBindings: {
-      name: 'Plagueheart Bindings',
-      stamina: 23,
-      intellect: 14,
-      spellPower: 23,
-      setId: 529,
-      id: 22511,
-      source: 'Naxxramas',
-      phase: 0
-    }
   },
   gloves: {
     enslavedDoomguardSoulgrips: {
