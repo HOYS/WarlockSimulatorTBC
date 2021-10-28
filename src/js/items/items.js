@@ -773,6 +773,16 @@ var items = {
       source: 'Karazhan',
       phase: 1
     },
+    broochOfNaturesMercy: {
+      name: "Brooch of Nature's Mercy",
+      intellect: 24,
+      spirit: 19,
+      hasteRating: 33,
+      spellPower: 25,
+      id: 33281,
+      source "Zul'Aman",
+      phase: 4
+    },
     warpEngineersPrismaticChain: {
       name: "Warp Engineer's Prismatic Chain",
       stamina: 17,
