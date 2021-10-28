@@ -1561,6 +1561,22 @@ var items = {
       source: 'Sunwell Plateau',
       phase: 5
     },
+    garmentsOfCrashingShores: {
+      name: 'Garments of Crashing Shores',
+      stamina: 48,
+      intellect: 41,
+      red: 1,
+      yellow: 2,
+      socketBonus: {
+        spellPower: 5
+      },
+      critRating: 25,
+      hasteRating: 40,
+      spellPower: 71,
+      id: 34396,
+      source: "Sunwell Plateau",
+      phase: 5
+    },
     robesOfGhostlyHatred: {
       name: 'Robes of Ghostly Hatred',
       stamina: 39,
@@ -1605,6 +1621,23 @@ var items = {
       source: "Zul'Aman",
       phase: 4
     },
+    skyshatterBreastplate: {
+      name: 'Skyshatter Breastplate',
+      stamina: 42,
+      intellect: 41,
+      blue: 1,
+      yellow: 2,
+      socketBonus: {
+        spellPower: 5
+      },
+      hitRating: 17,
+      critRating: 27,
+      spellPower: 62,
+      mp5: 7,
+      id: 31017,
+      source: "Black Temple",
+      phase: 3
+    },
     robesOfRhonin: {
       name: 'Robes of Rhonin',
       stamina: 55,
@@ -1614,22 +1647,6 @@ var items = {
       critRating: 24,
       id: 30913,
       source: 'Hyjal Summit',
-      phase: 3
-    },
-    robeOfTheMalefic: {
-      name: 'Robe of the Malefic',
-      stamina: 66,
-      intellect: 29,
-      yellow: 2,
-      blue: 1,
-      socketBonus: {
-        spellPower: 5
-      },
-      spellPower: 63,
-      hitRating: 28,
-      setId: 670,
-      id: 31052,
-      source: 'Black Temple',
       phase: 3
     },
     robeOfTheShadowCouncil: {
@@ -1642,39 +1659,6 @@ var items = {
       id: 32327,
       source: 'Black Temple',
       phase: 3
-    },
-    mercilessGladiatorsFelweaveRaiment: {
-      name: "Merciless Gladiator's Felweave Raiment",
-      stamina: 57,
-      intellect: 12,
-      red: 1,
-      yellow: 2,
-      socketBonus: {
-        critRating: 4
-      },
-      spellPower: 35,
-      resilienceRating: 26,
-      critRating: 30,
-      id: 31982,
-      source: 'PVP',
-      setId: 615,
-      phase: 2
-    },
-    mercilessGladiatorsDreadweaveRobe: {
-      name: "Merciless Gladiator's Dreadweave Robe",
-      stamina: 69,
-      intellect: 18,
-      red: 1,
-      yellow: 2,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 44,
-      resilienceRating: 24,
-      id: 31977,
-      setId: 568,
-      source: 'PVP',
-      phase: 2
     },
     robeOfHatefulEchoes: {
       name: 'Robe of Hateful Echoes',
@@ -1707,19 +1691,20 @@ var items = {
       source: 'Serpentshrine Cavern',
       phase: 2
     },
-    robeOfTheCorruptor: {
-      name: 'Robe of the Corruptor',
-      stamina: 48,
-      intellect: 33,
-      yellow: 3,
+    cataclysmChestpiece: {
+      name: 'Cataclysm Chestpiece',
+      stamina: 37,
+      intellect: 28,
+      blue: 1,
+      yellow: 2,
       socketBonus: {
         spellPower: 5
       },
+      critRating: 24,
       spellPower: 55,
-      hitRating: 23,
-      setId: 646,
-      id: 30214,
-      source: 'The Eye',
+      mp5: 10,
+      id: 30169,
+      source: "Tempest Keep",
       phase: 2
     },
     drakeweaveRaimentOfFireWrath: {
@@ -1750,19 +1735,52 @@ var items = {
       source: 'Hemathion - BEM Rare',
       phase: 1
     }, */
-    voidheartRobe: {
-      name: 'Voidheart Robe',
-      stamina: 42,
-      intellect: 33,
-      yellow: 2,
-      red: 1,
+    netherstrikeBreastplate: {
+      name: 'Netherstrike Breastplate',
+      stamina: 34,
+      intellect: 23,
+      blue: 2,
+      yellow: 1,
       socketBonus: {
-        stamina: 6
+        spellPower: 5
       },
-      spellPower: 42,
-      hitRating: 13,
-      setId: 645,
-      id: 28964,
+      critRating: 32,
+      spellPower: 37,
+      mp5: 8,
+      id: 29519,
+      source: "Crafted",
+      phase: 1
+    },
+    windhawkHauberk: {
+      name: 'Windhawk Hauberk',
+      stamina: 28,
+      intellect: 29,
+      spirit: 29,
+      blue: 2,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      critRating: 19,
+      spellPower: 46,
+      id: 29522,
+      source: 'Crafted',
+      phase: 1
+    },
+    cycloneChestguard: {
+      name: 'Cyclone Chestguard',
+      stamina: 33,
+      intellect: 32,
+      red: 1,
+      yellow: 1,
+      blue: 1,
+      socketBonus: {
+        hitRating: 4
+      },
+      critRating: 20,
+      spellPower: 39,
+      mp5: 8,
+      id: 29033,
       source: "Magtheridon's Lair",
       phase: 1
     },
@@ -1779,39 +1797,6 @@ var items = {
       setId: 552,
       id: 21848,
       source: 'Tailoring',
-      phase: 1
-    },
-    gladiatorsFelweaveRaiment: {
-      name: "Gladiator's Felweave Raiment",
-      stamina: 51,
-      intellect: 16,
-      red: 1,
-      yellow: 2,
-      socketBonus: {
-        critRating: 4
-      },
-      spellPower: 32,
-      resilienceRating: 24,
-      critRating: 27,
-      setId: 615,
-      id: 30200,
-      source: 'PVP',
-      phase: 1
-    },
-    gladiatorsDreadweaveRobe: {
-      name: "Gladiator's Dreadweave Robe",
-      stamina: 57,
-      intellect: 19,
-      red: 1,
-      yellow: 2,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 36,
-      resilienceRating: 24,
-      setId: 568,
-      id: 24552,
-      source: 'PVP',
       phase: 1
     },
     willOfEdwardTheOdd: {
@@ -1861,6 +1846,32 @@ var items = {
       spellPower: 29,
       id: 29129,
       source: 'The Aldor - Honored',
+      phase: 1
+    },
+    tidefuryChestpiece: {
+      name: 'Tidefury Chestpiece',
+      stamina: 28,
+      intellect: 22,
+      blue: 1,
+      yellow: 2,
+      socketBonus: {
+        spellPower: 5
+      },
+      hitRating: 10,
+      spellPower: 36,
+      mp5: 4,
+      id: 28231,
+      source: "The Arcatraz",
+      phase: 1
+    },
+    worldfireChestguard: {
+      name: 'Worldfire Chestguard',
+      stamina: 33,
+      intellect: 32,
+      critRating: 22,
+      spellPower: 40,
+      id: 28391,
+      source: 'The Arcatraz',
       phase: 1
     },
     vermillionRobesOfTheDominant: {
@@ -2002,18 +2013,6 @@ var items = {
       id: 28052,
       source: 'Hellfire Peninsula Quest',
       phase: 1
-    },
-    plagueheartRobe: {
-      name: 'Plagueheart Robe',
-      stamina: 27,
-      intellect: 22,
-      spellPower: 51,
-      hitRating: 8,
-      critRating: 14,
-      setId: 529,
-      id: 22504,
-      source: 'Naxxramas',
-      phase: 0
     }
   },
   bracer: {
