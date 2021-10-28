@@ -28,6 +28,52 @@ const fakeItemIds = {
 
 var items = {
   head: {
+    cowlOfGuildan: {
+      name: "Cowl of Gul'dan",
+      stamina: 51,
+      intellect: 43,
+      meta: 1,
+      yellow: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      spellPower: 74,
+      hasteRating: 32,
+      critRating: 36,
+      id: 34332,
+      source: "Sunwell Plateau",
+      phase: 5
+    },
+    lightningEtchedSpecs: {
+      name: "Lightning Etched Specs",
+      stamina: 47,
+      meta: 1,
+      blue: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      spellPower: 71,
+      critRating: 53,
+      hitRating: 25,
+      id: 34355,
+      source: "Engineering",
+      phase: 5
+    },
+    hyperMagnifiedMoonSpecs: {
+      name: "Hyper-Magnified Moon Specs",
+      stamina: 40,
+      intellect: 37,
+      meta: 1,
+      blue: 1,
+      socketBonus:{
+        spellPower: 5
+      },
+      spellPower: 64,
+      critRating: 54,
+      id: 35182,
+      source: "Engineering",
+      phase: 5
+    },
     darkConjurorsCollar: {
       name: "Dark Conjuror's Collar",
       stamina: 51,
@@ -42,6 +88,22 @@ var items = {
       critRating: 38,
       id: 34340,
       source: 'Sunwell Plateau',
+      phase: 5
+    },
+    coverOfUrsocTheMighty: {
+      name: "Cover of Ursoc the Mighty",
+      stamina: 45,
+      intellect: 41,
+      spirit: 30,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      critRating: 37,
+      spellPower: 71,
+      id: 34403,
+      source: "Sunwell Plateau",
       phase: 5
     },
     helmOfArcanePurity: {
@@ -60,20 +122,100 @@ var items = {
       source: 'Sunwell Plateau',
       phase: 5
     },
-    annihilatorHologogs: {
-      name: 'Annihilator Holo-gogs',
-      stamina: 41,
+    skyshatterHeadGuard: {
+      name: "Skyshatter Headguard",
+      stamina: 42,
       intellect: 37,
-      critRating: 42,
       meta: 1,
       blue: 1,
       socketBonus: {
         spellPower: 5
       },
-      spellPower: 81,
-      id: 34847,
-      source: 'Engineering',
+      spellPower: 62,
+      critRating: 36,
+      mp5: 8,
+      id: 31014,
+      source: "Mount Hyjal",
+      phase: 3
+    },
+    brutalGladiatorsMailHelm: {
+      name: "Brutal Gladiator's Mail Helm",
+      stamina: 74,
+      intellect: 29,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 32,
+      resilienceRating: 32,
+      spellPower: 55,
+      id: 35050,
+      source: "PVP",
       phase: 5
+    },
+    cataclysmHeadpiece: {
+      name: "Cataclysm Headpiece",
+      stamina: 35,
+      intellect: 28,
+      meta: 1,
+      yellow: 1,
+      socketBonus: {
+        hitRating: 4
+      },
+      hitRating: 18,
+      critRating: 26,
+      spellPower: 54,
+      mp5: 7,
+      id: 30171,
+      source: "Serpent Shrine Cavern",
+      phase: 2
+    },
+    gadgetstormGoggles: {
+      name: "Gadgetstorm Goggles",
+      stamina: 28,
+      meta: 1,
+      blue: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      hitRating: 12,
+      critRating: 40,
+      spellPower: 55,
+      id: 32476,
+      source: "Engineering",
+      phase: 2
+    },
+    magnifiedMoonSpecs: {
+      name: "Magnified Moon Specs",
+      stamina: 22,
+      intellect: 24,
+      meta: 1,
+      blue: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      critRating: 41,
+      spellPower: 50,
+      id: 32480,
+      source: "Engineering",
+      phase: 2
+    },
+    vengefulGladiatorsMailHelm: {
+      name: "Vengeful Gladiator's Mail Helm",
+      stamina: 67,
+      intellect: 23,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 26,
+      resilienceRating: 32,
+      spellPower: 49,
+      id: 33713,
+      source: "PVP",
+      phase: 3
     },
     hoodOfHexing: {
       name: 'Hood of Hexing',
@@ -92,37 +234,6 @@ var items = {
       source: "Zul'Aman",
       phase: 4
     },
-    vengefulGladiatorsFelweaveCowl: {
-      name: "Vengeful Gladiator's Felweave Cowl",
-      stamina: 67,
-      intellect: 15,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 47,
-      critRating: 22,
-      resilienceRating: 33,
-      id: 33683,
-      source: 'Arena',
-      phase: 4 // confirm
-    },
-    vengefulGladiatorsDreadweaveHood: {
-      name: "Vengeful Gladiator's Dreadweave Hood",
-      stamina: 73,
-      intellect: 25,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 42,
-      resilienceRating: 33,
-      id: 33677,
-      source: 'Arena',
-      phase: 4 // confirm
-    },
     cowlOfTheIllidariHighlord: {
       name: 'Cowl of the Illidari Highlord',
       stamina: 33,
@@ -139,53 +250,155 @@ var items = {
       source: 'Black Temple',
       phase: 3
     },
-    mercilessGladiatorsFelweaveCowl: {
-      name: "Merciless Gladiator's Felweave Cowl",
-      stamina: 60,
-      intellect: 11,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 42,
-      critRating: 18,
-      resilienceRating: 33,
-      id: 31980,
-      source: 'Arena',
-      phase: 3 // confirm
-    },
-    mercilessGladiatorsDreadweaveCowl: {
-      name: "Merciless Gladiator's Dreadweave Cowl",
-      stamina: 66,
-      intellect: 20,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 36,
-      resilienceRating: 33,
-      id: 31974,
-      source: 'Arena',
-      phase: 3 // confirm
-    },
-    hoodOfTheMalefic: {
-      name: 'Hood of the Malefic',
-      stamina: 55,
-      intellect: 36,
+    cycloneFaceguard: {
+      name: 'Cyclone Faceguard',
+      stamina: 30,
+      intellect: 31,
       meta: 1,
       yellow: 1,
       socketBonus: {
         spellPower: 5
       },
-      spellPower: 63,
-      hitRating: 16,
+      critRating: 25,
+      spellPower: 39,
+      mp5: 8,
+      id: 29035,
+      source: "Karazhan",
+      phase: 1
+    },
+    mercilessGladiatorsMailHelm: {
+      name: "Merciless Gladiator's Mail Helm",
+      stamina: 60,
+      intellect: 19,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 22,
+      resilienceRating: 32,
+      spellPower: 43,
+      id: 32011,
+      source: "PVP",
+      phase: 2
+    },
+    stormMastersHelmet: {
+      name: "Storm Master's Helmet",
+      stamina: 24,
+      intellect: 32,
+      meta: 1,
+      blue: 1,
+      socketBonus: {
+        critRating: 4
+      },
       critRating: 32,
-      setId: 670,
-      id: 31051,
-      source: 'Hyjal Summit',
-      phase: 3
+      spellPower: 37,
+      id: 32086,
+      source: "50 Badge of Justice - G'eras",
+      phase: 1
+    },
+    maskOfPrimalPower: {
+      name: "Mask of Primal Power",
+      stamina: 33,
+      intellect: 39,
+      red: 1,
+      yellow: 1,
+      blue: 1,
+      socketBonus: {
+        spellPower: 5
+      },
+      critRating: 30,
+      spellPower: 46,
+      id: 33972,
+      source: "75 Badge of Justice - G'eras",
+      phase: 4
+    },
+    gladiatorsMailHelm: {
+      name: "Gladiator's Mail Helm",
+      stamina: 54,
+      intellect: 15,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 18,
+      resilienceRating: 30,
+      spellPower: 37,
+      id: 27471,
+      source: "PVP",
+      phase: 1
+    },
+    exorcistsSilkHood: {
+      name: "Exorcist's Silk Hood",
+      stamina: 34,
+      intellect: 14,
+      meta: 1,
+      socketBonus: {
+        hitRating: 3
+      },
+      critRating: 25,
+      resilienceRating: 14,
+      spellPower: 29,
+      id: 28760,
+      source: "Spirit Shards",
+      phase: 1
+    },
+    exorcistsMailHelm: {
+      name: "Exorcist's Mail Helm",
+      stamina: 30,
+      intellect: 16,
+      meta: 1,
+      socketBonus: {
+        critRating: 3
+      },
+      critRating: 24,
+      resilienceRating: 17,
+      spellPower: 29,
+      id: 28758,
+      source: "Spirit Shards",
+      phase: 1
+    },
+    gnomishPowerGoggles: {
+      name: "Gnomish Power Goggles",
+      intellect: 21,
+      spellPower: 59,
+      critRating: 28,
+      id: 23828,
+      source: "Engineering",
+      phase: 1
+    },
+    grandMarshalsMailHelm: {
+      name: "Grand Marshal's Mail Helm",
+      stamina: 36,
+      intellect: 16,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 16,
+      resilienceRating: 16,
+      spellPower: 23,
+      id: 28696,
+      source: "PVP",
+      phase: 1
+    },
+    seersMailHelm: {
+      name: "Seer's Mail Helm",
+      stamina: 36,
+      intellect: 16,
+      meta: 1,
+      red: 1,
+      socketBonus: {
+        resilienceRating: 4
+      },
+      critRating: 16,
+      resilienceRating: 16,
+      spellPower: 23,
+      id: 35388,
+      source: "Sha'tar - Revered, Vendor",
+      phase: 1
     },
     manabindersCowl: {
       name: 'Mana-Binders Cowl',
@@ -202,37 +415,6 @@ var items = {
       source: "50 Badge of Justice - G'eras",
       phase: 1
     },
-    destructionHologogs: {
-      name: 'Destruction Holo-gogs',
-      stamina: 22,
-      intellect: 24,
-      meta: 1,
-      blue: 1,
-      socketBonus: {
-        spellPower: 5
-      },
-      spellPower: 64,
-      critRating: 29,
-      id: 32494,
-      source: 'Engineering',
-      phase: 2
-    },
-    hoodOfTheCorruptor: {
-      name: 'Hood of the Corruptor',
-      stamina: 57,
-      intellect: 33,
-      meta: 1,
-      blue: 1,
-      socketBonus: {
-        spellPower: 5
-      },
-      spellPower: 55,
-      critRating: 31,
-      setId: 646,
-      id: 30212,
-      source: 'Serpentshrine Cavern',
-      phase: 2
-    },
     cowlOfTheGrandEngineer: {
       name: 'Cowl of the Grand Engineer',
       stamina: 22,
@@ -248,37 +430,6 @@ var items = {
       id: 29986,
       source: 'The Eye',
       phase: 2
-    },
-    gladiatorsFelweaveCowl: {
-      name: "Gladiator's Felweave Cowl",
-      stamina: 54,
-      intellect: 15,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 37,
-      critRating: 18,
-      resilienceRating: 30,
-      id: 30187,
-      source: 'Arena',
-      phase: 2 // confirm
-    },
-    gladiatorsDreadweaveHood: {
-      name: "Gladiator's Dreadweave Hood",
-      stamina: 60,
-      intellect: 20,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 32,
-      resilienceRating: 30,
-      id: 24553,
-      source: 'Arena',
-      phase: 2 // confirm
     },
     collarOfChogall: {
       name: "Collar of Cho'gall",
@@ -307,22 +458,6 @@ var items = {
       spellPower: 43,
       critRating: 32,
       id: 28586,
-      source: 'Karazhan',
-      phase: 1
-    },
-    voidheartCrown: {
-      name: 'Voidheart Crown',
-      stamina: 39,
-      intellect: 36,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        hitRating: 4
-      },
-      spellPower: 40,
-      critRating: 19,
-      setId: 645,
-      id: 28963,
       source: 'Karazhan',
       phase: 1
     },
@@ -358,39 +493,6 @@ var items = {
       critRating: 19,
       id: 28278,
       source: 'The Mechanar',
-      phase: 1
-    },
-    gladiatorsFelweaveCowl: {
-      name: "Gladiator's Felweave Cowl",
-      stamina: 54,
-      intellect: 15,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 37,
-      critRating: 18,
-      resilienceRating: 30,
-      setId: 615,
-      id: 30187,
-      source: 'PVP',
-      phase: 1
-    },
-    gladiatorsDreadweaveHood: {
-      name: "Gladiator's Dreadweave Hood",
-      stamina: 60,
-      intellect: 20,
-      meta: 1,
-      red: 1,
-      socketBonus: {
-        resilienceRating: 4
-      },
-      spellPower: 32,
-      resilienceRating: 30,
-      setId: 568,
-      id: 24553,
-      source: 'PVP',
       phase: 1
     },
     manaEtchedCrown: {
@@ -496,18 +598,6 @@ var items = {
       source: 'Heroic Hellfire Ramparts',
       phase: 1
     },
-    plagueheartCirclet: {
-      name: 'Plagueheart Circlet',
-      stamina: 28,
-      intellect: 25,
-      spellPower: 33,
-      critRating: 28,
-      hitRating: 8,
-      setId: 529,
-      id: 22506,
-      source: 'Naxxramas',
-      phase: 0
-    }
   },
   neck: {
     pendantOfSunfire: {
