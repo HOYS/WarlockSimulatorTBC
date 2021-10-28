@@ -145,33 +145,6 @@ class CurseOfRecklessnessAura extends Aura {
   }
 }
 
-class Flameshadow extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Flameshadow (T4 2pc bonus)'
-    this.durationTotal = 15
-    this.procChance = 5
-    this.isImportant = true
-    this.stats = {
-      naturePower: 135
-    }
-    this.setup()
-  }
-}
-
-class Shadowflame extends Aura {
-  constructor (player) {
-    super(player)
-    this.name = 'Shadowflame (T4 2pc bonus)'
-    this.durationTotal = 15
-    this.procChance = 5
-    this.isImportant = true
-    this.stats = {
-      firePower: 135
-    }
-    this.setup()
-  }
-}
 
 class SpellstrikeProc extends Aura {
   constructor (player) {
@@ -311,7 +284,7 @@ class DestructionPotionAura extends Aura {
 class ElementalMasteryAura extends Aura {
   constructor (player) {
     super(player)
-    this.name = 'Elemental Masterypoop'
+    this.name = 'Elemental Mastery'
     this.hasDuration = false
     this.isImportant = true
     this.setup()
@@ -527,6 +500,27 @@ class TheLightningCapacitorAura extends Aura {
     this.stacks = 0
     super.fade(endOfIteration)
   }
+}
+
+class ClearcastingAura extends Aura {
+  constructor (player){
+    super(player)
+    this.name = "Clearcasting";
+    this.hasDuration = false
+    this.stacks = 0;
+    this.maxStacks = 2;
+    this.setup()
+  }
+
+  apply() {
+    this.stacks = this.maxStacks
+    this.active = true
+  }
+
+  fade (endOfIteration = false) {
+    super.fade(endOfIteration)
+  }
+
 }
 
 class BandOfTheEternalSageAura extends Aura {

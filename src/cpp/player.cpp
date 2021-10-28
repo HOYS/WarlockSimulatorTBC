@@ -262,11 +262,10 @@ void Player::initialize()
     if (items->ring1 == 21190 || items->ring2 == 21190) auras->WrathOfCenarius = std::make_shared<WrathOfCenariusAura>(this);
     if (talents->lightningOverload > 0) spells->LightningOverload = std::make_shared<LightningOverload>(this);
     if (talents->elementalMastery > 0) auras->ElementalMastery = std::make_shared<ElementalMasteryAura>(this);
-    if (sets->t4 >= 2)
-    {
-        auras->Flameshadow = std::make_shared<FlameshadowAura>(this);
-        auras->Shadowflame = std::make_shared<ShadowflameAura>(this);
-    }
+    if (talents->elementalFocus > 0){
+        auras->Clearcasting = std::make_shared<ClearcastingAura>(this);
+        combatLogEntries.push_back("Elemental Focus Talent Points: " + std::to_string(talents->elementalFocus));
+    } 
     if (sets->spellstrike >= 2) auras->Spellstrike = std::make_shared<SpellstrikeAura>(this);
     if (sets->manaEtched >= 4) auras->ManaEtched4Set = std::make_shared<ManaEtched4SetAura>(this);
     if (talents->lightningOverload > 0)
@@ -431,6 +430,7 @@ void Player::reset()
     if (auras->BloodFury != NULL && auras->BloodFury->active) auras->BloodFury->fade(true);
     if (auras->DestructionPotion != NULL && auras->DestructionPotion->active) auras->DestructionPotion->fade(true);
     if (auras->ElementalMastery != NULL && auras->ElementalMastery->active) auras->ElementalMastery->fade(true);
+    if (auras->Clearcasting != NULL && auras->Clearcasting->active) auras->Clearcasting->fade(true);
     if (auras->FlameCap != NULL && auras->FlameCap->active) auras->FlameCap->fade(true);
     if (auras->Bloodlust != NULL && auras->Bloodlust->active) auras->Bloodlust->fade(true);
     if (auras->DrumsOfBattle != NULL && auras->DrumsOfBattle->active) auras->DrumsOfBattle->fade(true);
@@ -449,8 +449,6 @@ void Player::reset()
     if (auras->AshtongueTalismanOfShadows != NULL && auras->AshtongueTalismanOfShadows->active) auras->AshtongueTalismanOfShadows->fade(true);
     if (auras->DarkmoonCardCrusade != NULL && auras->DarkmoonCardCrusade->active) auras->DarkmoonCardCrusade->fade(true);
     if (auras->TheLightningCapacitor != NULL && auras->TheLightningCapacitor->active) auras->TheLightningCapacitor->fade(true);
-    if (auras->Flameshadow != NULL && auras->Flameshadow->active) auras->Flameshadow->fade(true);
-    if (auras->Shadowflame != NULL && auras->Shadowflame->active) auras->Shadowflame->fade(true);
     if (auras->Spellstrike != NULL && auras->Spellstrike->active) auras->Spellstrike->fade(true);
     if (auras->ManaEtched4Set != NULL && auras->ManaEtched4Set->active) auras->ManaEtched4Set->fade(true);
 }

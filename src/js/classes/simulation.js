@@ -93,8 +93,6 @@ class Simulation {
     if (this.player.auras.drumsOfWar && this.player.auras.drumsOfWar.active && this.player.auras.drumsOfWar.durationRemaining < time) time = this.player.auras.drumsOfWar.durationRemaining
     if (this.player.auras.drumsOfRestoration && this.player.auras.drumsOfRestoration.active && this.player.auras.drumsOfRestoration.tickTimerRemaining < time) time = this.player.auras.drumsOfRestoration.tickTimerRemaining
     if (this.player.auras.wrathOfCenarius && this.player.auras.wrathOfCenarius.active && this.player.auras.wrathOfCenarius.durationRemaining < time) time = this.player.auras.wrathOfCenarius.durationRemaining
-    if (this.player.auras.flameshadow && this.player.auras.flameshadow.active && this.player.auras.flameshadow.durationRemaining < time) time = this.player.auras.flameshadow.durationRemaining
-    if (this.player.auras.shadowflame && this.player.auras.shadowflame.active && this.player.auras.shadowflame.durationRemaining < time) time = this.player.auras.shadowflame.durationRemaining
     if (this.player.auras.spellstrikeProc && this.player.auras.spellstrikeProc.active && this.player.auras.spellstrikeProc.durationRemaining < time) time = this.player.auras.spellstrikeProc.durationRemaining
     if (this.player.auras.powerInfusion && this.player.auras.powerInfusion.active && this.player.auras.powerInfusion.durationRemaining < time) time = this.player.auras.powerInfusion.durationRemaining
     if (this.player.auras.eyeOfMagtheridon && this.player.auras.eyeOfMagtheridon.active && this.player.auras.eyeOfMagtheridon.durationRemaining < time) time = this.player.auras.eyeOfMagtheridon.durationRemaining
@@ -164,8 +162,6 @@ class Simulation {
     if (this.player.auras.destructionPotion && this.player.auras.destructionPotion.active) this.player.auras.destructionPotion.tick(time)
     if (this.player.auras.elementalMastery && this.player.auras.elementalMastery.active) this.player.auras.elementalMastery.tick(time)
     if (this.player.auras.flameCap && this.player.auras.flameCap.active) this.player.auras.flameCap.tick(time)
-    if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.tick(time)
-    if (this.player.auras.shadowflame && this.player.auras.shadowflame.active) this.player.auras.shadowflame.tick(time)
     if (this.player.auras.spellstrikeProc && this.player.auras.spellstrikeProc.active) this.player.auras.spellstrikeProc.tick(time)
     if (this.player.auras.eyeOfMagtheridon && this.player.auras.eyeOfMagtheridon.active) this.player.auras.eyeOfMagtheridon.tick(time)
     if (this.player.auras.sextantOfUnstableCurrents && (this.player.auras.sextantOfUnstableCurrents.active || this.player.auras.sextantOfUnstableCurrents.hiddenCooldownRemaining > 0)) this.player.auras.sextantOfUnstableCurrents.tick(time)
@@ -478,8 +474,6 @@ class Simulation {
       if (this.player.auras.curseOfAgony && this.player.auras.curseOfAgony.active) this.player.auras.curseOfAgony.fade(true)
       if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.fade(true)
       if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.fade(true)
-      if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.fade(true)
-      if (this.player.auras.shadowflame && this.player.auras.shadowflame.active) this.player.auras.shadowflame.fade(true)
       if (this.player.auras.spellstrikeProc && this.player.auras.spellstrikeProc.active) this.player.auras.spellstrikeProc.fade(true)
       if (this.player.auras.eyeOfMagtheridon && this.player.auras.eyeOfMagtheridon.active) this.player.auras.eyeOfMagtheridon.fade(true)
       if (this.player.auras.sextantOfUnstableCurrents && this.player.auras.sextantOfUnstableCurrents.active) this.player.auras.sextantOfUnstableCurrents.fade(true)

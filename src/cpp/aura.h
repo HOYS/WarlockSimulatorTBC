@@ -35,7 +35,7 @@ struct Aura
     virtual void tick(double time);
     virtual void apply();
     virtual void fade(bool endOfIteration = false);
-    void decrementStacks(); // ISB
+    virtual void decrementStacks(); // ISB
 };
 
 struct CurseOfTheElementsAura : public Aura
@@ -46,16 +46,6 @@ struct CurseOfTheElementsAura : public Aura
 struct CurseOfRecklessnessAura : public Aura
 {
     CurseOfRecklessnessAura(Player* player);
-};
-
-struct FlameshadowAura : public Aura
-{
-    FlameshadowAura(Player* player);
-};
-
-struct ShadowflameAura : public Aura
-{
-    ShadowflameAura(Player* player);
 };
 
 struct SpellstrikeAura : public Aura
@@ -154,6 +144,14 @@ struct TheLightningCapacitorAura : public Aura
 {
     TheLightningCapacitorAura(Player* player);
     void apply();
+    void fade(bool endOfIteration = false);
+};
+
+struct ClearcastingAura : public Aura
+{
+    ClearcastingAura(Player* player);
+    void apply();
+    void decrementStacks();
     void fade(bool endOfIteration = false);
 };
 

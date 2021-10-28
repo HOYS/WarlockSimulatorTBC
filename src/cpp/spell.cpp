@@ -227,6 +227,11 @@ void Spell::damage(bool isCrit)
     double partialResistMultiplier = constantDamage[3];
     double spellPower = constantDamage[4];
     double critMultiplier = player->critMultiplier;
+    // Clearcasting
+    if (name != "The Lightning Capacitor" && name != "Lightning Bolt - Overload" && player->auras->Clearcasting != NULL && player->auras->Clearcasting->active)
+    {
+        player->auras->Clearcasting->decrementStacks();
+    }
     
     if (isCrit)
     {
@@ -354,6 +359,11 @@ void Spell::onCritProcs()
     {
         player->spells->ShiffarsNexusHorn->startCast();
     }
+    // Clearcasting
+    if ((name != "The Lightning Capacitor" || name != "Lightning Bolt - Overload")  && player->auras->Clearcasting != NULL && player->talents->elementalFocus > 0)
+    {
+        player->auras->Clearcasting->apply();
+    }
 }
 
 void Spell::onDamageProcs()
@@ -386,18 +396,6 @@ void Spell::onHitProcs()
         if (player->shouldWriteToCombatLog())
         {
             player->combatLog("Player gains " + std::to_string(manaGained) + " mana from Judgement of Wisdom (" + std::to_string(currentMana) + " -> " + std::to_string(player->stats->mana) + ")");
-        }
-    }
-    // T4 2pc
-    if (player->sets->t4 >= 2 && (school == SpellSchool::SHADOW || school == SpellSchool::FIRE) && player->getRand() <= player->auras->Flameshadow->procChance * player->critChanceMultiplier)
-    {
-        if (school == SpellSchool::SHADOW)
-        {
-            player->auras->Flameshadow->apply();
-        }
-        else if (school == SpellSchool::FIRE)
-        {
-            player->auras->Shadowflame->apply();
         }
     }
     // Spellstrike

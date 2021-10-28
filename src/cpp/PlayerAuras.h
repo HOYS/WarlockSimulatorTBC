@@ -16,6 +16,7 @@ struct PlayerAuras
     std::shared_ptr<Aura> BloodFury;
     std::shared_ptr<Aura> DestructionPotion;
     std::shared_ptr<Aura> ElementalMastery;
+    std::shared_ptr<Aura> Clearcasting;
     std::shared_ptr<Aura> FlameCap;
     std::shared_ptr<Aura> Bloodlust;
     std::shared_ptr<Aura> DrumsOfBattle;
@@ -34,8 +35,6 @@ struct PlayerAuras
     std::shared_ptr<Aura> AshtongueTalismanOfShadows;
     std::shared_ptr<Aura> DarkmoonCardCrusade;
     std::shared_ptr<Aura> TheLightningCapacitor;
-    std::shared_ptr<Aura> Flameshadow; // Shadowpower
-    std::shared_ptr<Aura> Shadowflame; // Firepower
     std::shared_ptr<Aura> Spellstrike;
     std::shared_ptr<Aura> ManaEtched4Set;
 };

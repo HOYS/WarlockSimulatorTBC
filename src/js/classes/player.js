@@ -474,10 +474,7 @@ class Player {
     if (this.trinketIds.includes(31856)) this.auras.darkmoonCardCrusade = new DarkmoonCardCrusadeAura(this)
     if (this.trinketIds.includes(28785)) this.auras.theLightningCapacitor = new TheLightningCapacitorAura(this)
     if (this.talents.elementalMastery > 0) this.auras.elementalMastery = new ElementalMasteryAura(this)
-    if (this.sets['645'] >= 2) {
-      this.auras.flameshadow = new Flameshadow(this)
-      this.auras.shadowflame = new Shadowflame(this)
-    }
+    if (this.talents.elementalFocus > 0) this.auras.clearcasting = new ClearcastingAura(this)
     if (this.sets['559'] == 2) this.auras.spellstrikeProc = new SpellstrikeProc(this)
     if (this.sets['658'] >= 4) this.auras.manaEtched4Set = new ManaEtched4Set(this)
   }

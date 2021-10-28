@@ -239,7 +239,7 @@ SiphonLifeDot::SiphonLifeDot(Player* player) : DamageOverTime(player)
 
 FlameShockDot::FlameShockDot(Player* player) : DamageOverTime(player)
 {
-    name = "FlameShock";
+    name = "Flame Shock DOT";
     duration = 15;
     tickTimerTotal = 3;
     dmg = 615;

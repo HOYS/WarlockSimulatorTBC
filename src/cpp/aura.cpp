@@ -236,23 +236,6 @@ CurseOfRecklessnessAura::CurseOfRecklessnessAura(Player* player) : Aura(player)
     setup();
 }
 
-FlameshadowAura::FlameshadowAura(Player* player) : Aura(player)
-{
-    name = "Flameshadow";
-    duration = 15;
-    procChance = 5;
-    Aura::stats = std::make_unique<AuraStats>(0, 135, 0, 0, 0, 0);
-    setup();
-}
-
-ShadowflameAura::ShadowflameAura(Player* player) : Aura(player)
-{
-    name = "Shadowflame";
-    duration = 15;
-    procChance = 5;
-    Aura::stats = std::make_unique<AuraStats>(0, 0, 135, 0, 0, 0);
-    setup();
-}
 
 SpellstrikeAura::SpellstrikeAura(Player* player) : Aura(player)
 {
@@ -539,6 +522,43 @@ void TheLightningCapacitorAura::fade(bool endOfIteration)
 {
     stacks = 0;
     Aura::fade(endOfIteration);
+}
+
+ClearcastingAura::ClearcastingAura(Player* player) : Aura(player)
+{
+    name = "Clearcasting";
+    hasDuration = false;
+    stacks = 0;
+    maxStacks = 2;
+    uptimeSoFar = 0;
+    setup();
+}
+
+void ClearcastingAura::apply()
+{
+    Aura::apply();
+    stacks = maxStacks;
+}
+
+void ClearcastingAura::decrementStacks()
+{
+    stacks--;
+
+    if (stacks <= 0)
+    {
+        fade();
+    }
+    else if (player->shouldWriteToCombatLog())
+    {
+        std::string msg = name + " (" + std::to_string(stacks) + ") fades";
+        player->combatLog(msg);
+    }
+}
+
+void ClearcastingAura::fade(bool endOfIteration)
+{
+    Aura::fade(endOfIteration);
+    uptimeSoFar = player->combatLogBreakdown.at(name)->uptime / player->totalDuration;
 }
 
 ElementalMasteryAura::ElementalMasteryAura(Player* player) : Aura(player)

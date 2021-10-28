@@ -152,15 +152,6 @@ class Spell {
       this.player.combatLog('Player gains ' + manaGained + ' mana from Judgement of Wisdom (' + Math.round(currentMana) + ' -> ' + Math.round(this.player.mana) + ')')
     }
 
-    // T4 2-set
-    if (this.player.sets['645'] >= 2 && ['shadow', 'fire'].includes(this.school) && random(1, 100) <= this.player.auras.shadowflame.procChance) {
-      if (this.school == 'shadow') {
-        this.player.auras.flameshadow.apply()
-      } else if (this.school == 'fire') {
-        this.player.auras.shadowflame.apply()
-      }
-    }
-
     // Spellstrike 2-set
     if (this.player.sets['559'] == 2 && random(1, 100) <= this.player.auras.spellstrikeProc.procChance) {
       this.player.auras.spellstrikeProc.apply()
@@ -236,6 +227,11 @@ class Spell {
     const partialResistMultiplier = constantDamage[3]
     const spellPower = constantDamage[4]
     let critMultiplier = this.player.critMultiplier
+    // Clearcasting
+    if (this.name != "The Lightning Capacitor" && this.name != "Lightning Bolt - Overload" && this.player.auras.Clearcasting && this.player.auras.Clearcasting.active)
+    {
+        this.player.auras.Clearcasting.decrementStacks();
+    }
 
     if (isCrit) {
       critMultiplier = this.getCritMultiplier(critMultiplier)
@@ -339,6 +335,11 @@ class Spell {
     // Shiffar's Nexus-Horn
     if (this.player.trinketIds.includes(28418) && this.player.spells.shiffarsNexusHorn.ready() && random(1, 100) <= this.player.spells.shiffarsNexusHorn.procChance) {
       this.player.spells.shiffarsNexusHorn.cast()
+    }
+    // Clearcasting
+    if (this.name != "The Lightning Capacitor" && this.name != "Lightning Bolt - Overload" && this.player.auras.Clearcasting && this.player.talents.elementalFocus > 0)
+    {
+        this.player.auras.Clearcasting.apply();
     }
   }
 

@@ -299,8 +299,6 @@ double Simulation::passTime()
     if (player->auras->ShiffarsNexusHorn != NULL && player->auras->ShiffarsNexusHorn->active && player->auras->ShiffarsNexusHorn->durationRemaining < time) time = player->auras->ShiffarsNexusHorn->durationRemaining;
     if (player->auras->AshtongueTalismanOfShadows != NULL && player->auras->AshtongueTalismanOfShadows->active && player->auras->AshtongueTalismanOfShadows->durationRemaining < time) time = player->auras->AshtongueTalismanOfShadows->durationRemaining;
     if (player->auras->DarkmoonCardCrusade != NULL && player->auras->DarkmoonCardCrusade->active && player->auras->DarkmoonCardCrusade->durationRemaining < time) time = player->auras->DarkmoonCardCrusade->durationRemaining;
-    if (player->auras->Flameshadow != NULL && player->auras->Flameshadow->active && player->auras->Flameshadow->durationRemaining < time) time = player->auras->Flameshadow->durationRemaining;
-    if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active && player->auras->Shadowflame->durationRemaining < time) time = player->auras->Shadowflame->durationRemaining;
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active && player->auras->Spellstrike->durationRemaining < time) time = player->auras->Spellstrike->durationRemaining;
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active && player->auras->ManaEtched4Set->durationRemaining < time) time = player->auras->ManaEtched4Set->durationRemaining;
     #pragma endregion
@@ -364,8 +362,7 @@ double Simulation::passTime()
     if (player->auras->AshtongueTalismanOfShadows != NULL && player->auras->AshtongueTalismanOfShadows->active) player->auras->AshtongueTalismanOfShadows->tick(time);
     if (player->auras->DarkmoonCardCrusade != NULL && player->auras->DarkmoonCardCrusade->active) player->auras->DarkmoonCardCrusade->tick(time);
     if (player->auras->TheLightningCapacitor != NULL && player->auras->TheLightningCapacitor->active) player->auras->TheLightningCapacitor->tick(time);
-    if (player->auras->Flameshadow != NULL && player->auras->Flameshadow->active) player->auras->Flameshadow->tick(time);
-    if (player->auras->Shadowflame != NULL && player->auras->Shadowflame->active) player->auras->Shadowflame->tick(time);
+    if (player->auras->Clearcasting != NULL && player->auras->Clearcasting->active) player->auras->Clearcasting->tick(time);
     if (player->auras->Spellstrike != NULL && player->auras->Spellstrike->active) player->auras->Spellstrike->tick(time);
     if (player->auras->ManaEtched4Set != NULL && player->auras->ManaEtched4Set->active) player->auras->ManaEtched4Set->tick(time);
     #pragma endregion

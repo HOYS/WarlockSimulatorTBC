@@ -11,6 +11,7 @@
  * calculate totem dropping effect on GCD?
  * add shaman consumables
  * remove pet logic (refactor to fire ele?) - Done-ish, pets don't appear in sim
+ * add consumable rotation logic (e.g. destro first pot CD, mana 2nd)
  
     bugs I've made:
     * fix racial base stats, can't find a good source
@@ -19,6 +20,10 @@
     * elemental mastery might apply the crit chance to lightning cap and wont be consumed by it? 
     * elemental mastery raises crit chance about 100%, shouldn't matter though?
     * elemental mastery does nothing to remove mana cost right now
+    * clearcasting does nothing to remove mana right now
+
+    questions I have
+    * can TLC proc clearcasting?
 
  ## Building Locally
  ### Requirements:  
