@@ -236,6 +236,7 @@ double Simulation::passTime()
 
     #pragma region Spells
     if (player->spells->DestructionPotion != NULL && player->spells->DestructionPotion->cooldownRemaining > 0 && player->spells->DestructionPotion->cooldownRemaining < time) time = player->spells->DestructionPotion->cooldownRemaining;
+    if (player->spells->ElementalMastery != NULL && player->spells->ElementalMastery->cooldownRemaining > 0 && player->spells->ElementalMastery->cooldownRemaining < time) time = player->spells->ElementalMastery->cooldownRemaining;
     if (player->spells->SuperManaPotion != NULL && player->spells->SuperManaPotion->cooldownRemaining > 0 && player->spells->SuperManaPotion->cooldownRemaining < time) time = player->spells->SuperManaPotion->cooldownRemaining;
     if (player->spells->DemonicRune != NULL && player->spells->DemonicRune->cooldownRemaining > 0 && player->spells->DemonicRune->cooldownRemaining < time) time = player->spells->DemonicRune->cooldownRemaining;
     if (player->spells->FlameCap != NULL && player->spells->FlameCap->cooldownRemaining > 0 && player->spells->FlameCap->cooldownRemaining < time) time = player->spells->FlameCap->cooldownRemaining;
@@ -344,6 +345,7 @@ double Simulation::passTime()
     if (player->auras->Innervate != NULL && player->auras->Innervate->active) player->auras->Innervate->tick(time);
     if (player->auras->BloodFury != NULL && player->auras->BloodFury->active) player->auras->BloodFury->tick(time);
     if (player->auras->DestructionPotion != NULL && player->auras->DestructionPotion->active) player->auras->DestructionPotion->tick(time);
+    if (player->auras->ElementalMastery != NULL && player->auras->ElementalMastery->active) player->auras->ElementalMastery->tick(time);
     if (player->auras->FlameCap != NULL && player->auras->FlameCap->active) player->auras->FlameCap->tick(time);
     if (player->auras->Bloodlust != NULL && player->auras->Bloodlust->active) player->auras->Bloodlust->tick(time);
     if (player->auras->DrumsOfBattle != NULL && player->auras->DrumsOfBattle->active) player->auras->DrumsOfBattle->tick(time);
@@ -373,6 +375,7 @@ double Simulation::passTime()
     if (player->spells->Corruption != NULL && player->spells->Corruption->casting) player->spells->Corruption->tick(time);
     if (player->spells->FlameShock != NULL && player->spells->FlameShock->casting) player->spells->FlameShock->tick(time);
     if (player->spells->DestructionPotion != NULL && (player->spells->DestructionPotion->cooldownRemaining > 0 || player->spells->DestructionPotion->casting)) player->spells->DestructionPotion->tick(time);
+    if (player->spells->ElementalMastery != NULL && (player->spells->ElementalMastery->cooldownRemaining > 0 || player->spells->ElementalMastery->casting)) player->spells->ElementalMastery->tick(time);
     if (player->spells->SuperManaPotion != NULL && (player->spells->SuperManaPotion->cooldownRemaining > 0 || player->spells->SuperManaPotion->casting)) player->spells->SuperManaPotion->tick(time);
     if (player->spells->DemonicRune != NULL && (player->spells->DemonicRune->cooldownRemaining > 0 || player->spells->DemonicRune->casting)) player->spells->DemonicRune->tick(time);
     if (player->spells->FlameCap != NULL && (player->spells->FlameCap->cooldownRemaining > 0 || player->spells->FlameCap->casting)) player->spells->FlameCap->tick(time);

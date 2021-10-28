@@ -15,6 +15,7 @@ struct PlayerAuras
     std::shared_ptr<Aura> Innervate;
     std::shared_ptr<Aura> BloodFury;
     std::shared_ptr<Aura> DestructionPotion;
+    std::shared_ptr<Aura> ElementalMastery;
     std::shared_ptr<Aura> FlameCap;
     std::shared_ptr<Aura> Bloodlust;
     std::shared_ptr<Aura> DrumsOfBattle;

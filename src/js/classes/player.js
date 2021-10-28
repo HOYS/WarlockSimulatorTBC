@@ -414,6 +414,7 @@ class Player {
     if (this.trinketIds.includes(34470)) this.spells.timbalsFocusingCrystal = new TimbalsFocusingCrystal(this)
     if (this.trinketIds.includes(27922)) this.spells.markOfDefiance = new MarkOfDefiance(this)
     if (this.talents.lightningOverload > 0) this.spells.lightningOverload = new LightningOverload(this)
+    if (this.talents.elementalMastery > 0) this.spells.elementalMastery = new ElementalMastery(this)
     if (this.trinketIds.includes(28785)) this.spells.theLightningCapacitor = new TheLightningCapacitor(this)
     if (this.trinketIds.includes(27683)) this.spells.quagmirransEye = new QuagmirransEye(this)
     if (this.trinketIds.includes(28418)) this.spells.shiffarsNexusHorn = new ShiffarsNexusHorn(this)
@@ -472,6 +473,7 @@ class Player {
     if (this.trinketIds.includes(32493)) this.auras.ashtongueTalismanOfShadows = new AshtongueTalismanOfShadows(this)
     if (this.trinketIds.includes(31856)) this.auras.darkmoonCardCrusade = new DarkmoonCardCrusadeAura(this)
     if (this.trinketIds.includes(28785)) this.auras.theLightningCapacitor = new TheLightningCapacitorAura(this)
+    if (this.talents.elementalMastery > 0) this.auras.elementalMastery = new ElementalMasteryAura(this)
     if (this.sets['645'] >= 2) {
       this.auras.flameshadow = new Flameshadow(this)
       this.auras.shadowflame = new Shadowflame(this)
@@ -555,6 +557,9 @@ class Player {
     }
     if (this.spells.destructionPotion && this.spells.destructionPotion.ready()) {
       this.cast('destructionPotion')
+    }
+    if (this.spells.elementalMastery && this.spells.elementalMastery.ready()){
+      this.cast('elementalMastery')
     }
     if (this.spells.flameCap && this.spells.flameCap.ready()) {
       this.cast('flameCap')

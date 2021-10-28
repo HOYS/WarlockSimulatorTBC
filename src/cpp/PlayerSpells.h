@@ -14,6 +14,7 @@ struct PlayerSpells
     std::shared_ptr<Spell> CurseOfTheElements;
     std::shared_ptr<Spell> CurseOfRecklessness;
     std::shared_ptr<Spell> DestructionPotion;
+    std::shared_ptr<Spell> ElementalMastery;
     std::shared_ptr<Spell> SuperManaPotion;
     std::shared_ptr<Spell> DemonicRune;
     std::shared_ptr<Spell> FlameCap;

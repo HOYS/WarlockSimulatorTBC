@@ -307,6 +307,37 @@ class DestructionPotionAura extends Aura {
   }
 }
 
+
+class ElementalMasteryAura extends Aura {
+  constructor (player) {
+    super(player)
+    this.name = 'Elemental Masterypoop'
+    this.hasDuration = false
+    this.isImportant = true
+    this.setup()
+  }
+
+  apply () {
+    if (!this.active) {
+      {
+        this.player.combatLog('Crit Chance + 100% (' + Math.round(this.player.stats.critChance * 100) / 100 + '% -> ' + Math.round((this.player.stats.critChance + 100) * 100) / 100 + '%)')
+      }
+      this.player.stats.critChance += 100
+    }
+    super.apply()
+  }
+
+  fade (endOfIteration = false) {
+    if (this.active) {
+      if (!endOfIteration) {
+        this.player.combatLog('Crit Chance - 100% (' + Math.round(this.player.stats.critChance * 100) / 100 + '% -> ' + Math.round((this.player.stats.critChance - 100) * 100) / 100 + '%)')
+      }
+      this.player.stats.critChance -= 100
+    }
+    super.fade()
+  }
+}
+
 class FlameCapAura extends Aura {
   constructor (player) {
     super(player)

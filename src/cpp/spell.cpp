@@ -364,6 +364,12 @@ void Spell::onDamageProcs()
     {
         player->spells->ShatteredSunPendantOfAcumen->startCast();
     }
+
+    // Elemental Mastery
+    if (player->auras->ElementalMastery != NULL && player->auras->ElementalMastery->active)
+    {
+        player->auras->ElementalMastery->fade();
+    }
 }
 
 void Spell::onHitProcs()
@@ -454,6 +460,7 @@ void Spell::onHitProcs()
     {
         player->auras->WrathOfCenarius->apply();
     }
+
 }
 
 LightningBolt::LightningBolt(Player* player) : Spell(player)
@@ -622,6 +629,16 @@ DestructionPotion::DestructionPotion(Player* player, std::shared_ptr<Aura> aura)
     name = "Destruction Potion";
     cooldown = 120;
     isItem = true;
+    isAura = true;
+    onGcd = false;
+    setup();
+}
+
+ElementalMastery::ElementalMastery(Player* player, std::shared_ptr<Aura> aura) : Spell(player, aura)
+{
+    name = "Elemental Mastery";
+    cooldown = 200;
+    isItem = false;
     isAura = true;
     onGcd = false;
     setup();

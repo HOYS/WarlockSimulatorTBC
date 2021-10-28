@@ -261,6 +261,7 @@ void Player::initialize()
     if (items->ring1 == 29305 || items->ring2 == 29305) auras->BandOfTheEternalSage = std::make_shared<BandOfTheEternalSageAura>(this);
     if (items->ring1 == 21190 || items->ring2 == 21190) auras->WrathOfCenarius = std::make_shared<WrathOfCenariusAura>(this);
     if (talents->lightningOverload > 0) spells->LightningOverload = std::make_shared<LightningOverload>(this);
+    if (talents->elementalMastery > 0) auras->ElementalMastery = std::make_shared<ElementalMasteryAura>(this);
     if (sets->t4 >= 2)
     {
         auras->Flameshadow = std::make_shared<FlameshadowAura>(this);
@@ -292,6 +293,7 @@ void Player::initialize()
     if (selectedAuras->superManaPotion) spells->SuperManaPotion = std::make_shared<SuperManaPotion>(this);
     if (selectedAuras->demonicRune) spells->DemonicRune = std::make_shared<DemonicRune>(this);
     if (auras->DestructionPotion != NULL) spells->DestructionPotion = std::make_shared<DestructionPotion>(this, auras->DestructionPotion);
+    if (auras->ElementalMastery != NULL) spells->ElementalMastery = std::make_shared<ElementalMastery>(this, auras->ElementalMastery);
     if (auras->FlameCap != NULL) spells->FlameCap = std::make_shared<FlameCap>(this, auras->FlameCap);
     if (auras->BloodFury != NULL) spells->BloodFury = std::make_shared<BloodFury>(this, auras->BloodFury);
     if (auras->DrumsOfBattle != NULL) spells->DrumsOfBattle = std::make_shared<DrumsOfBattle>(this, auras->DrumsOfBattle);
@@ -376,6 +378,7 @@ void Player::reset()
     if (spells->CurseOfTheElements != NULL) spells->CurseOfTheElements->reset();
     if (spells->CurseOfRecklessness != NULL) spells->CurseOfRecklessness->reset();
     if (spells->DestructionPotion != NULL) spells->DestructionPotion->reset();
+    if (spells->ElementalMastery != NULL) spells->ElementalMastery->reset();
     if (spells->SuperManaPotion != NULL) spells->SuperManaPotion->reset();
     if (spells->DemonicRune != NULL) spells->DemonicRune->reset();
     if (spells->FlameCap != NULL) spells->FlameCap->reset();
@@ -427,6 +430,7 @@ void Player::reset()
     if (auras->Innervate != NULL && auras->Innervate->active) auras->Innervate->fade(true);
     if (auras->BloodFury != NULL && auras->BloodFury->active) auras->BloodFury->fade(true);
     if (auras->DestructionPotion != NULL && auras->DestructionPotion->active) auras->DestructionPotion->fade(true);
+    if (auras->ElementalMastery != NULL && auras->ElementalMastery->active) auras->ElementalMastery->fade(true);
     if (auras->FlameCap != NULL && auras->FlameCap->active) auras->FlameCap->fade(true);
     if (auras->Bloodlust != NULL && auras->Bloodlust->active) auras->Bloodlust->fade(true);
     if (auras->DrumsOfBattle != NULL && auras->DrumsOfBattle->active) auras->DrumsOfBattle->fade(true);
@@ -576,6 +580,10 @@ void Player::useCooldowns()
     if (spells->DestructionPotion != NULL && spells->DestructionPotion->ready())
     {
         spells->DestructionPotion->startCast();
+    }
+    if (spells->ElementalMastery != NULL && spells->ElementalMastery->ready())
+    {
+        spells->ElementalMastery->startCast();
     }
     if (spells->FlameCap != NULL && spells->FlameCap->ready())
     {

@@ -541,6 +541,42 @@ void TheLightningCapacitorAura::fade(bool endOfIteration)
     Aura::fade(endOfIteration);
 }
 
+ElementalMasteryAura::ElementalMasteryAura(Player* player) : Aura(player)
+{
+    name = "Elemental Mastery";
+    hasDuration = false;
+    setup();
+};
+
+void ElementalMasteryAura::apply()
+{
+    if (!active)
+    {
+        if (player->shouldWriteToCombatLog())
+        {
+            std::string msg = "Crit Chance + 100% (" + std::to_string(round(player->stats->critChance * 100) / 100) + "% -> " + std::to_string(round((player->stats->critChance + 100) * 100) / 100) + "%)";
+            player->combatLog(msg);
+        }
+        player->stats->critChance += 100;
+    }
+    Aura::apply();
+
+}
+
+void ElementalMasteryAura::fade(bool endOfIteration)
+{
+    if (active)
+    {
+        if (!endOfIteration && player->shouldWriteToCombatLog())
+        {
+            std::string msg = "Crit Chance - 100% (" + std::to_string(round(player->stats->critChance * 100) / 100) + "% -> " + std::to_string(round((player->stats->critChance - 100) * 100) / 100) + "%)";
+            player->combatLog(msg);
+        }
+        player->stats->critChance -= 100;
+    }
+    Aura::fade(endOfIteration);
+}
+
 BandOfTheEternalSageAura::BandOfTheEternalSageAura(Player* player) : Aura(player)
 {
     name = "Band of the Eternal Sage";

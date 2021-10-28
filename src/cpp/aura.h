@@ -157,6 +157,13 @@ struct TheLightningCapacitorAura : public Aura
     void fade(bool endOfIteration = false);
 };
 
+struct ElementalMasteryAura : public Aura
+{
+    ElementalMasteryAura(Player * player);
+    void apply();
+    void fade(bool endOfIteration = false);
+};
+
 struct BandOfTheEternalSageAura : public Aura
 {
     BandOfTheEternalSageAura(Player* player);

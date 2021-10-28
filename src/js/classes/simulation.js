@@ -122,6 +122,7 @@ class Simulation {
     if (this.player.auras.darkmoonCardCrusade && this.player.auras.darkmoonCardCrusade.active && this.player.auras.darkmoonCardCrusade.durationRemaining < time) time = this.player.auras.darkmoonCardCrusade.durationRemaining
     if (this.player.auras.manaEtched4Set && this.player.auras.manaEtched4Set.active && this.player.auras.manaEtched4Set.durationRemaining < time) time = this.player.auras.manaEtched4Set.durationRemaining
     if (this.player.spells.theLightningCapacitor && this.player.spells.theLightningCapacitor.cooldownRemaining > 0 && this.player.spells.theLightningCapacitor.cooldownRemaining < time) time = this.player.spells.theLightningCapacitor.cooldownRemaining
+    if (this.player.spells.elementalMastery && this.player.spells.elementalMastery.cooldownRemaining > 0 && this.player.spells.elementalMastery.cooldownRemaining < time) time = this.player.spells.elementalMastery.cooldownRemaining
     if (this.player.auras.bandOfTheEternalSage) {
       if (this.player.auras.bandOfTheEternalSage.active && this.player.auras.bandOfTheEternalSage.durationRemaining < time) time = this.player.auras.bandOfTheEternalSage.durationRemaining
       if (this.player.spells.bandOfTheEternalSage.cooldownRemaining > 0 && this.player.spells.bandOfTheEternalSage.cooldownRemaining < time) time = this.player.spells.bandOfTheEternalSage.cooldownRemaining
@@ -161,6 +162,7 @@ class Simulation {
     if (this.player.auras.curseOfTheElements && this.player.auras.curseOfTheElements.active) this.player.auras.curseOfTheElements.tick(time)
     if (this.player.auras.curseOfRecklessness && this.player.auras.curseOfRecklessness.active) this.player.auras.curseOfRecklessness.tick(time)
     if (this.player.auras.destructionPotion && this.player.auras.destructionPotion.active) this.player.auras.destructionPotion.tick(time)
+    if (this.player.auras.elementalMastery && this.player.auras.elementalMastery.active) this.player.auras.elementalMastery.tick(time)
     if (this.player.auras.flameCap && this.player.auras.flameCap.active) this.player.auras.flameCap.tick(time)
     if (this.player.auras.flameshadow && this.player.auras.flameshadow.active) this.player.auras.flameshadow.tick(time)
     if (this.player.auras.shadowflame && this.player.auras.shadowflame.active) this.player.auras.shadowflame.tick(time)
@@ -190,6 +192,7 @@ class Simulation {
     if (this.player.spells.flameshock && this.player.spells.flameshock.casting) this.player.spells.flameshock.tick(time)
     if (this.player.spells.corruption && this.player.spells.corruption.casting) this.player.spells.corruption.tick(time)
     if (this.player.spells.destructionPotion && this.player.spells.destructionPotion.cooldownRemaining > 0) this.player.spells.destructionPotion.tick(time)
+    if (this.player.spells.elementalMastery && this.player.spells.elementalMastery.cooldownRemaining > 0) this.player.spells.elementalMastery.tick(time)
     if (this.player.spells.superManaPotion && this.player.spells.superManaPotion.cooldownRemaining > 0) this.player.spells.superManaPotion.tick(time)
     if (this.player.spells.demonicRune && this.player.spells.demonicRune.cooldownRemaining > 0) this.player.spells.demonicRune.tick(time)
     if (this.player.spells.flameCap && this.player.spells.flameCap.cooldownRemaining > 0) this.player.spells.flameCap.tick(time)

@@ -123,6 +123,11 @@ struct DestructionPotion : public Spell
     DestructionPotion(Player* player, std::shared_ptr<Aura> aura);
 };
 
+struct ElementalMastery : public Spell
+{
+    ElementalMastery(Player * player, std::shared_ptr<Aura> aura);
+};
+
 struct SuperManaPotion : public Spell
 {
     SuperManaPotion(Player* player);
