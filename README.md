@@ -4,14 +4,13 @@
 
  ## TODO
  * Remove all Warlock spells
- * Change to Shaman Talents
+ * Change to Shaman Talents - Done-ish, mana stuff
  * Change to shaman spells
  * add shaman procs (clearcasting)
  * add shaman gear pieces 
  * calculate totem dropping effect on GCD?
  * add shaman consumables
- * add shaman gear by phase
- * remove pet logic (refactor to fire ele?)
+ * remove pet logic (refactor to fire ele?) - Done-ish, pets don't appear in sim
  
     bugs I've made:
     * fix racial base stats, can't find a good source
@@ -19,6 +18,7 @@
     * player goes oom, sim stops
     * elemental mastery might apply the crit chance to lightning cap and wont be consumed by it? 
     * elemental mastery raises crit chance about 100%, shouldn't matter though?
+    * elemental mastery does nothing to remove mana cost right now
 
  ## Building Locally
  ### Requirements:  

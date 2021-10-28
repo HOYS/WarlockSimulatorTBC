@@ -536,21 +536,6 @@ void LifeTap::cast()
 }
 
 
-SoulFire::SoulFire(Player* player) : Spell(player)
-{
-    name = "Soul Fire";
-    castTime = 6 - (0.4 * player->talents->lightningMastery);
-    manaCost = 250 * (1 - 0.02 * player->talents->convection);
-    coefficient = 1.15;
-    minDmg = 1003;
-    maxDmg = 1257;
-    doesDamage = true;
-    canCrit = true;
-    school = SpellSchool::FIRE;
-    type = SpellType::DESTRUCTION;
-    setup();
-};
-
 
 Corruption::Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot) : Spell(player, aura, dot)
 {

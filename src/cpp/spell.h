@@ -82,11 +82,6 @@ struct LightningBolt : public Spell
 };
 
 
-struct SoulFire : public Spell
-{
-    SoulFire(Player* player);
-};
-
 struct Corruption : public Spell
 {
     Corruption(Player* player, std::shared_ptr<Aura> aura, std::shared_ptr<DamageOverTime> dot);

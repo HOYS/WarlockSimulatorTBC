@@ -389,24 +389,6 @@ class LightningBolt extends Spell {
   }
 }
 
-class SoulFire extends Spell {
-  constructor (player) {
-    super(player)
-    this.castTime = 6 - (0.4 * player.talents.lightningMastery)
-    this.manaCost = 250 * (1 - 0.02 * player.talents.convection)
-    this.coefficient = 1.15
-    this.minDmg = 1003
-    this.maxDmg = 1257
-    this.name = 'Soul Fire'
-    this.doesDamage = true
-    this.canCrit = true
-    this.school = 'fire'
-    this.type = 'destruction'
-    this.travelTime = player.spellTravelTime
-    this.setup()
-  }
-}
-
 
 class LifeTap extends Spell {
   constructor (player) {
