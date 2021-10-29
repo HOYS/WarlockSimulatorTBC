@@ -196,7 +196,7 @@ void Spell::cast()
     }
 
     // If it's an item such as mana potion, demonic rune, destruction potion, or if it's a proc with a hidden cooldown like Blade of Wizardry or Robe of the Elder Scribes then don't check for on-hit procs
-    if (!isItem && !isProc && !isNonWarlockAbility)
+    if (!isItem && !isProc && !isNonWarlockAbility && name != "Lightning Bolt - Overload")
     {
         onHitProcs();
     }
@@ -465,7 +465,7 @@ LightningBolt::LightningBolt(Player* player) : Spell(player)
 {
     castTime = calculateCastTime();
     manaCost = 300 * (1 - 0.02 * player->talents->convection);
-    coefficient = (3 / 3.5);
+    coefficient = 0.794;
     minDmg = 571;
     maxDmg = 652;
     name = "Lightning Bolt";
@@ -763,7 +763,7 @@ LightningOverload::LightningOverload(Player* player) : Spell(player)
     manaCost = 0;
     onGcd = false;
     procChance = player->talents->lightningOverload * 4;
-    coefficient = (3 / 3.5);
+    coefficient = 0.397;
     minDmg = 285;
     maxDmg = 326;
     name = "Lightning Bolt - Overload";
